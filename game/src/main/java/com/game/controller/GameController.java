@@ -1,5 +1,6 @@
 package com.game.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,19 +50,21 @@ public class GameController extends UiUtils {
             HttpServletRequest request, Model model) {
         
         String gamename = request.getParameter("game");
-        System.out.println(gamename);
+        GameScoreDTO user = new GameScoreDTO();
+        user.setGameName("dino");
+        List<GameScoreDTO> top5 = Collections.emptyList();
+        
         if(loginMember == null) {
             System.out.println("게스트접속");
             model.addAttribute("member", loginMember);
-            
+            top5 =  gameService.selectGameRankList(user);
+            model.addAttribute("top5",top5);
             return "game/dino";
         }
         
             System.out.println("유저접속");
-            GameScoreDTO user = new GameScoreDTO();
             user.setMemId(loginMember.getMemId());
-            user.setGameName("dino");
-            
+            top5 =  gameService.selectGameRankList(user);
             GameScoreDTO result = gameService.selectGameScore(user); // 유저정보로 rank_table값 불러옴
             
             if(result == null) {                                             // DB에 게임점수 테이블에 정보가 없으면 실행 
@@ -74,7 +77,7 @@ public class GameController extends UiUtils {
             
          // 세션이 유지되면 로그인 홈으로 이동
             model.addAttribute("member", result);
-            
+            model.addAttribute("top5",top5);
             
             return "game/dino";
         
@@ -86,21 +89,22 @@ public class GameController extends UiUtils {
             HttpServletRequest request, Model model) {
         
         String gamename = request.getParameter("game");
-        System.out.println(gamename);
-        
+        GameScoreDTO user = new GameScoreDTO();
+        user.setGameName("ddong");
+        List<GameScoreDTO> top5 = Collections.emptyList();
         
         if(loginMember == null) {
             System.out.println("게스트접속");
             model.addAttribute("member", loginMember);
-            
+            top5 =  gameService.selectGameRankList(user);
+            model.addAttribute("top5",top5);
             return "game/ddong";
         }
         
             System.out.println("유저접속");
-            GameScoreDTO user = new GameScoreDTO();
-            user.setMemId(loginMember.getMemId());
-            user.setGameName("ddong");
             
+            user.setMemId(loginMember.getMemId());
+            top5 =  gameService.selectGameRankList(user);
             GameScoreDTO result = gameService.selectGameScore(user); // 유저정보로 rank_table값 불러옴
             
             if(result == null) {                                             // DB에 게임점수 테이블에 정보가 없으면 실행 
@@ -112,10 +116,9 @@ public class GameController extends UiUtils {
             }
             
          // 세션이 유지되면 로그인 홈으로 이동
-            List<GameScoreDTO> top5 = gameService.selectGameRankList(loginMember);
+            
             model.addAttribute("member", result);
             model.addAttribute("top5",top5);
-            
             return "game/ddong";
         
        

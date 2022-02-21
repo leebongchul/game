@@ -34,10 +34,12 @@ public class MemberController extends UiUtils {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
-    
+
     @GetMapping(value = "/index")
-    public String indexfunction(Model model) {
+    public String indexfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+            Model model) {
+
+        model.addAttribute("member", loginMember);
         return "member/index";
     }
 
@@ -49,17 +51,16 @@ public class MemberController extends UiUtils {
         if (loginMember == null) {
             return "member/login";
         }
+        
         // 세션이 유지되면 로그인 홈으로 이동
         model.addAttribute("member", loginMember);
         return "member/test";
     }
     /*
-    @GetMapping(value = "/join")
-    public String joinfunction(Model model) {
-        return "member/join";
-    }
-    */
-    
+     * @GetMapping(value = "/join") public String joinfunction(Model model) { return
+     * "member/join"; }
+     */
+
     @GetMapping(value = "/join")
     public String joinfunction(@ModelAttribute("params") MemberDTO params, Model model) {
         if (params.getMemId() == null) {
@@ -67,7 +68,7 @@ public class MemberController extends UiUtils {
         }
         return "member/join";
     }
-    
+
     /** 카카오톡 로그인으로 회원가입 **/
     @PostMapping(value = "/join")
     public String joinfunction(@ModelAttribute("params") BoardDTO params, Model model) {
@@ -86,7 +87,7 @@ public class MemberController extends UiUtils {
 
         return "member/join";
     }
-    
+
     @GetMapping(value = "/kakaologin")
     public String OpenKakaoLogin(@ModelAttribute("params") MemberDTO params, Model model, HttpServletRequest request) {
 
@@ -302,7 +303,7 @@ public class MemberController extends UiUtils {
             HttpSession session = request.getSession(); // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
             session.setAttribute("loginMem", result); // 세션에 로그인 회원 정보 보관
 
-            return showMessageWithRedirect("로그인이 완료되었습니다.", "/member/test", Method.GET, null, model);
+            return showMessageWithRedirect("로그인이 완료되었습니다.", "/member/index", Method.GET, null, model);
 
         } catch (DataAccessException e) {
             return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/member/login", Method.GET, null, model);
@@ -314,15 +315,15 @@ public class MemberController extends UiUtils {
     }
 
     /** 로그아웃 **/
-    @PostMapping("/logout")
-    public String logout(HttpServletRequest request) {
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, Model model) {
 
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate(); // 세션 날림
         }
 
-        return "redirect:/";
+        return showMessageWithRedirect("로그아웃", "/member/login", Method.GET, null, model);
     }
 
     /** 이메일 인증 **/

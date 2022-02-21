@@ -3,7 +3,6 @@ package com.game.service;
 import java.util.List;
 
 import com.game.domain.GameScoreDTO;
-import com.game.domain.MemberDTO;
 
 public interface GameService {
 
@@ -18,5 +17,5 @@ public interface GameService {
     
     public int updateGameScore(GameScoreDTO user);
     
-    public List<GameScoreDTO> selectGameRankList(MemberDTO loginMember);
+    public List<GameScoreDTO> selectGameRankList(GameScoreDTO user);
 }
