@@ -6,7 +6,6 @@ canvas.height = 500;
 const width = canvas.width;
 const height = canvas.height;
 
-let 점프중 = false;
 let 게임진행 = false;
 let score = document.getElementById('now_score');
 let level = 1;
@@ -193,6 +192,7 @@ function 프레임마다실행() {
 
 const keydownHandler = event => {
     if (게임진행 == true) {
+//        alert("1. 발사:"+isFired+"명중:"+isHitted+"진행:"+게임진행+"레벨:"+level);
         if (event.keyCode === 37) { //왼쪽 방향키
             tankLeftPressed = true;
         } else if (event.keyCode === 39) { //오른쪽 방향키
@@ -204,6 +204,11 @@ const keydownHandler = event => {
         } else if (event.keyCode === 32 && !isFired) { //스페이스바(파워게이지 충전)
             event.preventDefault();
             isCharging = true;
+        }else if(event.keyCode === 32){
+            event.preventDefault();
+//            isFired = false;
+//            프레임마다실행();
+            alert("2. 발사:"+isFired+"명중:"+isHitted+"진행:"+게임진행+"레벨:"+level);
         }
     } else {
         if (event.keyCode === 32) {
@@ -214,6 +219,7 @@ const keydownHandler = event => {
 
 const keyupHandler = event => {
     if (게임진행 == true) {
+        alert("3. 발사:"+isFired+"명중:"+isHitted+"진행:"+게임진행+"레벨:"+level);
         if (event.keyCode === 37) { //왼쪽 방향키
             tankLeftPressed = false;
         } else if (event.keyCode === 39) {
@@ -226,6 +232,7 @@ const keyupHandler = event => {
             tank.missileDy = missilePower * Math.sin(tank.barrelAngle);
             tank.gauge = Math.PI;
         } else if (event.keyCode === 32 && !isFired && isHitted){ //레빌업 재시작
+        alert("5. 발사:"+isFired+"명중:"+isHitted+"진행:"+게임진행+"레벨:"+level);
 //            score.value = 0;
             level++;
             life = 3;
@@ -237,6 +244,7 @@ const keyupHandler = event => {
         }
     } else {
         if (event.keyCode === 32 && !isFired) { //스페이스바(게임 시작)
+            alert("4. 발사:"+isFired+"명중:"+isHitted+"진행:"+게임진행+"레벨:"+level);
             게임진행 = true;
 //            score.value = 0;
             level = 1;
@@ -287,6 +295,8 @@ function checkMissile() {
         isHitted = true;
 //        level++;
         cancelAnimationFrame(animation);
+        
+        alert("발사:"+isFired+"명중:"+isHitted+"진행:"+게임진행+"레벨:"+level);
         //        게임진행 = false;
                 재시작.draw();
         //        게임종료.draw();
