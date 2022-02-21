@@ -4,7 +4,7 @@
 
     <sql id="MemberColumns">
          mem_id, mem_pass, mem_nick, mem_name, mem_gender, 
-    mem_tel, mem_hp, mem_email, mem_block ,mem_date
+    mem_tel, mem_hp, mem_email, mem_block ,mem_date, mem_drop,mem_block_date,mem_block_end_date,mem_role
      <!-- 이거 순서 어긋나면 그 어긋난대로 컬럼에 값 입력됨. 
      mem_id를 가장 뒤에 배치하면 DB에 setMem_id("값")이 mem_date 컬럼에 들어감.
      mappertest에서 set이고 get이고 나발이고 어림도없음 -->    
@@ -26,7 +26,11 @@
     #{memHp},
     #{memEmail},
     'N',
-    sysdate)
+    sysdate,
+    'N',
+    null,
+    null,
+    'user')
     
     </insert>
     
