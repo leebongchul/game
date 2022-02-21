@@ -49,10 +49,13 @@ function formsubmit(form) {
     } else if (emailcheck.value == 'N') {
         alert("이메일 중복을 확인해주세요");
         return false;
-    } else if (emailcodecheck.value == 'N') {
+    } /*
+    else if (emailcodecheck.value == 'N') {
         alert("이메일 인증을 진행해주세요");
         return false;
-    } else {
+    } 
+    */
+    else {
         return true;
     }
 }
