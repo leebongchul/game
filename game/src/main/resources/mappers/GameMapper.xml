@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.game.mapper.GameMapper">
+
+    <sql id="GameColumns">
+         game_name, game_rule, game_explan, game_maker, game_create_date, 
+    game_modifier, game_update_date
+     <!-- 이거 순서 어긋나면 그 어긋난대로 컬럼에 값 입력됨. 
+     mem_id를 가장 뒤에 배치하면 DB에 setMem_id("값")이 mem_date 컬럼에 들어감.
+     mappertest에서 set이고 get이고 나발이고 어림도없음 -->    
+        
+    </sql>
+    
+    <sql id="GameScoreColumns">
+          rank_score, mem_id, game_name 
+    </sql>
+    <!-- 아이디에 맞는 게임점수를 가져오는 쿼리 -->
+    <select id="selectGameScore" parameterType="GameScoreDTO" resultType="GameScoreDTO"> 
+        SELECT 
+         <include refid="GameScoreColumns" />
+        FROM
+         rank_table
+        WHERE
+         mem_id = #{memId}
+        AND
+         game_name = #{gameName}
+    </select>
+    
+    <!-- 1위부터 5위까지 검색 -->
+    <select id="selectGameRankList" parameterType="MemberDTO" resultType="GameScoreDTO"> 
+        
+        SELECT rno, mem_id, rank_score
+        FROM
+        (SELECT rownum rno,mem_id,rank_score
+        FROM
+        (SELECT mem_id,rank_score FROM rank_table ORDER BY rank_score DESC) 
+        ORDER BY rno ASC)
+        WHERE rno BETWEEN 1 AND 5
+        
+    </select>
+    
+    <insert id="insertGameScore" parameterType="GameScoreDTO" >
+    
+        insert into rank_table(
+        <include refid="GameScoreColumns" />
+        )
+        values(
+        0,
+        #{memId},
+        #{gameName}
+        )
+    </insert>
+    <update id="updateGameScore" parameterType="GameScoreDTO">
+        UPDATE
+          rank_table
+        SET
+           rank_score = #{rankScore} 
+        WHERE
+            mem_id = #{memId} 
+        AND
+            game_name = #{gameName}
+    </update>
+<!--     <insert id="insertMember" parameterType="MemberDTO">  -->
+        
+<!--     insert into member_table ( -->
+<!--             <include refid="MemberColumns" /> -->
+<!--     )values  -->
+<!--     (#{memId}, -->
+<!--     #{memPass}, -->
+<!--     #{memNick}, -->
+<!--     #{memName}, -->
+<!--     #{memGender}, -->
+<!--     #{memTel}, -->
+<!--     #{memHp}, -->
+<!--     #{memEmail}, -->
+<!--     #{memBlock}, -->
+<!--     #{memDate}) -->
+    
+<!--     </insert> -->
+    
+<!--     <select id="selectMember" parameterType="MemberDTO" resultType="com.game.domain.MemberDTO">  -->
+        
+<!--         SELECT -->
+<!--           <include refid="MemberColumns" /> -->
+<!--         FROM -->
+<!--             member_table -->
+<!--         WHERE -->
+<!--             mem_id = #{memId}  -->
+<!--         AND -->
+<!--             mem_pass = #{memPass} -->
+
+<!--     </select> -->
+
+
+
+
+
+</mapper>

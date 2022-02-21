@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+   body {
+        background: rgb(94,94,94);
+    }
+    section.join {
+        width:535px;
+        margin:auto;
+        height:1000px;
+        border:1px solid red;
+        margin-top:100px;
+    }
+   ul {
+        list-style-type:none;
+        font-size:12pt;
+        /*border:1px solid blue;*/
+        margin-left:30px;
+        margin:0;
+        padding:0;
+    }
+    label {
+        /*background:white;*/
+        display:inline-block;
+        text-align:center;
+        border-radius:5px;  
+        margin-right:10px;
+        margin-bottom:0;
+        font-weight:bold;
+        font-size:14px;
+        color:white;
+    }
+    li  { 
+        clear:left; 
+        /*border:1px solid red;*/
+        overflow:hidden;
+    }   
+    .input1 {
+        margin-bottom: 15px;
+        border-radius:5px;
+        border:1px solid lightgray;
+        width:250px;
+        padding:13px;
+        padding-left:15px;
+        font-size:14px;
+    }
+    .gender {
+        margin-bottom: 15px;
+        border-radius:5px;
+        border:1px solid lightgray;
+        width:280px;
+        padding:13px;
+        font-size:13px;
+    }
+    .code {
+        margin-bottom: 15px;
+        border-radius:5px;
+        border:1px solid lightgray;
+        width:252px;
+        padding:13px;
+        padding-left:15px;
+        font-size:14px;
+    }
+    .tel {
+        margin-bottom: 15px;
+        border-radius:5px;
+        border:1px solid lightgray;
+        width:280px;
+        padding:13px;
+        font-size:13px;
+    }
+    .hp {
+        width:59px;
+        margin-bottom: 15px;
+        border-radius:5px;
+        border:1px solid lightgray;
+        padding:9px;
+        padding-left:20px;
+        
+    }
+    .email {
+        width:105px;
+        margin-bottom: 15px;
+        border-radius:5px;
+        border:1px solid lightgray;
+        padding:10px;
+        padding-left:20px;
+    }
+     .email2 {
+        width:130px;
+        margin-bottom: 15px;
+        border-radius:5px;
+        border:1px solid lightgray;
+        padding:10px;
+        padding-left:20px;
+        font-size:14px;
+    }
+    .btn_check {
+        color:white;
+        background:black;
+        border-radius:5px;
+        padding:9px 10px;
+        font-size:14px;
+        border: 1px solid black;
+        cursor:pointer;
+    }
+     .btn_join {
+        width:283px;
+        color:white;
+        background:black;
+        border-radius:5px;
+        padding:10px 15px;
+        font-size:13px;
+        margin-top:20px;
+        border: 1px solid black;
+        cursor:pointer;
+    }
+    li:nth-child(14), li:nth-child(17){
+        margin-bottom:-10px;
+    }
+   #idmsg, #passmsg, #cpassmsg, #namemsg, #nickmsg, #hpmsg, #emailmsg {
+    font-size:5px;
+    font-weight:bold;
+    margin-top:-5px;
+   }
+   
+   img {
+    margin-left:80px;
+    
+   }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script th:src="@{/js/join.js}"></script>
+<script th:src="@{/scripts/jquery.min.js}"></script>
+</head>
+<body>
+    <th:block layout:fragment="content">
+        <div class="join">
+         <section class="join">
+         <img src="../image/로고.PNG">
+         <form name = "joinform"th:action="@{/member/insert.do}" th:object="${member}" method="post" onsubmit="return formsubmit(this)">
+            <ul>
+             <li>
+                <label>*아이디</label>
+            </li>
+            <li>
+                <input type="hidden" id="kakaoJoin" th:value="${member.memId != null ? 'Y' : 'N'}">
+                <input type="text" name="memId" th:field="*{memId}" class="input1" id="id" placeholder="6~12자의 영문,숫자 조합"autocomplete="off"
+                    th:disabled="${member.memId != null}" th:style="${member.memId != null ? 'background-color: lightgray;' : ''}">
+                <!-- onblur="textCheck_id(this)" onfocus ="idchecksave(this)" -->
+                <div id="idmsg" th:text ="${member.memId != null ? '카카오톡으로 회원가입 시 아이디 변경 불가' : ''}"></div>
+             </li>
+             <li>
+                <label>*비밀번호</label>
+             </li>
+            <li>
+                <input type="password" name="memPass" class="input1" id="pass" placeholder="8~16자의 영문,숫자,특수문자 조합" onblur="textCheck_pass(this)"
+                autocomplete="off">
+                <div id="passmsg"></div>
+             </li>
+             <li>
+                <label>*비밀번호 확인</label>
+              </li>
+            <li>  
+                <input type="password" name="memcpass" class="input1" id="cpass" onblur="cpassCheck()" autocomplete="off">
+                <div id="cpassmsg"></div>
+             </li>
+             <li>
+                <label>*이름</label>
+                </li>
+            <li>
+                <input type="text" name="memName" class="input1" id="name" onblur="textCheck_name(this)" autocomplete="off">
+                <div id="namemsg"></div>
+                
+             </li>
+             <li>
+                <label>*닉네임</label>
+                </li>
+            <li>
+                <input type="text" name="memNick" th:field="*{memNick}" class="input1" id="nick" autocomplete="off">
+                <!-- onblur="textCheck_nick(this)" onfocus = "nickchecksave(this)" -->
+                <div id="nickmsg"></div>
+             </li>
+             <li>
+                <label>*성별</label>
+                </li>
+            <li>
+                <select name = "memGender" class="gender" id="gender">
+                   
+                   <option value="m" th:selected="*{memGender='male'}">남자</option>
+                   <option value="f" th:selected="*{memGender='famale'}">여자</option>
+                   
+                </select>
+             </li>
+             <li>
+                <label>*전화번호</label>
+                </li>
+            <li>
+                <select name = "memTel" class="tel" id="tel">
+                   <option value="choice">선택</option>
+                   <option value="skt">SKT</option>
+                   <option value="kt">KT</option>
+                   <option value="lgu+">LGU+</option>
+                </select>
+                </li>
+                <li>
+                 <input type="text" name="hp1" class="hp" onblur ="hpCheck()" id="hp1"  autocomplete="off">
+                 <input type="text" name="hp2" class="hp" onblur ="hpCheck()" id="hp2"  autocomplete="off">
+                 <input type="text" name="hp3" class="hp" onblur ="hpCheck()" id="hp3"  autocomplete="off">
+                 <input type="hidden" name="memHp" id="hp" value = "">
+                 <div id="hpmsg"></div>
+             </li>
+             <li>
+                <label>*이메일</label>
+                </li>
+            <li>
+                <input type="text" name="email1" class="email" th:value="${memEmail1}" onchange ="emailCheck()"  id="email1" autocomplete="off"> 
+                <input type="text" name="email2" class="email" th:value="${memEmail2}" onchange ="emailCheck()" id="email2" autocomplete="off">
+                <select class="email2" id="email3" onchange="emailSend(), emailCheck()">
+                   <option value="self">직접입력</option>
+                   <option value="naver.com">네이버</option>
+                   <option value="gmail.com">구글</option>
+                   <option value="daum.net">다음</option>
+                </select>
+                <button type="button" class="btn_check" id="btn_check" onclick="sendEmailCode()"
+                    th:style="${memEmail1 !=null && memEmail2 !=null ? 'display:none;' : ''}">인증번호 받기</button>
+                <input type="text" class="code" placeholder="인증번호를 입력해주세요" th:style="${memEmail1 !=null && memEmail2 !=null ? 'display:none;' : ''}"
+                    id="code" onblur="emailCodeCheck()" autocomplete="off">
+                <div id="emailmsg" th:text ="${memEmail1 !=null && memEmail2 !=null ? '<주의>이메일 변경 시 추가인증 필요!!' : ''}"></div>
+                <input type="hidden" name="memEmail" id="email" value = "">
+             </li>
+             <li>
+                <button type="submit" id = "submitbtn" class="btn_join">가입하기</button>
+             </li>
+          </ul>
+                <input type = "hidden" id = "idcheck" th:value ="${memEmail1 !=null && memEmail2 !=null ? 'Y' : 'N'}">
+                <input type = "hidden" id = "nickcheck" value = "N">
+                <input type = "hidden" id = "hpcheck" value = "N">
+                <input type = "hidden" id = "emailcheck" th:value ="${memEmail1 !=null && memEmail2 !=null ? 'Y' : 'N'}">   
+                <input type = "hidden" id = "emailcodecheck" th:value ="${memEmail1 !=null && memEmail2 !=null ? 'Y' : 'N'}">  
+          </form>
+      </section>      
+        </div>
+    </th:block>
+</body>
+
+<script>
+// 아이디 유효성 검사(1 = 중복 / 0 != 중복)
+    $("#id").blur(function() {
+        let check = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,12}$/;
+        let id = $('#id').val();
+        $.ajax({
+            url : '/member/idcheck.do',
+            type : 'post',
+            data:{memId:id},
+            success : function(data) {
+                console.log("1 = 중복o / 0 = 중복x : "+ data);                          
+                
+                if (data == 1) {
+                        // 1 : 아이디가 중복되는 문구
+                        $("#idmsg").text("사용중인 아이디입니다.");
+                        $("#idmsg").css("color","red");
+                        $("#idcheck").val("N");
+                        
+                } else {
+                        
+                    if( id == ""){
+                        $("#idmsg").text("아이디를 입력해주세요");
+                        $("#idmsg").css("color","red");
+                        $("#idcheck").val("N");
+                    }else if(!check.test(id)){
+                        $("#idmsg").text("6~12자 영문, 숫자를 조합하세요.");
+                        $("#idmsg").css("color","red");
+                        $("#idcheck").val("N");
+                    }else{
+                        $("#idmsg").text("");
+                        $("#idcheck").val("Y");
+                    }
+                        
+                }
+                
+            }, error : function() {
+                    console.log("실패");
+                }
+        });
+    });
+// 닉네임 유효성검사
+    $("#nick").blur(function() {
+        let check = /^[^@$!%*#?&]{1,10}$/;
+        let nick = $('#nick').val();
+        $.ajax({
+            url : '/member/nickcheck.do',
+            type : 'post',
+            data:{memNick:nick},
+            success : function(data) {
+                console.log("1 = 중복o / 0 = 중복x : "+ data);                          
+                
+                if (data == 1) {
+                        // 1 : 아이디가 중복되는 문구
+                        $("#nickmsg").text("사용중인 닉네임입니다.");
+                        $("#nickmsg").css("color","red");
+                        $("#nickcheck").val("N");
+                } else {
+                        
+                    if(nick ==""){
+                        $("#nickmsg").text("닉네임을 입력해주세요.");
+                        $("#nickmsg").css("color","red");
+                        $("#nickcheck").val("N");
+                    }else if(!check.test(nick)){
+                        $("#nickmsg").text("1~10자의 한글 또는 영문 또는 숫자를 사용하세요.");
+                        $("#nickmsg").css("color","red");
+                        $("#nickcheck").val("N");
+                    }else{
+                        $("#nickmsg").text("");
+                        $("#nickcheck").val("Y");
+                    }
+                        
+                }
+                
+            }, error : function() {
+                    console.log("실패");
+                }
+        });
+    });
+    
+    // 핸드폰번호 유효성검사
+    
+    function hpCheck() {
+        let check = /^[^@$!%*#?&]{1,10}$/;
+        let hp = $("#hp1").val() + "-" + $("#hp2").val() + "-" + $("#hp3").val();
+        let check1 = /^(?=.*\d)[\d]{3,3}$/;
+        let check2 = /^(?=.*\d)[\d]{3,4}$/;
+        let check3 = /^(?=.*\d)[\d]{4,4}$/;
+        $.ajax({
+            url : '/member/hpcheck.do',
+            type : 'post',
+            data:{memHp:hp},
+            success : function(data) {
+                console.log("1 = 중복o / 0 = 중복x : "+ data);                          
+                
+                if (data == 1) {
+                        // 1 : 아이디가 중복되는 문구
+                        $("#hpmsg").text("사용중인 핸드폰번호입니다.");
+                        $("#hpmsg").css("color","red");
+                        $("#hpcheck").val("N");
+                } else {
+                        
+                    if($("#hp1").val() == "" || $("#hp2").val() == "" ||$("#hp3").val()== ""){   //또는
+                        $("#hpmsg").text("전화번호를 입력해주세요");
+                        $("#hpmsg").css("color","red");
+                        $("#hpcheck").val("N");
+                    }else if(!check1.test($("#hp1").val())){
+                        $("#hpmsg").text("전화번호 앞자리는 3자리의 숫자를 사용하세요.");
+                        $("#hpmsg").css("color","red");
+                        $("#hpcheck").val("N");
+                    }else if(!check2.test($("#hp2").val())){
+                        $("#hpmsg").text("전화번호 중간자리는 3~4자리의 숫자를 사용하세요");
+                        $("#hpmsg").css("color","red");
+                        $("#hpcheck").val("N");
+                    }else if(!check3.test($("#hp3").val())){
+                        $("#hpmsg").text("전화번호 끝자리는 4자리의 숫자를 사용하세요.");
+                        $("#hpmsg").css("color","red");
+                        $("#hpcheck").val("N");
+                    }else{
+                        $("#hpmsg").text("");
+                        $("#hpcheck").val("Y");
+                    }
+                        
+                }
+                
+            }, error : function() {
+                    console.log("실패");
+                }
+        });
+    }
+    
+    // 이메일 유효성검사
+    function emailCheck() {
+        let check1 = /^[^ㄱ-ㅎ가-힣]+$/;
+        let check2 = /^(.*[a-zA-Z])(?=.*[.])[a-zA-Z\.]+$/;
+        let email = $("#email1").val() + "@" + $("#email2").val();
+        
+        let emailcodecheck = $("#emailcodecheck").val();
+        let btn_check = $("#btn_check");
+        let code = $("#code");
+        //이메일 변경 시 이메일 중복체크, 이메일 인증체크 값 'N'으로 변경
+        emailcheck = 'N';
+        emailcodecheck = 'N';
+        //카카오톡으로 회원가입 시 계정의 이메일이 자동 입력되고 이메일의 유효성체크와 인증체크를 진행하지 않아도 됨(버튼과 코드입력란이 안보임)
+        //하지만 이메일을 수정할 경우 인증체크를 진행해야함-> 버튼과 코드입력란이 보이게 바뀜
+        btn_check.replaceWith($('<button type="button" class="btn_check" id="btn_check" onclick="sendEmailCode()">인증번호 받기</button>'));
+        code.replaceWith($('<input type ="text" class="code" placeholder="인증번호를 입력해주세요" id="code" onblur="emailCodeCheck()" autocomplete="off">'));
+        
+        
+        $.ajax({
+            url : '/member/emailcheck.do',
+            type : 'post',
+            data:{memEmail:email},
+            success : function(data) {
+                console.log("1 = 중복o / 0 = 중복x : "+ data);                          
+                
+                if (data == 1) {
+                        // 1 : 아이디가 중복되는 문구
+                        $("#emailmsg").text("사용중인 이메일입니다.");
+                        $("#emailmsg").css("color","red");
+                        $("#emailcheck").val("N");
+                } else {
+                        
+                    if($("#email1").val() == "" || $("#email2").val() == ""){
+                        $("#emailmsg").text("이메일을 입력해주세요");
+                        $("#emailmsg").css("color","red");
+                        $("#emailcheck").val("N");
+                    }else if(!check1.test($("#email1").val())){
+                        $("#emailmsg").text("한글은 사용 불가능합니다");
+                        $("#emailmsg").css("color","red");
+                        $("#emailcheck").val("N");
+                    }else if(!check2.test($('#email2').val())){
+                        $("#emailmsg").text("이메일 형식을 확인해주세요.");
+                        $("#emailmsg").css("color","red");
+                        $("#emailcheck").val("N");
+                    }else if($("#email1").val() !== "" && $("email2").val() !== ""){
+                        $("#emailmsg").text("이메일 인증해주세요");
+                        $("#emailcheck").val("Y");
+                    }else{
+                        $("#emailmsg").text("이메일 인증해주세요");
+                        $("#emailcheck").val("Y");
+                    }
+                        
+                }
+                
+            }, error : function() {
+                    console.log("실패");
+                }
+        });
+    }
+    
+ // 이메일 내용 변경 시
+    function emailUpdateCheck() {
+        let check1 = /^[^ㄱ-ㅎ가-힣]+$/;
+        let check2 = /^(.*[a-zA-Z])(?=.*[.])[a-zA-Z\.]+$/;
+        let email = $("#email1").val() + "@" + $("#email2").val();
+        
+        
+        $.ajax({
+            url : '/member/emailcheck.do',
+            type : 'post',
+            data:{memEmail:email},
+            success : function(data) {
+                console.log("1 = 중복o / 0 = 중복x : "+ data);                          
+                
+                if (data == 1) {
+                        // 1 : 아이디가 중복되는 문구
+                        $("#emailmsg").text("사용중인 이메일입니다.");
+                        $("#emailmsg").css("color","red");
+                        $("#emailcheck").val("N");
+                } else {
+                        
+                    if($("#email1").val() == "" || $("#email2").val() == ""){
+                        $("#emailmsg").text("이메일을 입력해주세요");
+                        $("#emailmsg").css("color","red");
+                        $("#emailcheck").val("N");
+                    }else if(!check1.test($("#email1").val())){
+                        $("#emailmsg").text("한글은 사용 불가능합니다");
+                        $("#emailmsg").css("color","red");
+                        $("#emailcheck").val("N");
+                    }else if(!check2.test($('#email2').val())){
+                        $("#emailmsg").text("이메일 형식을 확인해주세요.");
+                        $("#emailmsg").css("color","red");
+                        $("#emailcheck").val("N");
+                    }else if($("#email1").val() !== "" && $("email2").val() !== ""){
+                        $("#emailmsg").text("이메일 인증해주세요");
+                        $("#emailcheck").val("Y");
+                    }else{
+                        $("#emailmsg").text("이메일 인증해주세요");
+                        $("#emailcheck").val("Y");
+                    }
+                        
+                }
+                
+            }, error : function() {
+                    console.log("실패");
+                }
+        });
+    }
+    
+    // 이메일 인증코드 전송
+    function sendEmailCode() {
+        let email = $("#email1").val() + "@" + $("#email2").val();
+        $.ajax({
+            url : '/member/sendEmail',
+            type : 'post',
+            data:{memEmail:email},
+            success : function(data) {
+                
+            }, error : function() {
+                    console.log("실패");
+                }
+        });
+    };
+    
+ // 입력된 이메일 인증코드 유효성검사
+    function emailCodeCheck() {
+        let code = $("#code").val();
+        
+        $.ajax({
+            url : '/member/verifyCode',
+            type : 'post',
+            data:{code : code},
+            success : function(data) {
+                console.log("1 = 일치 / 0 = 불일치 : "+ data);                          
+                
+                if (data == 1) {
+                        // 1 : 인증코드 일치 시
+                        $("#emailmsg").text("");
+                        $("#emailmsg").css("color","red");
+                        $("#emailcodecheck").val("Y");
+                        console.log(data);
+                } else {
+                        
+                    if($("#code").val() == ""){
+                        $("#emailmsg").text("인증코드를 입력해주세요");
+                        $("#emailmsg").css("color","red");
+                        $("#emailcodecheck").val("N");
+                        console.log(data);
+                    }else {
+                        $("#emailmsg").text("인증코드가 일치하지 않습니다");
+                        $("#emailmsg").css("color","red");
+                        $("#emailcheck").val("N");
+                        console.log(data);
+                    }
+                        
+                }
+                
+            }, error : function() {
+                    console.log("실패");
+                }
+        });
+    }
+ 
+</script>
+</html>
