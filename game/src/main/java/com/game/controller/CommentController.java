@@ -29,6 +29,7 @@ public class CommentController {
     private CommentService commentService;
 
     //rest api의 형식을 따르기 위해, 댓글 생성인경우 , 댓글 수정인경우로 매핑 됨.
+    //rest 방식을 따르지 않으면 매핑 한개만 해도 댐
     //rest 형식에서 쓰이는 static 변수는 src/main/java/constant/Method(Enum 클라쓰)에서 확인 가능.
     //댓글이 처음 생성되면 POST방식으로 매핑을 받고, 댓글이 이미 있는걸 수정할때는 PATCH방식으로 매핑을 받음
     @RequestMapping(value = { "/comments", "/comments/{commNum}" }, method = { RequestMethod.POST, RequestMethod.PATCH })
@@ -43,11 +44,16 @@ public class CommentController {
 		JsonObject jsonObj = new JsonObject();
 
 		try {
+			//댓글 pk가 null이 아니면 CommentDTO에 받아온 str 값을 저장. 
+			// str의 값이 없다면(=pk가 없따면) 변수 commNum에
+			//null값이 넘어가서 서비스단의 registerComment() 에서 댓글 입력으로 연결된다.
+			
 			if (str != null) {
 				params.setCommNum(str);
 			}
-
+			
 			boolean isRegistered = commentService.registerComment(params);
+			//댓글 생성(or 수정)의 진행 결과를 "result"라는 프로퍼티로 등록
 			jsonObj.addProperty("result", isRegistered);
 
 		} catch (DataAccessException e) {
