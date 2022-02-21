@@ -4,10 +4,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.game.adapter.GsonLocalDateTimeAdapter;
@@ -24,6 +28,47 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    //rest api의 형식을 따르기 위해, 댓글 생성인경우 , 댓글 수정인경우로 매핑 됨.
+    //rest 방식을 따르지 않으면 매핑 한개만 해도 댐
+    //rest 형식에서 쓰이는 static 변수는 src/main/java/constant/Method(Enum 클라쓰)에서 확인 가능.
+    //댓글이 처음 생성되면 POST방식으로 매핑을 받고, 댓글이 이미 있는걸 수정할때는 PATCH방식으로 매핑을 받음
+    @RequestMapping(value = { "/comments", "/comments/{commNum}" }, method = { RequestMethod.POST, RequestMethod.PATCH })
+    //@RequestBody는 파라미터로 전달받은 JSON 문자열을 객체로 변환.
+    //<실행과정>
+    //1. 클라이언트(사용자)는 게시글 번호, 댓글 내용, 댓글 작성자를 JSON 문자열로 전송한다.
+    //2. 서버(컨트롤러)는 JSON 문자열을 파라미터로 전달받는다.
+    //3. @RequestBody는 전달받은 JSON 문자열을 객체로 변환한다.
+    //4. 객체로 변환된 JSON은 CommentDTO 클래스의 객체인 params에 매핑(바인딩)된다.
+	public JsonObject registerComment(@PathVariable(value = "commNum", required = false) String str, @RequestBody final CommentDTO params) {
+
+    	JsonObject jsonObj = new JsonObject();
+
+		try {
+			//댓글 pk가 null이 아니면 CommentDTO에 받아온 str 값을 저장. 
+			// str의 값이 없다면(=pk가 없따면) 변수 commNum에
+			//null값이 넘어가서 서비스단의 registerComment() 에서 댓글 입력으로 연결된다.
+			
+			if (str != null) {
+				params.setCommNum(str);
+			}
+			
+			boolean isRegistered = commentService.registerComment(params);
+			//댓글 생성(or 수정)의 진행 결과를 "result"라는 프로퍼티로 등록
+			jsonObj.addProperty("result", isRegistered);
+
+		} catch (DataAccessException e) {
+			jsonObj.addProperty("message", "데이터베이스 처리 과정에 문제가 발생하였습니다.");
+
+		} catch (Exception e) {
+			jsonObj.addProperty("message", "시스템에 문제가 발생하였습니다.");
+		}
+
+		return jsonObj;
+	}
+    
+    
+    
+    
     @GetMapping(value = "/comments/{boardNum}")
     public JsonObject getCommentList(@PathVariable("boardNum") String str, @ModelAttribute("params") CommentDTO params) {
         
