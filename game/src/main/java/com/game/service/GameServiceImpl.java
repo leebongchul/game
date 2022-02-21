@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.game.domain.GameScoreDTO;
-import com.game.domain.MemberDTO;
 import com.game.mapper.GameMapper;
 
 @Service
@@ -49,9 +48,9 @@ public class GameServiceImpl implements GameService {
     }
 	
 	@Override
-    public List<GameScoreDTO> selectGameRankList(MemberDTO loginMember) {
+    public List<GameScoreDTO> selectGameRankList(GameScoreDTO user) {
 	    
-	    List<GameScoreDTO> ranklist = gameMapper.selectGameRankList(loginMember);
+	    List<GameScoreDTO> ranklist = gameMapper.selectGameRankList(user);
         
 	    return ranklist;
 	}

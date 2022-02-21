@@ -27,13 +27,13 @@
     </select>
     
     <!-- 1위부터 5위까지 검색 -->
-    <select id="selectGameRankList" parameterType="MemberDTO" resultType="GameScoreDTO"> 
+    <select id="selectGameRankList" parameterType="GameScoreDTO" resultType="GameScoreDTO"> 
         
         SELECT rno, mem_id, rank_score
         FROM
         (SELECT rownum rno,mem_id,rank_score
         FROM
-        (SELECT mem_id,rank_score FROM rank_table ORDER BY rank_score DESC) 
+        (SELECT mem_id,rank_score FROM rank_table  where  game_name = #{gameName} ORDER BY rank_score DESC) 
         ORDER BY rno ASC)
         WHERE rno BETWEEN 1 AND 5
         
