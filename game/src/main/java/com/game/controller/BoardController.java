@@ -39,6 +39,35 @@ public class BoardController extends UiUtils {
 
 		return "board/list";
 	}
+///////////////////////////////////////////////////////////공지사항 테스트중 Start
+
+	@GetMapping(value = "/noticeboard/list")
+	public String openNoticeBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
+		// 메인 생성되면 보드타입 변경?
+		params.setBoardType(2);
+		List<BoardDTO> boardList = boardService.getBoardList(params);
+		model.addAttribute("boardList", boardList);
+
+		return "admin/list2";
+	}
+
+	@GetMapping(value = "/noticeboard/view")
+	public String openNoticeBoardDetail(@ModelAttribute("params") BoardDTO params, Model model) {
+		System.out.println("boardNum:" + params.getBoardNum());
+		if (params == null) {
+			// TODO => 올바르지 않은 접근이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
+			return "redirect:/board/noticeboard/list";
+		}
+		BoardDTO board = boardService.getBoardDetail(params);
+		if (board == null || "Y".equals(board.getBoardDelete())) {
+			// TODO => 없는 게시글이거나, 이미 삭제된 게시글이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
+			return "redirect:/board/noticeboard/list";
+		}
+		model.addAttribute("board", board);
+
+		return "admin/view2";
+	}
+///////////////////////////////////////////////////////////공지사항 테스트중 End
 
 	@GetMapping(value = "/freeboard/view")
 	public String openBoardDetail(@ModelAttribute("params") BoardDTO params, Model model) {

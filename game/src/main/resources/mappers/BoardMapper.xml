@@ -63,9 +63,9 @@
     <select id="selectBoardDetail" parameterType="BoardDTO" resultType="BoardDTO"> 
         
 		select 
-		<include refid="BoardColumns" />
-        from board_table 
-        where board_delete = 'N' and board_num = #{boardNum}
+          b.board_num, b.board_title, b.mem_id, b.board_date, a.mem_nick, b.board_type, b.board_content, b.board_update_date
+        from board_table b, member_table a 
+        where board_delete = 'N' and a.mem_id=b.mem_id and board_num = #{boardNum}
 
     </select>
     

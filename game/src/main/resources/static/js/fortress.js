@@ -104,7 +104,6 @@ let tank = {
         );
         ctx.stroke();
         ctx.closePath();
-        //        console.log(this.barrelAngle);
 
         //파워게이지 그리기
         ctx.beginPath();
@@ -158,7 +157,6 @@ function 프레임마다실행() {
     ctx.clearRect(0, 0, width, height);
 
     게임시작전();
-    //    timer++;
 
     // 방향키 입력 이벤트에 따른 탱크 움직임
     if (tankLeftPressed && tank.x > 0) {
@@ -177,22 +175,18 @@ function 프레임마다실행() {
         checkMissile();
     }
 
-//    if (!isHitted) {
-        tank.draw();
-        target.draw();
-//    }
+    tank.draw();
+    target.draw();
     레벨.draw();
     목숨.draw();
 
-    //    drawTarget();
-    //    drawMissile();
 };
 
 프레임마다실행();
 
 const keydownHandler = event => {
     if (게임진행 == true) {
-//        alert("1. 발사:"+isFired+"명중:"+isHitted+"진행:"+게임진행+"레벨:"+level);
+        event.preventDefault();
         if (event.keyCode === 37) { //왼쪽 방향키
             tankLeftPressed = true;
         } else if (event.keyCode === 39) { //오른쪽 방향키
@@ -202,24 +196,21 @@ const keydownHandler = event => {
         } else if (event.keyCode === 40 && tank.barrelAngle > 0) { //아래쪽 방향키(포신 각도 조절)
             tank.barrelAngle -= tank.barrelAngleDIF;
         } else if (event.keyCode === 32 && !isFired) { //스페이스바(파워게이지 충전)
-            event.preventDefault();
+//            event.preventDefault();
             isCharging = true;
-        }else if(event.keyCode === 32){
+        } else if (event.keyCode === 32) {
             event.preventDefault();
-//            isFired = false;
-//            프레임마다실행();
-            alert("2. 발사:"+isFired+"명중:"+isHitted+"진행:"+게임진행+"레벨:"+level);
         }
     } else {
-        if (event.keyCode === 32) {
-            event.preventDefault();
-        }
+        event.preventDefault();
+//        if (event.keyCode === 32) {
+//            event.preventDefault();
+//        }
     }
 };
 
 const keyupHandler = event => {
     if (게임진행 == true) {
-        alert("3. 발사:"+isFired+"명중:"+isHitted+"진행:"+게임진행+"레벨:"+level);
         if (event.keyCode === 37) { //왼쪽 방향키
             tankLeftPressed = false;
         } else if (event.keyCode === 39) {
@@ -231,22 +222,10 @@ const keyupHandler = event => {
             tank.missileDx = missilePower * Math.cos(tank.barrelAngle);
             tank.missileDy = missilePower * Math.sin(tank.barrelAngle);
             tank.gauge = Math.PI;
-        } else if (event.keyCode === 32 && !isFired && isHitted){ //레빌업 재시작
-        alert("5. 발사:"+isFired+"명중:"+isHitted+"진행:"+게임진행+"레벨:"+level);
-//            score.value = 0;
-            level++;
-            life = 3;
-            isHitted = false;
-            isCharging = false; //파워게이지 채우는 중인지 여부
-            isFired = false; //공이 발사되었는지 여부
-            alert("레벨업");
-            프레임마다실행();
         }
     } else {
         if (event.keyCode === 32 && !isFired) { //스페이스바(게임 시작)
-            alert("4. 발사:"+isFired+"명중:"+isHitted+"진행:"+게임진행+"레벨:"+level);
             게임진행 = true;
-//            score.value = 0;
             level = 1;
             life = 3;
             isHitted = false;
@@ -293,41 +272,27 @@ function checkMissile() {
     ) {
         isFired = false;
         isHitted = true;
-//        level++;
+        level++;
         cancelAnimationFrame(animation);
-        
-        alert("발사:"+isFired+"명중:"+isHitted+"진행:"+게임진행+"레벨:"+level);
-        //        게임진행 = false;
-                재시작.draw();
-        //        게임종료.draw();
-//        level++;
-//        프레임마다실행();
-
-
-        //        if (confirm("명중입니다. 다시 하시겠습니까?")) {
-        //            location.reload();
-        //        } else {
-        //            게임종료.draw();
-        //        }
+        프레임마다실행();
     }
 };
 
-//function drawTarget(score) {
-//    let level = 1;
-//    let targetlist = [];
-//    if (score > 100) {
-//        level += 1;
-//    } else if (score > 200) {
-//        level += 2;
-//    } else if (score > 300) {
-//        level += 3;
-//    }
-//    for (let i = 0; i <= level; i++) {
-//        let target = new Target();
-//        targetlist.push(target);
-//    }
-//    return targetlist;
-//};
+function drawTarget(level) {
+    let targetlist = [];
+    if (level > 0) {
+        level += 1;
+    } else if (level > 1) {
+        level += 2;
+    } else if (level > 2) {
+        level += 3;
+    }
+    for (let i = 0; i <= level; i++) {
+        let target = new Target();
+        targetlist.push(target);
+    }
+    return targetlist;
+};
 
 
 

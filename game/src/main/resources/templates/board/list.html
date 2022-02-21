@@ -19,14 +19,14 @@
 	                </thead>
 	                <tbody>
 	                    <tr th:if="${not #lists.isEmpty( boardList )}" th:each="row : ${boardList}">
-	                        <td scope="row" th:text="${row.rno}"></td>
-	                        <td class="text-left">
+	                        <td class= "col-md-1" scope="row" th:text="${row.rno}"></td>
+	                        <td class="col-md-6, text-left">
 	                            <a th:href="@{/board/freeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" th:text="${row.boardTitle} + '('+ ${row.commCount} +')'"></a>
 	                        </td>
-	                        <td th:text="${row.memNick}"></td>
-	                        <td th:text="${row.boardDate}"></td>
+	                        <td class= "col-md-2" th:text="${row.memNick}"></td>
+	                        <td class= "col-md-2" th:text="${row.boardDate}"></td>
 	                        <!-- 첫 번째 파라미터는 '?'로 연결하고, 두 번째부터는 '&'로 연결하는데요, 타임리프는 URI 뒤에 ?대신 괄호를, & 대신 ,(콤마)를 사용 -->
-	                        <td th:text="${row.boardHit}"></td>
+	                        <td class= "col-md-1" th:text="${row.boardHit}"></td>
 	                        
 	                    </tr>
 	                    <tr th:unless="${not #lists.isEmpty( boardList )}">
