@@ -60,7 +60,7 @@ public class GameController extends UiUtils {
             System.out.println("유저접속");
             GameScoreDTO user = new GameScoreDTO();
             user.setMemId(loginMember.getMemId());
-            user.setGameName("dino");
+            user.setGameName("공룡게임");
             
             GameScoreDTO result = gameService.selectGameScore(user); // 유저정보로 rank_table값 불러옴
             
@@ -99,7 +99,7 @@ public class GameController extends UiUtils {
             System.out.println("유저접속");
             GameScoreDTO user = new GameScoreDTO();
             user.setMemId(loginMember.getMemId());
-            user.setGameName("ddong");
+            user.setGameName("똥피하기");
             
             GameScoreDTO result = gameService.selectGameScore(user); // 유저정보로 rank_table값 불러옴
             
