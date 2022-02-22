@@ -307,8 +307,8 @@ function formsubmit(form) {
     let hp3 = document.getElementById("hp3");
     let email1 = document.getElementById("email1");
     let email2 = document.getElementById("email2");
-    document.getElementById("hp").value = hp1.value+"-"+ hp2.value +"-"+ hp3.value;
-    document.getElementById("email").value = email1.value + "@" + email2.value;
+    document.getElementById("memHp").value = hp1.value+"-"+ hp2.value +"-"+ hp3.value;
+    document.getElementById("memEmail").value = email1.value + "@" + email2.value;
 
     if (!textCheck_id(form.id)) {
         alert("ID를 확인해주세요.");

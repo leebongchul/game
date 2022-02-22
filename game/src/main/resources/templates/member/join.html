@@ -210,7 +210,7 @@
                  <input type="text" name="hp1" class="hp" onblur ="hpCheck()" id="hp1"  autocomplete="off">
                  <input type="text" name="hp2" class="hp" onblur ="hpCheck()" id="hp2"  autocomplete="off">
                  <input type="text" name="hp3" class="hp" onblur ="hpCheck()" id="hp3"  autocomplete="off">
-                 <input type="hidden" name="memHp" id="hp" value = "">
+                 <input type="hidden" name="memHp" id="memHp" value = "">
                  <div id="hpmsg"></div>
              </li>
              <li>
@@ -230,7 +230,7 @@
                 <input type="text" class="code" placeholder="인증번호를 입력해주세요" th:style="${memEmail1 !=null && memEmail2 !=null ? 'display:none;' : ''}"
                     id="code" onblur="emailCodeCheck()" autocomplete="off">
                 <div id="emailmsg" th:text ="${memEmail1 !=null && memEmail2 !=null ? '<주의>이메일 변경 시 추가인증 필요!!' : ''}"></div>
-                <input type="hidden" name="memEmail" id="email" value = "">
+                <input type="hidden" name="memEmail" id="memEmail" value = "">
              </li>
              <li>
                 <button type="submit" id = "submitbtn" class="btn_join">가입하기</button>
