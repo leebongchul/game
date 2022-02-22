@@ -1,5 +1,7 @@
 package com.game.domain;
 
+import com.game.paging.PaginationInfo;
+
 import lombok.Data;
 
 /**
@@ -18,6 +20,6 @@ public class BoardDTO extends MemberDTO {
 
     private String boardNum, boardTitle, boardContent, boardDate, boardUpdateId, boardUpdateDate, boardDelete,
             boardSearch;
-    private int rno, boardType, boardHit, commCount;
-
+    private int rno,listnum, boardType, boardHit, commCount;
+    private PaginationInfo paginationInfo;
 }

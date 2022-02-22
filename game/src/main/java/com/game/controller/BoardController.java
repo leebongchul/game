@@ -33,7 +33,7 @@ public class BoardController extends UiUtils {
 	@GetMapping(value = "/freeboard/list")
 	public String openBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
 		// 메인 생성되면 보드타입 변경?
-		params.setBoardType(1);
+	    params.setBoardType(1);
 		List<BoardDTO> boardList = boardService.getBoardList(params);
 		model.addAttribute("boardList", boardList);
 
@@ -41,6 +41,7 @@ public class BoardController extends UiUtils {
 	}
 ///////////////////////////////////////////////////////////공지사항 테스트중 Start
 
+	/*
 	@GetMapping(value = "/noticeboard/list")
 	public String openNoticeBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
 		// 메인 생성되면 보드타입 변경?
@@ -67,6 +68,7 @@ public class BoardController extends UiUtils {
 
 		return "admin/view2";
 	}
+	*/
 ///////////////////////////////////////////////////////////공지사항 테스트중 End
 
 	@GetMapping(value = "/freeboard/view")
@@ -91,11 +93,12 @@ public class BoardController extends UiUtils {
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		if (params.getBoardNum() == null) { // 글쓰기 화면
 			/*********** 로그인 세션 구현시 ***************/
-//			params.setMemId("loginMember.getMemId");
-//			params.setMemNick("loginMember.getMemNick");
+//			params.setMemId(loginMember.getMemId());
+//			params.setMemNick(loginMember.getMemNick());
 			/******************************************/
-			params.setMemId("khb06121");
-			params.setMemNick("테스트1");
+		    params.setMemId("aaaaaa1");
+            params.setMemNick("상상상");
+		    
 			model.addAttribute("board", params);
 		} else {
 			BoardDTO board = boardService.getBoardDetail(params);

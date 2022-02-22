@@ -19,7 +19,7 @@
 	                </thead>
 	                <tbody>
 	                    <tr th:if="${not #lists.isEmpty( boardList )}" th:each="row : ${boardList}">
-	                        <td class= "col-md-1" scope="row" th:text="${row.rno}"></td>
+	                        <td class= "col-md-1" scope="row" th:text="${row.listnum}"></td>
 	                        <td class="col-md-6, text-left">
 	                            <a th:href="@{/board/freeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" th:text="${row.boardTitle} + '('+ ${row.commCount} +')'"></a>
 	                        </td>
@@ -39,5 +39,20 @@
 	                <a th:href="@{/board/freeboard/write(boardType=1)}" class="btn btn-primary waves-effect waves-light">Write</a>
 	            </div>
 	        </div>
+	        <th:block layout:fragment="paging">
+                <nav th:replace="board/layout/common :: pagination"></nav>
+            </th:block>
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+
+            function movePage(uri, queryString) {
+                location.href = uri + queryString;
+            }
+
+            /*]]>*/
+        </script>
+    </th:block>
+        
 	   </body>
 </html>
