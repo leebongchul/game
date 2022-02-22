@@ -40,7 +40,7 @@ public class MemberController extends UiUtils {
             Model model) {
 
         model.addAttribute("member", loginMember);
-        return "member/index";
+        return "../index";
     }
 
     /****************** GET *************************/
@@ -131,8 +131,6 @@ public class MemberController extends UiUtils {
     public String userdeletefunction(Model model) {
         return "member/userdelete";
     }
-
-    
 
     @GetMapping(value = "/mypage")
     public String mypagefunction(Model model) {
