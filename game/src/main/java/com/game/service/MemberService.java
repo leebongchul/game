@@ -35,5 +35,5 @@ public interface MemberService {
 	
 	public int dropMember(MemberDTO params);
 	
-
+	public int userUpdate(MemberDTO params);
 }

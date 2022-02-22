@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.game.domain.BoardDTO;
 import com.game.domain.MemberDTO;
+import com.game.domain.ReportDTO;
 import com.game.mapper.BoardMapper;
 import com.game.mapper.MemberMapper;
 
@@ -208,5 +209,38 @@ class MapperTests {
 		System.out.println("테스트인풋 result : " + result);
 
 	};
+
+	@Test
+	public void testSelectReportList() {
+
+		List<ReportDTO> result = boardMapper.selectReportList();
+
+		try {
+			String boardJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(result);
+
+			System.out.println("=========================");
+			System.out.println(boardJson);
+			System.out.println("=========================");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testOfinsertReport() {
+
+		ReportDTO params = new ReportDTO();
+		params.setMemId("admin");
+		params.setRepId("user");
+		params.setRepType("음란");
+		params.setBoardNum("b_11");
+		params.setCommNum(null);
+
+		int a = boardMapper.insertReport(params);
+		System.out.println(a);
+		// 정상작동. 콘솔창에 1 출력
+
+	}
 
 }

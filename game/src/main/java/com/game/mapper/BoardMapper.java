@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.game.domain.BoardDTO;
+import com.game.domain.ReportDTO;
 
 @Mapper
 public interface BoardMapper {
@@ -24,4 +25,8 @@ public interface BoardMapper {
 	public List<BoardDTO> searchBoard(BoardDTO params);
 
 	public int plusBoardHit(BoardDTO parmas);
+
+	public List<ReportDTO> selectReportList();
+
+	public int insertReport(ReportDTO params);
 }

@@ -1,5 +1,6 @@
 package com.game.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,11 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.game.Util.UiUtils;
 import com.game.constant.Method;
 import com.game.domain.BoardDTO;
+import com.game.domain.GameScoreDTO;
 import com.game.domain.MemberDTO;
+import com.game.domain.ReportDTO;
 import com.game.service.BoardService;
+import com.game.service.GameService;
 
 @Controller
 @RequestMapping("/board/*")
@@ -24,6 +28,9 @@ public class BoardController extends UiUtils {
 
 	@Autowired
 	private BoardService boardService;
+
+	@Autowired
+	private GameService gameService;
 
 	@GetMapping(value = "/test")
 	public String testfunction(Model model) {
@@ -33,15 +40,24 @@ public class BoardController extends UiUtils {
 	@GetMapping(value = "/freeboard/list")
 	public String openBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
 		// 메인 생성되면 보드타입 변경?
-	    params.setBoardType(1);
+		params.setBoardType(1);
 		List<BoardDTO> boardList = boardService.getBoardList(params);
 		model.addAttribute("boardList", boardList);
 
 		return "board/list";
 	}
+
+	@GetMapping(value = "/rank")
+	public String openRankList(@ModelAttribute("rank") GameScoreDTO game, Model model) {
+		GameScoreDTO games = new GameScoreDTO();
+		List<GameScoreDTO> dinorank = Collections.emptyList();
+		List<GameScoreDTO> ddongrank = Collections.emptyList();
+		games.setGameName("ddong");
+
+		return "board/rank";
+	}
 ///////////////////////////////////////////////////////////공지사항 테스트중 Start
 
-	/*
 	@GetMapping(value = "/noticeboard/list")
 	public String openNoticeBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
 		// 메인 생성되면 보드타입 변경?
@@ -55,33 +71,61 @@ public class BoardController extends UiUtils {
 	@GetMapping(value = "/noticeboard/view")
 	public String openNoticeBoardDetail(@ModelAttribute("params") BoardDTO params, Model model) {
 		System.out.println("boardNum:" + params.getBoardNum());
-		if (params == null) {
-			// TODO => 올바르지 않은 접근이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
-			return "redirect:/board/noticeboard/list";
+		if (params.getBoardNum() == null) {
+			return showMessageWithRedirect("올바르지 않은 접근입니다. 목록화면으로 이동합니다,", "/board/noticeboard/list", Method.GET, null,
+					model);
 		}
 		BoardDTO board = boardService.getBoardDetail(params);
 		if (board == null || "Y".equals(board.getBoardDelete())) {
-			// TODO => 없는 게시글이거나, 이미 삭제된 게시글이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
-			return "redirect:/board/noticeboard/list";
+			return showMessageWithRedirect("없거나 이미 삭제된 게시글입니다. 목록화면으로 이동합니다,", "/board/noticeboard/list", Method.GET,
+					null, model);
 		}
 		model.addAttribute("board", board);
 
 		return "admin/view2";
 	}
-	*/
+
 ///////////////////////////////////////////////////////////공지사항 테스트중 End
+
+///////////////////////////////////////////////////////////신고하기 테스트중 Start
+
+	@GetMapping(value = "/report")
+	public String reportBoard(@ModelAttribute("params") ReportDTO params,
+			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
+		/*********** 로그인 세션 구현시 ***************/
+//		params.setMemId(loginMember.getMemId());
+		/******************************************/
+		params.setMemId("admin");
+		String url = "/board/noticeboard/view?boardNum=" + params.getBoardNum() + "&&boardType=" + params.getBoardType()
+				+ "&&memId=" + params.getRepId();
+		try {
+			if (boardService.registerReport(params)) {
+				return showMessageWithRedirect("신고가 완료되었습니다.", url, Method.GET, null, model);
+			}
+		} catch (DataAccessException e) {
+			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", url, Method.GET, null, model);
+
+		} catch (Exception e) {
+			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", url, Method.GET, null, model);
+		}
+
+//		model.addAttribute("boardList", boardList);
+
+		return "admin/list2";
+	}
+///////////////////////////////////////////////////////////신고하기 테스트중 End
 
 	@GetMapping(value = "/freeboard/view")
 	public String openBoardDetail(@ModelAttribute("params") BoardDTO params, Model model) {
 		System.out.println("boardNum:" + params.getBoardNum());
-		if (params == null) {
-			// TODO => 올바르지 않은 접근이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
-			return "redirect:/board/freeboard/list";
+		if (params.getBoardNum() == null) {
+			return showMessageWithRedirect("올바르지 않은 접근입니다. 목록화면으로 이동합니다.", "/board/freeboard/list", Method.GET, null,
+					model);
 		}
 		BoardDTO board = boardService.getBoardDetail(params);
-		if (board == null || "Y".equals(board.getBoardDelete())) {
-			// TODO => 없는 게시글이거나, 이미 삭제된 게시글이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
-			return "redirect:/board/freeboard/list";
+		if (board.getBoardNum() == null || "Y".equals(board.getBoardDelete())) {
+			return showMessageWithRedirect("없거나 이미 삭제된 게시글입니다. 목록화면으로 이동합니다.", "/board/freeboard/list", Method.GET,
+					null, model);
 		}
 		model.addAttribute("board", board);
 
@@ -96,9 +140,9 @@ public class BoardController extends UiUtils {
 //			params.setMemId(loginMember.getMemId());
 //			params.setMemNick(loginMember.getMemNick());
 			/******************************************/
-		    params.setMemId("khb");
-            params.setMemNick("테스트2");
-		    
+			params.setMemId("aaaaaa1");
+			params.setMemNick("상상상");
+
 			model.addAttribute("board", params);
 		} else {
 			BoardDTO board = boardService.getBoardDetail(params);
@@ -181,7 +225,5 @@ public class BoardController extends UiUtils {
 
 		return showMessageWithRedirect("게시글 삭제가 완료되었습니다.", "/board/freeboard/list", Method.GET, null, model);
 	}
-	
-	
 
 }
