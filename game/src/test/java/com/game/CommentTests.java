@@ -29,8 +29,8 @@ public class CommentTests {
     @Test
     public void TestofinsertComment() {
         CommentDTO params = new CommentDTO();
-        params.setBoardNum("b_2");
-        params.setMemId("khb0");
+        params.setBoardNum("b_68");
+        params.setMemId("khb");
         params.setCommContents("댓글 테스트테스트2");
 
         System.out.println("테스트인풋 데이터 : " + params);
@@ -43,7 +43,7 @@ public class CommentTests {
     @Test
     public void TestofselectCommentDetail() {
         CommentDTO params = new CommentDTO();
-        params.setCommNum("c_4");
+        params.setCommNum("c_53");
 
         System.out.println("테스트인풋 데이터 : " + params);
        CommentDTO result = commentMapper.selectCommentDetail(params);

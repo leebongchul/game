@@ -1,5 +1,7 @@
 package com.game.domain;
 
+import com.google.gson.Gson;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,5 +23,5 @@ public class CommentDTO extends BoardDTO {
 	 */
 
 	private String commNum, commContents, commUpdateDate, commUpdateId, commDelete, commDate;
-
+	
 }

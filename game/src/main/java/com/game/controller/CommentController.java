@@ -53,11 +53,6 @@ public class CommentController {
     //   ../{value}의 형태로 받음. @RequestParams은 /..?key1=value1&key2=value2...이런식
     @RequestMapping(value = { "/comments", "/comments/{commNum}" }, method = {RequestMethod.POST, RequestMethod.PATCH})
 	public JsonObject registerComment(@PathVariable(value = "commNum", required = false) String str, @RequestBody final CommentDTO params) {
-        /*
-         * if(str==null) { 
-         * str="c_1"; }
-         */
-        /* str="c_1"; */
         JsonObject jsonObj = new JsonObject();
 
 		try {
