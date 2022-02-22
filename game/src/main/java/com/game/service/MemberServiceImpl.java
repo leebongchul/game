@@ -169,5 +169,11 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 	}
+	
+	@Override
+	public int dropMember(MemberDTO params) {
+	    
+	    return memberMapper.dropMember(params);
+	}
 
 }

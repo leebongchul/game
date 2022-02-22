@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <style>
 body {
@@ -81,7 +80,7 @@ img {
 <body>
 	<section class="userdelete">
 		<img src="../image/로고.PNG">
-		<form name="userdeleteForm" th:action="@{/member/userdelete}" th:object="${member}" method="post" onsubmit="return userDeleteCheck()">
+		<form name="userdeleteForm" th:action="@{/mypage/userdelete}" th:object="${member}" method="post" onsubmit="return userDeleteCheck()">
 			<div class="col-sm-10" style="margin-top: 10px;">
 				<input type="text" id="loginId" name="memId" class="input1" placeholder="아이디" autocomplete="off" onblur="textCheck_id(this)" />
 				<div id="idmsg"></div>
