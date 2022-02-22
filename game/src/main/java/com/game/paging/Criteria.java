@@ -9,7 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Criteria {
-
+    /** 게시글 타입 */
+    private int boardType;
 	/** 현재 페이지 번호 */
 	private int currentPageNo;
 
@@ -30,12 +31,27 @@ public class Criteria {
 		this.recordsPerPage = 10;
 		this.pageSize = 10;
 	}
-
+	
+	public int getStartPage() {
+	    System.out.println("시작번호"+(currentPageNo - 1) * recordsPerPage);
+        return (currentPageNo - 1) * recordsPerPage;
+    }
+	
+	public int getEndPage() {
+	    System.out.println(this.getStartPage() + recordsPerPage);
+	    return this.getStartPage() + recordsPerPage;
+    }
+	
 	public String makeQueryString(int pageNo) {
 
-		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("currentPageNo", pageNo)
-				.queryParam("recordsPerPage", recordsPerPage).queryParam("pageSize", pageSize)
-				.queryParam("searchType", searchType).queryParam("searchKeyword", searchKeyword).build().encode();
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+		        .queryParam("currentPageNo", pageNo)
+				.queryParam("recordsPerPage", recordsPerPage)
+				.queryParam("pageSize", pageSize)
+				.queryParam("searchType", searchType)
+				.queryParam("searchKeyword", searchKeyword)
+				.build()
+				.encode();
 
 		return uriComponents.toUriString();
 	}
