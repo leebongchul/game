@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.game.domain.BoardDTO;
+import com.game.domain.ReportDTO;
 import com.game.mapper.BoardMapper;
+import com.game.paging.PaginationInfo;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -48,15 +50,15 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardDTO> getBoardList(BoardDTO params) {
+    public List<BoardDTO> getBoardList(BoardDTO params) {
 		List<BoardDTO> boardList = Collections.emptyList();
 
 		int boardTotalCount = boardMapper.selectBoardTotalCount(params);
 
-//		PaginationInfo paginationInfo = new PaginationInfo(params);
-//		paginationInfo.setTotalRecordCount(boardTotalCount);
-//
-//		params.setPaginationInfo(paginationInfo);
+		PaginationInfo paginationInfo = new PaginationInfo(params);
+		paginationInfo.setTotalRecordCount(boardTotalCount);
+
+		params.setPaginationInfo(paginationInfo);
 
 		if (boardTotalCount > 0) {
 			boardList = boardMapper.selectBoardList(params);
@@ -73,6 +75,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int plusBoardHit(BoardDTO params) {
 		return boardMapper.plusBoardHit(params);
+	};
+
+	@Override
+	public List<ReportDTO> getReportList() {
+		return boardMapper.selectReportList();
 	};
 
 }

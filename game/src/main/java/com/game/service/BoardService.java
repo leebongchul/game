@@ -3,6 +3,7 @@ package com.game.service;
 import java.util.List;
 
 import com.game.domain.BoardDTO;
+import com.game.domain.ReportDTO;
 
 public interface BoardService {
 
@@ -17,5 +18,7 @@ public interface BoardService {
 	public List<BoardDTO> searchBoard(BoardDTO params);
 
 	public int plusBoardHit(BoardDTO params);
+
+	public List<ReportDTO> getReportList();
 
 }
