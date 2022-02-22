@@ -144,5 +144,12 @@
 
     </select>
     
-
+     <update id="dropMember" parameterType="MemberDTO">
+        UPDATE
+            member_table
+        SET
+            mem_drop = 'Y'
+        WHERE
+        	mem_id = #{memId}
+    </update>
 </mapper>
