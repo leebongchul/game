@@ -132,10 +132,7 @@ public class MemberController extends UiUtils {
         return "member/userdelete";
     }
 
-    @GetMapping(value = "/userupdate")
-    public String userupdatefunction(Model model) {
-        return "member/userupdate";
-    }
+    
 
     @GetMapping(value = "/mypage")
     public String mypagefunction(Model model) {
