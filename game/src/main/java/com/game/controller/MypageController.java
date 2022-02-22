@@ -1,6 +1,11 @@
 package com.game.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,15 +15,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.game.Util.UiUtils;
+import com.game.constant.Method;
 import com.game.domain.MemberDTO;
 import com.game.service.MemberService;
 
 @Controller
 @RequestMapping("/mypage/*")
-public class MypageController {
-    
+public class MypageController extends UiUtils {
+
     @Autowired
     private MemberService memberService;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
     @GetMapping(value = "/mypagemain")
     public String mypagemain(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
@@ -29,8 +39,6 @@ public class MypageController {
         return "mypage/mypagemain";
     }
     
-    
-
     @GetMapping(value = "/userupdate")
     public String userupdatefunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             Model model) {
@@ -66,5 +74,50 @@ public class MypageController {
 
         return memberService.memberEmailcheck(memEmail);
     }
+    
+    
+    // 회원탈퇴
+    @GetMapping(value = "/userdelete")
+    public String userDelete(Model model) {
+        return "mypage/userdelete";
+    }
+    
+    @PostMapping(value = "/userdelete")
+    public String userDelete(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+        MemberDTO member, Model model,HttpServletRequest request) {
+        System.out.println(loginMember.getMemId());
+        System.out.println(member.getMemId());
+        try {
+            
+            if (loginMember.getMemId().equals(member.getMemId()) == false ) {
+                System.out.println("함수진입2");
+                return showMessageWithRedirect("아이디가 틀렸습니다.", "/mypage/userdelete", Method.GET, null, model);
+            }
+
+            if (!passwordEncoder.matches(member.getMemPass(), loginMember.getMemPass())) {
+                System.out.print("함수진입3");
+                return showMessageWithRedirect("비밀번호가 일치하지 않습니다..", "/member/login", Method.GET, null, model);
+            }
+            
+            
+            int userdropsuccess = memberService.dropMember(loginMember);
+            if (userdropsuccess == 0) {
+                return showMessageWithRedirect("회원탈퇴 실패", "/mypage/userdelete", Method.GET, null, model);
+            }
+        } catch (DataAccessException e) {
+            return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/mypage/userdelete", Method.GET, null, model);
+
+        } catch (Exception e) {
+            return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/mypage/userdelete", Method.GET, null, model);
+        }
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate(); // 세션 날림
+        }
+        return showMessageWithRedirect("회원탈퇴 성공", "/member/index", Method.GET, null, model);
+
+    }
+
+    
     
 }

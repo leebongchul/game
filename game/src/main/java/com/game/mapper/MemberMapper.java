@@ -28,5 +28,7 @@ public interface MemberMapper {
 	public int memberHpcheck(String memHp);
 
 	public int memberEmailcheck(String memEmail);
+	
+	public int dropMember(MemberDTO params);
 
 }
