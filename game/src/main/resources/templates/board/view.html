@@ -172,7 +172,7 @@
                                 <span class="name">${comment.memNick}</span>
                                 <span class="desc">${comment.commContents}</span>
                                 <button type="button" class="btn btn-xs btn-circle"><i class="fa fa-close" aria-hidden="true"></i></button>삭제
-                                <button type="button" class="btn btn-xs btn-circle"><i class="fa fa-close" aria-hidden="true"></i></button>수정
+                                <button type="button" class="btn btn-xs btn-circle"><i class="fa fa-close1" aria-hidden="true"></i></button>수정
                             </li>
                         `;
                     });
@@ -202,9 +202,42 @@
                 }
             }
             /*[- end of function -]*/
+            
+            
+            function deleteComment(idx) {
+
+	if (!confirm('댓글을 삭제하시겠어요?')) {
+		return false;
+	}
+
+	var uri = /*[[ @{/comments/} ]]*/ + commNum;
+	var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "DELETE"};
+
+	$.ajax({
+		url: uri,
+		type: "DELETE",
+		headers: headers,
+		dataType: "json",
+		success: function(response) {
+			if (response.result == false) {
+				alert("댓글 삭제에 실패하였습니다.");
+				return false;
+			}
+
+			printCommentList();
+			$("#commentModal").modal("hide");
+		},
+		error: function(xhr, status, error) {
+			alert("에러가 발생하였습니다.");
+			return false;
+		}
+	});
+	
+      }
+	   /*[- end of function -]*/
 		/*]]>*/
         </script>
         
-        
+      
     
 </html>
