@@ -44,18 +44,48 @@ public class MypageController extends UiUtils {
             Model model) {
         System.out.println("사용자정보 접속");
         MemberDTO user = new MemberDTO();
-        user.setMemId("aaaaaa1");
+        user.setMemId(loginMember.getMemId());
         user = memberService.selectMember(user);
         model.addAttribute("user",user);
         return "mypage/userupdate";
     }
     
+    
+    /** 사용자 정보 수정 **/
+    @PostMapping(value = "/userupdate")
+    public String userupdatefunction(MemberDTO member, Model model, @SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember) {
+        //System.out.println("함수진입1");
+        //System.out.println(member.getMemNick()); //memNick
+        //System.out.println(member.getMemHp());
+        //System.out.println(member.getMemEmail());
+        member.setMemId(loginMember.getMemId());
+      try {  
+        int userupdate = memberService.userUpdate(member);
+        if (userupdate == 0) {
+            System.out.println("수정되나요");
+            return showMessageWithRedirect("사용자 정보 수정에 실패하였습니다.", "/mypage/userupdate", Method.GET, null, model);
+        }
+        
+      } catch (DataAccessException e) {
+          return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/mypage/userupdate", Method.GET, null, model);
+
+      } catch (Exception e) {
+          return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/mypage/userupdate", Method.GET, null, model);
+      }
+
+        return showMessageWithRedirect("사용자 정보 수정이 완료되었습니다.", "/mypage/userupdate", Method.GET, null, model);
+    }
+
+    
+    
+    
+    
     // 닉네임 중복검사
     @PostMapping(value = "/mypage/nickcheck.do")
     @ResponseBody
     public int JoinNickCheck(@RequestParam String memNick) {
-        System.out.println("nickcheck");
-        System.out.println(memNick);
+        //System.out.println("nickcheck");
+        //System.out.println(memNick);
         return memberService.memberNickcheck(memNick);
     }
 
@@ -63,7 +93,8 @@ public class MypageController extends UiUtils {
     @PostMapping(value = "/mypage/hpcheck.do")
     @ResponseBody
     public int JoinHpCheck(@RequestParam String memHp) {
-
+        //System.out.println("핸드폰번호체크~~~~~~");
+        //System.out.println(memHp);
         return memberService.memberHpcheck(memHp);
     }
 
@@ -71,11 +102,12 @@ public class MypageController extends UiUtils {
     @PostMapping(value = "/mypage/emailcheck.do")
     @ResponseBody
     public int JoinEmailCheck(@RequestParam String memEmail) {
-
+        //System.out.println("이메일체크~~~~~~");
+        //System.out.println(memEmail);
         return memberService.memberEmailcheck(memEmail);
     }
     
-    
+
     // 회원탈퇴
     @GetMapping(value = "/userdelete")
     public String userDelete(Model model) {
@@ -117,7 +149,5 @@ public class MypageController extends UiUtils {
         return showMessageWithRedirect("회원탈퇴 성공", "/member/index", Method.GET, null, model);
 
     }
-
-    
     
 }

@@ -170,10 +170,17 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 	
+	//회원탈퇴
 	@Override
 	public int dropMember(MemberDTO params) {
 	    
 	    return memberMapper.dropMember(params);
+	}
+	
+	//사용자 정보 수정
+	@Override
+	public int userUpdate(MemberDTO params) {
+	    return memberMapper.userUpdate(params);
 	}
 
 }

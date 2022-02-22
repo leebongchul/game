@@ -152,4 +152,17 @@
         WHERE
         	mem_id = #{memId}
     </update>
+
+    <update id="userUpdate" parameterType="MemberDTO">
+        UPDATE
+            member_table
+        SET
+            mem_nick = #{memNick}
+            ,mem_tel = #{memTel}
+            ,mem_hp = #{memHp}
+            ,mem_email = #{memEmail}
+        WHERE
+        	mem_id = #{memId}
+    </update>
+    
 </mapper>

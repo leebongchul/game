@@ -30,5 +30,7 @@ public interface MemberMapper {
 	public int memberEmailcheck(String memEmail);
 	
 	public int dropMember(MemberDTO params);
+	
+	public int userUpdate(MemberDTO params);
 
 }
