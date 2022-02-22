@@ -51,7 +51,7 @@ public class MemberController extends UiUtils {
         if (loginMember == null) {
             return "member/login";
         }
-        
+
         // 세션이 유지되면 로그인 홈으로 이동
         model.addAttribute("member", loginMember);
         return "member/test";
@@ -323,7 +323,7 @@ public class MemberController extends UiUtils {
             session.invalidate(); // 세션 날림
         }
 
-        return showMessageWithRedirect("로그아웃", "/member/login", Method.GET, null, model);
+        return showMessageWithRedirect("로그아웃되었습니다.", "/member/index", Method.GET, null, model);
     }
 
     /** 이메일 인증 **/
