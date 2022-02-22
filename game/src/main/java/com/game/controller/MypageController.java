@@ -34,7 +34,7 @@ public class MypageController extends UiUtils {
     public String mypagemain(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             Model model) {
         if (loginMember == null) {
-            return "member/index";
+            return "../index";
         }
         return "mypage/mypagemain";
     }
@@ -112,7 +112,7 @@ public class MypageController extends UiUtils {
         if (session != null) {
             session.invalidate(); // 세션 날림
         }
-        return showMessageWithRedirect("회원탈퇴 성공", "/member/index", Method.GET, null, model);
+        return showMessageWithRedirect("회원탈퇴 성공", "../index", Method.GET, null, model);
 
     }
 

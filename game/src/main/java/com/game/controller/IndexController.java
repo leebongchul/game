@@ -16,7 +16,7 @@ public class IndexController {
     public String indexfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             Model model) {
 
-        model.addAttribute("", loginMember);
+        model.addAttribute("member", loginMember);
         return "index.html";
     }
 
