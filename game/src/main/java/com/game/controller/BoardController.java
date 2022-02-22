@@ -1,5 +1,6 @@
 package com.game.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.game.Util.UiUtils;
 import com.game.constant.Method;
 import com.game.domain.BoardDTO;
+import com.game.domain.GameScoreDTO;
 import com.game.domain.MemberDTO;
 import com.game.service.BoardService;
+import com.game.service.GameService;
 
 @Controller
 @RequestMapping("/board/*")
@@ -24,7 +27,10 @@ public class BoardController extends UiUtils {
 
 	@Autowired
 	private BoardService boardService;
-
+	
+	@Autowired
+    private GameService gameService;
+	
 	@GetMapping(value = "/test")
 	public String testfunction(Model model) {
 		return "board/test";
@@ -39,6 +45,16 @@ public class BoardController extends UiUtils {
 
 		return "board/list";
 	}
+	
+	@GetMapping(value = "/rank")
+    public String openRankList(@ModelAttribute("rank") GameScoreDTO game, Model model) {
+        GameScoreDTO games = new GameScoreDTO();
+        List<GameScoreDTO> dinorank = Collections.emptyList();
+        List<GameScoreDTO> ddongrank = Collections.emptyList();
+        games.setGameName("ddong");
+        
+        return "board/rank";
+    }
 ///////////////////////////////////////////////////////////공지사항 테스트중 Start
 
 	/*
@@ -72,8 +88,8 @@ public class BoardController extends UiUtils {
 
 =======
 	*/
->>>>>>> 37e8e9924f901b2d0e6a8f0b6b2d230452fa15b0
 ///////////////////////////////////////////////////////////공지사항 테스트중 End
+	
 ///////////////////////////////////////////////////////////신고하기 테스트중 Start
 
 	@GetMapping(value = "/report")

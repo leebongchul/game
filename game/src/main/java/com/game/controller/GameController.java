@@ -51,7 +51,7 @@ public class GameController extends UiUtils {
         
         String gamename = request.getParameter("game");
         GameScoreDTO user = new GameScoreDTO();
-        user.setGameName("dino");
+        user.setGameName("공룡게임");
         List<GameScoreDTO> top5 = Collections.emptyList();
         
         if(loginMember == null) {
@@ -90,7 +90,7 @@ public class GameController extends UiUtils {
         
         String gamename = request.getParameter("game");
         GameScoreDTO user = new GameScoreDTO();
-        user.setGameName("ddong");
+        user.setGameName("똥피하기");
         List<GameScoreDTO> top5 = Collections.emptyList();
         
         if(loginMember == null) {
@@ -134,7 +134,7 @@ public class GameController extends UiUtils {
         GameScoreDTO user = new GameScoreDTO();
         user.setMemId(loginMember.getMemId());
         user.setRankScore(score);
-        user.setGameName("ddong");
+        user.setGameName("똥피하기");
         return gameService.updateGameScore(user);
     }
     
@@ -145,7 +145,7 @@ public class GameController extends UiUtils {
         GameScoreDTO user = new GameScoreDTO();
         user.setMemId(loginMember.getMemId());
         user.setRankScore(score);
-        user.setGameName("dino");
+        user.setGameName("공룡게임");
         return gameService.updateGameScore(user);
     }
 

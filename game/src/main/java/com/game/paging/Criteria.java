@@ -9,9 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Criteria {
-    /** 게시글 타입 */
-    private int boardType;
-	/** 현재 페이지 번호 */
+	
+    /** 현재 페이지 번호 */
 	private int currentPageNo;
 
 	/** 페이지당 출력할 데이터 개수 */
