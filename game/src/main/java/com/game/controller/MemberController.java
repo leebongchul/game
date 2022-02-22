@@ -61,13 +61,13 @@ public class MemberController extends UiUtils {
      * "member/join"; }
      */
 
-//    @GetMapping(value = "/join")
-//    public String joinfunction(@ModelAttribute("params") MemberDTO params, Model model) {
-//        if (params.getMemId() == null) {
-//            model.addAttribute("member", new MemberDTO());
-//        }
-//        return "member/join";
-//    }
+    @GetMapping(value = "/join")
+    public String joinfunction(@ModelAttribute("params") MemberDTO params, Model model) {
+        if (params.getMemId() == null) {
+            model.addAttribute("member", new MemberDTO());
+        }
+        return "member/join";
+    }
 
     /** 카카오톡 로그인으로 회원가입 **/
     @PostMapping(value = "/join")
