@@ -40,7 +40,7 @@ public class MemberController extends UiUtils {
             Model model) {
 
         model.addAttribute("member", loginMember);
-        return "member/index";
+        return "../index";
     }
 
     /****************** GET *************************/
@@ -131,8 +131,6 @@ public class MemberController extends UiUtils {
     public String userdeletefunction(Model model) {
         return "member/userdelete";
     }
-
-    
 
     @GetMapping(value = "/mypage")
     public String mypagefunction(Model model) {
@@ -300,7 +298,7 @@ public class MemberController extends UiUtils {
             HttpSession session = request.getSession(); // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
             session.setAttribute("loginMem", result); // 세션에 로그인 회원 정보 보관
 
-            return showMessageWithRedirect("로그인이 완료되었습니다.", "/member/index", Method.GET, null, model);
+            return showMessageWithRedirect("로그인이 완료되었습니다.", "../index", Method.GET, null, model);
 
         } catch (DataAccessException e) {
             return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/member/login", Method.GET, null, model);
@@ -320,7 +318,7 @@ public class MemberController extends UiUtils {
             session.invalidate(); // 세션 날림
         }
 
-        return showMessageWithRedirect("로그아웃되었습니다.", "/member/index", Method.GET, null, model);
+        return showMessageWithRedirect("로그아웃되었습니다.", "../index", Method.GET, null, model);
     }
 
     /** 이메일 인증 **/

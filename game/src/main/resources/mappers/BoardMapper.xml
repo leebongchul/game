@@ -7,6 +7,11 @@
     board_date, board_update_id, board_update_date, board_hit, board_delete
         
     </sql>
+    
+    <sql id="ReportColumns">
+         rep_num, mem_id, rep_id, rep_type, board_num, comm_num
+        
+    </sql>
 
     <insert id="insertBoard" parameterType="BoardDTO"> 
         
@@ -70,6 +75,7 @@
     -->
     <select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO"> <!-- 자유게시판은 댓글 갯수도 갖고 와야함 -->
         
+<<<<<<< HEAD
        SELECT  f.* 
        from 
        		(SELECT rownum rno, e.* 
@@ -77,12 +83,23 @@
        	 	 (SELECT rownum listnum, d.*
          FROM
          	  (SELECT count(a.board_num) as comm_count, b.board_num, b.board_title,  b.mem_id, b.board_date, c.mem_nick, b.board_type
+=======
+        SELECT  f.* from (SELECT rownum rno, e.* FROM (SELECT rownum listnum, d.*
+        FROM
+            (SELECT count(a.board_num) as comm_count, b.board_num, b.board_title,  b.mem_id, b.board_date, c.mem_nick, b.board_type
+>>>>>>> origin/main
             FROM 
                comment_view a 
             RIGHT OUTER JOIN board_table b ON a.board_num = b.board_num 
             LEFT OUTER JOIN member_table c ON c.mem_id = b.mem_id
+<<<<<<< HEAD
             	WHERE b.board_delete = 'N' AND b.board_type = #{boardType} and (a.COMM_DELETE = 'N' or a.comm_delete is null)
             		GROUP BY b.board_num, b.board_title, b.board_content, b.board_date, b.mem_id, b.board_delete, c.mem_nick, b.board_type
+=======
+            WHERE b.board_delete = 'N' AND b.board_type = #{boardType} and (a.COMM_DELETE = 'N' or a.comm_delete is null)
+            GROUP BY b.board_num, b.board_title, b.board_content, b.board_date, b.mem_id, b.board_delete,
+             c.mem_nick, b.board_type
+>>>>>>> origin/main
             ORDER BY  board_date) d 
             ORDER BY listnum desc)e)f 
             where
@@ -169,6 +186,34 @@
 	   order by rownum asc
     
     </select>
+    
+    <select id="selectReportList" resultType="ReportDTO">
+        SELECT 
+            rno, rep_num, mem_id, rep_id, rep_type, board_num, comm_num, mem_block
+        FROM
+            (SELECT
+                rownum rno, r.rep_num, r.mem_id, r.rep_id, r.rep_type, r.board_num, r.comm_num, m.mem_block
+             FROM 
+                report_table r, member_table m 
+             WHERE r.rep_id= m.mem_id)
+        ORDER BY rno desc
+        
+    </select>
+    
+    <insert id="insertReport" parameterType="ReportDTO">
+        INSERT INTO
+            report_table 
+            (rep_num, mem_id, rep_id, rep_type
+            <if test = 'boardNum != null'>, board_num </if>
+            <if test = 'commNum != null'>, comm_num </if>
+            )
+        VALUES
+            ('r_'||sequ_report_num.nextval, #{memId}, #{repId}, #{repType}
+             <if test = 'boardNum != null'>, #{boardNum} </if>
+             <if test = 'commNum != null'>, #{commNum} </if>
+             )
+        
+    </insert>
     
 
     

@@ -9,7 +9,12 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Criteria {
+<<<<<<< HEAD
 	/** 현재 페이지 번호 */
+=======
+	
+    /** 현재 페이지 번호 */
+>>>>>>> origin/main
 	private int currentPageNo;
 
 	/** 페이지당 출력할 데이터 개수 */
