@@ -137,9 +137,15 @@ let tank = {
 };
 
 class Target {
-    constructor() {
-        this.width = Math.floor(Math.random() * 100 + 30);
-        this.height = Math.floor(Math.random() * 100 + 10);
+    //    constructor() {
+    //        this.width = Math.floor(Math.random() * 100 + 30);
+    //        this.height = Math.floor(Math.random() * 100 + 10);
+    //        this.x = Math.floor(Math.random() * (500 - this.width) + 500);
+    //        this.y = height - this.height;
+    //    }
+    constructor(x, y) {
+        this.width = Math.floor(Math.random() * y + x);
+        this.height = Math.floor(Math.random() * y + x);
         this.x = Math.floor(Math.random() * (500 - this.width) + 500);
         this.y = height - this.height;
     }
@@ -151,7 +157,7 @@ class Target {
 };
 
 
-let target = new Target();
+let target = new Target(30, 10);
 function 프레임마다실행() {
     animation = requestAnimationFrame(프레임마다실행);
     ctx.clearRect(0, 0, width, height);
@@ -196,16 +202,16 @@ const keydownHandler = event => {
         } else if (event.keyCode === 40 && tank.barrelAngle > 0) { //아래쪽 방향키(포신 각도 조절)
             tank.barrelAngle -= tank.barrelAngleDIF;
         } else if (event.keyCode === 32 && !isFired) { //스페이스바(파워게이지 충전)
-//            event.preventDefault();
+            //            event.preventDefault();
             isCharging = true;
         } else if (event.keyCode === 32) {
             event.preventDefault();
         }
     } else {
         event.preventDefault();
-//        if (event.keyCode === 32) {
-//            event.preventDefault();
-//        }
+        //        if (event.keyCode === 32) {
+        //            event.preventDefault();
+        //        }
     }
 };
 
@@ -273,25 +279,30 @@ function checkMissile() {
         isFired = false;
         isHitted = true;
         level++;
+        life = 3;
         cancelAnimationFrame(animation);
+        drawTarget(level);
         프레임마다실행();
     }
 };
 
 function drawTarget(level) {
-    let targetlist = [];
-    if (level > 0) {
-        level += 1;
-    } else if (level > 1) {
-        level += 2;
-    } else if (level > 2) {
-        level += 3;
+    let x; 
+    let y;
+    if(level<5){
+        x=40;
+        y=50;
+    }else if(level>=5 && level<10){
+        x=30;
+        y=40;
+    }else if(level>=10 && level<15){
+        x=20;
+        y=30;
+    }else{
+        x=10;
+        y=20;
     }
-    for (let i = 0; i <= level; i++) {
-        let target = new Target();
-        targetlist.push(target);
-    }
-    return targetlist;
+    target = new Target(x, y);
 };
 
 
