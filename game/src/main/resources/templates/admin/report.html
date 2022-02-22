@@ -91,7 +91,12 @@ body {
 <body>
 	<div class="container">
 		<div class="container-fluid p-0">
-			<h1 class="h3 mb-3">공지사항</h1>
+			<h1 class="h3 mb-3 font-weight-bold">
+				<strong>사용자 관리</strong>
+			</h1>
+			<h2 class="h4 mb-3 text-center">
+				<strong>신고 및 차단</strong>
+			</h2>
 			<div class="row">
 				<div class="col-xl-8">
 					<div class="card">
@@ -99,30 +104,40 @@ body {
 							<div class="card-actions float-right"></div>
 						</div>
 						<div class="card-body">
-							<table class="table table-striped" style="width: 100%">
-								<thead>
-									<tr>
-										<th class="text-center">번호</th>
-										<th class="text-center">제목</th>
-										<th class="text-center">작성자</th>
-										<th class="text-center">등록일</th>
-										<th class="text-center">조회수</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:if="${not #lists.isEmpty( boardList )}" th:each="row : ${boardList}">
-										<td class="col-md-1, text-center" scope="row" th:text="${row.rno}"></td>
-										<td class="col-md-6, text-left"><a
-											th:href="@{/board/noticeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}"
-											th:text="${row.boardTitle}"></a></td>
-										<td class="col-md-2, text-center" th:text="${row.memNick}"></td>
-										<td class="col-md-2, text-center" th:text="${row.boardDate}"></td>
-										<!-- 첫 번째 파라미터는 '?'로 연결하고, 두 번째부터는 '&'로 연결하는데요, 타임리프는 URI 뒤에 ?대신 괄호를, & 대신 ,(콤마)를 사용 -->
-										<td class="col-md-1, text-center" th:text="${row.boardHit}"></td>
+							<form name="userBlockForm" action="#" method="get">
+								<table class="table table-striped" style="width: 100%">
+									<thead>
+										<tr>
+											<!-- //6개 -->
+											<th class="text-center">선택</th>
+											<th class="text-center">신고자ID</th>
+											<th class="text-center">피신고자ID</th>
+											<th class="text-center">신고유형</th>
+											<th class="text-center">신고된 글/댓글</th>
+											<th class="text-center">차단상태</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:if="${not #lists.isEmpty( reportList )}" th:each="row : ${reportList}">
+											<td class="col-md-1, text-center" scope="row"><input type="checkbox" name="blockUser"></td>
+											<td class="col-md-2, text-center" th:text="${row.memId}"></td>
+											<td class="col-md-2, text-center" th:text="${row.repId}"></td>
+											<td class="col-md-1, text-center" th:text="${row.repType}"></td>
+											<td class="col-md-6, text-center"><a
+												th:href="@{/board/noticeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}">
+													<button class="btn">이동</button>
+											</a></td>
+											<td class="col-md-1, text-center" th:text="${row.memBlock}"></td>
 
-									</tr>
-								</tbody>
-							</table>
+										</tr>
+										<tr>
+										</tr>
+									</tbody>
+								</table>
+								<div class="text-right">
+									<button type="button" class="btn"><strong>차 단</strong></button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>

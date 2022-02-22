@@ -7,6 +7,11 @@
     board_date, board_update_id, board_update_date, board_hit, board_delete
         
     </sql>
+    
+    <sql id="ReportColumns">
+         rep_num, mem_id, rep_id, rep_type, board_num, comm_num
+        
+    </sql>
 
     <insert id="insertBoard" parameterType="BoardDTO"> 
         
@@ -135,6 +140,34 @@
 	   order by rownum asc
     
     </select>
+    
+    <select id="selectReportList" resultType="ReportDTO">
+        SELECT 
+            rno, rep_num, mem_id, rep_id, rep_type, board_num, comm_num, mem_block
+        FROM
+            (SELECT
+                rownum rno, r.rep_num, r.mem_id, r.rep_id, r.rep_type, r.board_num, r.comm_num, m.mem_block
+             FROM 
+                report_table r, member_table m 
+             WHERE r.rep_id= m.mem_id)
+        ORDER BY rno desc
+        
+    </select>
+    
+    <insert id="insertReport" parameterType="ReportDTO">
+        INSERT INTO
+            report_table 
+            (rep_num, mem_id, rep_id, rep_type
+            <if test = 'boardNum != null'>, board_num </if>
+            <if test = 'commNum != null'>, comm_num </if>
+            )
+        VALUES
+            ('r_'||sequ_report_num.nextval, #{memId}, #{repId}, #{repType}
+             <if test = 'boardNum != null'>, #{boardNum} </if>
+             <if test = 'commNum != null'>, #{commNum} </if>
+             )
+        
+    </insert>
     
 
     
