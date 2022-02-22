@@ -294,6 +294,17 @@ body {
 											<li><a class="dropdown-item" href="#">신고하기</a></li>
 										</ul>
 									</div>
+<!-- 									////////////////////////////////////////////////////// -->
+									<div class="dropdown">
+										<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+											Dropdown button</button>
+										<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+											<li><a class="dropdown-item" href="#">Action</a></li>
+											<li><a class="dropdown-item" href="#">Another action</a></li>
+											<li><a class="dropdown-item" href="#">Something else here</a></li>
+										</ul>
+									</div>
+<!-- 									////////////////////////////////////////////////////// -->
 									<span th:text="*{boardDate}"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <span th:text="'조회수&nbsp&nbsp'+*{boardHit}"></span>
 								</div>
 								<br>
@@ -428,30 +439,25 @@ body {
          	//	    }
             }, "json");
         }
+            
+        function deleteBoard(boardNum, memId, boardType) {
+
+            if (confirm(boardNum + "번 게시글을 삭제할까요?")) {
+                var uri = "/board/freeboard/delete";
+                var html = "";
+
+                html += '<form name="dataForm" action="'+uri+'" method="get">';
+                    html += '<input type="hidden" name="boardNum" value="'+boardNum+'" />';
+                    html += '<input type="hidden" name="memId" value="'+memId+'" />';
+                    html += '<input type="hidden" name="boardType" value="'+boardType+'" />';
+                html += '</form>';
+
+                $("body").append(html);
+                document.dataForm.submit();
+            }
+        }
         /*[- end of function -]*/
         </script>
-
-<script>
-            function deleteBoard(boardNum, memId, boardType) {
-
-                if (confirm(boardNum + "번 게시글을 삭제할까요?")) {
-                    var uri = "/board/freeboard/delete";
-                    var html = "";
-
-                    html += '<form name="dataForm" action="'+uri+'" method="get">';
-                        html += '<input type="hidden" name="boardNum" value="'+boardNum+'" />';
-                        html += '<input type="hidden" name="memId" value="'+memId+'" />';
-                        html += '<input type="hidden" name="boardType" value="'+boardType+'" />';
-                    html += '</form>';
-
-                    $("body").append(html);
-                    document.dataForm.submit();
-                }
-            }
-            /*[- end of function -]*/
-
-        </script>
-
 
 
 </html>

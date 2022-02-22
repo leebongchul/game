@@ -38,9 +38,9 @@ public class BoardServiceImpl implements BoardService {
 		int queryResult = 0;
 
 		BoardDTO board = boardMapper.selectBoardDetail(params);
-		board.setBoardUpdateId("admin");
+		board.setBoardUpdateId(params.getMemId());
 
-		if (board != null && "N".equals(board.getBoardDelete())) {
+		if (board != null) {
 			queryResult = boardMapper.deleteBoard(board);
 		}
 
