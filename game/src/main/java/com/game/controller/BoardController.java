@@ -181,5 +181,7 @@ public class BoardController extends UiUtils {
 
 		return showMessageWithRedirect("게시글 삭제가 완료되었습니다.", "/board/freeboard/list", Method.GET, null, model);
 	}
+	
+	
 
 }

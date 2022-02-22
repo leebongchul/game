@@ -3,6 +3,8 @@ package com.game.domain;
 import com.game.paging.PaginationInfo;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 회원가입 테이블의 컬럼을 가져오기 위한 DTO 클래스 명명법: 1. DTO클래스로 만들려는 DB에서의 테이블의 이름의 앞 자리를 가져온다
@@ -11,6 +13,8 @@ import lombok.Data;
  */
 
 @Data
+@Setter
+@Getter
 public class BoardDTO extends MemberDTO {
 
     /**
