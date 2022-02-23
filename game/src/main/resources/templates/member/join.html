@@ -133,7 +133,6 @@
    }
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <script th:src="@{/scripts/jquery.min.js}"></script>
 </head>
 <body>
@@ -236,7 +235,7 @@
                 <button type="submit" id = "submitbtn" class="btn_join">가입하기</button>
              </li>
           </ul>
-                <input type = "hidden" id = "idcheck" th:value ="${memEmail1 !=null && memEmail2 !=null ? 'Y' : 'N'}">
+                <input type = "hidden" id = "idcheck" th:value ="N">
                 <input type = "hidden" id = "nickcheck" value = "N">
                 <input type = "hidden" id = "hpcheck" value = "N">
                 <input type = "hidden" id = "emailcheck" th:value ="${memEmail1 !=null && memEmail2 !=null ? 'Y' : 'N'}">   

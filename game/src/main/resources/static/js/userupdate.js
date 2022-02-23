@@ -366,6 +366,8 @@ var emailSplit;
     } else if (email2.value == email3.value) {
         emailmsg.innerHTML = "";
         email2.disabled = true;
+    }else{
+        
     }
   }
         
