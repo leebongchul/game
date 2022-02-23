@@ -95,7 +95,7 @@
         UPDATE
           member_table
         SET
-            mem_block = #{memBlock}, mem_block_date = sysdate, mem_block_end_date=#{memBlockEndDate}
+            mem_block = #{memBlock}, mem_block_date = sysdate, mem_block_end_date=sysdate+#{blockPeriod}
         WHERE
             mem_id in #{memId} 
     </update>

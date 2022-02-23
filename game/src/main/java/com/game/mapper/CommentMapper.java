@@ -28,5 +28,9 @@ public interface CommentMapper {
 
 	/** 특정 게시그에 포함된 댓글 개수 조회  */
 	public int selectCommentTotalCount(CommentDTO params);
-
+	
+	/** 마이페이지 내 댓글 검색 */
+	public List<CommentDTO> selectMyComment(CommentDTO params);
+	
+	public int selectMyCommentCount(CommentDTO params);
 }

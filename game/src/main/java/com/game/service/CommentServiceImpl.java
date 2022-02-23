@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.game.domain.CommentDTO;
 import com.game.mapper.CommentMapper;
+import com.game.paging.PaginationInfo;
 
 @Service
 public class CommentServiceImpl implements CommentService {
@@ -53,5 +54,22 @@ public class CommentServiceImpl implements CommentService {
 
         return commentList;
     }
+    
+    @Override
+    public List<CommentDTO> selectMyComment(CommentDTO params){
+        List<CommentDTO> commList = Collections.emptyList();
 
+        int commTotalCount = commentMapper.selectMyCommentCount(params);
+
+        PaginationInfo paginationInfo = new PaginationInfo(params);
+        paginationInfo.setTotalRecordCount(commTotalCount);
+
+        params.setPaginationInfo(paginationInfo);
+
+        if (commTotalCount > 0) {
+            commList = commentMapper.selectMyComment(params);
+        }
+
+        return commList;
+    }
 }
