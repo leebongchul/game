@@ -51,8 +51,10 @@ border: 1px solid black;
             </form>
 
             <div class="btn_wrap text-center">
-                <a th:href="@{/board/freeboard/list}" class="btn btn-default waves-effect waves-light">뒤로가기</a>
-                <a th:href="@{/board/freeboard/write( boardNum=${board.boardNum}, boardType=${board.boardType}, memId=${board.memId} )}" class="btn btn-primary waves-effect waves-light">수정하기</a>
+                <button type = "button" onclick = "history.back()" class="btn btn-default waves-effect waves-light">뒤로가기</button>
+                <a th:href="@{/board/freeboard/write( boardNum=${board.boardNum}, boardType=${board.boardType}, memId=${board.memId} )}" class="btn btn-primary waves-effect waves-light">
+                <button>수정하기</button>
+                </a>
                 <button type="button" class="btn btn-danger waves-effect waves-light" th:onclick="deleteBoard([[ ${board.boardNum} ]], [[ ${board.memId} ]], [[ ${board.boardType} ]])">삭제하기</button>
             </div>
         </div>
