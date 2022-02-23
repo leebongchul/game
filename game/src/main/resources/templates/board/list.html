@@ -1,15 +1,59 @@
 <!DOCTYPE html>
+
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<style>
+* {margin:0; padding:0;
+text-decoration:none;
+	border-collapse: collapse;
+	}	
+
+table {
+width:1000px;
+border: 1px solid black;
+
+
+margin-top:50px;
+margin-left:auto;
+margin-right:auto;
+margin-bottom:auto;
+}
+table.tr tr1 {
+padding: 100px;
+
+} 
+th{
+ border: 1px solid black;
+
+padding: 10px;
+}
+td {
+ border: 1px solid black; 
+text-align:center;
+padding:5px;
+}
+
+
+
+</style>
     <head>
         <meta charset="UTF-8">
         <title>The page is a write page</title>
     </head>
     <body>
-        
+        		<div>
+        		<select name="search">
+        		 <option value="전체"></option>
+        		 <option value="작성자"></option>
+        		 <option value="제목"></option>
+        		 <option value="내용"></option>
+        		 
+        		</select>
+        		<input type="text" name="search_typing"></iuput>
+        		</div>
 	        <div class="table-responsive clearfix">
 	            <table class="table table-hover">
 	                <thead>
-	                    <tr>
+	                    <tr class="tr1">
 	                        <th>번호</th>
 	                        <th>제목</th>
 	                        <th>작성자</th>
