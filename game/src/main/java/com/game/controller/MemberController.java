@@ -327,6 +327,7 @@ public class MemberController extends UiUtils {
     public void emailConfirm(@RequestParam String memEmail) throws Exception {
         System.out.println("전달 받은 이메일 : " + memEmail);
         memberService.sendSimpleMessage(memEmail);
+        
     }
 
     @PostMapping("/verifyCode") // 이메일 인증 코드 검증

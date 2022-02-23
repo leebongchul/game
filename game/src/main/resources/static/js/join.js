@@ -248,7 +248,7 @@
             type : 'post',
             data:{memEmail:email},
             success : function(data) {
-                
+                alert("인증번호가 발송되었습니다.");
             }, error : function() {
                     console.log("실패");
                 }
