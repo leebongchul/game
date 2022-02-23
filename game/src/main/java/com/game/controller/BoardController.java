@@ -238,5 +238,18 @@ public class BoardController extends UiUtils {
 
 		return showMessageWithRedirect("게시글 삭제가 완료되었습니다.", "/board/freeboard/list", Method.GET, null, model);
 	}
+	
+	
+//	@GetMapping(value = "/freeboard/searchlist")
+//	public String openBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
+//		// 메인 생성되면 보드타입 변경?
+//		params.setBoardType(1);
+//		List<BoardDTO> boardList = boardService.getBoardList(params);
+//		model.addAttribute("boardList", boardList);
+//
+//		return "board/list";
+//	}
+
+	
 
 }

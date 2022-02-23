@@ -222,7 +222,7 @@ border: 1px solid black;
             
 // 		 var commNum = document.getElementById("commNum1").value;
 //          commNum.innerHTML="바뀐html";
-		var uri = /*[[ @{/comments/} ]]*/ + commNum;
+		var uri = "/comments/" + commNum;
 		var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "DELETE"};
 		
 		$.ajax({
@@ -246,6 +246,23 @@ border: 1px solid black;
 			});
 		
 	  }
+            
+//           function boardhitplus ()  {
+        	  
+//         	  var uri = "/board/freeboard/delete";
+        	  
+        	  
+        	  
+        	  
+        	  
+        	  
+        	  
+        	  
+          
+//           }
+          
+            
+            
 		   /*[- end of function -]*/
 		/*]]>*/
         </script>
