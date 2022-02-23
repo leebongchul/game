@@ -26,19 +26,19 @@ public class MypageController extends UiUtils {
 
     @Autowired
     private MemberService memberService;
-    
+
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
+
     @GetMapping(value = "/mypagemain")
     public String mypagemain(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             Model model) {
-        if(loginMember == null) {
-            return "member/index";
+        if (loginMember == null) {
+            return "../index";
         }
         return "mypage/mypagemain";
     }
-    
+
     @GetMapping(value = "/userupdate")
     public String userupdatefunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             Model model) {
@@ -46,7 +46,7 @@ public class MypageController extends UiUtils {
         MemberDTO user = new MemberDTO();
         user.setMemId(loginMember.getMemId());
         user = memberService.selectMember(user);
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "mypage/userupdate";
     }
     
@@ -78,8 +78,7 @@ public class MypageController extends UiUtils {
 
     
     
-    
-    
+
     // 닉네임 중복검사
     @PostMapping(value = "/mypage/nickcheck.do")
     @ResponseBody
@@ -106,22 +105,21 @@ public class MypageController extends UiUtils {
         //System.out.println(memEmail);
         return memberService.memberEmailcheck(memEmail);
     }
-    
 
     // 회원탈퇴
     @GetMapping(value = "/userdelete")
     public String userDelete(Model model) {
         return "mypage/userdelete";
     }
-    
+
     @PostMapping(value = "/userdelete")
     public String userDelete(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-        MemberDTO member, Model model,HttpServletRequest request) {
+            MemberDTO member, Model model, HttpServletRequest request) {
         System.out.println(loginMember.getMemId());
         System.out.println(member.getMemId());
         try {
-            
-            if (loginMember.getMemId().equals(member.getMemId()) == false ) {
+
+            if (loginMember.getMemId().equals(member.getMemId()) == false) {
                 System.out.println("함수진입2");
                 return showMessageWithRedirect("아이디가 틀렸습니다.", "/mypage/userdelete", Method.GET, null, model);
             }
@@ -130,8 +128,7 @@ public class MypageController extends UiUtils {
                 System.out.print("함수진입3");
                 return showMessageWithRedirect("비밀번호가 일치하지 않습니다..", "/member/login", Method.GET, null, model);
             }
-            
-            
+
             int userdropsuccess = memberService.dropMember(loginMember);
             if (userdropsuccess == 0) {
                 return showMessageWithRedirect("회원탈퇴 실패", "/mypage/userdelete", Method.GET, null, model);
@@ -146,8 +143,7 @@ public class MypageController extends UiUtils {
         if (session != null) {
             session.invalidate(); // 세션 날림
         }
-        return showMessageWithRedirect("회원탈퇴 성공", "/member/index", Method.GET, null, model);
+        return showMessageWithRedirect("회원탈퇴 성공", "../index", Method.GET, null, model);
 
     }
-    
 }
