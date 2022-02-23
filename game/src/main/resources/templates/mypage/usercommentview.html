@@ -66,41 +66,50 @@ color:white;
 <body>
 <h1>내 댓글 보기</h1>
 <table>
- 						<tr>
-		                     <form name="" action="" method="get">
-			                     <select class="select" name="" id=""> 
-				                     <option value="">전체</option>
-				                     <option value=""></option>
-				                     <option value=""></option>
-				                     <option value=""></option>
-			                     </select>
-			                     <input class="search_input" type="text" name="">
-			                     <button type="submit" class="btn_search" >검색</button>
-		                     </form>
-		                     </tr>
-
-	              <tr>
-	                  <th>선택</th>
-	                  <th>게시글 제목</th>
-	                  <th>댓글 내용</th>
-	                  <th>작성일자</th>
-	              </tr>
-	              <tr>
-	              	<td><input type="checkbox" name="choice"></td>
-	                <td>2</td>
-	                <td>3</td>
-	                <td>4</td>
-	              </tr>
-	               <tr>
-	              	<td><input type="checkbox" name="choice"></td>
-	                <td>2</td>
-	                <td>3</td>
-	                <td>4</td>
-	              </tr>
+         <thead>
+ 				   <tr>
+                     <select class="select" name="" id=""> 
+	                     <option value="">전체</option>
+	                     <option value=""></option>
+	                     <option value=""></option>
+	                     <option value=""></option>
+                     </select>
+                     <input class="search_input" type="text" name="">
+                     <button type="button" class="btn_search" >검색</button>
+		                     
+                  </tr>
+         </thead>
+         <tbody>
+	          <tr th:if="${not #lists.isEmpty( commList )}" th:each="row : ${commList}">
+	              <td><input type ="checkbox"></td>
+	              <td>
+	              <a th:href="@{/board/freeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" th:text="${row.boardTitle} + '('+ ${row.commCount} +')'"></a>
+	              </td>
+	              <td th:text="${row.commContents}"></td>
+	              <td th:text="${row.commDate}"></td>
+	              <!-- 첫 번째 파라미터는 '?'로 연결하고, 두 번째부터는 '&'로 연결하는데요, 타임리프는 URI 뒤에 ?대신 괄호를, & 대신 ,(콤마)를 사용 -->
+	         </tr>
+	         <tr th:unless="${not #lists.isEmpty( commList )}">
+	             <td colspan="5">조회된 결과가 없습니다.</td>
+	         </tr>
+	     </tbody>
 </table>
-				  <td colspan="4"><< 1  2  3  4  5  >></td>					
-	              <button type="button" class="btn_mypage" >삭제</button>
-	              <button type="button" class="btn_delete" >마이페이지</button>
-	              
+				  			
+<button type="button" class="btn_mypage" >삭제</button>
+<button type="button" class="btn_delete" >마이페이지</button>
+<th:block layout:fragment="paging">
+    <nav th:replace="board/layout/common :: pagination"></nav>
+</th:block>
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+
+        function movePage(uri, queryString) {
+            location.href = uri + queryString;
+        }
+
+        /*]]>*/
+    </script>
+</th:block>
 </body>
 </html>

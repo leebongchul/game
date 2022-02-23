@@ -11,5 +11,6 @@ public interface CommentService {
     public boolean deleteComment(CommentDTO params);
 
     public List<CommentDTO> getCommentList(CommentDTO params);
-
+    
+    public List<CommentDTO> selectMyComment(CommentDTO params);
 }

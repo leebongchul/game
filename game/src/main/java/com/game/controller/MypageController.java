@@ -21,8 +21,10 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.game.Util.UiUtils;
 import com.game.constant.Method;
 import com.game.domain.BoardDTO;
+import com.game.domain.CommentDTO;
 import com.game.domain.MemberDTO;
 import com.game.service.BoardService;
+import com.game.service.CommentService;
 import com.game.service.MemberService;
 
 @Controller
@@ -34,7 +36,10 @@ public class MypageController extends UiUtils {
     
     @Autowired
     private BoardService boardService;
-
+    
+    @Autowired
+    private CommentService commentService;
+    
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -67,12 +72,16 @@ public class MypageController extends UiUtils {
     
     @GetMapping(value = "/usercommentview")
     public String usercommentview(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-            Model model) {
+            @ModelAttribute("params") CommentDTO params, Model model) {
         /* 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리
         if (loginMember == null) {
             return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
         }
         */
+        params.setMemId("aaaaaa1"); // 테스트용 하드코딩.
+        List<CommentDTO> commList = commentService.selectMyComment(params);
+        model.addAttribute("commList", commList);
+        
         return "mypage/usercommentview";
     }
 
