@@ -1,5 +1,6 @@
 package com.game.controller;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.game.constant.Method;
 import com.game.domain.BoardDTO;
 import com.game.domain.GameScoreDTO;
 import com.game.domain.MemberDTO;
+import com.game.domain.ReportDTO;
 import com.game.service.BoardService;
 import com.game.service.GameService;
 
@@ -26,10 +28,10 @@ public class BoardController extends UiUtils {
 
 	@Autowired
 	private BoardService boardService;
-	
+
 	@Autowired
-    private GameService gameService;
-	
+	private GameService gameService;
+
 	@GetMapping(value = "/test")
 	public String testfunction(Model model) {
 		return "board/test";
@@ -38,42 +40,24 @@ public class BoardController extends UiUtils {
 	@GetMapping(value = "/freeboard/list")
 	public String openBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
 		// 메인 생성되면 보드타입 변경?
-	    params.setBoardType(1);
+		params.setBoardType(1);
 		List<BoardDTO> boardList = boardService.getBoardList(params);
 		model.addAttribute("boardList", boardList);
 
 		return "board/list";
 	}
-	
+
 	@GetMapping(value = "/rank")
-    public String openRankList(@ModelAttribute("params") GameScoreDTO params, Model model) {
-        
-        return "board/rank";
-    }
-	
-	@GetMapping(value = "/layout/dinorank")
-    public String opendinoList(@ModelAttribute("params") GameScoreDTO params, Model model) {
-        
-	    params.setGameName("공룡게임");
-        List<GameScoreDTO> dinorank = gameService.selectGameRankList(params);
-        model.addAttribute("dino", dinorank);
-        
-        return "board/layout/dinorank";
-    }
-	
-	@GetMapping(value = "/layout/ddongrank")
-    public String openddongList(@ModelAttribute("params") GameScoreDTO params, Model model) {
-        GameScoreDTO games = new GameScoreDTO();
-        
-        params.setGameName("똥피하기");
-        List<GameScoreDTO> ddongrank = gameService.selectGameRankList(params);
-        model.addAttribute("ddong", ddongrank);
-        
-        return "board/layout/ddongrank";
-    }
+	public String openRankList(@ModelAttribute("rank") GameScoreDTO game, Model model) {
+		GameScoreDTO games = new GameScoreDTO();
+		List<GameScoreDTO> dinorank = Collections.emptyList();
+		List<GameScoreDTO> ddongrank = Collections.emptyList();
+		games.setGameName("ddong");
+
+		return "board/rank";
+	}
 ///////////////////////////////////////////////////////////공지사항 테스트중 Start
 
-	/*
 	@GetMapping(value = "/noticeboard/list")
 	public String openNoticeBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
 		// 메인 생성되면 보드타입 변경?
@@ -100,17 +84,31 @@ public class BoardController extends UiUtils {
 
 		return "admin/view2";
 	}
-<<<<<<< HEAD
 
-=======
-	*/
 ///////////////////////////////////////////////////////////공지사항 테스트중 End
-	
+
 ///////////////////////////////////////////////////////////신고하기 테스트중 Start
 
 	@GetMapping(value = "/report")
-	public String reportBoard(@ModelAttribute("params") BoardDTO params, Model model) {
-//		List<ReportDTO> boardList = boardService.getReportList();
+	public String reportBoard(@ModelAttribute("params") ReportDTO params,
+			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
+		/*********** 로그인 세션 구현시 ***************/
+//		params.setMemId(loginMember.getMemId());
+		/******************************************/
+		params.setMemId("admin");
+		String url = "/board/noticeboard/view?boardNum=" + params.getBoardNum() + "&&boardType=" + params.getBoardType()
+				+ "&&memId=" + params.getRepId();
+		try {
+			if (boardService.registerReport(params)) {
+				return showMessageWithRedirect("신고가 완료되었습니다.", url, Method.GET, null, model);
+			}
+		} catch (DataAccessException e) {
+			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", url, Method.GET, null, model);
+
+		} catch (Exception e) {
+			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", url, Method.GET, null, model);
+		}
+
 //		model.addAttribute("boardList", boardList);
 
 		return "admin/list2";
@@ -121,12 +119,12 @@ public class BoardController extends UiUtils {
 	public String openBoardDetail(@ModelAttribute("params") BoardDTO params, Model model) {
 		System.out.println("boardNum:" + params.getBoardNum());
 		if (params.getBoardNum() == null) {
-			return showMessageWithRedirect("올바르지 않은 접근입니다. 목록화면으로 이동합니다,", "/board/freeboard/list", Method.GET, null,
+			return showMessageWithRedirect("올바르지 않은 접근입니다. 목록화면으로 이동합니다.", "/board/freeboard/list", Method.GET, null,
 					model);
 		}
 		BoardDTO board = boardService.getBoardDetail(params);
 		if (board.getBoardNum() == null || "Y".equals(board.getBoardDelete())) {
-			return showMessageWithRedirect("없거나 이미 삭제된 게시글입니다. 목록화면으로 이동합니다,", "/board/freeboard/list", Method.GET,
+			return showMessageWithRedirect("없거나 이미 삭제된 게시글입니다. 목록화면으로 이동합니다.", "/board/freeboard/list", Method.GET,
 					null, model);
 		}
 		model.addAttribute("board", board);
@@ -142,9 +140,9 @@ public class BoardController extends UiUtils {
 //			params.setMemId(loginMember.getMemId());
 //			params.setMemNick(loginMember.getMemNick());
 			/******************************************/
-		    params.setMemId("aaaaaa1");
-            params.setMemNick("상상상");
-		    
+			params.setMemId("aaaaaa1");
+			params.setMemNick("상상상");
+
 			model.addAttribute("board", params);
 		} else {
 			BoardDTO board = boardService.getBoardDetail(params);

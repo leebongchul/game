@@ -21,4 +21,6 @@ public interface BoardService {
 
 	public List<ReportDTO> getReportList();
 
+	public boolean registerReport(ReportDTO params);
+
 }

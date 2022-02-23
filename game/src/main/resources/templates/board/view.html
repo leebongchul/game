@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <title>The page is a write page</title>
     </head>
+    
     <body>
         <div class="card-content">
             <form class="form-horizontal form-view" th:object="${board}">
@@ -59,27 +60,85 @@
                     <!-- /.box-title -->
                 </div>
 
-                <form class="form-horizontal form-view">
-                    <div class="input-group margin-bottom-20">
-                        <input type="email" class="form-control" placeholder="" >
-                        <div class="input-group-btn"><button type="button" class="btn waves-effect waves-light">댓글등록<i class="fa fa-commenting" aria-hidden="true"></i></button></div>
-                        <!-- /.input-group-btn -->
-                    </div>
-                    <ul class="notice-list">
-                    
-                    </ul>
-                </form>
+    <form class="form-horizontal form-view" >
+		<div class="input-group margin-bottom-20">
+			<input type="text" id="content" class="form-control" ></input>
+			<div class="input-group-btn">
+				<button type="button" class="btn waves-effect waves-light" th:onclick="insertComment([[ ${board.boardNum} ]])">댓글등록
+				</button>
+			</div>
+		</div>
+		<ul class="notice-list">
+		
+		</ul>
+	</form>
                 
             </div>
             
             <!-- /.card-content -->
         </div>
         <!-- /.box-content -->
+        
+        
+        <!-- 댓글칸 다른걸로 테스트.  -->
+        <!-- Comments Form -->
+<!-- 	<div class="card my-4"> -->
+<!-- 		<h5 class="card-header">Leave a Comment:</h5> -->
+<!-- 		<div class="card-body"> -->
+<!-- 			<form name="comment-form" action="/board/comment/write" method="post" autocomplete="off"> -->
+<!-- 				<div class="form-group"> -->
+<!-- 					<input type="hidden" name="idx" th:value="*{idx}" /> -->
+<!-- 					<textarea name="content" class="form-control" rows="3"></textarea> -->
+<!-- 				</div> -->
+<!-- 				<button type="submit" class="btn btn-primary">Submit</button> -->
+<!-- 			</form> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
       </body>
       
         <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
         
-        <script th:inline="javascript">
+       <script th:inline="javascript">
+       /*<![CDATA[*/
+//        $(function() {
+//     	   insertComment(); 
+//        });
+       
+        function insertComment(boardNum) {
+		console.log(boardNum);
+        	var content = document.getElementById("content");
+//         	 if (isEmpty(content.value) == true) { 
+        		content.setAttribute("placeholder", "댓글을 입력해 주세요.");
+        		content.focus();
+//         		 return false; 
+//         	  } 
+//         	var uri = /*[[ @{/comments} ]]*/null;
+        	var uri = "/comments" ;
+        	var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "POST"};
+        	var params = {"boardNum": boardNum, "commContents": content.value, "memId": "khb"};
+
+        	$.ajax({
+        		url: uri,
+        		type: "POST",
+        		headers: headers,
+        		dataType: "json",
+        		data: JSON.stringify(params),
+        		success: function(response) {
+        			if (response.result == false) {
+        				alert("댓글 등록에 실패하였습니다.");
+        				return false;
+        			}
+
+        			printCommentList();
+        			content.value = "";
+        		},
+        		error: function(xhr, status, error) {
+        			alert("에러가 발생하였습니다.");
+        			return false;
+        		}
+        	});
+        }
+        /*[- end of function -]*/
         
         $(function() {
             printCommentList(); 
@@ -113,7 +172,8 @@
                             <li>
                                 <span class="name">${comment.memNick}</span>
                                 <span class="desc">${comment.commContents}</span>
-                                <button type="button" class="btn btn-xs btn-circle"><i class="fa fa-close" aria-hidden="true"></i></button>
+                                <button type="button" class="glyphicon glyphicon-pencil" onclick="deleteComment(${comment.commNum})">삭제<i class="fa fa-close" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-xs btn-circle">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
                             </li>
                         `;
                     });
@@ -123,9 +183,9 @@
             }, "json");
         }
         /*[- end of function -]*/
-        </script>
+    
         
-        <script>
+      
             function deleteBoard(boardNum, memId, boardType) {
 
                 if (confirm(boardNum + "번 게시글을 삭제할까요?")) {
@@ -143,9 +203,42 @@
                 }
             }
             /*[- end of function -]*/
+            
+            
+            function deleteComment(commNum) {
 
+	if (!confirm('댓글을 삭제하시겠어요?')) {
+		return false;
+	}
+
+	var uri = /*[[ @{/comments/} ]]*/ + commNum;
+	var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "DELETE"};
+
+	$.ajax({
+		url: uri,
+		type: "DELETE",
+		headers: headers,
+		dataType: "json",
+		success: function(response) {
+			if (response.result == false) {
+				alert("댓글 삭제에 실패하였습니다.");
+				return false;
+			}
+
+			printCommentList();
+// 			$("#commentModal").modal("hide");
+		},
+		error: function(xhr, status, error) {
+			alert("에러가 발생하였습니다.");
+			return false;
+		}
+	});
+	
+      }
+	   /*[- end of function -]*/
+		/*]]>*/
         </script>
         
-        
+      
     
 </html>

@@ -357,34 +357,34 @@ body {
 											<h6 class="mb-3">
 												<strong>신고 유형을 선택해주세요.</strong>
 											</h6>
-											<form name="reportTypeForm" id="reportTypeForm" action="/member/test" method="get">
+											<form name="repTypeForm" id="repTypeForm" action="/board/report" method="get">
 												<div class="form-check my-2">
-													<input class="form-check-input" type="radio" name="reportType" value="음란"> <label class="form-check-label" for="flexRadioDefault1">
+													<input class="form-check-input" type="radio" name="repType" value="음란"> <label class="form-check-label" for="flexRadioDefault1">
 														성적인 컨텐츠 </label>
 												</div>
 												<div class="form-check my-2">
-													<input class="form-check-input" type="radio" name="reportType" value="광고"> <label class="form-check-label"
+													<input class="form-check-input" type="radio" name="repType" value="광고"> <label class="form-check-label"
 														for="flexRadioDefault2"> 광고 컨텐츠 </label>
 												</div>
 												<div class="form-check my-2">
-													<input class="form-check-input" type="radio" name="reportType" value="욕설/폭력"> <label class="form-check-label" for="flexRadioDefault1">
+													<input class="form-check-input" type="radio" name="repType" value="욕설"> <label class="form-check-label" for="flexRadioDefault1">
 														욕설 또는 폭력적인 콘텐트 </label>
 												</div>
 												<div class="form-check my-2">
-													<input class="form-check-input" type="radio" name="reportType" value="사행성"> <label class="form-check-label"
+													<input class="form-check-input" type="radio" name="repType" value="사행성"> <label class="form-check-label"
 														for="flexRadioDefault2"> 사행성 컨텐츠 </label>
 												</div>
 												<div class="form-check my-2">
-													<input class="form-check-input" type="radio" name="reportType" value="정치글"> <label class="form-check-label" for="flexRadioDefault1">
+													<input class="form-check-input" type="radio" name="repType" value="정치글"> <label class="form-check-label" for="flexRadioDefault1">
 														정치적 컨텐츠 </label>
 												</div>
 												<div class="form-check my-2">
-													<input class="form-check-input" type="radio" name="reportType" value="분란조장"> <label class="form-check-label"
+													<input class="form-check-input" type="radio" name="repType" value="분란"> <label class="form-check-label"
 														for="flexRadioDefault2"> 분란 조장 컨텐츠 </label>
 												</div>
 												<input type="hidden" name="boardNum" th:value="${board.boardNum}"> 
 												<input type="hidden" name="boardType" th:value="${board.boardType}"> 
-												<input type="hidden" name="memId" th:value="${board.memId}"> 
+												<input type="hidden" name="repId" th:value="${board.memId}"> 
 											</form>
 										</div>
 										<div class="modal-footer">
@@ -487,8 +487,8 @@ body {
 
 	//신고 유효성 검사
 	function reportFormCheck() {
-		if($('input:radio[name="reportType"]').is(':checked')){
-			$("#reportTypeForm").submit();
+		if($('input:radio[name="repType"]').is(':checked')){
+			$("#repTypeForm").submit();
 // 			alert("신고유형을 선택");
 		}else{
 			alert("신고유형을 선택해주세요");

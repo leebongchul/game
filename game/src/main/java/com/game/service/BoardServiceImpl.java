@@ -50,7 +50,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-    public List<BoardDTO> getBoardList(BoardDTO params) {
+	public List<BoardDTO> getBoardList(BoardDTO params) {
 		List<BoardDTO> boardList = Collections.emptyList();
 
 		int boardTotalCount = boardMapper.selectBoardTotalCount(params);
@@ -81,5 +81,15 @@ public class BoardServiceImpl implements BoardService {
 	public List<ReportDTO> getReportList() {
 		return boardMapper.selectReportList();
 	};
+
+	@Override
+	public boolean registerReport(ReportDTO params) {
+		int result = boardMapper.insertReport(params);
+		if (result == 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }
