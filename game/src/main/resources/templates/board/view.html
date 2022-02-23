@@ -32,6 +32,7 @@ border: 1px solid black;
                     <label for="inp-type-5" class="col-sm-2 control-label">내용</label>
                     <div class="col-sm-10">
                         <p class="form-control" th:text="*{boardContent}"></p>
+                        
                     </div>
                 </div>
 
@@ -66,7 +67,7 @@ border: 1px solid black;
                     <h4 class="box-title pull-left">Comment</h4>
                     <!-- /.box-title -->
                 </div>
-
+                
     <form class="form-horizontal form-view" >
 		<div class="input-group margin-bottom-20">
 			<input type="text" id="content" class="form-control" ></input>
@@ -176,7 +177,7 @@ border: 1px solid black;
                   
                     $(response.commentList).each(function(commNum, comment) {
                         commentsHtml += `
-                            <li>
+                            <li class="changecomm">
                         	  	<span class="id">${comment.memId}</span>
                                 <span class="nick">${comment.memNick}</span>
 							 	<span class="conts">${comment.commContents}</span>  
@@ -267,15 +268,31 @@ border: 1px solid black;
             
 		   /*[- end of function -]*/
 		   
+	
+		  //댓글 수정창 만들고, 여기서 수정완료 버튼 만들고, 그 버튼 누르면 수정되게끔 
+	  function changeCommnet(commNum) {
+			   
 		   
-		   function updateComment(commNum) {
-			    console.log(commNum);
-			     var content = document.getElementById("conts");
-
+		   
+		   
+			   
+			   
+		   };
+		   /*[- end of function -]*/
+		   
+		   
+		   
+		   
+		   
+		   
+		   
+    function updateComment(commNum) {
+			
     var uri = /*[[ @{/comments/} ]]*/ + commNum;
     var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "PATCH"};
-    var params = {"commNum": commNum, "memId": "khb0", "commContents": "qweasd"};
+    var params = {"commNum": commNum, "memId": "khb0", "commContents": "qwed"};
 
+  
     $.ajax({
         url: uri,
         type: "PATCH",
