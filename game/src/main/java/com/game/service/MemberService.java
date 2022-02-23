@@ -32,8 +32,10 @@ public interface MemberService {
 	public MimeMessage createMessage(String to) throws MessagingException;
 
 	public void sendSimpleMessage(String to) throws Exception;
-	
+
 	public int dropMember(MemberDTO params);
-	
+
 	public int userUpdate(MemberDTO params);
+
+	public boolean updateMemberBlock(MemberDTO params);
 }

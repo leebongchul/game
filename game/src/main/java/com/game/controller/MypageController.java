@@ -209,4 +209,14 @@ public class MypageController extends UiUtils {
         return "mypage/menulist";
     }
     
+    @GetMapping(value = "/dinorank")
+    public String dinorank(Model model) {
+        return "mypage/dinorank";
+    }
+    
+    @GetMapping(value = "/ddongrank")
+    public String ddongrank(Model model) {
+        return "mypage/ddongrank";
+    }
+    
 }

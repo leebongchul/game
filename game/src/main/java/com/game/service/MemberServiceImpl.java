@@ -169,18 +169,46 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 	}
-	
-	//회원탈퇴
+
+	// 회원탈퇴
 	@Override
 	public int dropMember(MemberDTO params) {
-	    
-	    return memberMapper.dropMember(params);
+
+		return memberMapper.dropMember(params);
 	}
-	
-	//사용자 정보 수정
+
+	// 사용자 정보 수정
 	@Override
 	public int userUpdate(MemberDTO params) {
-	    return memberMapper.userUpdate(params);
+		return memberMapper.userUpdate(params);
+	}
+
+	// 사용자 차단
+	@Override
+	public boolean updateMemberBlock(MemberDTO params) {
+		String memid = params.getMemId();
+		char[] memidArr = memid.toCharArray();
+
+//		params.setMemId(memidArr);
+
+//			let blockUser=$("input:checkbox[name='memId']:checked");
+//			blockUser.each(function(){
+//				memIdxArray.push($(this).val());
+//		    });
+
+//			/* 배열을 Set 객체로 만들어 중복 제거 */
+//			let set = new Set(memIdxArray);
+
+//			/* (전개연산자)를 사용하여 Set 객체를 다시 배열로 변환*/
+//			let resultArr = [...set];
+//			let resultStr = resultArr.join();
+		int result = memberMapper.updateMemberBlock(params);
+		if (result == 1) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 }
