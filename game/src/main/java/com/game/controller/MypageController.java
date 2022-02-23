@@ -22,9 +22,11 @@ import com.game.Util.UiUtils;
 import com.game.constant.Method;
 import com.game.domain.BoardDTO;
 import com.game.domain.CommentDTO;
+import com.game.domain.GameScoreDTO;
 import com.game.domain.MemberDTO;
 import com.game.service.BoardService;
 import com.game.service.CommentService;
+import com.game.service.GameService;
 import com.game.service.MemberService;
 
 @Controller
@@ -39,6 +41,9 @@ public class MypageController extends UiUtils {
     
     @Autowired
     private CommentService commentService;
+    
+    @Autowired
+    private GameService gameService;
     
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -211,13 +216,30 @@ public class MypageController extends UiUtils {
     
     
     @GetMapping(value = "/dinorank")
-    public String dinorank(Model model) {
+    public String dinorank(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
+        GameScoreDTO user = new GameScoreDTO();
+        //user.setMemId(loginMember.getMemId());
+        user.setMemId("uuu333");
+        user.setGameName("공룡게임");
+        
+        List<GameScoreDTO> rank = gameService.selectMyRank(user);
+        model.addAttribute("dino",rank);
         return "mypage/dinorank";
     }
     
     @GetMapping(value = "/ddongrank")
-    public String ddongrank(Model model) {
+    public String ddongrank( @SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+            Model model) {
+        GameScoreDTO user = new GameScoreDTO();
+        //user.setMemId(loginMember.getMemId());
+        user.setMemId("uuu333");
+        user.setGameName("똥피하기");
+        
+        List<GameScoreDTO> rank = gameService.selectMyRank(user);
+        model.addAttribute("ddong",rank);
         return "mypage/ddongrank";
     }
+    
+    
     
 }

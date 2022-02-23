@@ -20,4 +20,6 @@ public interface GameService {
     public List<GameScoreDTO> selectTop5List(GameScoreDTO user);
     
     public List<GameScoreDTO> selectGameRankList(GameScoreDTO user);
+    
+    public List<GameScoreDTO> selectMyRank(GameScoreDTO user);
 }

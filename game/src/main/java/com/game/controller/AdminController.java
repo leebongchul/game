@@ -30,6 +30,11 @@ public class AdminController extends UiUtils {
 	public String testfunction(Model model) {
 		return "admin/test";
 	}
+	
+	@GetMapping(value = "/adminpagemain")
+    public String adminpageMain(Model model) {
+        return "admin/adminpagemain";
+    }
 
 	@GetMapping(value = "/report/list")
 	public String openReportpage(Model model) {

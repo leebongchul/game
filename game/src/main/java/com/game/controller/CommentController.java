@@ -82,7 +82,6 @@ public class CommentController {
     
     
     
-    
     @GetMapping(value = "/comments/{boardNum}")
     public JsonObject getCommentList(@PathVariable("boardNum") String str, @ModelAttribute("params") CommentDTO params) {
         
@@ -115,11 +114,12 @@ public class CommentController {
         return jsonObj;
         
     }
-    
-    @DeleteMapping(value = "/comments/{commNum}")
+
+//    @RequestMapping(value = "/comments/{commNum}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/comments/{commNum}", method = RequestMethod.DELETE)
 	public JsonObject deleteComment(@PathVariable("commNum") final CommentDTO param) {
 
-		JsonObject jsonObj = new JsonObject();
+		JsonObject jsonObj = new JsonObject();	
 
 		try {
 			boolean isDeleted = commentService.deleteComment(param);

@@ -120,7 +120,7 @@ border: 1px solid black;
 //         	var uri = /*[[ @{/comments} ]]*/null;
         	var uri = "/comments" ;
         	var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "POST"};
-        	var params = {"boardNum": boardNum, "commContents": content.value, "memId": "aaaaaa1"};
+        	var params = {"boardNum": boardNum, "commContents": content.value, "memId": "khb"};
 
         	$.ajax({
         		url: uri,
@@ -179,8 +179,8 @@ border: 1px solid black;
                                 <span class="nick">${comment.memNick}</span>
 							 	<span class="conts">${comment.commContents}</span>  
                                
-                                <button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment(${comment.commNum})" >삭제<i class="fa fa-close" aria-hidden="true"></i></button>
-                                <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="updateComment()">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
+                                <button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제<i class="fa fa-close" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="updateComment('${comment.commNum}')">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
                             </li>
                         `;
                     });
@@ -218,6 +218,8 @@ border: 1px solid black;
             if (!confirm('댓글을 삭제하시겠어요?')) {
 			return false;
 		}
+            
+            
 // 		 var commNum = document.getElementById("commNum1").value;
 //          commNum.innerHTML="바뀐html";
 		var uri = /*[[ @{/comments/} ]]*/ + commNum;

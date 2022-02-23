@@ -109,7 +109,14 @@
 <!--     </select> -->
 
 
+<select id="selectMyRank" parameterType="GameScoreDTO" resultType="GameScoreDTO"> 
 
+select a.rank_score, a.mem_nick, a.game_name, a.rank from
+(select a.rank_score,  b.mem_nick, a.game_name, rank() over (order by rank_score desc)  as rank from rank_table a, member_table b where a.mem_id = b.mem_id and a.game_name=#{gameName}) a,
+(select * from (select rank_score, mem_id, game_name ,rank() over (order by rank_score desc) as rank from rank_table where game_name=#{gameName}) where mem_id=#{memId}) b
+
+where a.rank between b.rank-2 and b.rank+2
+</select>
 
 
 </mapper>
