@@ -7,6 +7,9 @@
 .myrank {
 	font-size:30px;
 	font-weight:bold;
+	padding:10px;
+    box-sizing:border-box;
+    font-weight:700;
 }
 .menulist_dino, .menulist_ddong {
 	font-size:20px;
@@ -18,16 +21,12 @@
          <span class="myrank">내 랭킹보기</span>
     </div>
     <div class="">
-        <div class="">
-        	<a href="../game/dino">
-            <div class="menulist_dino">- 공룡점프</div>
-            </a>
-        </div>
-        <div class="">
-        	<a href="../game/ddong">
-            <div class="menulist_ddong">- 똥피하기</div>
-            </a>
-        </div>
+        <nav>
+        	<ul>
+        		<li><a href="./userrankview" target="_parent" class="link_style1">- 공룡점프</a></li>
+        		<li><a href="./ddongrank" target="_parent" class="link_style1">- 똥피하기</a></li>
+        	</ul>
+        </nav>
     </div>
 </body>
 </html>
