@@ -104,7 +104,7 @@ body {
 							<div class="card-actions float-right"></div>
 						</div>
 						<div class="card-body">
-							<form name="userBlockForm" action="#" method="get">
+							<form name="blockForm" action="#" method="get">
 								<table class="table table-striped" style="width: 100%">
 									<thead>
 										<tr>
@@ -119,7 +119,7 @@ body {
 									</thead>
 									<tbody>
 										<tr th:if="${not #lists.isEmpty( reportList )}" th:each="row : ${reportList}">
-											<td class="col-md-1, text-center" scope="row"><input type="checkbox" name="blockUser"></td>
+											<td class="col-md-1, text-center" scope="row"><input type="checkbox" name="memId" value=${row.repID}></td>
 											<td class="col-md-2, text-center" th:text="${row.memId}"></td>
 											<td class="col-md-2, text-center" th:text="${row.repId}"></td>
 											<td class="col-md-1, text-center" th:text="${row.repType}"></td>

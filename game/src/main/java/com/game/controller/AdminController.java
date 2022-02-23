@@ -26,10 +26,10 @@ public class AdminController extends UiUtils {
 		return "board/test";
 	}
 
-	@GetMapping(value = "/report")
-	public String openReportpage(Model model) {
-		return "admin/report";
-	}
+//	@GetMapping(value = "/report")
+//	public String openReportpage(Model model) {
+//		return "admin/report";
+//	}
 
 	@GetMapping(value = "/report/list")
 	public String openReportpage(@ModelAttribute("params") BoardDTO params, Model model) {
