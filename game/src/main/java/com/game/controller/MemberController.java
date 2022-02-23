@@ -158,9 +158,15 @@ public class MemberController extends UiUtils {
     }
 
     @GetMapping(value = "/newpass")
-    public String newpassfunction(MemberDTO member, Model model) {
-        model.addAttribute("member", member);
+    public String newpassfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+            MemberDTO member, Model model) {
+        if (loginMember == null) {
+            model.addAttribute("member", member);
+            return "member/newpass";
+        }
+        model.addAttribute("member", loginMember);
         return "member/newpass";
+        
     }
 
     /********** 중복 체크 ********************************/
@@ -242,8 +248,9 @@ public class MemberController extends UiUtils {
     /** 비밀번호 재설정 **/
     @PostMapping(value = "/newpass")
     public String newPassCheck(MemberDTO member, Model model) {
+        System.out.println("아이디값" + member.getMemId());
         try {
-
+            
             member.setMemPass(passwordEncoder.encode(member.getMemPass()));
             int newpass = memberService.newpassMember(member);
             if (newpass == 0) {
