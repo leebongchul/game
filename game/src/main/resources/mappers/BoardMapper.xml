@@ -2,175 +2,162 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.game.mapper.BoardMapper">
 
-    <sql id="BoardColumns">
-         board_num, board_type, board_title, board_content, mem_id, 
-    board_date, board_update_id, board_update_date, board_hit, board_delete
-        
-    </sql>
+	<sql id="BoardColumns">
+		board_num, board_type, board_title, board_content, mem_id,
+		board_date, board_update_id, board_update_date, board_hit, board_delete
 
-    <insert id="insertBoard" parameterType="BoardDTO"> 
-        
-    INSERT INTO board_table (
-            <include refid="BoardColumns" />
-    )VALUES 
-    ('b_' || sequ_board_num.nextval,
-    #{boardType},
-    #{boardTitle},
-    #{boardContent},
-    #{memId},
-    sysdate,
-    NULL,
-    NULL,
-    0,
-    'N')
-    
-    </insert>
-    <!-- 
-    <select id="selectBoardTotalCount" parameterType="BoardDTO" resultType="int">
-        SELECT
-            COUNT(*)
-        FROM
-            board_table
-        WHERE
-            board_delete = 'N'
-        AND 
-            board_type = #{boardType}
-    </select>
-     -->
-    <select id="selectBoardTotalCount" parameterType="BoardDTO" resultType="int">
-        SELECT
-            COUNT(*)
-        FROM
-            board_table
-        WHERE
-            board_delete = 'N'
-        AND 
-            board_type = #{boardType}
-    </select>
-    <!--  
-    <select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO"> 자유게시판은 댓글 갯수도 갖고 와야함 
-        
-        SELECT
-             rownum rno, d.*
-        FROM
-            (SELECT count(a.board_num) as comm_count, b.board_num, b.board_title,  b.mem_id, b.board_date, c.mem_nick, b.board_type
-			FROM 
-			     comment_view a 
-			RIGHT OUTER JOIN board_table b ON a.board_num = b.board_num 
-			LEFT OUTER JOIN member_table c ON c.mem_id = b.mem_id
-			WHERE b.board_delete = 'N' AND b.board_type = #{boardType} and (a.COMM_DELETE = 'N' or a.comm_delete is null)
-			GROUP BY b.board_num, b.board_title, b.board_content, b.board_date, b.mem_id, b.board_delete,
-			 c.mem_nick, b.board_type
-			ORDER BY  board_date) d
-			        WHERE 
-          rno between 1 and 10  
-		ORDER BY rno desc
+	</sql>
 
-    </select>
-    -->
-    <select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO"> <!-- 자유게시판은 댓글 갯수도 갖고 와야함 -->
-        
-       SELECT  f.* 
-       from 
-       		(SELECT rownum rno, e.* 
-       	FROM 
-       	 	 (SELECT rownum listnum, d.*
-         FROM
-         	  (SELECT count(a.board_num) as comm_count, b.board_num, b.board_title,  b.mem_id, b.board_date, c.mem_nick, b.board_type
-            FROM 
-               comment_view a 
-            RIGHT OUTER JOIN board_table b ON a.board_num = b.board_num 
-            LEFT OUTER JOIN member_table c ON c.mem_id = b.mem_id
-            	WHERE b.board_delete = 'N' AND b.board_type = #{boardType} and (a.COMM_DELETE = 'N' or a.comm_delete is null)
-            		GROUP BY b.board_num, b.board_title, b.board_content, b.board_date, b.mem_id, b.board_delete, c.mem_nick, b.board_type
-            ORDER BY  board_date) d 
-            ORDER BY listnum desc)e)f 
-            where
-            f.rno between #{startPage} and #{endPage} 
-            ORDER BY f.rno
+	<insert id="insertBoard" parameterType="BoardDTO">
 
-    </select>
-    
-    
+		INSERT INTO board_table (
+		<include refid="BoardColumns" />
+		)VALUES
+		('b_' || sequ_board_num.nextval,
+		#{boardType},
+		#{boardTitle},
+		#{boardContent},
+		#{memId},
+		sysdate,
+		NULL,
+		NULL,
+		0,
+		'N')
 
-   
-    <select id="selectBoardDetail" parameterType="BoardDTO" resultType="BoardDTO"> 
-        
-		select 
-          b.board_num, b.board_title, b.mem_id, b.board_date, a.mem_nick, b.board_type, b.board_content, b.board_update_date
-        from board_table b, member_table a 
-        where board_delete = 'N' and a.mem_id=b.mem_id and board_num = #{boardNum}
+	</insert>
+	<!-- <select id="selectBoardTotalCount" parameterType="BoardDTO" resultType="int"> SELECT COUNT(*) FROM board_table WHERE board_delete = 'N' AND board_type 
+		= #{boardType} </select> -->
+	<select id="selectBoardTotalCount" parameterType="BoardDTO" resultType="int">
+		SELECT
+		COUNT(*)
+		FROM
+		board_table
+		WHERE
+		board_delete = 'N'
+		AND
+		board_type = #{boardType}
+	</select>
+	<!-- <select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO"> 자유게시판은 댓글 갯수도 갖고 와야함 SELECT rownum rno, d.* FROM (SELECT count(a.board_num) 
+		as comm_count, b.board_num, b.board_title, b.mem_id, b.board_date, c.mem_nick, b.board_type FROM comment_view a RIGHT OUTER JOIN board_table b ON a.board_num 
+		= b.board_num LEFT OUTER JOIN member_table c ON c.mem_id = b.mem_id WHERE b.board_delete = 'N' AND b.board_type = #{boardType} and (a.COMM_DELETE = 'N' 
+		or a.comm_delete is null) GROUP BY b.board_num, b.board_title, b.board_content, b.board_date, b.mem_id, b.board_delete, c.mem_nick, b.board_type ORDER 
+		BY board_date) d WHERE rno between 1 and 10 ORDER BY rno desc </select> -->
+	<select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO"> <!-- 자유게시판은 댓글 갯수도 갖고 와야함 -->
 
-    </select>
-    
-    <!--  쿼리 결과에 대한 맵핑 변수명 vs 컬럼명 
-    <resultMap type="com.sample.mapper.MemberVO" id="mapping_memberlist">
-        <result property="boardNum" column="board_num"/>
-        <result property="boardTitle" column="board_title"/>
-        <result property="memId" column="mem_id"/>
-        <result property="memNick" column="mem_nick"/>
-        <result property="boardType" column="board_type"/>
-        <result property="boardContent" column="board_content"/>
-        <result property="boardUpdateDate" column="board_update_date"/>
-        <result property="commNum" column="comm_num"/>
-        <result property="commContents" column="comm_contents"/>
-    </resultMap>
- -->
+		SELECT f.*
+		from
+		(SELECT rownum rno, e.*
+		FROM
+		(SELECT rownum listnum, d.*
+		FROM
+		(SELECT count(a.board_num) as comm_count, b.board_num, b.board_title, b.mem_id, b.board_date, c.mem_nick, b.board_type, b.board_hit
+		FROM
+		comment_view a
+		RIGHT OUTER JOIN board_table b ON a.board_num = b.board_num
+		LEFT OUTER JOIN member_table c ON c.mem_id = b.mem_id
+		WHERE b.board_delete = 'N' AND b.board_type = #{boardType} and (a.COMM_DELETE = 'N' or a.comm_delete is null)
+		GROUP BY b.board_num, b.board_title, b.board_content, b.board_date, b.mem_id, b.board_delete, c.mem_nick, b.board_type, b.board_hit
+		ORDER BY board_date) d
+		ORDER BY listnum desc)e)f
+		where
+		f.rno between #{startPage} and #{endPage}
+		ORDER BY f.rno
 
-    
-    <update id="updateBoard" parameterType="BoardDTO"> 
-        
-    UPDATE 
-        board_table 
-    SET 
-	    board_title = #{boardTitle},
-	    board_content = #{boardContent},
-	    board_update_id = #{boardUpdateId},
-	    board_update_date = sysdate
-    WHERE
-        mem_id = #{boardUpdateId}
-    AND
-        board_num = #{boardNum}
-    
-    </update>
-    
-    <update id="deleteBoard" parameterType="BoardDTO"> 
-        
-    UPDATE
-        board_table 
-    SET
-        board_delete='Y'
-    WHERE
-        <if test = 'boardUpdateId == "admin" and boardUpdateId != memId'> <!-- 현재 로그인 계정이 관리자이면 글 작성자의 iD를 갖고 와서 넣어줌  -->
-             (
-         </if>
-            mem_id = #{boardUpdateId} <!-- 글작성자가 현재 로그인 계정이면서 BOARD_NUM이 OO인 것을 지움#{boardUpdateId}  -->
-         <if test = 'boardUpdateId == "admin" and boardUpdateId != memId'> <!-- 현재 로그인 계정이 관리자이면 글 작성자의 iD를 갖고 와서 넣어줌  -->
-             OR mem_id = #{memId})
-         </if>
-     AND 
-        board_num = #{boardNum}
-    
-    </update>
-    
-    <update id="plusBoardHit" parameterType="BoardDTO">
-        update board_table set board_hit  = board_hit +1 where board_num = #{boardNum}
-   
-   </update>
-    
-    <select id="searchBoard" parameterType="BoardDTO" resultType="BoardDTO">
-	    select rownum rno, A.board_num, A.board_type ,A.board_title, A.board_content, A.board_hit, B.mem_id, B.mem_nick, A.board_date 
-	      from board_table A
-	            left outer join member_table B on A.mem_id = B.mem_id
-	             where A.board_title like '%'||#{boardSearch}||'%'  
-	                or A.board_content like '%'||#{boardSearch}||'%' 
-	                or B.mem_nick like '%'||#{boardSearch}||'%'
-	                    and A.board_type = #{boardType}
-	   order by rownum asc
-    
-    </select>
-    
+	</select>
 
-    
+
+
+
+	<select id="selectBoardDetail" parameterType="BoardDTO" resultType="BoardDTO">
+
+		select
+		b.board_num, b.board_title, b.mem_id, b.board_date, a.mem_nick, b.board_type, b.board_content, b.board_update_date
+		from board_table b, member_table a
+		where board_delete = 'N' and a.mem_id=b.mem_id and board_num = #{boardNum}
+
+	</select>
+
+	<!-- 쿼리 결과에 대한 맵핑 변수명 vs 컬럼명 <resultMap type="com.sample.mapper.MemberVO" id="mapping_memberlist"> <result property="boardNum" column="board_num"/> <result 
+		property="boardTitle" column="board_title"/> <result property="memId" column="mem_id"/> <result property="memNick" column="mem_nick"/> <result property="boardType" 
+		column="board_type"/> <result property="boardContent" column="board_content"/> <result property="boardUpdateDate" column="board_update_date"/> <result 
+		property="commNum" column="comm_num"/> <result property="commContents" column="comm_contents"/> </resultMap> -->
+
+
+	<update id="updateBoard" parameterType="BoardDTO">
+
+		UPDATE
+		board_table
+		SET
+		board_title = #{boardTitle},
+		board_content = #{boardContent},
+		board_update_id = #{boardUpdateId},
+		board_update_date = sysdate
+		WHERE
+		mem_id = #{boardUpdateId}
+		AND
+		board_num = #{boardNum}
+
+	</update>
+
+	<update id="deleteBoard" parameterType="BoardDTO">
+
+		UPDATE
+		board_table
+		SET
+		board_delete='Y'
+		WHERE
+		<if test='boardUpdateId == "admin" and boardUpdateId != memId'> <!-- 현재 로그인 계정이 관리자이면 글 작성자의 iD를 갖고 와서 넣어줌 -->
+			(
+		</if>
+		mem_id = #{boardUpdateId} <!-- 글작성자가 현재 로그인 계정이면서 BOARD_NUM이 OO인 것을 지움#{boardUpdateId} -->
+		<if test='boardUpdateId == "admin" and boardUpdateId != memId'> <!-- 현재 로그인 계정이 관리자이면 글 작성자의 iD를 갖고 와서 넣어줌 -->
+			OR mem_id = #{memId})
+		</if>
+		AND
+		board_num = #{boardNum}
+
+	</update>
+
+	<update id="plusBoardHit" parameterType="BoardDTO">
+		update board_table set board_hit = board_hit +1 where board_num = #{boardNum}
+
+	</update>
+
+	<select id="searchBoard" parameterType="BoardDTO" resultType="BoardDTO">
+		select rownum rno, A.board_num, A.board_type ,A.board_title, A.board_content, A.board_hit, B.mem_id, B.mem_nick, A.board_date
+		from board_table A
+		left outer join member_table B on A.mem_id = B.mem_id
+		where A.board_title like '%'||#{boardSearch}||'%'
+		or A.board_content like '%'||#{boardSearch}||'%'
+		or B.mem_nick like '%'||#{boardSearch}||'%'
+		and A.board_type = #{boardType}
+		order by rownum asc
+
+	</select>
+
+	<select id="selectReportList" resultType="ReportDTO">
+	SELECT * FROM
+		(SELECT rownum rno, r.rep_num, r.mem_id, r.rep_id, r.rep_type, r.board_num, r.comm_num, m.mem_block
+		FROM report_table r, member_table m
+		WHERE r.rep_id= m.mem_id)
+	ORDER BY rno desc
+
+	</select>
+
+	<insert id="insertReport" parameterType="ReportDTO">
+		INSERT INTO
+			report_table (rep_num, mem_id, rep_id, rep_type
+			<if test='boardNum != null'>, board_num</if>
+			<if test='commNum != null'>, comm_num</if>
+			)
+		VALUES
+			('r_'||sequ_report_num.nextval, #{memId}, #{repId}, #{repType}
+			<if test='boardNum != null'>, #{boardNum}</if>
+			<if test='commNum != null'>, #{commNum}</if>
+			)
+	</insert>
+
+
+
 
 </mapper>

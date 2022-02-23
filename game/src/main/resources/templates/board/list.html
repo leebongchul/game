@@ -1,15 +1,105 @@
 <!DOCTYPE html>
+
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<style>
+* {margin:0; padding:0;
+text-decoration:none;
+	border-collapse: collapse;
+	}	
+
+table {
+width:100%;
+border: 1px solid black;
+
+
+margin-top:5px;
+margin-left:auto;
+margin-right:auto;
+margin-bottom:auto;
+}
+table.tr tr1 {
+padding: 100px;
+
+} 
+th{
+ border: 1px solid black;
+
+padding: 10px;
+}
+td {
+ border: 1px solid black; 
+text-align:center;
+padding:5px;
+}
+.select{
+	width:130px;
+    border-radius:5px;
+    padding:8px;
+    font-size:12px;
+    border:1px solid gray;
+}
+h1{
+	text-align:center;
+}
+.search_input {
+	width:190px;
+    border-radius:5px;
+    padding:8px;
+    font-size:13px;
+    margin-left:10px;
+     border:1px solid gray;
+    margin-top:2px;
+}
+.btn_search {
+		color:white;
+        background:black;
+        border-radius:5px;
+        padding:6px 15px;
+        font-size:14px;
+        border: 1px solid black;
+        cursor:pointer;
+        margin-left:5px;
+}
+.btn_write {
+		color:white;
+        background:black;
+        border-radius:5px;
+        padding:6px 15px;
+        font-size:14px;
+        border: 1px solid black;
+        cursor:pointer;
+        float:right;
+}
+.title_link {
+	list-style-type:none;
+	color:black;
+}
+
+a[name="btn_write"]{
+	color:white;
+}
+</style>
     <head>
         <meta charset="UTF-8">
         <title>The page is a write page</title>
     </head>
     <body>
-        
+    <h1>자유 게시판</h1>
+        		<div>
+        		<select name="search" class="select">
+        		 <option value="전체">전체</option>
+        		 <option value="작성자">작성자</option>
+        		 <option value="제목">제목</option>
+        		 <option value="내용">내용</option>
+        		 
+        		</select>
+        		<input type="text" name="search_typing" class="search_input"></iuput>
+        		<button type="button" class="btn_search" >검색</button>
+        		</div>
 	        <div class="table-responsive clearfix">
 	            <table class="table table-hover">
 	                <thead>
-	                    <tr>
+	                    <tr class="tr1">
 	                        <th>번호</th>
 	                        <th>제목</th>
 	                        <th>작성자</th>
@@ -21,7 +111,7 @@
 	                    <tr th:if="${not #lists.isEmpty( boardList )}" th:each="row : ${boardList}">
 	                        <td class= "col-md-1" scope="row" th:text="${row.listnum}"></td>
 	                        <td class="col-md-6, text-left">
-	                            <a th:href="@{/board/freeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" th:text="${row.boardTitle} + '('+ ${row.commCount} +')'"></a>
+	                            <a class="title_link" th:href="@{/board/freeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" th:text="${row.boardTitle} + '('+ ${row.commCount} +')'"></a>
 	                        </td>
 	                        <td class= "col-md-2" th:text="${row.memNick}"></td>
 	                        <td class= "col-md-2" th:text="${row.boardDate}"></td>
@@ -34,9 +124,8 @@
 	                    </tr>
 	                </tbody>
 	            </table>
-	
 	            <div class="btn_wrap text-right">
-	                <a th:href="@{/board/freeboard/write(boardType=1)}" class="btn btn-primary waves-effect waves-light">Write</a>
+	                <button type="button" class="btn_write" ><a th:href="@{/board/freeboard/write(boardType=1)}" class="btn btn-primary waves-effect waves-light" name="btn_write">글쓰기</a></button>
 	            </div>
 	        </div>
 	        <th:block layout:fragment="paging">
@@ -50,7 +139,20 @@
             function movePage(uri, queryString) {
                 location.href = uri + queryString;
             }
-
+            /*[- end of function -]*/
+            
+            //검색기능을 위한 ajax작성즁
+            function search_board() {
+            	$.ajax({
+            		type:'GET'
+            	})
+            	
+            }
+            
+            
+            
+            
+            
             /*]]>*/
         </script>
     </th:block>

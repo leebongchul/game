@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <title>The page is a write page</title>
+<!-- 자바스크립트 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
 <!-- CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 <!-- 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 
-<!-- 자바스크립트 -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <style type="text/css">
 body {
 	margin-top: 20px;
@@ -86,6 +87,20 @@ body {
 	background-color: #fff;
 	border-bottom: 0 solid transparent;
 }
+
+.px-5 {
+	padding-right: 3rem !important;
+	padding-left: 3rem !important;
+}
+
+.my-2 {
+	margin-top: 0.5rem !important;
+	margin-bottom: 0.5rem !important;
+}
+
+.mb-3 {
+	margin-bottom: 1rem !important;
+}
 </style>
 </head>
 <body>
@@ -100,11 +115,11 @@ body {
 			<div class="row">
 				<div class="col-xl-8">
 					<div class="card">
-						<div class="card-header pb-0">
-							<div class="card-actions float-right"></div>
-						</div>
-						<div class="card-body">
-							<form name="userBlockForm" action="#" method="get">
+						<form name="blockForm" id="blockForm" action="/admin/block" method="get">
+							<div class="card-header pb-0">
+								<div class="card-actions float-right"></div>
+							</div>
+							<div class="card-body">
 								<table class="table table-striped" style="width: 100%">
 									<thead>
 										<tr>
@@ -119,7 +134,7 @@ body {
 									</thead>
 									<tbody>
 										<tr th:if="${not #lists.isEmpty( reportList )}" th:each="row : ${reportList}">
-											<td class="col-md-1, text-center" scope="row"><input type="checkbox" name="blockUser"></td>
+											<td class="col-md-1, text-center" scope="row"><input type="checkbox" name="memId" th:value="${row.repId}"></td>
 											<td class="col-md-2, text-center" th:text="${row.memId}"></td>
 											<td class="col-md-2, text-center" th:text="${row.repId}"></td>
 											<td class="col-md-1, text-center" th:text="${row.repType}"></td>
@@ -135,14 +150,115 @@ body {
 									</tbody>
 								</table>
 								<div class="text-right">
-									<button type="button" class="btn"><strong>차 단</strong></button>
+									<!-- Button trigger modal -->
+									<button type="button" class="btn" onclick="blockUserFormCheck()">
+										<strong>차 단</strong>
+									</button>
+									<!-- 차단 버튼 클릭시 유효성 검사(onclick="blockFormCheck()")을 하기 위해 모달창 띄우는 버튼 분리하여 자바스크립트로 처리 -->
+									<button type="button" class="btn dropdown-item" id="btnBlock" data-toggle="modal" data-target="#myModal" style="display: none"></button>
 								</div>
-							</form>
-						</div>
+							</div>
+							<!-- Modal -->
+							<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								<div class="modal-dialog modal-sm" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+											<h4 class="modal-title" id="myModalLabel">
+												<strong>사용자 차단</strong>
+											</h4>
+										</div>
+										<!-- Modal 내용-->
+										<div class="modal-body px-5">
+											<h5 class="mb-3">
+												<strong>차단 기간을 선택해주세요.</strong>
+											</h5>
+											<!-- 											<form name="periodForm" id="periodForm" action="/board/report" method="get"> -->
+											<div class="form-check my-2">
+												<input class="form-check-input" type="radio" name="blockPeriod" value="3"> <label class="form-check-label" for="flexRadioDefault1">
+													3일 </label>
+											</div>
+											<div class="form-check my-2">
+												<input class="form-check-input" type="radio" name="blockPeriod" value="7"> <label class="form-check-label" for="flexRadioDefault2">
+													7일 </label>
+											</div>
+											<div class="form-check my-2">
+												<input class="form-check-input" type="radio" name="blockPeriod" value="14"> <label class="form-check-label"
+													for="flexRadioDefault1"> 14일 </label>
+											</div>
+											<div class="form-check my-2">
+												<input class="form-check-input" type="radio" name="blockPeriod" value="30"> <label class="form-check-label"
+													for="flexRadioDefault2"> 30일 </label>
+											</div>
+											<div class="form-check my-2">
+												<input class="form-check-input" type="radio" name="blockPeriod" value="90"> <label class="form-check-label"
+													for="flexRadioDefault1"> 90일 </label>
+											</div>
+											<div class="form-check my-2">
+												<input class="form-check-input" type="radio" name="blockPeriod" value="00"> <label class="form-check-label"
+													for="flexRadioDefault2"> 영구정지 </label>
+											</div>
+<!-- 											<div class="form-check my-2"> -->
+<!-- 												<input class="form-check-input" type="hidden" id="blockMemId" name="memId"> -->
+<!-- 											</div> -->
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+											<button type="button" class="btn btn-primary" onclick="blockFormCheck()">확인</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
+<script>
+	//차단 유저 선택 여부 체크
+	function blockUserFormCheck() {
+		if ($('input:checkbox[name="memId"]').is(':checked')) {
+			$("[data-toggle='modal']").trigger({
+				type : "click"
+			});
+		} else {
+			alert("차단할 유저를 선택해주세요.");
+			$("[data-dismiss=modal]").trigger({
+				type : "click"
+			});
+		}
+	}
+
+	//차단 유저/기간 폼 처리
+	function blockFormCheck() {
+		if ($('input:radio[name="blockPeriod"]').is(':checked')) {
+// 			let memIdxArray = [];
+// 			let blockUser=$("input:checkbox[name='memId']:checked");
+// 			blockUser.each(function(){
+// 				memIdxArray.push($(this).val());
+// 		    });
+			
+// 			/* 배열을 Set 객체로 만들어 중복 제거 */
+// 			let set = new Set(memIdxArray);
+			
+// 			/* (전개연산자)를 사용하여 Set 객체를 다시 배열로 변환*/
+// 			let resultArr = [...set];
+// 			let resultStr = resultArr.join();
+			
+// 			/* 해당 값을 form에 memId라는 name으로 값을 넣어 submit*/
+// 			$("#blockMemId").val(resultStr);
+// // 			alert(resultStr);
+// // 			alert($("#blockMemId").val());
+            $("#blockForm").submit();
+
+        } else {
+            alert("차단 기간을 선택해주세요.");
+        }
+			
+	}
+</script>
 </html>

@@ -19,5 +19,11 @@ public interface GameMapper {
     
     public int updateGameScore(GameScoreDTO user);
     
+    public List<GameScoreDTO> selectTop5List(GameScoreDTO user);
+    
     public List<GameScoreDTO> selectGameRankList(GameScoreDTO user);
+    
+    public int selectRankTotalCount(GameScoreDTO user);
+    
+    public List<GameScoreDTO> selectMyRank(GameScoreDTO user);
 }

@@ -1,6 +1,5 @@
 package com.game.controller;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,14 +47,27 @@ public class BoardController extends UiUtils {
 	}
 
 	@GetMapping(value = "/rank")
-	public String openRankList(@ModelAttribute("rank") GameScoreDTO game, Model model) {
-		GameScoreDTO games = new GameScoreDTO();
-		List<GameScoreDTO> dinorank = Collections.emptyList();
-		List<GameScoreDTO> ddongrank = Collections.emptyList();
-		games.setGameName("ddong");
-
-		return "board/rank";
-	}
+    public String openRankList() {
+        return "board/rank";
+    }
+    
+    @GetMapping(value = "/layout/dinorank")
+    public String opendinoList(@ModelAttribute("params") GameScoreDTO params, Model model) {
+        params.setGameName("공룡게임");
+        List<GameScoreDTO> dinorank = gameService.selectGameRankList(params);
+        model.addAttribute("dino", dinorank);
+        
+        return "board/layout/dinorank";
+    }
+    
+    @GetMapping(value = "/layout/ddongrank")
+    public String openddongList(@ModelAttribute("params") GameScoreDTO params, Model model) {
+        params.setGameName("똥피하기");
+        List<GameScoreDTO> ddongrank = gameService.selectGameRankList(params);
+        model.addAttribute("ddong", ddongrank);
+        
+        return "board/layout/ddongrank";
+    }
 ///////////////////////////////////////////////////////////공지사항 테스트중 Start
 
 	@GetMapping(value = "/noticeboard/list")
@@ -127,6 +139,7 @@ public class BoardController extends UiUtils {
 			return showMessageWithRedirect("없거나 이미 삭제된 게시글입니다. 목록화면으로 이동합니다.", "/board/freeboard/list", Method.GET,
 					null, model);
 		}
+		boardService.plusBoardHit(params);
 		model.addAttribute("board", board);
 
 		return "board/view";
@@ -140,8 +153,8 @@ public class BoardController extends UiUtils {
 //			params.setMemId(loginMember.getMemId());
 //			params.setMemNick(loginMember.getMemNick());
 			/******************************************/
-			params.setMemId("aaaaaa1");
-			params.setMemNick("상상상");
+			params.setMemId("khb");
+			params.setMemNick("테스트2");
 
 			model.addAttribute("board", params);
 		} else {

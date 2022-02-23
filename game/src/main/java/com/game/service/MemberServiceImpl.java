@@ -169,18 +169,35 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 	}
-	
-	//회원탈퇴
+
+	// 회원탈퇴
 	@Override
 	public int dropMember(MemberDTO params) {
-	    
-	    return memberMapper.dropMember(params);
+
+		return memberMapper.dropMember(params);
 	}
-	
-	//사용자 정보 수정
+
+	// 사용자 정보 수정
 	@Override
 	public int userUpdate(MemberDTO params) {
-	    return memberMapper.userUpdate(params);
+		return memberMapper.userUpdate(params);
+	}
+
+	// 사용자 차단
+	@Override
+	public boolean updateMemberBlock(MemberDTO params) {
+		String memid = params.getMemId();
+		String[] memidArray = memid.split(",");
+		params.setMemidArr(memidArray);
+
+		int result = memberMapper.updateMemberBlock(params);
+
+		if (result == 0) {
+			return false;
+		} else {
+			return true;
+		}
+
 	}
 
 }

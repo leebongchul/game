@@ -31,12 +31,10 @@ public class Criteria {
 	}
 	
 	public int getStartPage() {
-	    System.out.println("시작번호"+(currentPageNo - 1) * recordsPerPage);
         return (currentPageNo - 1) * recordsPerPage;
     }
 	
 	public int getEndPage() {
-	    System.out.println(this.getStartPage() + recordsPerPage);
 	    return this.getStartPage() + recordsPerPage;
     }
 	

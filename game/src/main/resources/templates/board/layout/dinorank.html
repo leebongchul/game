@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>공룡게임 랭킹</h2>
+        <table class = "table">
+                <thead>
+                    <tr>
+                        <th>랭킹</th>
+                        <th>닉네임</th>
+                        <th>점수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="row : ${dino}">
+                        <td th:text="${row.rno}"></td>
+                        <td th:text="${row.memNick}"></td>
+                        <td th:text="${row.rankScore}"></td>
+                    </tr>
+                </tbody>
+        </table>
+            <th:block layout:fragment="paging">
+                <nav th:replace="board/layout/common :: pagination"></nav>
+            </th:block>
+        <th:block layout:fragment="script">
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+    
+                function movePage(uri, queryString) {
+                    location.href = uri + queryString;
+                }
+    
+                /*]]>*/
+            </script>
+        </th:block>
+</body>
+</html>

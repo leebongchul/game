@@ -27,15 +27,31 @@
     </select>
     
     <!-- 1위부터 5위까지 검색 -->
+    <select id="selectTop5List" parameterType="GameScoreDTO" resultType="GameScoreDTO"> 
+        <![CDATA[
+        SELECT rownum rno, a.* 
+        FROM (SELECT rank_score, member_table.mem_nick,  game_name 
+        FROM rank_table, member_table 
+        WHERE member_table.mem_id = rank_table.mem_id and game_name = #{gameName} ORDER BY rank_score desc)a
+        WHERE rownum <=5
+        ]]>
+    </select>
+    
     <select id="selectGameRankList" parameterType="GameScoreDTO" resultType="GameScoreDTO"> 
         
-        SELECT rno, mem_id, rank_score
-        FROM
-        (SELECT rownum rno,mem_id,rank_score
-        FROM
-        (SELECT mem_id,rank_score FROM rank_table  where  game_name = #{gameName} ORDER BY rank_score DESC) 
-        ORDER BY rno ASC)
-        WHERE rno BETWEEN 1 AND 5
+        SELECT rownum rno, a.* 
+        FROM (SELECT rank_score, member_table.mem_nick,  game_name from rank_table, member_table 
+        WHERE member_table.mem_id = rank_table.mem_id and game_name = #{gameName} 
+        ORDER BY rank_score desc)a 
+        WHERE rownum between 1 and 5
+        
+    </select>
+    
+    <select id="selectRankTotalCount" parameterType="GameScoreDTO" resultType="int"> 
+        
+        SELECT count(*) 
+        FROM rank_table
+        WHERE game_name = #{gameName}
         
     </select>
     
@@ -50,6 +66,7 @@
         #{gameName}
         )
     </insert>
+    
     <update id="updateGameScore" parameterType="GameScoreDTO">
         UPDATE
           rank_table
@@ -92,7 +109,14 @@
 <!--     </select> -->
 
 
+<select id="selectMyRank" parameterType="GameScoreDTO" resultType="GameScoreDTO"> 
 
+select a.rank_score, a.mem_nick, a.game_name, a.rank from
+(select a.rank_score,  b.mem_nick, a.game_name, rank() over (order by rank_score desc)  as rank from rank_table a, member_table b where a.mem_id = b.mem_id and a.game_name=#{gameName}) a,
+(select * from (select rank_score, mem_id, game_name ,rank() over (order by rank_score desc) as rank from rank_table where game_name=#{gameName}) where mem_id=#{memId}) b
+
+where a.rank between b.rank-2 and b.rank+2
+</select>
 
 
 </mapper>

@@ -148,7 +148,7 @@
             <li>
                 <input type="hidden" id="kakaoJoin" th:value="${member.memId != null ? 'Y' : 'N'}">
                 <input type="text" name="memId" th:field="*{memId}" class="input1" id="id" placeholder="6~12자의 영문,숫자 조합"autocomplete="off"
-                    th:disabled="${member.memId != null}" th:style="${member.memId != null ? 'background-color: lightgray;' : ''}">
+                    th:readonly="${member.memId != null}" th:style="${member.memId != null ? 'background-color: lightgray;' : ''}">
                 <!-- onblur="textCheck_id(this)" onfocus ="idchecksave(this)" -->
                 <div id="idmsg" th:text ="${member.memId != null ? '카카오톡으로 회원가입 시 아이디 변경 불가' : ''}"></div>
              </li>
@@ -228,18 +228,18 @@
                     th:style="${memEmail1 !=null && memEmail2 !=null ? 'display:none;' : ''}">인증번호 받기</button>
                 <input type="text" class="code" placeholder="인증번호를 입력해주세요" th:style="${memEmail1 !=null && memEmail2 !=null ? 'display:none;' : ''}"
                     id="code" onblur="emailCodeCheck()" autocomplete="off">
-                <div id="emailmsg" th:text ="${memEmail1 !=null && memEmail2 !=null ? '<주의>이메일 변경 시 추가인증 필요!!' : ''}"></div>
+                <div id="emailmsg" th:text ="${memEmail1 !=null && memEmail2 != null ? '<주의>이메일 변경 시 추가인증 필요!!' : ''}"></div>
                 <input type="hidden" name="memEmail" id="memEmail" value = "">
              </li>
              <li>
                 <button type="submit" id = "submitbtn" class="btn_join">가입하기</button>
              </li>
           </ul>
-                <input type = "hidden" id = "idcheck" th:value ="N">
+                <input type = "hidden" id = "idcheck" th:value ="${memEmail1 !=null && memEmail2 != null ? 'Y' : 'N'}">
                 <input type = "hidden" id = "nickcheck" value = "N">
                 <input type = "hidden" id = "hpcheck" value = "N">
-                <input type = "hidden" id = "emailcheck" th:value ="${memEmail1 !=null && memEmail2 !=null ? 'Y' : 'N'}">   
-                <input type = "hidden" id = "emailcodecheck" th:value ="${memEmail1 !=null && memEmail2 !=null ? 'Y' : 'N'}">  
+                <input type = "hidden" id = "emailcheck" th:value ="${memEmail1 !=null && memEmail2 != null ? 'Y' : 'N'}">   
+                <input type = "hidden" id = "emailcodecheck" th:value ="${memEmail1 !=null && memEmail2 != null ? 'Y' : 'N'}">  
           </form>
       </section>      
         </div>

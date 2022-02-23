@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<style>
+div.card-content {
+border: 1px solid black;
+}
+</style>
 
     <head>
         <meta charset="UTF-8">
@@ -105,7 +110,7 @@
 //        });
        
         function insertComment(boardNum) {
-		console.log(boardNum);
+// 		console.log(boardNum);
         	var content = document.getElementById("content");
 //         	 if (isEmpty(content.value) == true) { 
         		content.setAttribute("placeholder", "댓글을 입력해 주세요.");
@@ -144,14 +149,14 @@
             printCommentList(); 
         });
         
-
         function printCommentList() {
         	//$.get(URL주소[,콜백함수]);
             //${board.~}는 컨트롤러에서 설정한 "board"에서 받아온 값 중 ~라는 속성을 꺼내온단 의미
             //클라이언트가 서버로 요청을 보낼 주소.             
+            
            var uri = /*[[ @{/comments/} + ${board.boardNum}]]*/null;
-            console.log("hi");
-            console.log(/*[[${board.boardNum}]]*/);
+//             console.log("hi");
+            console.log("컨트롤러에서 받아온 값", /*[[${board.boardNum}]]*/);
            //$.get 좀 더 편한 ajax 처리. uri에 http get요청을 날려서 comments/{boardNum}을 요청.
            //서버에서 받아온 데이터(해당 게시글의 댓글 목록)이 response 인자에 담김.
             $.get(uri, function(response) {
@@ -160,28 +165,32 @@
                // if (isEmpty(response) == false) {
                     //<li>태그를 제거한 것을 대신하여 새로 채워넣을 코드(=댓글 목록)의 시작
                     var commentsHtml = "";
-                    
+                   
                     //for:each와 같은 문법. 댓글의 개수(=게시글에 달린 comm_num의 개수가 곧 댓글의 개수)만큼 반복문 실행
                   // $.each(arr, function (index, item) { 
                 	  // 두 번째 매개변수로는 콜백함수인데 콜백함수의 매개변수 중 
                 	    // 첫 번째 매개 변수 index는 배열의 인덱스 또는 객체의 키를 의미하고 
                 	    // 두 번째 매개 변수 item은 해당 인덱스나 키가 가진 값을 의미합니다.
-                    
+                  
                     $(response.commentList).each(function(commNum, comment) {
                         commentsHtml += `
                             <li>
-                                <span class="name">${comment.memNick}</span>
-                                <span class="desc">${comment.commContents}</span>
-                                <button type="button" class="glyphicon glyphicon-pencil" onclick="deleteComment(${comment.commNum})">삭제<i class="fa fa-close" aria-hidden="true"></i></button>
-                                <button type="button" class="btn btn-xs btn-circle">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
+                        	  	<span class="id">${comment.memId}</span>
+                                <span class="nick">${comment.memNick}</span>
+							 	<span class="conts">${comment.commContents}</span>  
+                               
+                                <button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제<i class="fa fa-close" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="updateComment('${comment.commNum}')">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
                             </li>
                         `;
                     });
-
+                	  
                     $(".notice-list").html(commentsHtml);
          	//	    }
             }, "json");
+                    
         }
+       
         /*[- end of function -]*/
     
         
@@ -204,38 +213,40 @@
             }
             /*[- end of function -]*/
             
-            
-            function deleteComment(commNum) {
-
-	if (!confirm('댓글을 삭제하시겠어요?')) {
-		return false;
-	}
-
-	var uri = /*[[ @{/comments/} ]]*/ + commNum;
-	var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "DELETE"};
-
-	$.ajax({
-		url: uri,
-		type: "DELETE",
-		headers: headers,
-		dataType: "json",
-		success: function(response) {
-			if (response.result == false) {
-				alert("댓글 삭제에 실패하였습니다.");
-				return false;
-			}
-
-			printCommentList();
-// 			$("#commentModal").modal("hide");
-		},
-		error: function(xhr, status, error) {
-			alert("에러가 발생하였습니다.");
+    function deleteComment(commNum) {
+    	console.log("값 : " + commNum);
+            if (!confirm('댓글을 삭제하시겠어요?')) {
 			return false;
 		}
-	});
+            
+            
+// 		 var commNum = document.getElementById("commNum1").value;
+//          commNum.innerHTML="바뀐html";
+		var uri = /*[[ @{/comments/} ]]*/ + commNum;
+		var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "DELETE"};
+		
+		$.ajax({
+			url: uri,
+			type: "DELETE",
+			headers: headers,
+			dataType: "json",
+			success: function(response) {
+				if (response.result == false) {
+					alert("댓글 삭제에 실패하였습니다.");
+					return false;
+				}
 	
-      }
-	   /*[- end of function -]*/
+				printCommentList();
+	// 			$("#commentModal").modal("hide");
+			},
+			error: function(xhr, status, error) {
+				alert("에러가 발생하였습니다.");
+				return false;
+			}
+			});
+		
+	  }
+		   /*[- end of function -]*/
 		/*]]>*/
         </script>
         

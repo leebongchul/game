@@ -11,17 +11,19 @@ import lombok.Data;
  */
 
 @Data
-public class MemberDTO extends Criteria{
+public class MemberDTO extends Criteria {
 
 	/**
 	 * 1. mem_hp컬럼의 데이터타입을 NUMBER() 설정했을시, 0101234578으로 입력시 101234578으로 보여지는 문제 발생.
 	 * varchar2()로 수정 2. Member_table에서 ID를 PK값으로 사용하기로 결정됨으로써 시퀀스 삭제함.
 	 */
 
-	//private String memId, memPass, memNick, memName, memGender, memTel, memHp, memEmail, memBlock, memDate;
-	
-	private String memId, memPass, memNick, memName, 
-    memGender, memTel, memHp, memEmail, memBlock, memDate,
-    memDrop, memBlockDate, memBlockEndDate, memRole;
+	// private String memId, memPass, memNick, memName, memGender, memTel, memHp,
+	// memEmail, memBlock, memDate;
+
+	private String memId, memPass, memNick, memName, memGender, memTel, memHp, memEmail, memBlock, memDate, memDrop,
+			memBlockDate, memBlockEndDate, memRole;
+	private int blockPeriod;
+	private String[] memidArr;
 
 }

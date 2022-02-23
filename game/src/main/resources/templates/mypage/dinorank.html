@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>공룡</h1>
+ <table class = "table">
+                <thead>
+                    <tr>
+                        <th>랭킹</th>
+                        <th>닉네임</th>
+                        <th>점수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="row : ${dino}">
+                        <td th:text="${row.rank}"></td>
+                        <td th:text="${row.memNick}"></td>
+                        <td th:text="${row.rankScore}"></td>
+                    </tr>
+                </tbody>
+        </table>
+            
+</body>
+</html>
