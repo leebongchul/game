@@ -8,7 +8,12 @@ import lombok.Data;
 @Data
 public class GameScoreDTO extends Criteria {
     
-    private int rno, rankScore;
-    private String  memId,gameName,memNick;
+    private int rno, rankScore, rank;
+    private String  memId,gameName,memNick, gameName1,gameName2;
     private PaginationInfo paginationInfo;
+    
+    
+   
+    
+    
 }
