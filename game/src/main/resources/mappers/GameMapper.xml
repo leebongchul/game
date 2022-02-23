@@ -30,7 +30,8 @@
     <select id="selectTop5List" parameterType="GameScoreDTO" resultType="GameScoreDTO"> 
         <![CDATA[
         SELECT rownum rno, a.* 
-        FROM (SELECT rank_score, member_table.mem_nick,  game_name FROM rank_table, member_table 
+        FROM (SELECT rank_score, member_table.mem_nick,  game_name 
+        FROM rank_table, member_table 
         WHERE member_table.mem_id = rank_table.mem_id and game_name = #{gameName} ORDER BY rank_score desc)a
         WHERE rownum <=5
         ]]>

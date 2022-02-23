@@ -14,7 +14,26 @@
 
 </sql>
 
+<!-- 내 댓글 검색 -->
+<select id="selectMyComment" parameterType="CommentDTO" resultType="CommentDTO">
 
+SELECT b.* FROM (SELECT rownum rno,a.* 
+FROM (
+SELECT board_table.board_title, comm_contents, comm_date,board_table.board_num,board_table.board_type, comment_table.mem_id
+FROM comment_table, board_table
+WHERE board_table.board_num = comment_table.board_num and comment_table.mem_id = #{memId} 
+ORDER BY comm_date desc)a)b where rno between #{startPage} and #{endPage}
+
+</select>
+
+<select id="selectMyCommentCount" parameterType="CommentDTO" resultType="int">
+    
+SELECT count(*) 
+FROM comment_table, board_table
+WHERE board_table.board_num = comment_table.board_num and comment_table.mem_id = #{memId} 
+ORDER BY comm_date desc
+
+</select>
 
 <!--댓글 등록  -->
 <insert id="insertComment" parameterType="CommentDTO">

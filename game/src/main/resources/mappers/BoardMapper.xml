@@ -50,13 +50,13 @@
 		FROM
 		(SELECT rownum listnum, d.*
 		FROM
-		(SELECT count(a.board_num) as comm_count, b.board_num, b.board_title, b.mem_id, b.board_date, c.mem_nick, b.board_type
+		(SELECT count(a.board_num) as comm_count, b.board_num, b.board_title, b.mem_id, b.board_date, c.mem_nick, b.board_type, b.board_hit
 		FROM
 		comment_view a
 		RIGHT OUTER JOIN board_table b ON a.board_num = b.board_num
 		LEFT OUTER JOIN member_table c ON c.mem_id = b.mem_id
 		WHERE b.board_delete = 'N' AND b.board_type = #{boardType} and (a.COMM_DELETE = 'N' or a.comm_delete is null)
-		GROUP BY b.board_num, b.board_title, b.board_content, b.board_date, b.mem_id, b.board_delete, c.mem_nick, b.board_type
+		GROUP BY b.board_num, b.board_title, b.board_content, b.board_date, b.mem_id, b.board_delete, c.mem_nick, b.board_type, b.board_hit
 		ORDER BY board_date) d
 		ORDER BY listnum desc)e)f
 		where

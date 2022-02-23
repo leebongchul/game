@@ -1,6 +1,6 @@
 package com.game.domain;
 
-import com.google.gson.Gson;
+import com.game.paging.PaginationInfo;
 
 import lombok.Data;
 import lombok.Getter;
@@ -22,6 +22,7 @@ public class CommentDTO extends BoardDTO {
 	 * varchar2()로 수정 2. Member_table에서 ID를 PK값으로 사용하기로 결정됨으로써 시퀀스 삭제함.
 	 */
 
-	private String commNum, commContents, commUpdateDate, commUpdateId, commDelete, commDate;
+	private String memId,commNum, commContents, commUpdateDate, commUpdateId, commDelete, commDate;
+	private PaginationInfo paginationInfo;
 	
 }

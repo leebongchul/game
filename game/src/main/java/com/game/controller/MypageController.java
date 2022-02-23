@@ -1,5 +1,7 @@
 package com.game.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,7 +20,11 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.game.Util.UiUtils;
 import com.game.constant.Method;
+import com.game.domain.BoardDTO;
+import com.game.domain.CommentDTO;
 import com.game.domain.MemberDTO;
+import com.game.service.BoardService;
+import com.game.service.CommentService;
 import com.game.service.MemberService;
 
 @Controller
@@ -26,17 +33,67 @@ public class MypageController extends UiUtils {
 
     @Autowired
     private MemberService memberService;
-
+    
+    @Autowired
+    private BoardService boardService;
+    
+    @Autowired
+    private CommentService commentService;
+    
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @GetMapping(value = "/mypagemain")
     public String mypagemain(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             Model model) {
+        /* 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리
         if (loginMember == null) {
-            return "../index";
+            return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
         }
+        */
         return "mypage/mypagemain";
+    }
+    
+    @GetMapping(value = "/userboardview")
+    public String userboardview(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+            @ModelAttribute("params") BoardDTO params,Model model) {
+        /* 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리
+        if (loginMember == null) {
+            return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
+        }
+        */
+        //params.setMemId(loginMember.getMemId()); 
+        params.setMemId("aaaaaa1"); // 테스트용 하드코딩.
+        params.setBoardType(1);
+        List<BoardDTO> boardList = boardService.getBoardList(params);
+        model.addAttribute("boardList", boardList);
+        return "mypage/userboardview";
+    }
+    
+    @GetMapping(value = "/usercommentview")
+    public String usercommentview(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+            @ModelAttribute("params") CommentDTO params, Model model) {
+        /* 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리
+        if (loginMember == null) {
+            return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
+        }
+        */
+        params.setMemId("aaaaaa1"); // 테스트용 하드코딩.
+        List<CommentDTO> commList = commentService.selectMyComment(params);
+        model.addAttribute("commList", commList);
+        
+        return "mypage/usercommentview";
+    }
+
+    @GetMapping(value = "/userrankview")
+    public String userrankview(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+            Model model) {
+        /* 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리
+        if (loginMember == null) {
+            return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
+        }
+        */
+        return "mypage/userrankview";
     }
 
     @GetMapping(value = "/userupdate")
@@ -146,4 +203,10 @@ public class MypageController extends UiUtils {
         return showMessageWithRedirect("회원탈퇴 성공", "../index", Method.GET, null, model);
 
     }
+    
+    @GetMapping(value = "/menulist")
+    public String menulist(Model model) {
+        return "mypage/menulist";
+    }
+    
 }
