@@ -220,8 +220,7 @@ public class MypageController extends UiUtils {
         GameScoreDTO user = new GameScoreDTO();
         //user.setMemId(loginMember.getMemId());
         user.setMemId("uuu333");
-        user.setGameName1("공룡게임");
-        user.setGameName2("공룡게임");
+        user.setGameName("공룡게임");
         
         List<GameScoreDTO> rank = gameService.selectMyRank(user);
         model.addAttribute("dino",rank);
@@ -234,8 +233,7 @@ public class MypageController extends UiUtils {
         GameScoreDTO user = new GameScoreDTO();
         //user.setMemId(loginMember.getMemId());
         user.setMemId("uuu333");
-        user.setGameName1("똥피하기");
-        user.setGameName2("똥피하기");
+        user.setGameName("똥피하기");
         
         List<GameScoreDTO> rank = gameService.selectMyRank(user);
         model.addAttribute("ddong",rank);
