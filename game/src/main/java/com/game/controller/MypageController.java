@@ -209,6 +209,7 @@ public class MypageController extends UiUtils {
         return "mypage/menulist";
     }
     
+    
     @GetMapping(value = "/dinorank")
     public String dinorank(Model model) {
         return "mypage/dinorank";
