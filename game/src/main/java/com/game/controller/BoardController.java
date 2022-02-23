@@ -139,6 +139,7 @@ public class BoardController extends UiUtils {
 			return showMessageWithRedirect("없거나 이미 삭제된 게시글입니다. 목록화면으로 이동합니다.", "/board/freeboard/list", Method.GET,
 					null, model);
 		}
+		boardService.plusBoardHit(params);
 		model.addAttribute("board", board);
 
 		return "board/view";
@@ -152,8 +153,8 @@ public class BoardController extends UiUtils {
 //			params.setMemId(loginMember.getMemId());
 //			params.setMemNick(loginMember.getMemNick());
 			/******************************************/
-			params.setMemId("aaaaaa1");
-			params.setMemNick("상상상");
+			params.setMemId("khb");
+			params.setMemNick("테스트2");
 
 			model.addAttribute("board", params);
 		} else {
