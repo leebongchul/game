@@ -63,6 +63,8 @@ public class CommentController {
 			
 			if (str != null) {
 				params.setCommNum(str);
+			}else {
+			    System.out.println("컨트롤러로 매핑");
 			}
 			
 			boolean isRegistered = commentService.registerComment(params);
@@ -121,7 +123,7 @@ public class CommentController {
 
     	CommentDTO dto = new CommentDTO();
     	//아이디값을 안주니까 삭제가 안됐음. 
-    	dto.setMemId("khb");
+    	dto.setMemId("khb0");
     	dto.setCommNum(str);
 		JsonObject jsonObj = new JsonObject();	
 

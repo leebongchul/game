@@ -122,7 +122,7 @@ border: 1px solid black;
 //         	var uri = /*[[ @{/comments} ]]*/null;
         	var uri = "/comments" ;
         	var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "POST"};
-        	var params = {"boardNum": boardNum, "commContents": content.value, "memId": "khb"};
+        	var params = {"boardNum": boardNum, "commContents": content.value, "memId": "khb0"};
 
         	$.ajax({
         		url: uri,
@@ -266,6 +266,38 @@ border: 1px solid black;
             
             
 		   /*[- end of function -]*/
+		   
+		   
+		   function updateComment(commNum) {
+			    console.log(commNum);
+			     var content = document.getElementById("conts");
+
+    var uri = /*[[ @{/comments/} ]]*/ + commNum;
+    var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "PATCH"};
+    var params = {"commNum": commNum, "memId": "khb0", "commContents": "qweasd"};
+
+    $.ajax({
+        url: uri,
+        type: "PATCH",
+        headers: headers,
+        dataType: "json",
+        data: JSON.stringify(params),
+        success: function(response) {
+            if (response.result == false) {
+                alert("댓글 수정에 실패하였습니다.");
+                return false;
+            }
+
+            printCommentList();
+//             $("#commentModal").modal("hide");
+        },
+        error: function(xhr, status, error) {
+            alert("에러가 발생하였습니다.");
+            return false;
+        }
+    });
+		   }	
+    /*[- end of function -]*/
 		/*]]>*/
         </script>
         
