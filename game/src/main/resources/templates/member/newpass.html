@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="../js/newpass.js"></script>
 <style>
     body {
         background: rgb(94,94,94);
@@ -103,7 +102,7 @@
              </li>
                
              <li>
-                <input type = "hidden" name = "memId" th:value = "*{memId}">
+                <input type = "hidden" name = "memId" th:value = "${member.memId}">
              </li>
              
              <li>
@@ -117,4 +116,5 @@
       </form>
  </section>
 </body>
+<script src="../js/newpass.js"></script>
 </html>
