@@ -57,14 +57,14 @@ public class GameController extends UiUtils {
         if(loginMember == null) {
             System.out.println("게스트접속");
             model.addAttribute("member", loginMember);
-            top5 =  gameService.selectGameRankList(user);
+            top5 =  gameService.selectTop5List(user);
             model.addAttribute("top5",top5);
             return "game/dino";
         }
         
             System.out.println("유저접속");
             user.setMemId(loginMember.getMemId());
-            top5 =  gameService.selectGameRankList(user);
+            top5 =  gameService.selectTop5List(user);
             GameScoreDTO result = gameService.selectGameScore(user); // 유저정보로 rank_table값 불러옴
             
             if(result == null) {                                             // DB에 게임점수 테이블에 정보가 없으면 실행 
@@ -96,7 +96,7 @@ public class GameController extends UiUtils {
         if(loginMember == null) {
             System.out.println("게스트접속");
             model.addAttribute("member", loginMember);
-            top5 =  gameService.selectGameRankList(user);
+            top5 =  gameService.selectTop5List(user);
             model.addAttribute("top5",top5);
             return "game/ddong";
         }
@@ -104,7 +104,7 @@ public class GameController extends UiUtils {
             System.out.println("유저접속");
             
             user.setMemId(loginMember.getMemId());
-            top5 =  gameService.selectGameRankList(user);
+            top5 =  gameService.selectTop5List(user);
             GameScoreDTO result = gameService.selectGameScore(user); // 유저정보로 rank_table값 불러옴
             
             if(result == null) {                                             // DB에 게임점수 테이블에 정보가 없으면 실행 

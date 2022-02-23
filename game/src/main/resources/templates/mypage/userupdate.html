@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
+<style> 
     section.userupdate {
         width:460px;
         margin:auto;
@@ -39,10 +39,6 @@
         margin-bottom: 15px;
     }
     
-    .code {
-        margin-bottom: 15px;
-    }
-    
     .hp {
     margin-bottom: 15px;
         width:70px;
@@ -54,9 +50,7 @@
    
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <script th:src="@{/scripts/jquery.min.js}"></script>
-
 </head>
 <body>
  <th:block layout:fragment="content">
@@ -110,10 +104,10 @@
              </li>
              <li>
                 <label>*이메일</label>
-                </li>
+             </li>
             <li>
-                <input type="text" name="email1" class="email" th:value="${memEmail1}" onblur ="emailCheck()" id="email1" autocomplete="off"> 
-                <input type="text" name="email2" class="email" th:value="${memEmail2}" onblur ="emailCheck()" id="email2" autocomplete="off">
+                <input type="text" name="email1" class="email" onblur ="emailCheck()" id="email1" autocomplete="off"> 
+                <input type="text" name="email2" class="email" onblur ="emailCheck()" id="email2" autocomplete="off">
                 <select class="email2" id="email3" onchange="emailSend(), emailCheck()">
                    <option value="self">직접입력</option>
                    <option value="naver.com">네이버</option>
@@ -121,12 +115,15 @@
                    <option value="daum.net">다음</option>
                 </select>
                 <div id="emailmsg"></div>
+              </li>
               <li>
                 <input type="hidden" name="memEmail" id="memEmail" value = "">
              </li>
              <li>
                 <button type="submit" id = "submitbtn" class="btn_update">수정</button>
+                <a href="../mypage/mypagemain">
                 <button type="button" id = "submitbtn" class="btn_back">뒤로가기</button>
+                </a>
              </li>
           </ul> 
           <input type = "hidden" id = "nickcheck" value = "N">

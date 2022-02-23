@@ -30,7 +30,6 @@
    	}else if (!textCheck_email()) {
         alert("이메일을 확인해주세요.");
         return false;
-        /*
     }else if(nickcheck.value == 'N'){
 		alert("닉네임 중복을 확인해주세요");
         return false;
@@ -40,7 +39,6 @@
     } else if (emailcheck.value == 'N') {
         alert("이메일 중복을 확인해주세요");
         return false;   
-        */
     }else{
 		return true;
 	}
@@ -166,15 +164,15 @@ var emailSplit;
         let check = /^[^@$!%*#?&]{1,10}$/;
         let nick = $('#nick').val();
         console.log(nick); 
-        if($('#nickval').val() == nick){
+        if($('#nickval').val() == nick){ //로그인한 사용자의 닉네임 == input칸에 입력한 닉네임
             $("#nickmsg").text("");
-            $("#nickcheck").val("Y");
+            $("#nickcheck").val("Y");    //로그인한 사용자가 사용자 정보 수정에서 같은 닉네임을 쓸 경우 넘어갈 수 있도록 처리
         }
         if($('#nickval').val() != nick){
             $.ajax({
             url : '/mypage/nickcheck.do',
             type : 'post',
-            data:{memNick:nick},
+            data:{memNick:nick},           //memNick -->컨트롤러의 파라미터로
             success : function(data) {
                 console.log("1 = 중복o / 0 = 중복x : "+ data);                          
                 
@@ -278,17 +276,17 @@ var emailSplit;
     function emailCheck() {
         let check1 = /^[^ㄱ-ㅎ가-힣]+$/;
         let check2 = /^(.*[a-zA-Z])(?=.*[.])[a-zA-Z\.]+$/;
-        let email = $("#email1").val() + "@" + $("#email2").val();
+        let memEmail = $("#email1").val() + "@" + $("#email2").val();
         
         //let emailcodecheck = $("#emailcodecheck").val();
-        let btn_check = $("#btn_check");
-        let code = $("#code");
+        //let btn_check = $("#btn_check");
+        //let code = $("#code");
         //이메일 변경 시 이메일 중복체크, 이메일 인증체크 값 'N'으로 변경
         emailcheck = 'N';
         //emailcodecheck = 'N';
         //카카오톡으로 회원가입 시 계정의 이메일이 자동 입력되고 이메일의 유효성체크와 인증체크를 진행하지 않아도 됨(버튼과 코드입력란이 안보임)
         //하지만 이메일을 수정할 경우 인증체크를 진행해야함-> 버튼과 코드입력란이 보이게 바뀜
-        btn_check.replaceWith($('<button type="button" class="btn_check" id="btn_check" onclick="sendEmailCode()">인증번호 받기</button>'));
+        //btn_check.replaceWith($('<button type="button" class="btn_check" id="btn_check" onclick="sendEmailCode()">인증번호 받기</button>'));
         //code.replaceWith($('<input type ="text" class="code" placeholder="인증번호를 입력해주세요" id="code" onblur="emailCodeCheck()" autocomplete="off">'));
         
         if(emailSplit[0] == $("#email1").val()){            // 로그인중인 본인 이메일과 같으면 
@@ -304,7 +302,7 @@ var emailSplit;
             $.ajax({
                 url : '/member/emailcheck.do',
                 type : 'post',
-                data:{memEmail:email},
+                data:{memEmail:memEmail},
                 success : function(data) {
                     console.log("1 = 중복o / 0 = 중복x : "+ data);                          
                     
@@ -345,7 +343,7 @@ var emailSplit;
         
         
         
-  function emailSend() {
+  function emailSend(){
     let email2, email3, emailmsg;
     email2 = document.getElementById("email2");
     email3 = document.getElementById("email3");
@@ -359,11 +357,11 @@ var emailSplit;
    	email2.value = email3.value;
     //        let check1 = /^[^ㄱ-ㅎ가-힣]+$/;
 
-    if (email3.value == "self") {
+    if(email3.value == "self"){
         //alert("이메일 주소를 입력해주세요.");
         email2.value = "";
         email2.disabled = false;
-    } else if (email2.value == email3.value) {
+    }else if(email2.value == email3.value){
         emailmsg.innerHTML = "";
         email2.disabled = true;
     }

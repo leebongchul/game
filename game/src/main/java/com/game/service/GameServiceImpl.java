@@ -1,5 +1,6 @@
 package com.game.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.game.domain.GameScoreDTO;
 import com.game.mapper.GameMapper;
+import com.game.paging.PaginationInfo;
 
 @Service
 public class GameServiceImpl implements GameService {
@@ -48,11 +50,31 @@ public class GameServiceImpl implements GameService {
     }
 	
 	@Override
-    public List<GameScoreDTO> selectGameRankList(GameScoreDTO user) {
+    public List<GameScoreDTO> selectTop5List(GameScoreDTO user) {
 	    
-	    List<GameScoreDTO> ranklist = gameMapper.selectGameRankList(user);
+	    List<GameScoreDTO> ranklist = gameMapper.selectTop5List(user);
         
 	    return ranklist;
 	}
+	
+	
+	
+	@Override
+    public List<GameScoreDTO> selectGameRankList(GameScoreDTO user) {
+        List<GameScoreDTO> rankList = Collections.emptyList();
 
+        int rankTotalCount = gameMapper.selectRankTotalCount(user);
+
+        PaginationInfo paginationInfo = new PaginationInfo(user);
+        paginationInfo.setTotalRecordCount(rankTotalCount);
+
+        user.setPaginationInfo(paginationInfo);
+
+        if (rankTotalCount > 0) {
+            rankList = gameMapper.selectGameRankList(user);
+        }
+
+        return rankList;
+    }
+	
 }
