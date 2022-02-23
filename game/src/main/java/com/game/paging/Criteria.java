@@ -31,7 +31,7 @@ public class Criteria {
 	}
 	
 	public int getStartPage() {
-        return (currentPageNo - 1) * recordsPerPage;
+        return (currentPageNo - 1) * recordsPerPage + 1;
     }
 	
 	public int getEndPage() {
