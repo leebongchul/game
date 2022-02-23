@@ -4,17 +4,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    section.mypagemain {
-        width:575px;
+    section.adminpagemain {
+        width:400px;
         margin:auto;
         /*height:500px;*/
         margin-top:100px;
         /*border:1px solid red;*/
-        position:relative;
     }
-    div {
-        /*border:1px solid blue*/
-    }
+    
     span {
         font-size:10pt;
     }
@@ -24,7 +21,7 @@
         margin-right:0px;
     }
     
-    .div1, .div2, .div3 {
+    .div1, .div2 {
         /*display:inline-block;*/
         margin:0;
         padding:0;
@@ -32,71 +29,67 @@
         float:left;
         margin-bottom:30px;
     }
-    .div4, .div5, .div6 {
-    	 margin:0;
+    
+    .div3, .div4 {
+    	margin:0;
         padding:0;
         margin-right:65px;  
         float:left;
         margin-bottom:30px;
     }
-    .div_first {
+    .first_line {
     	display:inline-block;
     }
     h1{
-        margin-left:182px;
+        margin-left:55px;
         padding-bottom:20px;
+        font-size:30px;
+        font-weight:bold;
     }
     a {
         text-decoration:none;
     }
     
     .a1 {
-        margin-left:13px;   
+        margin-left:19px;   
         display:block; 
     }
     .a2 {
-        margin-left:18px;
+        margin-left:27px;
         display:block;     
     }
     .a3 {
-        margin-left:20px;
+        margin-left:15px;
         display:block;     
     }
     .a4 {
-        margin-left:10px;
-        display:block;     
-    }
-    .a5 {
         margin-left:22px;
         display:block;     
     }
-    .a6 {
-        margin-left:33px;
-        display:block;     
-    }
+
 </style>
 </head>
 <body>
-  <section class="mypagemain">
+  <section class="adminpagemain">
    <h1>관리자페이지</h1>
    <div class="first_line">
       <div class="div1">
             <img src="../image/마이페이지.PNG">
-             <a href="../mypage/userboardview" class="a1"><span class="text1">사용자 관리</span></a>
+             <a href="../mypage/userboardview" class="a1"><span class="text1">게시글 관리</span></a>
        </div>
        <div class="div2">
               <img src="../image/마이페이지.PNG">
-              <a href="../mypage/usercommentview" class="a2"><span class="text1">게시글 관리</span></a>
+              <a href="../mypage/usercommentview" class="a2"><span class="text1">댓글 관리</span></a>
        </div>
-     </div> 
+    </div> 
       
+       <div class="div3">
+              <img src="../image/마이페이지.PNG">
+              <a href="../member/newpass" class="a3"><span class="text1">공지사항 관리</span></a>
+       </div>
        <div class="div4">
               <img src="../image/마이페이지.PNG">
-              <a href="../member/newpass" class="a4"><span class="text1">댓글 관리</span></a>
-       </div>
-       <div class="div5">
-              <img src="../image/마이페이지.PNG">
-              <a href="./userupdate" class="a5"><span class="text1">공지사항 관리</span></a>
+              <a href="./userupdate" class="a4"><span class="text1">사용자 관리</span></a>
        </div>
    </section>
 </body>
