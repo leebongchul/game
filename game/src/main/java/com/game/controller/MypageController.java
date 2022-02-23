@@ -34,7 +34,8 @@ public class MypageController extends UiUtils {
     public String mypagemain(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             Model model) {
         if(loginMember == null) {
-            return "member/index";
+            
+            return showMessageWithRedirect("로그인이 필요합니다.", "/index", Method.GET, null, model);
         }
         return "mypage/mypagemain";
     }
