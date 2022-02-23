@@ -194,4 +194,10 @@ public class MypageController extends UiUtils {
         return showMessageWithRedirect("회원탈퇴 성공", "../index", Method.GET, null, model);
 
     }
+    
+    @GetMapping(value = "/menulist")
+    public String menulist(Model model) {
+        return "mypage/menulist";
+    }
+    
 }
