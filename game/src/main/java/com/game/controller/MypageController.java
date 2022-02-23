@@ -57,7 +57,8 @@ public class MypageController extends UiUtils {
             return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
         }
         */
-        params.setMemId("aaaaaa1");
+        //params.setMemId(loginMember.getMemId()); 
+        params.setMemId("uuu333"); // 테스트용 하드코딩.
         params.setBoardType(1);
         List<BoardDTO> boardList = boardService.getBoardList(params);
         model.addAttribute("boardList", boardList);
