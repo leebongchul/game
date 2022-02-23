@@ -24,4 +24,6 @@ public interface GameMapper {
     public List<GameScoreDTO> selectGameRankList(GameScoreDTO user);
     
     public int selectRankTotalCount(GameScoreDTO user);
+    
+    public List<GameScoreDTO> selectMyRank(GameScoreDTO user);
 }

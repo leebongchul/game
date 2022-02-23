@@ -2,167 +2,159 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.game.mapper.MemberMapper">
 
-    <sql id="MemberColumns">
-         mem_id, mem_pass, mem_nick, mem_name, mem_gender, 
-    mem_tel, mem_hp, mem_email, mem_block ,mem_date, mem_drop,mem_block_date,mem_block_end_date,mem_role
-     <!-- 이거 순서 어긋나면 그 어긋난대로 컬럼에 값 입력됨. 
-     mem_id를 가장 뒤에 배치하면 DB에 setMem_id("값")이 mem_date 컬럼에 들어감.
-     mappertest에서 set이고 get이고 나발이고 어림도없음 -->    
-        
-    </sql>
+	<sql id="MemberColumns">
+		mem_id, mem_pass, mem_nick, mem_name, mem_gender,
+		mem_tel, mem_hp, mem_email, mem_block ,mem_date,
+		mem_drop,mem_block_date,mem_block_end_date,mem_role
+		<!-- 이거 순서 어긋나면 그 어긋난대로 컬럼에 값 입력됨. mem_id를 가장 뒤에 배치하면 DB에 setMem_id("값")이 mem_date 컬럼에 들어감. mappertest에서 set이고 get이고 나발이고 어림도없음 -->
+
+	</sql>
 
 
-    <insert id="insertMember" parameterType="MemberDTO"> 
-        
-    insert into member_table (
-            <include refid="MemberColumns" />
-    )values 
-    (#{memId},
-    #{memPass},
-    #{memNick},
-    #{memName},
-    #{memGender},
-    #{memTel},
-    #{memHp},
-    #{memEmail},
-    'N',
-    sysdate,
-    'N',
-    null,
-    null,
-    'user')
-    
-    </insert>
-    
-    <select id="selectMember" parameterType="MemberDTO" resultType="MemberDTO"> 
-        
-        SELECT
-          <include refid="MemberColumns" />
-        FROM
-            member_table
-        WHERE
-            mem_id = #{memId} 
+	<insert id="insertMember" parameterType="MemberDTO">
 
-    </select>
-    
-    <select id="selectMemberId" parameterType="MemberDTO" resultType="String"> 
-        
-        SELECT
-          mem_id
-        FROM
-            member_table
-        WHERE
-            mem_name = #{memName} 
-        AND
-            mem_email = #{memEmail}
+		insert into member_table (
+		<include refid="MemberColumns" />
+		)values
+		(#{memId},
+		#{memPass},
+		#{memNick},
+		#{memName},
+		#{memGender},
+		#{memTel},
+		#{memHp},
+		#{memEmail},
+		'N',
+		sysdate,
+		'N',
+		null,
+		null,
+		'user')
 
-    </select>
-    
-    <select id="selectMemberPass" parameterType="MemberDTO" resultType="int"> 
-        
-        SELECT
-          count(*)
-        FROM
-            member_table
-        WHERE
-            mem_id = #{memId} 
-        AND
-            mem_email = #{memEmail}
+	</insert>
 
-    </select>
-    
-    <update id="updateMemberPass" parameterType="MemberDTO">
-        UPDATE
-          member_table
-        SET
-            mem_pass = #{memPass} 
-        WHERE
-            mem_id = #{memId} 
-    </update>
-    
-<!--     <select id="selectMemberNumber" parameterType="MemberDTO" resultType="int">  -->
-<!--          SELECT  -->
-<!--             trunc(dbms_random.value(100000,999999)) random -->
-<!--          FROM  -->
-<!--             member_table -->
-<!--          WHERE  -->
-<!--             mem_id = #{memId} -->
-<!--          AND -->
-<!--             mem_email = #{memEmail} -->
-<!--     </select> -->
-    
-    <update id="updateMemberBlock" parameterType="MemberDTO">
-        UPDATE
-          member_table
-        SET
-            mem_block = #{memBlock}, mem_block_date = sysdate, mem_block_end_date=sysdate+#{blockPeriod}
-        WHERE
-            mem_id in #{memId} 
-    </update>
-    
-    <select id="memberIdcheck" parameterType="String" resultType="int"> 
-        
-        SELECT
-          count(*)
-        FROM
-            member_table
-        WHERE
-            mem_id = #{memId} 
+	<select id="selectMember" parameterType="MemberDTO" resultType="MemberDTO">
 
-    </select>
-    
-    <select id="memberNickcheck" parameterType="String" resultType="int"> 
-        
-        SELECT
-          count(*)
-        FROM
-            member_table
-        WHERE
-            mem_nick = #{memNick} 
+		SELECT
+		<include refid="MemberColumns" />
+		FROM
+		member_table
+		WHERE
+		mem_id = #{memId}
 
-    </select>
-    
-    <select id="memberHpcheck" parameterType="String" resultType="int"> 
-        
-        SELECT
-          count(*)
-        FROM
-            member_table
-        WHERE
-            mem_hp = #{memHp} 
+	</select>
 
-    </select>
-    
-    <select id="memberEmailcheck" parameterType="String" resultType="int"> 
-        
-        SELECT
-          count(*)
-        FROM
-            member_table
-        WHERE
-            mem_email = #{memEmail} 
+	<select id="selectMemberId" parameterType="MemberDTO" resultType="String">
 
-    </select>
-    
-     <update id="dropMember" parameterType="MemberDTO">
-        UPDATE
-            member_table
-        SET
-            mem_drop = 'Y'
-        WHERE
-        	mem_id = #{memId}
-    </update>
+		SELECT
+		mem_id
+		FROM
+		member_table
+		WHERE
+		mem_name = #{memName}
+		AND
+		mem_email =
+		#{memEmail}
 
-    <update id="userUpdate" parameterType="MemberDTO">
-        UPDATE
-            member_table
-        SET
-            mem_nick = #{memNick}
-            ,mem_tel = #{memTel}
-            ,mem_hp = #{memHp}
-            ,mem_email = #{memEmail}
-        WHERE
-        	mem_id = #{memId}
-    </update>
-    
+	</select>
+
+	<select id="selectMemberPass" parameterType="MemberDTO" resultType="int">
+
+		SELECT
+		count(*)
+		FROM
+		member_table
+		WHERE
+		mem_id = #{memId}
+		AND
+		mem_email =
+		#{memEmail}
+
+	</select>
+
+	<update id="updateMemberPass" parameterType="MemberDTO">
+		UPDATE
+		member_table
+		SET
+		mem_pass = #{memPass}
+		WHERE
+		mem_id = #{memId}
+	</update>
+
+
+	<update id="updateMemberBlock" parameterType="MemberDTO">
+		UPDATE
+		member_table
+		SET
+		mem_block = #{memBlock}, mem_block_date = sysdate, mem_block_end_date=sysdate+#{blockPeriod}
+		WHERE mem_id in
+		<foreach collection="memidArr" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</update>
+
+	<select id="memberIdcheck" parameterType="String" resultType="int">
+
+		SELECT
+		count(*)
+		FROM
+		member_table
+		WHERE
+		mem_id = #{memId}
+
+	</select>
+
+	<select id="memberNickcheck" parameterType="String" resultType="int">
+
+		SELECT
+		count(*)
+		FROM
+		member_table
+		WHERE
+		mem_nick = #{memNick}
+
+	</select>
+
+	<select id="memberHpcheck" parameterType="String" resultType="int">
+
+		SELECT
+		count(*)
+		FROM
+		member_table
+		WHERE
+		mem_hp = #{memHp}
+
+	</select>
+
+	<select id="memberEmailcheck" parameterType="String" resultType="int">
+
+		SELECT
+		count(*)
+		FROM
+		member_table
+		WHERE
+		mem_email = #{memEmail}
+
+	</select>
+
+	<update id="dropMember" parameterType="MemberDTO">
+		UPDATE
+		member_table
+		SET
+		mem_drop = 'Y'
+		WHERE
+		mem_id = #{memId}
+	</update>
+
+	<update id="userUpdate" parameterType="MemberDTO">
+		UPDATE
+		member_table
+		SET
+		mem_nick = #{memNick}
+		,mem_tel = #{memTel}
+		,mem_hp = #{memHp}
+		,mem_email = #{memEmail}
+		WHERE
+		mem_id = #{memId}
+	</update>
 </mapper>

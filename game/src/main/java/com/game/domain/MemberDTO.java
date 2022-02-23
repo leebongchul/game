@@ -24,5 +24,6 @@ public class MemberDTO extends Criteria {
 	private String memId, memPass, memNick, memName, memGender, memTel, memHp, memEmail, memBlock, memDate, memDrop,
 			memBlockDate, memBlockEndDate, memRole;
 	private int blockPeriod;
+	private String[] memidArr;
 
 }

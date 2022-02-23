@@ -70,8 +70,12 @@ h1{
         cursor:pointer;
         float:right;
 }
-a {
+.title_link {
 	list-style-type:none;
+	color:black;
+}
+
+a[name="btn_write"]{
 	color:white;
 }
 </style>
@@ -111,7 +115,7 @@ a {
 	                    <tr th:if="${not #lists.isEmpty( boardList )}" th:each="row : ${boardList}">
 	                        <td class= "col-md-1" scope="row" th:text="${row.listnum}"></td>
 	                        <td class="col-md-6, text-left">
-	                            <a th:href="@{/board/freeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" th:text="${row.boardTitle} + '('+ ${row.commCount} +')'"></a>
+	                            <a class="title_link" th:href="@{/board/freeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" th:text="${row.boardTitle} + '('+ ${row.commCount} +')'"></a>
 	                        </td>
 	                        <td class= "col-md-2" th:text="${row.memNick}"></td>
 	                        <td class= "col-md-2" th:text="${row.boardDate}"></td>
@@ -125,7 +129,7 @@ a {
 	                </tbody>
 	            </table>
 	            <div class="btn_wrap text-right">
-	                <button type="button" class="btn_write" ><a th:href="@{/board/freeboard/write(boardType=1)}" class="btn btn-primary waves-effect waves-light">글쓰기</a></button>
+	                <button type="button" class="btn_write" ><a th:href="@{/board/freeboard/write(boardType=1)}" class="btn btn-primary waves-effect waves-light" name="btn_write">글쓰기</a></button>
 	            </div>
 	        </div>
 	        <th:block layout:fragment="paging">

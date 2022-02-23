@@ -77,4 +77,9 @@ public class GameServiceImpl implements GameService {
         return rankList;
     }
 	
+	@Override
+    public List<GameScoreDTO> selectMyRank(GameScoreDTO user){
+	    return gameMapper.selectMyRank(user);
+	}
+	
 }
