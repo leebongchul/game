@@ -39,14 +39,21 @@ public class BoardServiceImpl implements BoardService {
 	public boolean deleteBoard(BoardDTO params) {
 		int queryResult = 0;
 
-		BoardDTO board = boardMapper.selectBoardDetail(params);
-		board.setBoardUpdateId(params.getMemId());
+//		BoardDTO board = boardMapper.selectBoardDetail(params);
+//		board.setBoardUpdateId(params.getMemId());
 
-		if (board != null) {
-			queryResult = boardMapper.deleteBoard(board);
-		}
+//		if (board != null) {
 
-		return (queryResult == 1) ? true : false;
+		/* 내게시글 다중 선택 삭제 시 배열로 반환하여 넘김 */
+		String boardId = params.getBoardNum();
+//			if (boardId.contains(",")) {
+		String[] boardidArray = boardId.split(",");
+		params.setBoardNumArr(boardidArray);
+//			}
+		queryResult = boardMapper.deleteBoard(params);
+//		}
+
+		return (queryResult == 0) ? false : true;
 	}
 
 	@Override

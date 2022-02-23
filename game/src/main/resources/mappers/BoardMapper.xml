@@ -60,6 +60,9 @@
 		ORDER BY board_date) d
 		ORDER BY listnum desc)e)f
 		where
+		<if test="memId !=null">
+		 f.mem_id=#{memId} and
+		</if>
 		f.rno between #{startPage} and #{endPage}
 		ORDER BY f.rno
 
@@ -114,7 +117,16 @@
 			OR mem_id = #{memId})
 		</if>
 		AND
-		board_num = #{boardNum}
+		board_num in
+<!-- 		<if test='boardidArr != null'> -->
+			<foreach collection="boardNumArr" item="item" open="(" close=")" separator=",">
+	            #{item}
+	        </foreach>
+		
+<!-- 		</if> -->
+<!-- 		<if test='boardidArr == null'> -->
+<!--           = #{boardNum} -->
+<!--         </if> -->
 
 	</update>
 

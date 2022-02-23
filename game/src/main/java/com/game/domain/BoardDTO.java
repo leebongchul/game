@@ -17,13 +17,14 @@ import lombok.Setter;
 @Getter
 public class BoardDTO extends MemberDTO {
 
-    /**
-     * 1. mem_hp컬럼의 데이터타입을 NUMBER() 설정했을시, 0101234578으로 입력시 101234578으로 보여지는 문제 발생.
-     * varchar2()로 수정 2. Member_table에서 ID를 PK값으로 사용하기로 결정됨으로써 시퀀스 삭제함.
-     */
+	/**
+	 * 1. mem_hp컬럼의 데이터타입을 NUMBER() 설정했을시, 0101234578으로 입력시 101234578으로 보여지는 문제 발생.
+	 * varchar2()로 수정 2. Member_table에서 ID를 PK값으로 사용하기로 결정됨으로써 시퀀스 삭제함.
+	 */
 
-    private String boardNum, boardTitle, boardContent, boardDate, boardUpdateId, boardUpdateDate, boardDelete,
-            boardSearch;
-    private int rno,listnum, boardType, boardHit, commCount;
-    private PaginationInfo paginationInfo;
+	private String boardNum, boardTitle, boardContent, boardDate, boardUpdateId, boardUpdateDate, boardDelete,
+			boardSearch;
+	private int rno, listnum, boardType, boardHit, commCount;
+	private PaginationInfo paginationInfo;
+	private String[] boardNumArr;
 }

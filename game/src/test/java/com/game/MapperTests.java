@@ -243,9 +243,13 @@ class MapperTests {
 
 	}
 
-//	@Test
-//	public void testUpdateMemberBlock() {
-//
+	@Test
+	public void testUpdateMemberBlock() {
+
+		String boardId = "admin";
+		String[] boardidArray = boardId.split(",");
+		System.out.println("테스트인풋 데이터 : " + boardidArray);
+
 //		List<String> supplierNames = new ArrayList<String>();
 //		supplierNames.add("admin");
 //		supplierNames.add("user");
@@ -275,6 +279,6 @@ class MapperTests {
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
-//	}
+	}
 
 }
