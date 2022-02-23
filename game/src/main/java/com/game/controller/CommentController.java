@@ -114,15 +114,19 @@ public class CommentController {
         return jsonObj;
         
     }
-
+   
 //    @RequestMapping(value = "/comments/{commNum}", method = RequestMethod.DELETE)
-    @RequestMapping(value = "/comments/{commNum}", method = RequestMethod.DELETE)
-	public JsonObject deleteComment(@PathVariable("commNum") final CommentDTO param) {
+    @DeleteMapping(value = "/comments/{commNum}")
+	public JsonObject deleteComment(@PathVariable("commNum") final String str) {
 
+    	CommentDTO dto = new CommentDTO();
+    	//아이디값을 안주니까 삭제가 안됐음. 
+    	dto.setMemId("khb");
+    	dto.setCommNum(str);
 		JsonObject jsonObj = new JsonObject();	
 
 		try {
-			boolean isDeleted = commentService.deleteComment(param);
+			boolean isDeleted = commentService.deleteComment(dto);
 			jsonObj.addProperty("result", isDeleted);
 
 		} catch (DataAccessException e) {
