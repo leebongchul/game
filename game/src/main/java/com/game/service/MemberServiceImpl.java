@@ -187,26 +187,15 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public boolean updateMemberBlock(MemberDTO params) {
 		String memid = params.getMemId();
-		char[] memidArr = memid.toCharArray();
+		String[] memidArray = memid.split(",");
+		params.setMemidArr(memidArray);
 
-//		params.setMemId(memidArr);
-
-//			let blockUser=$("input:checkbox[name='memId']:checked");
-//			blockUser.each(function(){
-//				memIdxArray.push($(this).val());
-//		    });
-
-//			/* 배열을 Set 객체로 만들어 중복 제거 */
-//			let set = new Set(memIdxArray);
-
-//			/* (전개연산자)를 사용하여 Set 객체를 다시 배열로 변환*/
-//			let resultArr = [...set];
-//			let resultStr = resultArr.join();
 		int result = memberMapper.updateMemberBlock(params);
-		if (result == 1) {
-			return true;
-		} else {
+
+		if (result == 0) {
 			return false;
+		} else {
+			return true;
 		}
 
 	}

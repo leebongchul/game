@@ -243,4 +243,38 @@ class MapperTests {
 
 	}
 
+//	@Test
+//	public void testUpdateMemberBlock() {
+//
+//		List<String> supplierNames = new ArrayList<String>();
+//		supplierNames.add("admin");
+//		supplierNames.add("user");
+//
+////		String[] memidArr = { "admin", "user" };
+////
+////		HashMap<String, Object> map = new HashMap<String, Object>();
+////		map.put("memidArr", memidArr);
+////		map.put("memBlock", "Y");
+////		map.put("blockPeriod", 3);
+//
+////		System.out.println("테스트인풋 데이터1231 : " + supplierNames);
+//		MemberDTO params = new MemberDTO();
+//		params.setMemBlock("Y");
+//		params.setBlockPeriod(3);
+//		params.setMemidArr(supplierNames);
+//
+//		System.out.println("테스트인풋 데이터 : " + params);
+//		int result = memberMapper.updateMemberBlock(params);
+//
+//		try {
+//
+//			System.out.println("=========================");
+//			System.out.println(result);
+//			System.out.println("=========================");
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+
 }

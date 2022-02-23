@@ -45,7 +45,7 @@ public class AdminController extends UiUtils {
 
 	@GetMapping(value = "/block")
 	public String blockUser(@ModelAttribute("params") MemberDTO params, Model model) {
-		params.setMemBlock("N");
+		params.setMemBlock("Y");
 		try {
 			if (params.getMemId() != null && params.getBlockPeriod() != 0) {
 				if (memberService.updateMemberBlock(params)) {
@@ -61,15 +61,5 @@ public class AdminController extends UiUtils {
 		}
 		return "admin/report";
 	}
-
-//	@GetMapping(value = "/block")
-//	public String blockUser(@ModelAttribute("params") MemberDTO params, Model model) {
-//		if (params != null) {
-//			model.addAttribute("params", params);
-//			return "admin/test";
-//		}
-//
-//		return "admin/report";
-//	}
 
 }
