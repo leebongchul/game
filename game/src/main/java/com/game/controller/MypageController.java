@@ -33,10 +33,45 @@ public class MypageController extends UiUtils {
     @GetMapping(value = "/mypagemain")
     public String mypagemain(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             Model model) {
+        /* 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리
         if (loginMember == null) {
-            return "../index";
+            return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
         }
+        */
         return "mypage/mypagemain";
+    }
+    
+    @GetMapping(value = "/userboardview")
+    public String userboardview(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+            Model model) {
+        /* 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리
+        if (loginMember == null) {
+            return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
+        }
+        */
+        return "mypage/userboardview";
+    }
+    
+    @GetMapping(value = "/usercommentview")
+    public String usercommentview(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+            Model model) {
+        /* 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리
+        if (loginMember == null) {
+            return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
+        }
+        */
+        return "mypage/usercommentview";
+    }
+
+    @GetMapping(value = "/userrankview")
+    public String userrankview(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+            Model model) {
+        /* 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리
+        if (loginMember == null) {
+            return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
+        }
+        */
+        return "mypage/userrankview";
     }
 
     @GetMapping(value = "/userupdate")
