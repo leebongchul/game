@@ -58,7 +58,7 @@ public class MypageController extends UiUtils {
         }
         */
         //params.setMemId(loginMember.getMemId()); 
-        params.setMemId("uuu333"); // 테스트용 하드코딩.
+        params.setMemId("aaaaaa1"); // 테스트용 하드코딩.
         params.setBoardType(1);
         List<BoardDTO> boardList = boardService.getBoardList(params);
         model.addAttribute("boardList", boardList);

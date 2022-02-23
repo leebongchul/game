@@ -4,19 +4,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script th:src="@{/scripts/jquery.min.js}"></script>
-<script type="text/javascript">
-	$(document).ready( function() {
-	console.log("레디");
-	$("#ddong").load("/board/layout/ddongrank");  // 원하는 파일 경로를 삽입하면 된다
-	$("#dino").load("/board/layout/dinorank");  // 추가 인클루드를 원할 경우 이런식으로 추가하면 된다
-	
-	});
-</script>
+<style>
+
+</style>
+
 </head>
 <body>
 <h1>랭킹페이지</h1>
-<div id= "ddong"></div>
-<div id= "dino"></div>
+<iframe src = "/board/layout/ddongrank" height = "500px" Style = "border:none"></iframe>
+<iframe src = "/board/layout/dinorank" height = "500px" Style = "border:none"></iframe>
 </body>
 
 </html>
