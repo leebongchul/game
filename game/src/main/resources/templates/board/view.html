@@ -122,7 +122,7 @@ border: 1px solid black;
 //         	var uri = /*[[ @{/comments} ]]*/null;
         	var uri = "/comments" ;
         	var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "POST"};
-        	var params = {"boardNum": boardNum, "commContents": content.value, "memId": "khb"};
+        	var params = {"boardNum": boardNum, "commContents": content.value, "memId": "admin"};///////////댓글작성자 하드코딩///////////
 
         	$.ajax({
         		url: uri,
@@ -236,6 +236,8 @@ border: 1px solid black;
 				if (response.result == false) {
 					alert("댓글 삭제에 실패하였습니다.");
 					return false;
+				}else{
+					alert("댓글을 삭제하였습니다.")
 				}
 	
 				printCommentList();

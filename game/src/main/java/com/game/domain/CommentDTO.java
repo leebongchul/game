@@ -21,5 +21,6 @@ public class CommentDTO extends BoardDTO {
 	 */
 
 	private String commNum, commContents, commUpdateDate, commUpdateId, commDelete, commDate;
-	
+	private String[] commNumArr;
+
 }

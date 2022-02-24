@@ -19,9 +19,9 @@
 
 SELECT b.* FROM (SELECT rownum rno,a.* 
 FROM (
-SELECT board_table.board_title, comm_contents, comm_date,board_table.board_num,board_table.board_type, comment_table.mem_id
+SELECT board_table.board_title, comm_contents, comm_date,board_table.board_num,board_table.board_type, comment_table.mem_id, comment_table.comm_num, comment_table.comm_delete  
 FROM comment_table, board_table
-WHERE board_table.board_num = comment_table.board_num and comment_table.mem_id = #{memId} 
+WHERE board_table.board_num = comment_table.board_num and comment_table.mem_id = #{memId}  AND comment_table.comm_delete='N'
 ORDER BY comm_date desc)a)b where rno between #{startPage} and #{endPage}
 
 </select>
@@ -29,8 +29,9 @@ ORDER BY comm_date desc)a)b where rno between #{startPage} and #{endPage}
 <select id="selectMyCommentCount" parameterType="CommentDTO" resultType="int">
     
 SELECT count(*) 
-FROM comment_table, board_table
-WHERE board_table.board_num = comment_table.board_num and comment_table.mem_id = #{memId} 
+FROM comment_table c, board_table b 
+WHERE b.board_num = c.board_num 
+    AND c.mem_id = #{memId} AND c.comm_delete='N'
 ORDER BY comm_date desc
 
 </select>
@@ -89,11 +90,20 @@ and
 update 
 comment_table 
 set 
-    comm_delete= 'Y'
+    comm_delete= 'Y', comm_update_date=sysdate, comm_update_id=#{commUpdateId} 
 where 
-    comm_num = #{commNum}
+    comm_num in
+	      <foreach collection="commNumArr" item="item" open="(" close=")" separator=",">
+	          #{item}
+	      </foreach>
 and 
-    mem_id=#{memId}
+    <if test='commUpdateId == "admin" and commUpdateId != memId'> <!-- 현재 로그인 계정이 관리자이면 글 작성자의 iD를 갖고 와서 넣어줌 -->
+            (
+    </if>
+    mem_id = #{commUpdateId} <!-- 글작성자가 현재 로그인 계정이면서 BOARD_NUM이 OO인 것을 지움#{boardUpdateId} -->
+    <if test='commUpdateId == "admin" and commUpdateId != memId'>
+        OR mem_id = #{memId})
+    </if>
 
 </update>
 

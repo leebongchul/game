@@ -13,63 +13,63 @@ import com.game.paging.PaginationInfo;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-    @Autowired
-    private CommentMapper commentMapper;
+	@Autowired
+	private CommentMapper commentMapper;
 
-    @Override
-    public boolean registerComment(CommentDTO params) {
-        int queryResult = 0;
+	@Override
+	public boolean registerComment(CommentDTO params) {
+		int queryResult = 0;
 
-        if (params.getCommNum() == null) {
-            queryResult = commentMapper.insertComment(params);
-        } else {
-            queryResult = commentMapper.updateComment(params);
-        }
+		if (params.getCommNum() == null) {
+			queryResult = commentMapper.insertComment(params);
+		} else {
+			queryResult = commentMapper.updateComment(params);
+		}
 
-        return (queryResult == 1) ? true : false;
-    }
+		return (queryResult == 1) ? true : false;
+	}
 
-    @Override
-    public boolean deleteComment(CommentDTO params) {
-        int queryResult = 0;
+	@Override
+	public boolean deleteComment(CommentDTO params) {
+		int queryResult = 0;
 
-        CommentDTO comment = commentMapper.selectCommentDetail(params);
-        
-        if (comment != null && "N".equals(comment.getCommDelete())) {
-            queryResult = commentMapper.deleteComment(params);
-        }
+		/* 내댓글 다중 선택 삭제 시 배열로 반환하여 넘김 */
+		String commId = params.getCommNum();
+		String[] commidArray = commId.split(",");
+		params.setCommNumArr(commidArray);
 
-        return (queryResult == 1) ? true : false;
-    }
-    
-    @Override
-    public List<CommentDTO> getCommentList(CommentDTO params) {
-        List<CommentDTO> commentList = Collections.emptyList();
+		queryResult = commentMapper.deleteComment(params);
 
+		return (queryResult == 0) ? false : true;
+	}
 
-        int commentTotalCount = commentMapper.selectCommentTotalCount(params);
-        if (commentTotalCount > 0) {
-            commentList = commentMapper.selectCommentList(params);
-        }
+	@Override
+	public List<CommentDTO> getCommentList(CommentDTO params) {
+		List<CommentDTO> commentList = Collections.emptyList();
 
-        return commentList;
-    }
-    
-    @Override
-    public List<CommentDTO> selectMyComment(CommentDTO params){
-        List<CommentDTO> commList = Collections.emptyList();
+		int commentTotalCount = commentMapper.selectCommentTotalCount(params);
+		if (commentTotalCount > 0) {
+			commentList = commentMapper.selectCommentList(params);
+		}
 
-        int commTotalCount = commentMapper.selectMyCommentCount(params);
+		return commentList;
+	}
 
-        PaginationInfo paginationInfo = new PaginationInfo(params);
-        paginationInfo.setTotalRecordCount(commTotalCount);
+	@Override
+	public List<CommentDTO> selectMyComment(CommentDTO params) {
+		List<CommentDTO> commList = Collections.emptyList();
 
-        params.setPaginationInfo(paginationInfo);
+		int commTotalCount = commentMapper.selectMyCommentCount(params);
 
-        if (commTotalCount > 0) {
-            commList = commentMapper.selectMyComment(params);
-        }
+		PaginationInfo paginationInfo = new PaginationInfo(params);
+		paginationInfo.setTotalRecordCount(commTotalCount);
 
-        return commList;
-    }
+		params.setPaginationInfo(paginationInfo);
+
+		if (commTotalCount > 0) {
+			commList = commentMapper.selectMyComment(params);
+		}
+
+		return commList;
+	}
 }
