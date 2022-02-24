@@ -166,7 +166,7 @@ public class MemberController extends UiUtils {
         }
         model.addAttribute("member", loginMember);
         return "member/newpass";
-        
+
     }
 
     /********** 중복 체크 ********************************/
@@ -250,7 +250,7 @@ public class MemberController extends UiUtils {
     public String newPassCheck(MemberDTO member, Model model) {
         System.out.println("아이디값" + member.getMemId());
         try {
-            
+
             member.setMemPass(passwordEncoder.encode(member.getMemPass()));
             int newpass = memberService.newpassMember(member);
             if (newpass == 0) {
@@ -334,7 +334,7 @@ public class MemberController extends UiUtils {
     public void emailConfirm(@RequestParam String memEmail) throws Exception {
         System.out.println("전달 받은 이메일 : " + memEmail);
         memberService.sendSimpleMessage(memEmail);
-        
+
     }
 
     @PostMapping("/verifyCode") // 이메일 인증 코드 검증

@@ -20,4 +20,12 @@ public class IndexController {
         return "index.html";
     }
 
+    @GetMapping(value = "/header")
+    public String headerfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+            Model model) {
+
+        model.addAttribute("member", loginMember);
+        return "header.html";
+    }
+
 }
