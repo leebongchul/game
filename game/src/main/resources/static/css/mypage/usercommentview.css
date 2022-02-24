@@ -1,0 +1,58 @@
+@charset "UTF-8";
+h1{
+	text-align:center;
+}
+table{
+ 	width:100%;
+ 	margin-top:5px;
+}
+th, td {
+	border:1px solid black;
+}
+.select{
+	width:130px;
+    border-radius:5px;
+    padding:8px;
+    font-size:12px;
+    border:1px solid gray;
+}
+.search_input {
+	width:190px;
+    border-radius:5px;
+    padding:8px;
+    font-size:13px;
+    margin-left:10px;
+     border:1px solid gray;
+    margin-top:2px;
+}
+.btn_search {
+		color:white;
+        background:black;
+        border-radius:5px;
+        padding:6px 15px;
+        font-size:14px;
+        border: 1px solid black;
+        cursor:pointer;
+        margin-left:5px;
+}
+.btn_mypage {
+		color:white;
+        background:black;
+        border-radius:5px;
+        padding:6px 15px;
+        font-size:14px;
+        border: 1px solid black;
+        cursor:pointer;
+        float:right;
+}
+.btn_delete{
+color:white;
+        background:black;
+        border-radius:5px;
+        padding:6px 15px;
+        font-size:14px;
+        border: 1px solid black;
+        cursor:pointer;
+        float:right;
+}
+

@@ -80,7 +80,7 @@ public class MypageController extends UiUtils {
 		 * 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리 if (loginMember == null) { return
 		 * showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model); }
 		 */
-		params.setMemId("aaaaaa1"); // 테스트용 하드코딩.
+		params.setMemId("admin"); // 테스트용 하드코딩.
 		List<CommentDTO> commList = commentService.selectMyComment(params);
 		model.addAttribute("commList", commList);
 
@@ -204,9 +204,9 @@ public class MypageController extends UiUtils {
 
 	// 내 게시글 삭제
 	@GetMapping(value = "/boardDelete")
-	public String boardDelete(@ModelAttribute("params") BoardDTO params, Model model) {
+	public String boardDelete(@ModelAttribute("params") BoardDTO params,
+			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		/***************** 로그인 세션 구현시 *******************/
-//		@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 		// params.setBoardUpdateId(loginMember.getMemId());
 		// params.setMemId(loginMember.getMemId());
 		/************************************************/
@@ -224,6 +224,31 @@ public class MypageController extends UiUtils {
 
 		} catch (Exception e) {
 			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/mypage/userboardview", Method.GET, null, model);
+		}
+	}
+
+	// 내 댓글 삭제
+	@GetMapping(value = "/commentDelete")
+	public String commentdelete(@ModelAttribute("params") CommentDTO params,
+			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
+		/***************** 로그인 세션 구현시 *******************/
+		// params.setCommUpdateId(loginMember.getMemId());
+		// params.setMemId(loginMember.getMemId());
+		/************************************************/
+		params.setCommUpdateId("admin");// 테스트용 하드코딩->글삭제 시도 회원 (댓글작성자 또는 관리자)
+		params.setMemId("admin");// 테스트용 하드코딩->댓글 작성자
+		try {
+			if (commentService.deleteComment(params)) {
+				return showMessageWithRedirect("삭제가 완료되었습니다.", "/mypage/usercommentview", Method.GET, null, model);
+			} else {
+				return showMessageWithRedirect("삭제를 실패하였습니다.", "/mypage/usercommentview", Method.GET, null, model);
+			}
+		} catch (DataAccessException e) {
+			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/mypage/usercommentview", Method.GET, null,
+					model);
+
+		} catch (Exception e) {
+			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/mypage/usercommentview", Method.GET, null, model);
 		}
 	}
 

@@ -1,0 +1,45 @@
+@charset "UTF-8";
+    section.userupdate {
+        width:460px;
+        margin:auto;
+        height:1000px;
+        /*border:1px solid red;*/
+    }
+   ul {
+        list-style-type:none;
+        font-size:12pt;
+        /*border:1px solid blue;*/
+        margin-left:30px;
+        margin:0;
+        padding:0;
+    }
+    label {
+        background:yellow;
+        display:inline-block;
+        text-align:center;
+        border-radius:5px;  
+        margin-right:10px;
+        margin-bottom:0;
+        font-weight:bold;
+        font-size:10pt;
+        color:gray;
+    }
+    li  { 
+        clear:left; 
+        /*border:1px solid red;*/
+        overflow:hidden;
+    }   
+
+    .input1 {
+        margin-bottom: 15px;
+    }
+    
+    .hp {
+    margin-bottom: 15px;
+        width:70px;
+    }
+    
+    .email {
+        width:70px;
+    }
+   
