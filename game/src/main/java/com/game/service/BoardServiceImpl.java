@@ -46,12 +46,10 @@ public class BoardServiceImpl implements BoardService {
 
 		/* 내게시글 다중 선택 삭제 시 배열로 반환하여 넘김 */
 		String boardId = params.getBoardNum();
-//			if (boardId.contains(",")) {
 		String[] boardidArray = boardId.split(",");
 		params.setBoardNumArr(boardidArray);
-//			}
+
 		queryResult = boardMapper.deleteBoard(params);
-//		}
 
 		return (queryResult == 0) ? false : true;
 	}

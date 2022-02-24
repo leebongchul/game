@@ -118,16 +118,10 @@
 		</if>
 		AND
 		board_num in
-<!-- 		<if test='boardidArr != null'> -->
 			<foreach collection="boardNumArr" item="item" open="(" close=")" separator=",">
 	            #{item}
 	        </foreach>
 		
-<!-- 		</if> -->
-<!-- 		<if test='boardidArr == null'> -->
-<!--           = #{boardNum} -->
-<!--         </if> -->
-
 	</update>
 
 	<update id="plusBoardHit" parameterType="BoardDTO">
