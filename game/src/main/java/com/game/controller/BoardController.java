@@ -194,16 +194,27 @@ public class BoardController extends UiUtils {
 	}
 
 	@PostMapping(value = "/freeboard/delete")
-	public String deleteBoard(@ModelAttribute("params") BoardDTO params, Model model) {
+	public String deleteBoard(@ModelAttribute("params") BoardDTO params,
+			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
+		/***************** 로그인 세션 구현시 *******************/
+//		params.setBoardUpdateId(loginMember.getMemId());
+//		params.setMemRole(loginMember.getMemRole());
+		/************************************************/
+		params.setBoardUpdateId("admin");// 테스트용 하드코딩
+		params.setMemRole("user");// 테스트용 하드코딩
+
 		if (params.getBoardNum() == null && params.getMemId() == null) {
 			return showMessageWithRedirect("올바르지 않은 접근입니다.", "/board/freeboard/list", Method.GET, null, model);
 		}
-		// 현재 로그인 계정을 boardUpdateId로 넘겨줘서 삭제 시 해당 아이디 등록//로그인 구현x상태로 작성자 아이디 입력하여 넘겨준 상태
-		params.setBoardUpdateId("admin");
 		try {
-			boolean isDeleted = boardService.deleteBoard(params);
-			if (isDeleted == false) {
-				return showMessageWithRedirect("게시글 삭제에 실패하였습니다.", "/board/freeboard/list", Method.GET, null, model);
+			if (params.getBoardUpdateId() == params.getMemId() || params.getMemRole() == "admin") {
+				boolean isDeleted = boardService.deleteBoard(params);
+				if (isDeleted == false) {
+					return showMessageWithRedirect("게시글 삭제에 실패하였습니다.", "/board/freeboard/list", Method.GET, null,
+							model);
+				}
+			} else {
+				return showMessageWithRedirect("게시글 삭제 권한이 없습니다.", "/board/freeboard/list", Method.GET, null, model);
 			}
 		} catch (DataAccessException e) {
 			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/board/freeboard/list", Method.GET, null,
