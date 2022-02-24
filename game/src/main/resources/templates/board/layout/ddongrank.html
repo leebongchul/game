@@ -3,9 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<style>
+.content {
+	border:1px solid blue;
+	width:400px;
+}
+thead{
+	background:#F0F0F0;
+}
+tbody {
+	background:#FFFDA2;
+	font-weight:bold;
+}
+img {
+	/*border:1px solid red;*/
+	height:70px;
+	margin-bottom:10px;
+	margin-left:95px;
+}
+span{
+	display:inline;
+	font-size:25px;
+	font-weight:bold;
+	margin-top:50px;
+	/*border:1px solid blue;*/
+}
+ table {
+    width: 400px;
+  }
+</style>
 </head>
 <body>
-<h2>똥피하기 랭킹</h2>
+<section class="content">
+<img src="/image/똥확정3.PNG">
+<span>똥피하기</span>
+
+
+
+
         <table class = "table">
                 <thead>
                     <tr>
@@ -22,6 +58,9 @@
                     </tr>
                 </tbody>
         </table>
+        
+        
+        
     <th:block layout:fragment="paging">
                 <nav th:replace="board/layout/common :: pagination"></nav>
     </th:block>
@@ -37,5 +76,6 @@
                 /*]]>*/
             </script>
         </th:block>
+</section>
 </body>
 </html>

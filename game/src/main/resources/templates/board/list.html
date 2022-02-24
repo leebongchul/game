@@ -10,12 +10,13 @@
     </head>
     <body>
     <div class="content">
-    <a href = "./list"><h1>자유 게시판</h1></a>
+    <a href = "./list" class="text-h1">자유 게시판</a>
     
-              
-    		<th:block layout:fragment="search">
+              <span>
+    		<th:block layout:fragment="search" class="selectbox">
                 <nav th:replace="board/layout/common :: search"></nav>
             </th:block>
+            </span>
         		
 	        <div class="table-responsive clearfix">
 	            <table id = "freeboardtable" class="table table-hover">
@@ -46,7 +47,7 @@
 	                </tbody>
 	            </table>
 	            <div class="btn_wrap text-right">
-	                <button type="button" class="btn_write" ><a th:href="@{/board/freeboard/write(boardType=1)}" class="btn waves-effect waves-light btn_write">글쓰기</a></button>
+	                <button type="button" class="btn-write"><a th:href="@{/board/freeboard/write(boardType=1)}" class="btn waves-effect waves-light btn-write-a">글쓰기</a></button>
 	            </div>
 	        </div>
 	        <div class="paging">
