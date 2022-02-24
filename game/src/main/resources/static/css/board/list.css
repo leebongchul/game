@@ -6,9 +6,12 @@
 #paging-color {
 background-color: black;		
 }
-h1{
-	font-size:20px;
+
+.text-h1{
+	font-size:25px;
 	font-weight:bold;
+	text-decoration:none;
+	color:black;
 }
 .btn-write {
 	color:white;
