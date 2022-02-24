@@ -197,7 +197,7 @@
 	function deleteBoard(boardNum, memId, boardType) {
 
 		if (confirm(boardNum + "번 게시글을 삭제할까요?")) {
-			var uri = "/board/freeboard/delete";
+			var uri = "/admin/boardDelete";
 			var html = "";
 
 			html += '<form name="dataForm" action="'+uri+'" method="get">';

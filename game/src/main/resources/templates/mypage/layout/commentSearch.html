@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!--/* 검색 form */-->
+    <div th:fragment="search" id="adv-search" class="input-group">
+               <form id="searchForm" th:action="@{/mypage/usercommentview}" method="get" th:onsubmit="return searchBoard(this)" class="form-horizontal" role="form">
+                   <!-- /* 현재 페이지 번호, 페이지당 출력할 데이터 개수, 페이지 하단에 출력할 페이지 개수 Hidden 파라미터 */ -->
+                   <input type="hidden" name="currentPageNo" value="1" />
+                   <input type="hidden" name="recordsPerPage" th:value="${params.recordsPerPage}" />
+                   <input type="hidden" name="pageSize" th:value="${params.pageSize}" />
+
+                   <div class="form-group">
+                       <select name="searchType" class="form-control">
+                           <option value="" th:selected="${#strings.isEmpty( params.searchType )}">전체</option>
+                           <option value="title" th:selected="${#strings.equals( params.searchType, 'title' )}">제목</option>
+                           <option value="content" th:selected="${#strings.equals( params.searchType, 'content' )}">내용</option>
+                           <option value="writer" th:selected="${#strings.equals( params.searchType, 'writer' )}">작성자</option>
+                       </select>
+                   </div>
+                   <input type="text" id="searchKeyword" name="searchKeyword" class="form-control" th:value="${params.searchKeyword}" />
+                   
+               <button type="button" class="btn btn-primary" onclick="searchBoard(null)">검색</button>
+               </form>
+      </div>
+</html>

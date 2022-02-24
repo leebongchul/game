@@ -68,16 +68,17 @@ border: 1px solid black;
             </div>
         </div>
         <!-- /.card-content -->
-
         <div class="box-content">
             <div class="card-content">
                 <div class="clearfix">
                     <h4 class="box-title pull-left">Comment</h4>
+                    
                     <!-- /.box-title -->
                 </div>
                 
     <form class="form-horizontal form-view" >
 		<div class="input-group margin-bottom-20">
+		<span class="form-control" th:text="*{memNick}"></span>
 			<input type="text" id="content" class="form-control" ></input>
 			<div class="input-group-btn">
 				<button type="button" class="btn waves-effect waves-light" th:onclick="insertComment([[ ${board.boardNum} ]])">댓글등록
@@ -85,7 +86,6 @@ border: 1px solid black;
 			</div>
 		</div>
 		<ul class="notice-list">
-		
 		</ul>
 	</form>
                 
@@ -312,7 +312,7 @@ border: 1px solid black;
 //         	var uri = /*[[ @{/comments} ]]*/null;
         	var uri = "/comments" ;
         	var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "POST"};
-        	var params = {"boardNum": boardNum, "commContents": content.value, "memId": "khb0"};
+        	var params = {"boardNum": boardNum, "commContents": content.value, "memId": "admin"};
 
         	$.ajax({
         		url: uri,
@@ -399,7 +399,7 @@ border: 1px solid black;
                         html += '<input type="hidden" name="boardType" value="'+boardType+'" />';
                     html += '</form>';
 
-                    $("change").append(html);
+                    $("body").append(html);
                     document.dataForm.submit();
                 }
             }
@@ -453,13 +453,13 @@ border: 1px solid black;
     
     let change ="";
     change += `
-    
+    	 
     <li class="">
         <span class="nick">${memNick}</span>
-	 	<span class="conts" ><input type="text" class="conts1" placeholder="${commContents}" ></input></span>
+	 	<span class="conts" ><input type="text" class="conts1" placeholder="${commContents}" id="tex" ><p/input></span>
        
 	 	<button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="printCommentList()" >취소<i class="fa fa-close" aria-hidden="true"></i></button>
-        <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="updateComment('${commNum}', '${commContents}')">수정완료<i class="fa fa-close1" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="updateComment('${commNum}')">수정완료<i class="fa fa-close1" aria-hidden="true"></i></button>
     </li>
     
     
@@ -472,14 +472,14 @@ border: 1px solid black;
     };
     /*[- end of function -]*/
     
-		   
-    function updateComment(commNum, commContents) {
-	
+		 
+    function updateComment(commNum) {
     	
+    	  var text = document.getElementById("tex");
     var uri = /*[[ @{/comments/} ]]*/ + commNum;
     var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "PATCH"};
-    var params = {"commNum": commNum, "memId": "khb0", "commContents": commContents};
-	console.log("수정완료 버튼을 누른뒤의 값: "+commContents);
+    var params = {"commNum": commNum, "memId": "admin", "commContents": text.value};
+	console.log("수정완료 버튼을 누른뒤의 값: "+text.value);
     
     
     $.ajax({

@@ -4,9 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<<<<<<< HEAD
 <link href="../css/mypage/usercommentview.css" rel="stylesheet">
-=======
 <!-- 자바스크립트 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style>
@@ -74,25 +72,14 @@ th, td {
 	float: right;
 }
 </style>
->>>>>>> bc0b9302ef794076db62e89ee05e5b23460686e6
 </head>
 <body>
 	<h1>내 댓글 보기</h1>
 	<form name="deleteCommentForm" id="deleteCommentForm" action="/mypage/commentDelete" method="get">
 		<table>
-			<thead>
-				<tr>
-					<select class="select" name="" id="">
-						<option value="">전체</option>
-						<option value=""></option>
-						<option value=""></option>
-						<option value=""></option>
-					</select>
-					<input class="search_input" type="text" name="">
-					<button type="button" class="btn_search">검색</button>
-
-				</tr>
-			</thead>
+			<th:block layout:fragment="search">
+                <nav th:replace="mypage/layout/commentSearch :: search"></nav>
+            </th:block>
 			<tbody>
 				<tr th:if="${not #lists.isEmpty( commList )}" th:each="row : ${commList}">
 					<td><input type="checkbox" name="commNum" th:value="${row.commNum}"></td>
@@ -108,8 +95,10 @@ th, td {
 			</tbody>
 		</table>
 
-		<button type="button" class="btn_mypage" onclick="deleteCommentFormCheck()">삭제</button>
-		<button type="button" class="btn_delete">마이페이지</button>
+		<button type="button" class="btn_delete" onclick="deleteCommentFormCheck()">삭제</button>
+		<a href = "./mypagemain">
+             <button type="button" class="btn_mypage">마이페이지</button>
+        </a>
 	</form>
 
 	<th:block layout:fragment="paging">
