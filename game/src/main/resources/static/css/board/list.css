@@ -10,8 +10,10 @@ background-color: black;
 .text-h1{
 	font-size:25px;
 	font-weight:bold;
-	text-decoration:none;
 	color:black;
+}
+.text-h1:hover{
+	text-decoration:none;
 }
 .btn-write {
 	color:white;
@@ -23,6 +25,13 @@ background-color: black;
 .btn-write-a {
 	font-size:11px;
 	color:white;
+}
+.btn-write-a:hover {
+	color:white;
+}
+.title_link:hover {
+	
+	text-decoration:none;
 }
 /*
 .select{
