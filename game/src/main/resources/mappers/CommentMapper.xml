@@ -14,6 +14,42 @@
 
 </sql>
 
+<sql id = "search">
+  <!-- 검색 키워드가 있을 때 -->
+        <if test="searchKeyword != null and searchKeyword != ''">
+            <choose>
+                <!-- 검색 유형이 있을 때 -->
+                <when test="searchType != null and searchType != ''">
+                and 
+                    <choose>
+                        <when test="'title'.equals(searchType)">
+                        <![CDATA[
+                             board_table.board_title LIKE '%' || #{searchKeyword} || '%'
+                        ]]>
+                        </when>
+                        <when test="'content'.equals(searchType)">
+                        <![CDATA[
+                             comment_table.comm_contents LIKE '%' || #{searchKeyword} || '%' 
+                        ]]>
+                        </when>
+                        
+                    </choose>
+                </when>
+                <!-- 검색 유형이 없을 때 -->
+                <otherwise>
+                    <![CDATA[
+                        
+                           and board_table.board_title LIKE '%' || #{searchKeyword} || '%'
+                            OR comment_table.comm_contents LIKE '%' || #{searchKeyword} || '%'
+                         
+                        
+                     ]]>
+                </otherwise>
+            </choose>
+        </if>
+
+</sql>
+
 <!-- 내 댓글 검색 -->
 <select id="selectMyComment" parameterType="CommentDTO" resultType="CommentDTO">
 
@@ -21,8 +57,9 @@ SELECT b.* FROM (SELECT rownum rno,a.*
 FROM (
 SELECT board_table.board_title, comm_contents, comm_date,board_table.board_num,board_table.board_type, comment_table.mem_id, comment_table.comm_num, comment_table.comm_delete  
 FROM comment_table, board_table
-WHERE board_table.board_num = comment_table.board_num and comment_table.mem_id = #{memId}  AND comment_table.comm_delete='N'
-ORDER BY comm_date desc)a)b where rno between #{startPage} and #{endPage}
+WHERE board_table.board_num = comment_table.board_num  AND comment_table.comm_delete='N'
+<include refid="search" />
+ORDER BY comm_date desc)a where a.mem_id = #{memId})b where rno between #{startPage} and #{endPage}
 
 </select>
 

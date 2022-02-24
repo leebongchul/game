@@ -62,12 +62,13 @@
 	                /*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
 	                    var searchKeyword = document.getElementById("searchKeyword");
 	                    console.log("키워드값 : "+searchKeyword.value);
+	                    /*
 	                    if (searchKeyword.value == "") {
 	                        alert("키워드를 입력해 주세요.");
 	                        searchKeyword.focus();
 	                        return false;
 	                    }
-
+*/
 	                    form = document.getElementById("searchForm");
 	                    form.submit();
 	            }
@@ -89,9 +90,10 @@
 		}
 	}
 	
-    $(document).ready(function(){
-        $("#searchKeyword").focus();
-    });
-    
+	$(document).ready(function(){
+	    var len = $("#searchKeyword").val().length;
+	    $("#searchKeyword").focus();
+	    $("#searchKeyword")[0].setSelectionRange(len, len);
+	});
 </script>
 </html>

@@ -75,11 +75,12 @@ th, td {
 </head>
 <body>
 	<h1>내 댓글 보기</h1>
-	<form name="deleteCommentForm" id="deleteCommentForm" action="/mypage/commentDelete" method="get">
-		<table>
-			<th:block layout:fragment="search">
+	<th:block layout:fragment="search">
                 <nav th:replace="mypage/layout/commentSearch :: search"></nav>
             </th:block>
+	<form name="deleteCommentForm" id="deleteCommentForm" action="/mypage/commentDelete" method="get">
+		<table>
+			
 			<tbody>
 				<tr th:if="${not #lists.isEmpty( commList )}" th:each="row : ${commList}">
 					<td><input type="checkbox" name="commNum" th:value="${row.commNum}"></td>
@@ -111,7 +112,21 @@ th, td {
 			function movePage(uri, queryString) {
 				location.href = uri + queryString;
 			}
-
+			
+			function searchBoard(form) {
+                /*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
+                    var searchKeyword = document.getElementById("searchKeyword");
+                    console.log("키워드값 : "+searchKeyword.value);
+                    /*
+                    if (searchKeyword.value == "") {
+                        alert("키워드를 입력해 주세요.");
+                        searchKeyword.focus();
+                        return false;
+                    }
+*/
+                    form = document.getElementById("searchForm");
+                    form.submit();
+            }
 			/*]]>*/
 
 		</script>
@@ -130,5 +145,12 @@ function deleteCommentFormCheck() {
         alert("삭제할 게시글을 선택해주세요.");
     }
 }
+
+$(document).ready(function(){
+    var len = $("#searchKeyword").val().length;
+    $("#searchKeyword").focus();
+    $("#searchKeyword")[0].setSelectionRange(len, len);
+});
+
 </script>
 </html>
