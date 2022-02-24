@@ -125,7 +125,7 @@ border: 1px solid black;
 //         	var uri = /*[[ @{/comments} ]]*/null;
         	var uri = "/comments" ;
         	var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "POST"};
-        	var params = {"boardNum": boardNum, "commContents": content.value, "memId": "khb0"};
+        	var params = {"boardNum": boardNum, "commContents": content.value, "memId": "admin"};
 
         	$.ajax({
         		url: uri,
@@ -201,7 +201,7 @@ border: 1px solid black;
         
       
             function deleteBoard(boardNum, memId, boardType) {
-
+                console.log(boardNum, memId, boardType);
                 if (confirm(boardNum + "번 게시글을 삭제할까요?")) {
                     var uri = "/board/freeboard/delete";
                     var html = "";
@@ -212,7 +212,7 @@ border: 1px solid black;
                         html += '<input type="hidden" name="boardType" value="'+boardType+'" />';
                     html += '</form>';
 
-                    $("change").append(html);
+                    $("body").append(html);
                     document.dataForm.submit();
                 }
             }
@@ -269,16 +269,16 @@ border: 1px solid black;
     
     <li class="">
         <span class="nick">${memNick}</span>
-	 	<span class="conts" ><input type="text" class="conts1" placeholder="${commContents}" ></input></span>
+	 	<span class="conts" ><input type="text" class="conts1" placeholder="${commContents}" id="updateComm"></input></span>
        
 	 	<button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="printCommentList()" >취소<i class="fa fa-close" aria-hidden="true"></i></button>
-        <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="updateComment('${commNum}', '${commContents}')">수정완료<i class="fa fa-close1" aria-hidden="true"></i></button>
+        <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="updateComment('${commNum}')">수정완료<i class="fa fa-close1" aria-hidden="true"></i></button>
     </li>
     
     
     `;
     
-     
+     var updateComm= $("#updateComm").val();
     
     $('#'+commNum).replaceWith(change);
     $('.conts1').focus();
@@ -286,9 +286,9 @@ border: 1px solid black;
     /*[- end of function -]*/
     
 		   
-    function updateComment(commNum, commContents) {
+    function updateComment(commNum) {
 	
-    	
+    var commContents = document.getElementById("updateComm").value;
     var uri = /*[[ @{/comments/} ]]*/ + commNum;
     var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "PATCH"};
     var params = {"commNum": commNum, "memId": "khb0", "commContents": commContents};
