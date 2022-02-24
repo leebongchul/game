@@ -1,0 +1,39 @@
+@charset "UTF-8";
+section.userrank {
+	 	width:1000px;
+        height:1000px;
+        /*border:1px solid red;*/
+        margin:auto;
+        margin-top:100px;
+}
+.myrank {
+	/*border:1px solid red;*/
+	width:200px;
+}
+.iframe {
+	/*border:1px solid blue;*/
+	margin-left:250px;
+	margin-top:-95px;
+}
+.myrankview{
+	font-size:40px;
+	font-weight:bold;
+	border:1px solid red;
+	display:inline-block;
+	width:240px;
+}
+ul, li {
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+li {
+	 cursor:pointer;
+	 padding:5px;
+	 font-size:20px;
+	 font-weight:bold;
+	 margin-top:20px;
+}
+iframe {
+	background:#f2f2f2;
+}
