@@ -99,53 +99,7 @@ a[name="btn_write"]{
     <body>
     <div class="content">
     <h1>자유 게시판</h1>
-              <div>
-              <select name="search" class="select">
-               <option value="전체">전체</option>
-               <option value="작성자">작성자</option>
-               <option value="제목">제목</option>
-               <option value="내용">내용</option>
-               
-              </select>
-              <input type="text" name="search_typing" class="search_input"></iuput>
-              <button type="button" class="btn_search" >검 색</button>
-              </div>
-           <div class="table-responsive clearfix">
-               <table class="table table-hover">
-                   <thead>
-                       <tr class="tr1">
-                           <th>번호</th>
-                           <th>제목</th>
-                           <th>작성자</th>
-                           <th>등록일</th>
-                           <th>조회수</th>
-                       </tr>
-                   </thead>
-                   <tbody>
-                       <tr th:if="${not #lists.isEmpty( boardList )}" th:each="row : ${boardList}">
-                           <td class= "col-md-1" scope="row" th:text="${row.listnum}"></td>
-                           <td class="col-md-6, text-left">
-                               <a class="title_link" th:href="@{/board/freeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" th:text="${row.boardTitle} + '('+ ${row.commCount} +')'"></a>
-                           </td>
-                           <td class= "col-md-2" th:text="${row.memNick}"></td>
-                           <td class= "col-md-2" th:text="${row.boardDate}"></td>
-                           <!-- 첫 번째 파라미터는 '?'로 연결하고, 두 번째부터는 '&'로 연결하는데요, 타임리프는 URI 뒤에 ?대신 괄호를, & 대신 ,(콤마)를 사용 -->
-                           <td class= "col-md-1" th:text="${row.boardHit}"></td>
-                           
-                       </tr>
-                       <tr th:unless="${not #lists.isEmpty( boardList )}">
-                           <td colspan="5">조회된 결과가 없습니다.</td>
-                       </tr>
-                   </tbody>
-               </table>
-               <div class="btn_wrap text-right">
-                   <button type="button" class="btn-write" ><a th:href="@{/board/freeboard/write(boardType=1)}" class="btn waves-effect waves-light btn-write-a">글쓰기</a></button>
-               </div>
-           </div>
-           <div >
-           <th:block layout:fragment="paging" >
-                <nav th:replace="board/layout/common :: pagination" id="paging-color"></nav>
-    
+              
     		<th:block layout:fragment="search">
                 <nav th:replace="board/layout/common :: search"></nav>
             </th:block>
