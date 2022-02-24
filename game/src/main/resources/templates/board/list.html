@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<script th:src="@{/scripts/jquery.min.js}"></script>
 <style>
 * {margin:0; padding:0;
 text-decoration:none;
@@ -101,22 +102,12 @@ a[name="btn_write"]{
     <div class="content">
     <h1>자유 게시판</h1>
     
-<!--      			<form name=search_from >  -->
-<!--         		<div> -->
-<!--         		<select name="search" class="select"> -->
-<!--         		 <option value="전체">전체</option> -->
-<!--         		 <option value="작성자">작성자</option> -->
-<!--         		 <option value="제목">제목</option> -->
-<!--         		 <option value="내용">내용</option> -->
-        		 
-<!--         		</select> -->
-<!--         		<input type="text" name="search_typing" class="search_input" value=""> </iuput> -->
-<!--         		<button type="button" class="btn_search" onclick="search_board()">검색</button> -->
-<!--         		</div> -->
-<!--          		</form>  -->
+    		<th:block layout:fragment="search">
+                <nav th:replace="board/layout/common :: search"></nav>
+            </th:block>
         		
 	        <div class="table-responsive clearfix">
-	            <table class="table table-hover">
+	            <table id = "freeboardtable" class="table table-hover">
 	                <thead>
 	                    <tr class="tr1">
 	                        <th>번호</th>
@@ -155,33 +146,36 @@ a[name="btn_write"]{
     <th:block layout:fragment="script">
         <script th:inline="javascript">
             /*<![CDATA[*/
-
+            
+            
             function movePage(uri, queryString) {
                 location.href = uri + queryString;
             }
             /*[- end of function -]*/
             
-            //검색기능을 위한 ajax작성즁
-            function search_board() {
-            	let name = document.getElementById('search_typing').value;
-            	
-            
+            function searchBoard(form) {
+                /*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
+                    var searchKeyword = document.getElementById("searchKeyword");
+                    console.log("키워드값 : "+searchKeyword.value);
+                    if (searchKeyword.value == "") {
+                        alert("키워드를 입력해 주세요.");
+                        searchKeyword.focus();
+                        return false;
+                    }
 
-
-        
-            	$.ajax({
-            		type:'POST'
-            	})
-            	
+                    form = document.getElementById("searchForm");
+                    form.submit();
             }
-            
-            
-            
-            
             
             /*]]>*/
         </script>
     </th:block>
         </div>
 	   </body>
+	   <script>
+       $(document).ready(function(){
+           $("#searchKeyword").focus();
+       });
+       </script>
+	   
 </html>
