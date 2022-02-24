@@ -249,50 +249,36 @@ border: 1px solid black;
 			});
 		
 	  }
+    /*[- end of function -]*/
             
 //           function boardhitplus ()  {
         	  
 //         	  var uri = "/board/freeboard/delete";
         	  
-        	  
-        	  
-        	  
-        	  
-        	  
-        	  
-        	  
           
 //           }
           
-            
-            
-		   /*[- end of function -]*/
-		   
-	
-		  //댓글 수정창 만들고, 여기서 수정완료 버튼 만들고, 그 버튼 누르면 수정되게끔 
-	  function changeCommnet(commNum) {
-			   
-		   
-		   
-		   
-			   
-			   
-		   };
-		   /*[- end of function -]*/
-		   
-		   
-		   
-		   
-		   
-		   
+    
+    function beforeupdate() {
+    	
+    let changecomm ="";
+    changecomm += `
+    
+    
+    
+    `;
+    };
+    /*[- end of function -]*/
+    
 		   
     function updateComment(commNum) {
 			
     var uri = /*[[ @{/comments/} ]]*/ + commNum;
     var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "PATCH"};
     var params = {"commNum": commNum, "memId": "khb0", "commContents": "qwed"};
-
-  
+	
+    
+    
     $.ajax({
         url: uri,
         type: "PATCH",
