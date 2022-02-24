@@ -5,6 +5,13 @@ div.card-content {
 border: 1px solid black;
 }
 </style>
+<!-- CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<!-- 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link href="/css/admin/noticeview.css" rel="stylesheet" type="text/css">
 
     <head>
         <meta charset="UTF-8">
@@ -103,6 +110,186 @@ border: 1px solid black;
 <!-- 			</form> -->
 <!-- 		</div> -->
 <!-- 	</div> -->
+</body>
+/////////////////////////////////////////////////////////////////////////////////////
+<body>
+<form class="form-horizontal form-view" th:object="${board}">
+	<div id="main-content" class="blog-page">
+		<h4 class="freeboard">자유게시판</h4>
+		<div class="container">
+			<div class="row clearfix">
+				<div class="col-lg-12 col-md-12 left-box">
+					<div class="card single_post">
+						<div class="body">
+							<form th:object="${board}">
+								<h3 th:text="*{boardTitle}" class="boardtitle"></h3>
+								
+								<div class="btn_wrap text-center btn_tot">
+									
+									<a th:href="@{/board/freeboard/write( boardNum=${board.boardNum}, boardType=${board.boardType}, memId=${board.memId} )}"
+										class="btn btn-dark waves-effect waves-light btn_update">수정하기</a>
+									<button type="button" class="btn btn-dark waves-effect waves-light btn_delete"
+										th:onclick="deleteBoard([[ ${board.boardNum} ]], [[ ${board.memId} ]], [[ ${board.boardType} ]])">삭제하기</button>
+								</div>
+
+								
+								
+								<div class="col-sm-10, text-left">
+									<div class="dropdown">
+										<button type="button" class="nickbtn btn-dark btn-nick-decl" data-bs-toggle="dropdown" aria-expanded="false">
+									
+										
+											<span th:text="*{memNick}"></span>
+										</button>
+										&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <span th:text="*{boardDate}"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <span
+											th:text="'조회수&nbsp&nbsp'+*{boardHit}"></span>
+												<hr>
+									
+										<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+											<!-- Button trigger modal -->
+											<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="#">신고하기</a></li>
+										</ul>
+									</div>
+								</div>
+								<br> <br> <br>
+								<p th:text="*{boardContent}"></p>
+							</form>
+							<br>
+							
+
+							<!-- Modal -->
+							<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+								aria-labelledby="staticBackdropLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="staticBackdropLabel">
+												<strong>사용자 신고</strong>
+											</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<!-- 모달 내용 -->
+										<div class="modal-body px-5">
+											<h6 class="mb-3">
+												<strong>신고 유형을 선택해주세요.</strong>
+											</h6>
+											<form name="repTypeForm" id="repTypeForm" action="/board/report" method="get">
+												<div class="form-check my-2">
+													<input class="form-check-input" type="radio" name="repType" value="음란"> <label class="form-check-label" for="flexRadioDefault1">
+														성적인 컨텐츠 </label>
+												</div>
+												<div class="form-check my-2">
+													<input class="form-check-input" type="radio" name="repType" value="광고"> <label class="form-check-label"
+														for="flexRadioDefault2"> 광고 컨텐츠 </label>
+												</div>
+												<div class="form-check my-2">
+													<input class="form-check-input" type="radio" name="repType" value="욕설"> <label class="form-check-label" for="flexRadioDefault1">
+														욕설 또는 폭력적인 콘텐트 </label>
+												</div>
+												<div class="form-check my-2">
+													<input class="form-check-input" type="radio" name="repType" value="사행성"> <label class="form-check-label"
+														for="flexRadioDefault2"> 사행성 컨텐츠 </label>
+												</div>
+												<div class="form-check my-2">
+													<input class="form-check-input" type="radio" name="repType" value="정치글"> <label class="form-check-label" for="flexRadioDefault1">
+														정치적 컨텐츠 </label>
+												</div>
+												<div class="form-check my-2">
+													<input class="form-check-input" type="radio" name="repType" value="분란"> <label class="form-check-label"
+														for="flexRadioDefault2"> 분란 조장 컨텐츠 </label>
+												</div>
+												<input type="hidden" name="boardNum" th:value="${board.boardNum}"> 
+												<input type="hidden" name="boardType" th:value="${board.boardType}"> 
+												<input type="hidden" name="repId" th:value="${board.memId}"> 
+											</form>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+											<button type="button" class="btn btn-primary" onclick="reportFormCheck()">확인</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+										<div class="card">
+											<div class="header">
+												<h4 class="comment-write">댓글 작성</h4>
+											</div>
+											<div class="body">
+												<div class="comment-form">
+													<form class="row clearfix">
+														<div class="col-sm-12">
+															<div class="form-group">
+																<span th:text="*{memNick}"></span>
+																<textarea rows="4" class="form-control no-resize view-textarea" placeholder="작성할 댓글 내용을 입력해주세요"></textarea>
+																<button type="submit" class="btn btn-block btn-dark btn_insert">댓글 등록</button>
+															</div>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+										<div class="card">
+											<div class="header">
+												<h2 class="comment-write">댓글</h2>
+											</div>
+											<ul class="notice-list">
+		
+		</ul>
+											<div class="body">
+												<ul class="comment-reply list-unstyled">
+													
+														<div class="text-box">
+															<h5 class="m-b-0 user-name">김상명</h5>
+															<p class="user-comment">댓글ㄹㄹㄹㄹ</p>
+															
+																<span class="user-date"><a href="javascript:void(0);">Mar 09 2018</a></span>
+															
+														
+										<button type="button" class="btn btn-danger waves-effect waves-light btn_decl" data-bs-toggle="dropdown">신고</button>
+										<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+											<!-- Button trigger modal -->
+											<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="#">신고하기</a></li>
+										</ul>
+														
+														
+														
+														
+														
+													
+													<hr>
+														<div class="text-box">
+															<h5 class="m-b-0 user-name">이봉철</h5>
+															<p class="user-comment">댓글ㄹㄹㄹㄹ</p>
+																<span class="user-date"><a href="javascript:void(0);" >Mar 12 2018</a></span>
+															<button type="button" class="btn btn-danger waves-effect waves-light btn_decl" data-bs-toggle="dropdown">신고</button>
+										<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+											<!-- Button trigger modal -->
+											<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="#">신고하기</a></li>
+										</ul>
+													<hr>
+														<div class="text-box">
+															<h5 class="m-b-0 user-name">정수연</h5>
+															<p class="user-comment">댓글ㄹㄹㄹㄹ</p>
+																<span class="user-date"><a href="javascript:void(0);" class="date">Mar 20 2018</a></span>
+															<button type="button" class="btn btn-danger waves-effect waves-light btn_decl" data-bs-toggle="dropdown">신고</button>
+										<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+											<!-- Button trigger modal -->
+											<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="#">신고하기</a></li>
+										</ul>
+													<hr>
+												</ul>
+											</div>
+											
+										</div>
+										<a onclick = "history.back()" class="btn btn-dark waves-effect waves-light btn_back">목록</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	</form>
       </body>
       
       
