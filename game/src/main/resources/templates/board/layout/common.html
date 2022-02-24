@@ -11,7 +11,7 @@
                 <a href="javascript:void(0)" aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></a>
             </li>
             <li th:each="pageNo : *{#numbers.sequence( firstPage, lastPage )}" th:class="${pageNo == params.currentPageNo} ? 'active'">
-                <a href="javascript:void(0)" th:text="${pageNo}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${params.makeQueryString(pageNo)} ]])" style="background-color:black; border:1px solid black;"></a>
+                <a href="javascript:void(0)" th:text="${pageNo}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${params.makeQueryString(pageNo)} ]])" style="background-color:black; border:1px solid black; cursor:pointer;"></a>
             </li>
             <li th:if="*{hasNextPage == true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${params.makeQueryString(info.lastPage + 1)} ]])">
                 <a href="javascript:void(0)" aria-label="Next"><span aria-hidden="true">&rsaquo;</span></a>
@@ -37,7 +37,7 @@
                            <option value="writer" th:selected="${#strings.equals( params.searchType, 'writer' )}">작성자</option>
                        </select>
                        <span style="display:inline;">
-                   <input type="text" id="searchKeyword" name="searchKeyword" class="form-control" th:value="${params.searchKeyword}" style="display:inline; width:250px; margin-right:10px; border-radius:5px; margin-top:12px;" />
+                   <input type="text" id="searchKeyword" name="searchKeyword" autocomplete="off" class="form-control" th:value="${params.searchKeyword}" style="display:inline; width:250px; margin-right:10px; border-radius:5px; margin-top:12px;" />
                <button type="button" class="btn" onclick="searchBoard(null)" style="background-color:black; color:white; font-size:11px; padding:8px 10px; margin-top:12px;">검색</button>
                </span>
                </form>

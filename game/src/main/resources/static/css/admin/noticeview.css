@@ -293,7 +293,7 @@ body {
 }
 .freeboard {
 	font-weight:bold;
-	font-size:50px;
+	font-size:30px;
 }
 .comment-write{
 	font-size:20px;
@@ -380,6 +380,6 @@ display:inline;
 	margin-left:8px;
 }
 .content {
-	
+
 	
 }

@@ -1,0 +1,72 @@
+@charset "UTF-8";
+.content {
+	width:900px;
+	margin:auto;
+	margin-top:50px;
+}
+#paging-color {
+background-color: black;		
+}
+
+.text-h1{
+	font-size:25px;
+	font-weight:bold;
+	color:black;
+}
+.text-h1:hover{
+	text-decoration:none;
+}
+.btn-write, .btn-delete {
+	color:white;
+	background-color: black;
+	border-color: white;
+	border:1px solid white;
+	border-radius:5px;
+}
+.btn-write-a, .btn-delete-a  {
+	font-size:11px;
+	color:white;
+}
+.btn-write-a:hover, .btn-delete-a:hover {
+	color:white;
+}
+.title_link:hover {
+	
+	text-decoration:none;
+}
+h1{
+	font-size:25px;
+	font-weight:bold;
+}
+/*
+.select{
+	width:130px;
+    border-radius:5px;
+    padding:7px 10px;
+    font-size:12px;
+    border:1px solid lightgray; 
+}
+.search_input {
+	width:200px;
+    border-radius:5px;
+    padding:6px;
+    font-size:13px;
+    margin-left:2px;
+    border:1px solid lightgray;
+    margin-top:2px;
+}
+.btn_search {
+		color:white;
+        background:black;
+        border-radius:5px;
+        padding:7px 15px;
+        font-size:11px;
+        border: 1px solid black;
+        cursor:pointer;
+        margin-left:2px;
+        margin-bottom:15px;
+}
+*/
+.paging2{
+	color:black;
+}

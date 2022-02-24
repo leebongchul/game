@@ -3,7 +3,16 @@
 	font-size:25px;
 	font-weight:bold;
 	color:black;
+	margin-left:-20px;
+	
 }
 .content-a:hover {
 	text-decoration:none;
+}
+.mainbody{
+	/*border:1px solid red;*/
+	margin-top:50px;
+}
+.row{
+	margin-top:20px;
 }
