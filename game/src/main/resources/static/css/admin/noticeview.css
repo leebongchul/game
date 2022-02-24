@@ -310,9 +310,9 @@ h3.boardtitle {
 	margin-left:540px;
 }
 .btn_tot {
-	display:inline;
+	/*display:inline;*/
 	/*border:1px solid red;*/
-	margin-left:540px;
+	margin-left:690px;
 }
 .btn_back, .btn_update, .btn_delete, .btn_insert, .btn_decl {
 	font-size:11px;

@@ -79,7 +79,7 @@ border: 1px solid black;
     <form class="form-horizontal form-view" >
 		<div class="input-group margin-bottom-20">
 		<span class="form-control" th:text="*{memNick}"></span>
-			<input type="text" id="content" class="form-control" ></input>
+			<!--  <input type="text" id="content" class="form-control" ></input>-->
 			<div class="input-group-btn">
 				<button type="button" class="btn waves-effect waves-light" th:onclick="insertComment([[ ${board.boardNum} ]])">댓글등록
 				</button>
@@ -222,8 +222,12 @@ border: 1px solid black;
 														<div class="col-sm-12">
 															<div class="form-group">
 																<span th:text="*{memNick}"></span>
-																<textarea rows="4" class="form-control no-resize view-textarea" placeholder="작성할 댓글 내용을 입력해주세요"></textarea>
-																<button type="submit" class="btn btn-block btn-dark btn_insert">댓글 등록</button>
+																<textarea rows="4" class="form-control no-resize view-textarea" placeholder="작성할 댓글 내용을 입력해주세요" id="content"></textarea>
+																<!--  <button type="submit" class="btn btn-block btn-dark btn_insert">댓글 등록</button>-->
+																<div class="input-group-btn">
+				<button type="button" class="btn waves-effect waves-light" th:onclick="insertComment([[ ${board.boardNum} ]])">댓글등록
+				</button>
+			</div>
 															</div>
 														</div>
 													</form>
@@ -374,6 +378,7 @@ border: 1px solid black;
                                 <button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제<i class="fa fa-close" aria-hidden="true"></i></button>
                                 <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
                             </li>
+                            <hr>
                         `;
                     });
                 	  
