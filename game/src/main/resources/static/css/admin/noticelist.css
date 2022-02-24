@@ -1,9 +1,22 @@
 @charset "UTF-8";
-body {
+.mainbody {
 	margin-top: 20px;
 	background-color: white;
 }
+thead{
+	/*
+	background-color: rgb(244,247,246);
+	*/
+	background-color: white;
+}
+td{
+	/*
+	background-color: rgb(244,247,246);
+	*/
+	background-color: white;
+}
 
+/*
 .timeline {
 	list-style-type: none;
 	position: relative
@@ -43,7 +56,9 @@ body {
 	flex-direction: column;
 	min-width: 0;
 	word-wrap: break-word;
+	
 	background-color: #fff;
+	
 	background-clip: initial;
 	border: 0 solid transparent;
 	border-radius: .25rem;
@@ -69,6 +84,9 @@ body {
 .card-header {
 	padding: 1rem 1.25rem;
 	margin-bottom: 0;
+	
 	background-color: #fff;
+	
 	border-bottom: 0 solid transparent;
 }
+*/
