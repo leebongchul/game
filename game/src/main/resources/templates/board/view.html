@@ -32,7 +32,6 @@ border: 1px solid black;
                     <label for="inp-type-5" class="col-sm-2 control-label">내용</label>
                     <div class="col-sm-10">
                         <p class="form-control" th:text="*{boardContent}"></p>
-                        
                     </div>
                 </div>
 
@@ -67,7 +66,7 @@ border: 1px solid black;
                     <h4 class="box-title pull-left">Comment</h4>
                     <!-- /.box-title -->
                 </div>
-                
+
     <form class="form-horizontal form-view" >
 		<div class="input-group margin-bottom-20">
 			<input type="text" id="content" class="form-control" ></input>
@@ -123,7 +122,7 @@ border: 1px solid black;
 //         	var uri = /*[[ @{/comments} ]]*/null;
         	var uri = "/comments" ;
         	var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "POST"};
-        	var params = {"boardNum": boardNum, "commContents": content.value, "memId": "khb0"};
+        	var params = {"boardNum": boardNum, "commContents": content.value, "memId": "admin"};///////////댓글작성자 하드코딩///////////
 
         	$.ajax({
         		url: uri,
@@ -177,13 +176,13 @@ border: 1px solid black;
                   
                     $(response.commentList).each(function(commNum, comment) {
                         commentsHtml += `
-                            <li class="changecomm">
+                            <li>
                         	  	<span class="id">${comment.memId}</span>
                                 <span class="nick">${comment.memNick}</span>
 							 	<span class="conts">${comment.commContents}</span>  
                                
                                 <button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제<i class="fa fa-close" aria-hidden="true"></i></button>
-                                <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="beforeupdate()">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="updateComment('${comment.commNum}')">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
                             </li>
                         `;
                     });
@@ -210,7 +209,7 @@ border: 1px solid black;
                         html += '<input type="hidden" name="boardType" value="'+boardType+'" />';
                     html += '</form>';
 
-                    $("change").append(html);
+                    $("body").append(html);
                     document.dataForm.submit();
                 }
             }
@@ -237,6 +236,8 @@ border: 1px solid black;
 				if (response.result == false) {
 					alert("댓글 삭제에 실패하였습니다.");
 					return false;
+				}else{
+					alert("댓글을 삭제하였습니다.")
 				}
 	
 				printCommentList();
@@ -249,67 +250,24 @@ border: 1px solid black;
 			});
 		
 	  }
-    /*[- end of function -]*/
             
 //           function boardhitplus ()  {
         	  
 //         	  var uri = "/board/freeboard/delete";
         	  
+        	  
+        	  
+        	  
+        	  
+        	  
+        	  
+        	  
           
 //           }
           
-    
-    function beforeupdate() {
-    	console.log("수정버튼을 눌렀습니다");
-    let change ="";
-    change += `
-    
-   	<li class="">
-	  	<span class="id"></span>
-        <span class="nick"></span>
-	 	<span class="conts"><textarea></textarea></span>  
-       
-        <button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="" >취소<i class="fa fa-close" aria-hidden="true"></i></button>
-        <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="">수정완료<i class="fa fa-close1" aria-hidden="true"></i></button>
-    </li>
-    
-    
-    `;
-    $(".conts").replaceWith(change);
-    };
-    /*[- end of function -]*/
-    
-		   
-    function updateComment(commNum) {
-			
-    var uri = /*[[ @{/comments/} ]]*/ + commNum;
-    var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "PATCH"};
-    var params = {"commNum": commNum, "memId": "khb0", "commContents": "qwed"};
-	
-    
-    
-    $.ajax({
-        url: uri,
-        type: "PATCH",
-        headers: headers,
-        dataType: "json",
-        data: JSON.stringify(params),
-        success: function(response) {
-            if (response.result == false) {
-                alert("댓글 수정에 실패하였습니다.");
-                return false;
-            }
-
-            printCommentList();
-//             $("#commentModal").modal("hide");
-        },
-        error: function(xhr, status, error) {
-            alert("에러가 발생하였습니다.");
-            return false;
-        }
-    });
-		   }	
-    /*[- end of function -]*/
+            
+            
+		   /*[- end of function -]*/
 		/*]]>*/
         </script>
         

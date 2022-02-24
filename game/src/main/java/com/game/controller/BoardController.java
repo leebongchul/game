@@ -47,28 +47,28 @@ public class BoardController extends UiUtils {
 	}
 
 	@GetMapping(value = "/rank")
-    public String openRankList() {
-        return "board/rank";
-    }
-    
-    @GetMapping(value = "/layout/dinorank")
-    public String opendinoList(@ModelAttribute("params") GameScoreDTO params, Model model) {
-        params.setGameName("공룡게임");
-        List<GameScoreDTO> dinorank = gameService.selectGameRankList(params);
-        model.addAttribute("dino", dinorank);
-        
-        return "board/layout/dinorank";
-    }
-    
-    @GetMapping(value = "/layout/ddongrank")
-    public String openddongList(@ModelAttribute("params") GameScoreDTO params, Model model) {
-        params.setGameName("똥피하기");
-        List<GameScoreDTO> ddongrank = gameService.selectGameRankList(params);
-        model.addAttribute("ddong", ddongrank);
-        
-        return "board/layout/ddongrank";
-    }
-///////////////////////////////////////////////////////////공지사항 테스트중 Start
+	public String openRankList() {
+		return "board/rank";
+	}
+
+	@GetMapping(value = "/layout/dinorank")
+	public String opendinoList(@ModelAttribute("params") GameScoreDTO params, Model model) {
+		params.setGameName("공룡게임");
+		List<GameScoreDTO> dinorank = gameService.selectGameRankList(params);
+		model.addAttribute("dino", dinorank);
+
+		return "board/layout/dinorank";
+	}
+
+	@GetMapping(value = "/layout/ddongrank")
+	public String openddongList(@ModelAttribute("params") GameScoreDTO params, Model model) {
+		params.setGameName("똥피하기");
+		List<GameScoreDTO> ddongrank = gameService.selectGameRankList(params);
+		model.addAttribute("ddong", ddongrank);
+
+		return "board/layout/ddongrank";
+	}
+///////////////////////////////////////////////////////////공지사항
 
 	@GetMapping(value = "/noticeboard/list")
 	public String openNoticeBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
@@ -77,7 +77,7 @@ public class BoardController extends UiUtils {
 		List<BoardDTO> boardList = boardService.getBoardList(params);
 		model.addAttribute("boardList", boardList);
 
-		return "admin/list2";
+		return "admin/noticelist";
 	}
 
 	@GetMapping(value = "/noticeboard/view")
@@ -94,12 +94,12 @@ public class BoardController extends UiUtils {
 		}
 		model.addAttribute("board", board);
 
-		return "admin/view2";
+		return "admin/noticeview";
 	}
 
-///////////////////////////////////////////////////////////공지사항 테스트중 End
+///////////////////////////////////////////////////////////공지사항
 
-///////////////////////////////////////////////////////////신고하기 테스트중 Start
+///////////////////////////////////////////////////////////신고하기
 
 	@GetMapping(value = "/report")
 	public String reportBoard(@ModelAttribute("params") ReportDTO params,
@@ -123,9 +123,9 @@ public class BoardController extends UiUtils {
 
 //		model.addAttribute("boardList", boardList);
 
-		return "admin/list2";
+		return "admin/noticelist";
 	}
-///////////////////////////////////////////////////////////신고하기 테스트중 End
+///////////////////////////////////////////////////////////신고하기
 
 	@GetMapping(value = "/freeboard/view")
 	public String openBoardDetail(@ModelAttribute("params") BoardDTO params, Model model) {
@@ -153,8 +153,8 @@ public class BoardController extends UiUtils {
 //			params.setMemId(loginMember.getMemId());
 //			params.setMemNick(loginMember.getMemNick());
 			/******************************************/
-			params.setMemId("khb0");
-			params.setMemNick("테스1");
+			params.setMemId("admin");
+			params.setMemNick("관리자임");
 
 			model.addAttribute("board", params);
 		} else {
@@ -238,8 +238,7 @@ public class BoardController extends UiUtils {
 
 		return showMessageWithRedirect("게시글 삭제가 완료되었습니다.", "/board/freeboard/list", Method.GET, null, model);
 	}
-	
-	
+
 //	@GetMapping(value = "/freeboard/searchlist")
 //	public String openBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
 //		// 메인 생성되면 보드타입 변경?
@@ -249,7 +248,5 @@ public class BoardController extends UiUtils {
 //
 //		return "board/list";
 //	}
-
-	
 
 }
