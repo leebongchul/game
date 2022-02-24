@@ -18,7 +18,7 @@ section.userrank {
 .myrankview{
 	font-size:40px;
 	font-weight:bold;
-	border:1px solid red;
+	/*border:1px solid red;*/
 	display:inline-block;
 	width:240px;
 }
