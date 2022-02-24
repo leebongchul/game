@@ -70,6 +70,7 @@ public class MypageController extends UiUtils {
 		params.setBoardType(1);
 		List<BoardDTO> boardList = boardService.getBoardList(params);
 		model.addAttribute("boardList", boardList);
+		
 		return "mypage/userboardview";
 	}
 
