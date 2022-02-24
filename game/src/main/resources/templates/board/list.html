@@ -1,97 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <script th:src="@{/scripts/jquery.min.js}"></script>
-<style>
-* {margin:0; padding:0;
-text-decoration:none;
-	border-collapse: collapse;
-	}	
-table {
-width:100%;
-border: 1px solid lightgray;
-margin-top:5px;
-margin-left:auto;
-margin-right:auto;
-margin-bottom:auto;
-
-}
-table.tr tr1 {
-padding: 100px;
-
-} 
-th{
- border: 1px solid black;
-padding: 10px;
-}
-td {
- border: 1px solid black; 
-text-align:center;
-padding:5px;
-}
-.select{
-	width:130px;
-    border-radius:5px;
-    padding:9px 10px;
-    font-size:12px;
-    border:1px solid gray;
-}
-h1{
-	text-align:center;
-	margin-bottom:60px;
-}
-.search_input {
-	width:200px;
-    border-radius:5px;
-    padding:9px;
-    font-size:13px;
-    margin-left:2px;
-    border:1px solid gray;
-    margin-top:2px;
-}
-.btn_search {
-		color:white;
-        background:black;
-        border-radius:5px;
-        padding:8px 15px;
-        font-size:12px;
-        border: 1px solid black;
-        cursor:pointer;
-        margin-left:2px;
-}
-.btn_write {
-		color:white;
-        background:black;
-        border-radius:5px;
-       padding:8px 15px;
-       font-size:12px;
-        border: 1px solid black;
-        cursor:pointer;
-        float:right;
-        margin-top:8px;
-}
-.title_link {
-	list-style-type:none;
-	color:black;
-}
-
-a[name="btn_write"]{
-	color:white;
-}
-.content {
-	width:1000px;
-	margin:auto;
-	margin-top:50px;
-}
-.paging{
-	/*border:1px solid red;*/
-	margin-top:70px;
-	text-align:center;;
-	
-}
-.paging_nav {
-	list-style-type:none;
-}
-</style>
+<!-- CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link href="../css/board/list.css" rel="stylesheet">
     <head>
         <meta charset="UTF-8">
         <title>The page is a write page</title>
@@ -134,7 +46,7 @@ a[name="btn_write"]{
 	                </tbody>
 	            </table>
 	            <div class="btn_wrap text-right">
-	                <button type="button" class="btn_write" ><a th:href="@{/board/freeboard/write(boardType=1)}" class="btn btn-primary waves-effect waves-light" name="btn_write">글쓰기</a></button>
+	                <button type="button" class="btn_write" ><a th:href="@{/board/freeboard/write(boardType=1)}" class="btn waves-effect waves-light btn_write">글쓰기</a></button>
 	            </div>
 	        </div>
 	        <div class="paging">

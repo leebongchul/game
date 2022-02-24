@@ -20,7 +20,7 @@
 </head>
 <body>
 	<div id="main-content" class="blog-page">
-		<h4 class="freeboard">자유게시판</h4>
+		<h4 class="freeboard">공지사항</h4>
 		<div class="container">
 			<div class="row clearfix">
 				<div class="col-lg-12 col-md-12 left-box">
@@ -197,7 +197,7 @@
 	function deleteBoard(boardNum, memId, boardType) {
 
 		if (confirm(boardNum + "번 게시글을 삭제할까요?")) {
-			var uri = "/board/freeboard/delete";
+			var uri = "/admin/boardDelete";
 			var html = "";
 
 			html += '<form name="dataForm" action="'+uri+'" method="get">';

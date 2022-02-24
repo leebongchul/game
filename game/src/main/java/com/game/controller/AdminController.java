@@ -70,7 +70,7 @@ public class AdminController extends UiUtils {
 			if (boardService.deleteBoard(params)) {
 				return showMessageWithRedirect("삭제가 완료되었습니다.", "/admin/mainboard", Method.GET, null, model);
 			} else {
-				if (params.getMemRole() == "user") {
+				if (params.getMemRole().equals("user")) {
 					return showMessageWithRedirect("게시글 삭제 권한이 없습니다.", "/admin/mainboard", Method.GET, null, model);
 				}
 				return showMessageWithRedirect("삭제를 실패하였습니다.", "/admin/mainboard", Method.GET, null, model);
