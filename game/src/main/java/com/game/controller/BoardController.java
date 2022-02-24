@@ -36,13 +36,13 @@ public class BoardController extends UiUtils {
 		return "board/test";
 	}
 
-	@GetMapping(value = "/freeboard/list")
+	@GetMapping(value = "/list")
 	public String openBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
 		// 메인 생성되면 보드타입 변경?
 		params.setBoardType(1);
 		List<BoardDTO> boardList = boardService.getBoardList(params);
 		model.addAttribute("boardList", boardList);
-
+		System.out.println(params);
 		return "board/list";
 	}
 

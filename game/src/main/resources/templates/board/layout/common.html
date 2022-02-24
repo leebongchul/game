@@ -5,13 +5,13 @@
      th:object="${params.paginationInfo}" th:with="info=${params.paginationInfo}" aria-label="Page navigation" class="text-center">
         <ul class="pagination">
             <li th:if="*{hasPreviousPage == true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${params.makeQueryString(1)} ]])">
-                <a href="javascript:void(0)" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                <a href="javascript:void(0)" aria-label="Previous"><span aria-hidden="true" >&laquo;</span></a>
             </li>
             <li th:if="*{hasPreviousPage == true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${params.makeQueryString(info.firstPage - 1)} ]])">
                 <a href="javascript:void(0)" aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></a>
             </li>
             <li th:each="pageNo : *{#numbers.sequence( firstPage, lastPage )}" th:class="${pageNo == params.currentPageNo} ? 'active'">
-                <a href="javascript:void(0)" th:text="${pageNo}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${params.makeQueryString(pageNo)} ]])"></a>
+                <a href="javascript:void(0)" th:text="${pageNo}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${params.makeQueryString(pageNo)} ]])" style="background-color:black; border:1px solid black;"></a>
             </li>
             <li th:if="*{hasNextPage == true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${params.makeQueryString(info.lastPage + 1)} ]])">
                 <a href="javascript:void(0)" aria-label="Next"><span aria-hidden="true">&rsaquo;</span></a>
@@ -21,5 +21,28 @@
             </li>
         </ul>
     </nav>
+<!--/* 검색 form */-->
+    <div th:fragment="search" id="adv-search" class="input-group">
+               <form id="searchForm" th:action="@{/board/list}" method="get" th:onsubmit="return searchBoard(this)" class="form-horizontal" role="form">
+                   <!-- /* 현재 페이지 번호, 페이지당 출력할 데이터 개수, 페이지 하단에 출력할 페이지 개수 Hidden 파라미터 */ -->
+                   <input type="hidden" name="currentPageNo" value="1" />
+                   <input type="hidden" name="recordsPerPage" th:value="${params.recordsPerPage}" />
+                   <input type="hidden" name="pageSize" th:value="${params.pageSize}" />
 
+                   <div class="form-group">
+                       <select name="searchType" class="form-control">
+                           <option value="" th:selected="${#strings.isEmpty( params.searchType )}">전체</option>
+                           <option value="title" th:selected="${#strings.equals( params.searchType, 'title' )}">제목</option>
+                           <option value="content" th:selected="${#strings.equals( params.searchType, 'content' )}">내용</option>
+                           <option value="writer" th:selected="${#strings.equals( params.searchType, 'writer' )}">작성자</option>
+                       </select>
+                   </div>
+                   <input type="text" id="searchKeyword" name="searchKeyword" class="form-control" th:value="${params.searchKeyword}" />
+                   <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+               <button type="button" class="btn btn-primary" onclick="searchBoard(null)">검색</button>
+               </form>
+      </div>
+      
+            
+        
 </html>
