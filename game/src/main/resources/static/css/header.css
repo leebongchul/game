@@ -1,0 +1,70 @@
+#topbar {
+  background: #FFEB5A;
+  height: 40px;
+  font-size: 14px;
+  transition: all 0.5s;
+  color: #fff;
+  padding: 0;
+}
+#topbar .contact-info i {
+  font-style: normal;
+  color: #fff;
+}
+#topbar .contact-info i a, #topbar .contact-info i span {
+  padding-left: 5px;
+  color: #fff;
+}
+#topbar .contact-info i a {
+  line-height: 0;
+  transition: 0.3s;
+  transition: 0.3s;
+}
+#topbar .contact-info i a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+#topbar .social-links a {
+  color: black;
+  line-height: 0;
+  transition: 0.3s;
+  margin-left:10px;
+}
+#topbar div .login{
+	margin-right:40px;
+}
+#topbar div a{
+    margin-left:1160px;
+    color:black;
+    float:right;
+    margin-top:15px;
+}
+
+#topbar .social-links a:hover {
+  color: black;
+}
+
+#topbar #topbar1{
+    margin-left:1150px;
+}
+
+.header_logobar ul {
+	list-style-type:none;
+	display:inline-block;
+}
+.header_logobar ul a{
+	display:inline-block;
+}
+div .header_login{
+	width:100%;
+	display:block;
+	color:blue;
+	padding:auto;
+	float:right;
+	border:1px solid red;
+}
+div .header_join{
+    color:blue;
+    padding:10px;
+    float:right;
+    border:1px solid red;
+}

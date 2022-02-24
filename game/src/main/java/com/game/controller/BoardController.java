@@ -153,7 +153,7 @@ public class BoardController extends UiUtils {
 //			params.setMemNick(loginMember.getMemNick());
 			/******************************************/
 			params.setMemId("admin");
-			params.setMemNick("관리자임");
+//			params.setMemNick("관리자1");
 
 			model.addAttribute("board", params);
 		} else {
