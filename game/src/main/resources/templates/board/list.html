@@ -63,7 +63,7 @@ h1{
 		color:white;
         background:black;
         border-radius:5px;
-       padding:8px 15px;
+        padding:7px 15px;
        font-size:12px;
         border: 1px solid black;
         cursor:pointer;
@@ -87,7 +87,6 @@ a[name="btn_write"]{
 	/*border:1px solid red;*/
 	margin-top:70px;
 	text-align:center;;
-	
 }
 .paging_nav {
 	list-style-type:none;
@@ -100,21 +99,17 @@ a[name="btn_write"]{
     <body>
     <div class="content">
     <h1>자유 게시판</h1>
-    
-<!--      			<form name=search_from >  -->
-<!--         		<div> -->
-<!--         		<select name="search" class="select"> -->
-<!--         		 <option value="전체">전체</option> -->
-<!--         		 <option value="작성자">작성자</option> -->
-<!--         		 <option value="제목">제목</option> -->
-<!--         		 <option value="내용">내용</option> -->
+        		<div>
+        		<select name="search" class="select">
+        		 <option value="전체">전체</option>
+        		 <option value="작성자">작성자</option>
+        		 <option value="제목">제목</option>
+        		 <option value="내용">내용</option>
         		 
-<!--         		</select> -->
-<!--         		<input type="text" name="search_typing" class="search_input" value=""> </iuput> -->
-<!--         		<button type="button" class="btn_search" onclick="search_board()">검색</button> -->
-<!--         		</div> -->
-<!--          		</form>  -->
-        		
+        		</select>
+        		<input type="text" name="search_typing" class="search_input"></iuput>
+        		<button type="button" class="btn_search" >검색</button>
+        		</div>
 	        <div class="table-responsive clearfix">
 	            <table class="table table-hover">
 	                <thead>
@@ -163,14 +158,8 @@ a[name="btn_write"]{
             
             //검색기능을 위한 ajax작성즁
             function search_board() {
-            	let name = document.getElementById('search_typing').value;
-            	
-            
-
-
-        
             	$.ajax({
-            		type:'POST'
+            		type:'GET'
             	})
             	
             }
