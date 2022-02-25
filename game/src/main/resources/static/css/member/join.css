@@ -3,12 +3,12 @@ body {
         background: rgb(94,94,94);
     }
     section.join {
-        width:590px;
+        width:750px;
         height:100%;
         margin:auto;
         /*border:1px solid red;*/
-        margin-top:100px;
-        padding-left:50px;
+        margin-top:10px;
+        padding-left:200px;
     }
    ul {
         list-style-type:none;

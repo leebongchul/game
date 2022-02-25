@@ -294,7 +294,7 @@ h1, h2, h3, h4, h5, h6 {
 .navbar .dropdown ul a:hover, .navbar .dropdown ul .active:hover, .navbar .dropdown ul li:hover > a {
   color: #106eea;
 }
-.navbar .dropdown:hover > ul {
+.navbar .dropdown:hover > #dropdown-ul {
   opacity: 1;
   top: 100%;
   visibility: visible;
