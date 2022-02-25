@@ -138,7 +138,7 @@ public class BoardController extends UiUtils {
 	}
 ///////////////////////////////////////////////////////////신고하기
 
-	@GetMapping(value = "/freeboard/view")
+	@GetMapping(value = "/view")
 	public String openBoardDetail(@ModelAttribute("params") BoardDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		System.out.println("boardNum:" + params.getBoardNum());

@@ -61,17 +61,17 @@
                     <choose>
                         <when test="'repoter'.equals(searchType)">
                         <![CDATA[
-                             mem_id LIKE '%' || #{searchKeyword} || '%' 
+                             a.mem_id LIKE '%' || #{searchKeyword} || '%' 
                         ]]>
                         </when>
                         <when test="'reportUser'.equals(searchType)">
                         <![CDATA[
-                             rep_id LIKE '%' || #{searchKeyword} || '%' 
+                             a.rep_id LIKE '%' || #{searchKeyword} || '%' 
                         ]]>
                         </when>
                         <when test="'reportType'.equals(searchType)">
                         <![CDATA[
-                             rep_type LIKE '%'|| #{searchKeyword} || '%' 
+                             a.rep_type LIKE '%'|| #{searchKeyword} || '%' 
                         ]]>
                         </when>
                     </choose>
@@ -80,9 +80,9 @@
                 <otherwise>
                     <![CDATA[
                         
-                           and mem_id LIKE '%' || #{searchKeyword} || '%'
-                            OR rep_id LIKE '%' || #{searchKeyword} || '%'
-                            OR rep_type LIKE '%'|| #{searchKeyword} || '%'
+                           and a.mem_id LIKE '%' || #{searchKeyword} || '%'
+                            OR a.rep_id LIKE '%' || #{searchKeyword} || '%'
+                            OR a.rep_type LIKE '%'|| #{searchKeyword} || '%'
                          
                         
                      ]]>
@@ -243,18 +243,22 @@
 		order by rownum asc
 
 	</select>
-
+    <select id="reportTotalCount" parameterType = "ReportDTO" resultType="int">
+        select count(*) from report_table
+    </select>
+    
 	<select id="selectReportList" parameterType="BoardDTO" resultType="ReportDTO">
 	SELECT a.* FROM
-	(SELECT r.rep_date, r.rep_num, r.mem_id, r.rep_id, r.rep_type, r.board_num, r.comm_num, m.mem_block
+	(SELECT 
+	rownum rno, r.rep_date, r.rep_num, r.mem_id, r.rep_id, r.rep_type, r.board_num, r.comm_num, m.mem_block
 		
 		FROM report_table r, member_table m
 		
-		WHERE r.rep_id= m.mem_id <include refid="reportSearch" />
+		WHERE r.rep_id= m.mem_id 
 		order by r.rep_date desc)a
 		where
-		a.rep_date between #{startPage} and #{endPage}
-
+		a.rno between #{startPage} and #{endPage}
+        <include refid="reportSearch" />
 	</select>
 
 	<insert id="insertReport" parameterType="ReportDTO">

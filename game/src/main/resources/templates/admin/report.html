@@ -57,10 +57,11 @@
 											<td class="col-md-2, text-center" th:text="${row.memId}"></td>
 											<td class="col-md-2, text-center" th:text="${row.repId}"></td>
 											<td class="col-md-1, text-center" th:text="${row.repType}"></td>
-											<td class="col-md-6, text-center"><a
-												th:href="@{/board/noticeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" class="btn-back-a">
-													<button class="btn btn-back">이 동</button>
-											</a></td>
+											<td class="col-md-6, text-center">
+											<a th:href="@{/board/view(boardNum=${row.boardNum},memId=${row.memId}, boardType=1)}" class="btn-back-a">
+													<button type="button" class="btn btn-back">이 동</button>
+											</a>
+											</td>
 											<td class="col-md-1, text-center" th:text="${row.memBlock}"></td>
 
 										</tr>

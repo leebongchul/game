@@ -45,7 +45,7 @@ public class AdminController extends UiUtils {
 	}
 
 	@GetMapping(value = "/report")
-	public String openReportpage(@ModelAttribute("params") BoardDTO params,Model model) {
+	public String openReportpage(@ModelAttribute("params") ReportDTO params,Model model) {
 		List<ReportDTO> reportList = boardService.getReportList(params);
 		if (reportList == null) {
 			// 신고가 없을 때
