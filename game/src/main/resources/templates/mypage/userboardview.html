@@ -2,6 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
+<th:block  th:replace="/fragment/header :: main-head">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- 자바스크립트 -->
@@ -11,6 +12,7 @@
 <link href="../css/mypage/userboardview.css" rel="stylesheet">
 </head>
 <body>
+<nav th:replace="/fragment/header :: main-header"></nav> 
 <section class="content">
 
 	<h2 class="text-h1">내 게시글 보기</h2>
