@@ -247,7 +247,6 @@ public class BoardController extends UiUtils {
 		}
 
 		return showMessageWithRedirect("게시글 삭제가 완료되었습니다.", "/board/list", Method.GET, null, model);
-//		return "board/test";
 	}
 
 //	@GetMapping(value = "/freeboard/searchlist")
