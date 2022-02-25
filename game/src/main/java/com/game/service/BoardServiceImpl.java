@@ -83,8 +83,8 @@ public class BoardServiceImpl implements BoardService {
 	};
 
 	@Override
-	public List<ReportDTO> getReportList() {
-		return boardMapper.selectReportList();
+	public List<ReportDTO> getReportList(BoardDTO params) {
+		return boardMapper.selectReportList(params);
 	};
 
 	@Override

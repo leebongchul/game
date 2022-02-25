@@ -26,7 +26,7 @@ public interface BoardMapper {
 
 	public int plusBoardHit(BoardDTO parmas);
 
-	public List<ReportDTO> selectReportList();
+	public List<ReportDTO> selectReportList(BoardDTO params);
 
 	public int insertReport(ReportDTO params);
 }
