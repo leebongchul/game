@@ -67,15 +67,15 @@ public class AdminController extends UiUtils {
         return "admin/noticelist";
     }
 	
-	@GetMapping(value = "/mainboard")
-	public String openMainboardpage(@ModelAttribute("params") BoardDTO params, Model model) {
-		if (params.getBoardType() == 0) {
-			params.setBoardType(1);
-		}
-		List<BoardDTO> boardList = boardService.getBoardList(params);
-		model.addAttribute("boardList", boardList);
-		return "admin/mainboard";
-	}
+//	@GetMapping(value = "/mainboard")
+//	public String openMainboardpage(@ModelAttribute("params") BoardDTO params, Model model) {
+//		if (params.getBoardType() == 0) {
+//			params.setBoardType(1);
+//		}
+//		List<BoardDTO> boardList = boardService.getBoardList(params);
+//		model.addAttribute("boardList", boardList);
+//		return "admin/mainboard";
+//	}
 
 	
 
