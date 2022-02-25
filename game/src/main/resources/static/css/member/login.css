@@ -3,10 +3,10 @@
         background: rgb(94,94,94);
     }
     section.login {
-        width:280px;
+        width:290px;
         margin:auto;
-        height:800px;
-        border:1px solid red;
+        height:100%;
+        /*border:1px solid red;*/
         margin-top:100px;
     }
     .input1 {
