@@ -209,7 +209,7 @@ class MapperTests {
 		System.out.println("테스트인풋 result : " + result);
 
 	};
-
+/*
 	@Test
 	public void testSelectReportList() {
 
@@ -226,7 +226,7 @@ class MapperTests {
 			e.printStackTrace();
 		}
 	}
-
+*/
 	@Test
 	public void testOfinsertReport() {
 
