@@ -207,13 +207,13 @@ public class MemberServiceImpl implements MemberService {
 	public boolean blockMemberLogin(MemberDTO params) {
 		if (memberMapper.selectMember(params) != null) {
 			if(memberMapper.seeBlockLogin(params).equals("차단")) {
-				System.out.println("차단진행");
+				System.out.println("차단진행하기");
 				return true;
 			}else {
-				System.out.println("유저는 있는데 차단유저는 아니네유");
+				System.out.println("유저는 있는데 차단유저는 아니네유, showredirect 사용하기");
 			}
 		}else {
-			System.out.println("유저가 없슈");
+			System.out.println("유저가 없슈,  showredirect 사용하기");
 		}
 		return false;
 	};
@@ -222,7 +222,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int blocktimeout(MemberDTO params) {
 		int a = 0;
-		if (params.getBlockPeriod() == 0 ) {
+		if (params.getMemDrop() != "N") { //아무 의미 없는 코드. 오버라이드 맞출려고 쓴거
 			System.out.println("차단해제 진행");
 		}else {
 			System.out.println("차단과 상관 없음");
