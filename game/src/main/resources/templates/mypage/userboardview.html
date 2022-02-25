@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -7,35 +8,36 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link href="../css/board/list.css" rel="stylesheet">
+<link href="../css/mypage/userboardview.css" rel="stylesheet">
 </head>
 <body>
+<section class="content">
 
-	<h2>내 게시글 보기</h2>
+	<h2 class="text-h1">내 게시글 보기</h2>
 	 
             <th:block layout:fragment="search">
                 <nav th:replace="mypage/layout/common :: search"></nav>
             </th:block>
                 
-	<div>
+	<div class="table-responsive clearfix">
 		<form name="deleteBoardForm" id="deleteBoardForm" action="/mypage/boardDelete" method="get">
-			<table>
+			<table id = "freeboardtable" class="table table-hover">
 				<thead>
-					<tr>
-						<th>선택</th>
-						<th>제목</th>
-						<th>작성일자</th>
-						<th>조회수</th>
+					<tr class="tr1">
+						<th class="text-center">선택</th>
+						<th class="text-center">제목</th>
+						<th class="text-center">작성일자</th>
+						<th class="text-center">조회수</th>
 					</tr>
 				</thead>
 				<tbody>
 
 					<tr th:if="${not #lists.isEmpty( boardList )}" th:each="row : ${boardList}">
-						<td><input type="checkbox" name="boardNum" th:value="${row.boardNum}"></td>
+						<td class="text-center"><input type="checkbox" name="boardNum" th:value="${row.boardNum}"></td>
 						<td><a th:href="@{/board/freeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}"
-							th:text="${row.boardTitle} + '('+ ${row.commCount} +')'"></a></td>
-						<td th:text="${row.boardDate}"></td>
-						<td th:text="${row.boardHit}"></td>
+							th:text="${row.boardTitle} + '('+ ${row.commCount} +')'" class="title_link"></a></td>
+						<td th:text="${row.boardDate}" class="text-center"></td>
+						<td th:text="${row.boardHit}" class="text-center"></td>
 						<!-- 첫 번째 파라미터는 '?'로 연결하고, 두 번째부터는 '&'로 연결하는데요, 타임리프는 URI 뒤에 ?대신 괄호를, & 대신 ,(콤마)를 사용 -->
 					</tr>
 					<tr th:unless="${not #lists.isEmpty( boardList )}">
@@ -43,13 +45,14 @@
 					</tr>
 				</tbody>
 			</table>
-			<button type="button" class="btn_delete" onclick="deleteBoardFormCheck()">삭제</button>
+			<div class="btn_wrap text-right">
+			<button type="button" class="btn-delete" onclick="deleteBoardFormCheck()">삭제</button>
 			<a href = "./mypagemain">
-			 <button type="button" class="btn_mypage">마이페이지</button>
+			 <button type="button" class="btn-mypage">마이페이지</button>
 			</a>
-			
+			</div>
 		</form>
-
+ </div>
 		<th:block layout:fragment="paging">
 			<nav th:replace="board/layout/common :: pagination"></nav>
 		</th:block>
@@ -78,7 +81,8 @@
 				/*]]>*/
 			</script>
 		</th:block>
-	</div>
+	
+</section>
 </body>
 <script>
 	//삭제게시글 선택 여부 체크

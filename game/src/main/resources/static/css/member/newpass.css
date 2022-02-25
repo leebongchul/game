@@ -3,11 +3,11 @@
         background: rgb(94,94,94);
     }
     section.newpass {
-        width:280px;
+        width:285px;
         margin:auto;
-        height:1000px;
+        height:800px;
          margin-top:100px;
-        border:1px solid red;
+        /*border:1px solid red;*/
     }
      ul {
         list-style-type:none;
@@ -47,21 +47,19 @@
         width:250px;
         padding:13px;
         padding-left:15px;
-        font-size:14px;
+        font-size:13px;
     }
     
-     .btn_ok, .btn_reset {
+     .btn_ok, .btn_reset{
         color:white;
         background:black;
         border-radius:5px;
-        padding:9px 25px;
-        font-size:14px;
+        padding:9px 53px;
+        font-size:13px;
         border: 1px solid black;
-        margin-left:35px;
         margin-top:20px;
         cursor:pointer;
-        
-    } 
+    }  
     img {
     margin-left:90px;
     

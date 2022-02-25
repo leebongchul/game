@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 <title>The page is a write page</title>
 <!-- CSS -->
+<link href="../css/header.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
 <!-- 테마 -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 
@@ -15,15 +15,23 @@
 <link href="/css/admin/noticelist.css" rel="stylesheet" type="text/css">
 </head>
 <body class="mainbody">
+<th:block layout:fragment="header">
+<nav th:replace="/fragment/header":: header></nav>
+</th:block>
+<section class="content">
+	<!--  
 	<div class="container">
 		<div class="container-fluid p-0">
+	-->
 			<h1 class="h3 mb-3 notice-text">공지사항</h1>
+			<!--  
 			<div class="row">
 				<div class="col-xl-8">
 					<div class="card2">
 						<div class="card-header pb-0">
 							<div class="card-actions float-right"></div>
 						</div>
+			-->
 						<div class="card-body table-responsive clearfix">
 							<table class="table table-hover" style="width: 100%">
 								<thead>
@@ -52,10 +60,15 @@
 								
 							</table>
 						</div>
+						<!--  
 					</div>
 				</div>
 			</div>
+			-->
+			<!--  
 		</div>
 	</div>
+	-->
+	</section>
 </body>
 </html>

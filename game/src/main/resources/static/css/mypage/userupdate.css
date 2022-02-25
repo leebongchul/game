@@ -1,9 +1,13 @@
 @charset "UTF-8";
-    section.userupdate {
+	body {
+        background: rgb(94,94,94);
+    }
+    .content {
         width:460px;
         margin:auto;
         height:1000px;
         /*border:1px solid red;*/
+        margin-top:50px;
     }
    ul {
         list-style-type:none;
@@ -14,15 +18,15 @@
         padding:0;
     }
     label {
-        background:yellow;
+        /*background:white;*/
         display:inline-block;
         text-align:center;
         border-radius:5px;  
         margin-right:10px;
         margin-bottom:0;
         font-weight:bold;
-        font-size:10pt;
-        color:gray;
+        font-size:14px;
+        color:white;
     }
     li  { 
         clear:left; 
@@ -30,16 +34,69 @@
         overflow:hidden;
     }   
 
-    .input1 {
+     .input1 {
         margin-bottom: 15px;
+        border-radius:5px;
+        border:1px solid lightgray;
+        width:250px;
+        padding:13px;
+        padding-left:15px;
+        font-size:14px;
+    }
+    .tel {
+        margin-bottom: 15px;
+        border-radius:5px;
+        border:1px solid lightgray;
+        width:280px;
+        padding:13px;
+        font-size:13px;
     }
     
-    .hp {
-    margin-bottom: 15px;
-        width:70px;
+   .hp {
+        width:59px;
+        margin-bottom: 15px;
+        border-radius:5px;
+        border:1px solid lightgray;
+        padding:9px;
+        padding-left:20px;
+        
     }
     
     .email {
-        width:70px;
+        width:105px;
+        margin-bottom: 15px;
+        border-radius:5px;
+        border:1px solid lightgray;
+        padding:10px;
+        padding-left:20px;
     }
-   
+     .email2 {
+        width:130px;
+        margin-bottom: 15px;
+        border-radius:5px;
+        border:1px solid lightgray;
+        padding:10px;
+        padding-left:20px;
+        font-size:14px;
+    }
+    h1 {
+    	color:white;
+    }
+   	.btn-update {
+   		color:white;
+        background:black;
+        border-radius:5px;
+        padding:9px 52px;
+        font-size:13px;
+        border: 1px solid black;
+        cursor:pointer;
+   	}
+   	.btn-back {
+   		color:white;
+        background:black;
+        border-radius:5px;
+        padding:9px 45px;
+        font-size:13px;
+        border: 1px solid black;
+        cursor:pointer;
+   	}

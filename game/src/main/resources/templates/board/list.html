@@ -7,11 +7,14 @@
     <head>
         <meta charset="UTF-8">
         <title>The page is a write page</title>
+        <link href="../css/header.css" rel="stylesheet">
     </head>
     <body>
+    <th:block layout:fragment="header">
+<nav th:replace="/fragment/header":: header></nav>
+</th:block>
     <div class="content">
     <a href = "./list" class="text-h1">자유 게시판</a>
-    
               <span>
     		<th:block layout:fragment="search" class="selectbox">
                 <nav th:replace="board/layout/common :: search"></nav>
@@ -49,6 +52,7 @@
 	                    </tr>
 	                </tbody>
 	            </table>
+	            </form>
 	            <div class="btn_wrap text-right">
 	              <button th:if="${member.memRole !=null && member.memRole=='admin'}" type="button" class="btn-write" onclick="deleteMainboardFormCheck()">
                         <a class="btn waves-effect waves-light btn-write-a">삭제</a>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 <meta charset="UTF-8">
 <title>The page is a write page</title>
@@ -9,13 +9,16 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
+<link href="../css/header.css" rel="stylesheet">
 <!-- 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <link href="/css/admin/report.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
+<th:block layout:fragment="header">
+<nav th:replace="/fragment/header":: header></nav>
+</th:block>
 	<div class="container">
 		<div class="container-fluid p-0">
 			<h1 class="h3 mb-3 font-weight-bold">
