@@ -28,6 +28,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail' // 이메일 인증
 	implementation 'org.springframework.boot:spring-boot-starter-security' // 스프링-시큐리티  로그인처리!!
 	implementation'com.google.code.gson:gson:2.8.7' //카카오톡 로그인 인가코드로 access_token 받기 위한 의존성 추가
+	implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '2.5.2'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'

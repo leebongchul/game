@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
 <meta charset="UTF-8">
@@ -17,8 +17,12 @@
 <!-- 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <link href="/css/admin/noticeview.css" rel="stylesheet" type="text/css">
+<link href="../css/header.css" rel="stylesheet">
 </head>
 <body>
+<th:block layout:fragment="header">
+<nav th:replace="/fragment/header":: header></nav>
+</th:block>
 	<div id="main-content" class="blog-page">
 		<h4 class="freeboard">공지사항</h4>
 		<div class="container">
@@ -191,7 +195,7 @@
 											
 										</div>
 										-->
-					<a th:href="@{/board/noticeboard/list}" class="btn btn-dark waves-effect waves-light btn_back">목록</a>
+					<a th:href="@{/board/noticeboard/list}" class="btn btn-dark waves-effect waves-light btn_back">목 록</a>
 				</div>
 			</div>
 

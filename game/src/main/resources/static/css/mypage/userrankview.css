@@ -16,7 +16,7 @@ section.userrank {
 	margin-top:-95px;
 }
 .myrankview{
-	font-size:40px;
+	font-size:30px;
 	font-weight:bold;
 	/*border:1px solid red;*/
 	display:inline-block;
@@ -36,4 +36,7 @@ li {
 }
 iframe {
 	background:#f2f2f2;
+}
+.link_style1:hover {
+	background: #FEFECC;
 }

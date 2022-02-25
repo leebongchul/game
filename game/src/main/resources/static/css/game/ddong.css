@@ -1,4 +1,7 @@
 @charset "UTF-8";
+	body {
+
+	}
      section.game {
         width:1000px;
         margin:auto;
@@ -49,5 +52,12 @@
        
        margin-left:100px;
       
-       
+    }
+	.text-top {
+    	margin-left:450px;
+    	margin-bottom:20px;
+    	font-weight:bold;
+    }
+    th {
+    	background:#FEFECC;
     }

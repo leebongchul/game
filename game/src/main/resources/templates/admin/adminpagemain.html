@@ -4,8 +4,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="../css/admin/adminpagemain.css" rel="stylesheet">
+<link href="../css/header.css" rel="stylesheet">
 </head>
 <body>
+<th:block layout:fragment="header">
+<nav th:replace="/fragment/header":: header></nav>
+</th:block>
   <section class="adminpagemain">
    <h1>관리자페이지</h1>
    <div class="first_line">

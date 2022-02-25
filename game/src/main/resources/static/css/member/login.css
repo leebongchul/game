@@ -1,11 +1,11 @@
 @charset "UTF-8";
-    body {
+    .login-body {
         background: rgb(94,94,94);
     }
     section.login {
         width:280px;
         margin:auto;
-        height:1000px;
+        height:800px;
         border:1px solid red;
         margin-top:100px;
     }
@@ -13,10 +13,10 @@
         margin-bottom: 15px;
         border-radius:5px;
         border:1px solid lightgray;
-        width:250px;
+        width:283px;
         padding:13px;
         padding-left:15px;
-        font-size:14px;
+        font-size:13px;
     }
      .btn_join {
         width:283px;

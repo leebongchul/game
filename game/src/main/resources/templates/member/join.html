@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
+<th:block  th:replace="/fragment/header :: main-head">
+</th:block>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script th:src="@{/scripts/jquery.min.js}"></script>
 <link href="../css/member/join.css" rel="stylesheet">
+<link href="../css/header.css" rel="stylesheet">
 </head>
 <body>
+<nav th:replace="/fragment/header :: main-header"></nav> 
     <th:block layout:fragment="content">
         <div class="join">
          <section class="join">
