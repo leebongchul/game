@@ -154,7 +154,7 @@ public class MypageController extends UiUtils {
 			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/mypage/userupdate", Method.GET, null, model);
 		}
 
-		return showMessageWithRedirect("사용자 정보 수정이 완료되었습니다.", "/mypage/userupdate", Method.GET, null, model);
+		return showMessageWithRedirect("사용자 정보 수정이 완료되었습니다.", "/mypage/mypagemain", Method.GET, null, model);
 	}
 
 	// 닉네임 중복검사

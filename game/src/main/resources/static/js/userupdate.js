@@ -2,6 +2,7 @@
  * 
  */
  
+
  function userUpdate(){
 	var nick, tel, hp1, hp2, hp3, email1, email2;
 	
@@ -148,14 +149,23 @@ function textCheck_email() {
  
 var hpSplit;
 var emailSplit;
- $(document).ready(function(){
+$(document).ready(function(){
     hpSplit = $("#hpval").val().split('-'); 
     emailSplit = $("#emailval").val().split('@');
+    
     $("#hp1").val(hpSplit[0]);
     $("#hp2").val(hpSplit[1]);
     $("#hp3").val(hpSplit[2]);
     $("#email1").val(emailSplit[0]);
     $("#email2").val(emailSplit[1]);
+    
+    if($("#usertel").val() == 'skt'){
+        $("#tel").val('skt').prop("selected", true);
+    }else if($("#usertel").val() == 'kt'){
+        $("#tel").val('kt').prop("selected", true);
+    }else if($("#usertel").val() == 'lgu+'){
+        $("#tel").val('lgu+').prop("selected", true);
+    }
 });
    
  // 닉네임 유효성검사
@@ -282,7 +292,7 @@ var emailSplit;
         //let btn_check = $("#btn_check");
         //let code = $("#code");
         //이메일 변경 시 이메일 중복체크, 이메일 인증체크 값 'N'으로 변경
-        emailcheck = 'N';
+        
         //emailcodecheck = 'N';
         //카카오톡으로 회원가입 시 계정의 이메일이 자동 입력되고 이메일의 유효성체크와 인증체크를 진행하지 않아도 됨(버튼과 코드입력란이 안보임)
         //하지만 이메일을 수정할 경우 인증체크를 진행해야함-> 버튼과 코드입력란이 보이게 바뀜
@@ -297,6 +307,7 @@ var emailSplit;
             $("#emailmsg").text("");
             $("#emailcheck").val("Y");
         }
+        
         if(emailSplit[0] != $("#email1").val() || emailSplit[1] != $("#email2").val()){
             
             $.ajax({
@@ -337,9 +348,10 @@ var emailSplit;
                     
                 }, error : function() {
                         console.log("실패");
-                    }
-            });   
-        }
+                  }
+            });   // ajx end
+        } //if end
+    }// emailCheck() end
         
         
         
@@ -349,11 +361,9 @@ var emailSplit;
     email3 = document.getElementById("email3");
     emailmsg = document.getElementById("emailmsg");
     emailcheck = document.getElementById("emailcheck");
-    //emailcodecheck = document.getElementById("emailcodecheck");
 
-    emailcheck = 'N';
-    //emailcodecheck = 'N';
-
+    emailcheck.value = 'N';
+    email2.value = "";
    	email2.value = email3.value;
     //        let check1 = /^[^ㄱ-ㅎ가-힣]+$/;
 
@@ -364,10 +374,8 @@ var emailSplit;
     }else if(email2.value == email3.value){
         emailmsg.innerHTML = "";
         email2.disabled = true;
-    }else{
-        
     }
   }
         
  
- }
+ 
