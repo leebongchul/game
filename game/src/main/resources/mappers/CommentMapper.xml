@@ -142,17 +142,18 @@ where
 <!-- 특정 게시글의 모든 댓글 목록 조회  -->
 <select id="selectCommentList" parameterType="CommentDTO" resultType="CommentDTO">
 select 
-    comm_num
-    , comm_contents
-    , mem_nick
-    , comment_table.mem_id
-    , comm_date
-from comment_table, member_table 
+    c.comm_num
+    , c.comm_contents
+    , c.mem_id
+    , c.comm_date
+    , m.mem_nick
+    , b.board_title
+from comment_table c 
+  left outer join board_table b on c.board_num=b.board_num
+  left outer join member_table m on c.mem_id=m.mem_id
 where 
-    member_table.mem_id = comment_table.mem_id
-and 
     comm_delete = 'N'
-    <if test="">and board_num = #{boardNum}</if>
+    <if test="boardNum != null">and board_num = #{boardNum}</if>
 order by comm_date 
     
 

@@ -45,8 +45,8 @@ public class AdminController extends UiUtils {
 	}
 
 	@GetMapping(value = "/report")
-	public String openReportpage(Model model) {
-		List<ReportDTO> reportList = boardService.getReportList();
+	public String openReportpage(@ModelAttribute("params") ReportDTO params,Model model) {
+		List<ReportDTO> reportList = boardService.getReportList(params);
 		if (reportList == null) {
 			// 신고가 없을 때
 			return "member/test";
@@ -65,16 +65,6 @@ public class AdminController extends UiUtils {
 		model.addAttribute("boardList", boardList);
 
 		return "admin/noticelist";
-	}
-
-	@GetMapping(value = "/mainboard")
-	public String openMainboardpage(@ModelAttribute("params") BoardDTO params, Model model) {
-		if (params.getBoardType() == 0) {
-			params.setBoardType(1);
-		}
-		List<BoardDTO> boardList = boardService.getBoardList(params);
-		model.addAttribute("boardList", boardList);
-		return "admin/mainboard";
 	}
 
 	// 게시글 삭제

@@ -27,6 +27,9 @@
 			<h2 class="h4 mb-3 text-center">
 				<strong>신고 및 차단</strong>
 			</h2>
+			<th:block layout:fragment="search" class="selectbox">
+                <nav th:replace="admin/layout/reportcommon :: search"></nav>
+            </th:block>
 			<div class="row">
 				<div class="col-xl-8">
 				
@@ -54,10 +57,11 @@
 											<td class="col-md-2, text-center" th:text="${row.memId}"></td>
 											<td class="col-md-2, text-center" th:text="${row.repId}"></td>
 											<td class="col-md-1, text-center" th:text="${row.repType}"></td>
-											<td class="col-md-6, text-center"><a
-												th:href="@{/board/noticeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" class="btn-back-a">
-													<button class="btn btn-back">이 동</button>
-											</a></td>
+											<td class="col-md-6, text-center">
+											<a th:href="@{/board/view(boardNum=${row.boardNum},memId=${row.memId}, boardType=1)}" class="btn-back-a">
+													<button type="button" class="btn btn-back">이 동</button>
+											</a>
+											</td>
 											<td class="col-md-1, text-center" th:text="${row.memBlock}"></td>
 
 										</tr>
@@ -133,6 +137,51 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="paging">
+            <th:block layout:fragment="paging">
+                <nav th:replace="admin/layout/common :: pagination"></nav>
+            </th:block>
+    </div>
+            
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            
+            function movePage(uri, queryString) {
+                location.href = uri + queryString;
+            }
+            /*[- end of function -]*/
+            
+            function searchBoard(form) {
+                /*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
+                    var searchKeyword = document.getElementById("searchKeyword");
+                    console.log("키워드값 : "+searchKeyword.value);
+                    /*
+                    if (searchKeyword.value == "") {
+                        alert("키워드를 입력해 주세요.");
+                        searchKeyword.focus();
+                        return false;
+                    }
+*/
+                    form = document.getElementById("searchForm");
+                    form.submit();
+            }
+            
+          //삭제게시글 선택 여부 체크
+            function deleteMainboardFormCheck() {
+                if ($('input:checkbox[name="boardNum"]').is(':checked')) {
+                    let result = confirm("정말로 삭제하시겠습니까?");
+                    if (result) {
+                        $("#deleteBoardForm").submit();
+                    }
+                } else {
+                    alert("삭제할 게시글을 선택해주세요.");
+                }
+            }
+            
+            /*]]>*/
+        </script>
 </body>
 <script>
 	//차단 유저 선택 여부 체크
@@ -176,5 +225,11 @@
         }
 			
 	}
+	
+	 $(document).ready(function(){
+         var len = $("#searchKeyword").val().length;
+         $("#searchKeyword").focus();
+         $("#searchKeyword")[0].setSelectionRange(len, len);
+     });
 </script>
 </html>

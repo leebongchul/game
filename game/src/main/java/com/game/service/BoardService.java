@@ -19,7 +19,7 @@ public interface BoardService {
 
 	public int plusBoardHit(BoardDTO params);
 
-	public List<ReportDTO> getReportList();
+	public List<ReportDTO> getReportList(ReportDTO params);
 
 	public boolean registerReport(ReportDTO params);
 
