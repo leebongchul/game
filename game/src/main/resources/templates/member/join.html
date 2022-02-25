@@ -16,7 +16,7 @@
          <section class="join">
          <img src="../image/로고.PNG">
          <form name = "joinform"th:action="@{/member/insert.do}" th:object="${member}" method="post" onsubmit="return formsubmit(this)">
-            <ul>
+            <ul id="join-ul">
              <li>
                 <label>*아이디</label>
             </li>

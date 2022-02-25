@@ -10,10 +10,10 @@ body {
         margin-top:10px;
         padding-left:200px;
     }
-   ul {
+   #join-ul {
         list-style-type:none;
         font-size:12pt;
-        /*border:1px solid blue;*/
+        border:1px solid blue;
         margin-left:30px;
         margin:0;
         padding:0;
