@@ -173,7 +173,7 @@ select
 from 
 comment_table 
 where 
-    board_num = #{boardNum}
+    board_num = #{boardNum} and comm_delete='N'
 </select>
 
 
