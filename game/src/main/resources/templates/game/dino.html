@@ -22,7 +22,7 @@
             <canvas id="canvas"></canvas>
             
         </div>
-        
+         <hr class="hr1">
         <form id = "ScoreForm" th:action = "@{/game/ddong.do}" method="post" onsubmit="return formsubmit(this)" >
         
         <div th:if="${member} == null">
@@ -54,22 +54,22 @@
         </form>
         <hr class="hr2">
         <div class="top">
-            <h1>TOP5</h1>
+            <h1 class="text-top">TOP5</h1>
         </div>
         
         <table class = "table">
                 <thead>
                     <tr>
-                        <th>랭킹</th>
-                        <th>닉네임</th>
-                        <th>점수</th>
+                        <th class="text-center">랭킹</th>
+                        <th class="text-center">닉네임</th>
+                        <th class="text-center">점수</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="row : ${top5}">
-                        <td th:text="${row.rno}"></td>
-                        <td th:text="${row.memNick}"></td>
-                        <td th:text="${row.rankScore}"></td>
+                        <td th:text="${row.rno}" class="text-center"></td>
+                        <td th:text="${row.memNick}" class="text-center"></td>
+                        <td th:text="${row.rankScore}" class="text-center"></td>
                     </tr>
                 </tbody>
          </table>

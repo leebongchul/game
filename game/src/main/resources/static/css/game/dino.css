@@ -44,4 +44,12 @@
        border-top: 7px solid black;
        
     }
+    .text-top {
+    	margin-left:440px;
+    	margin-bottom:20px;
+    	font-weight:bold;
+    }
+    th {
+    	background:#FEFECC;
+    }
 
