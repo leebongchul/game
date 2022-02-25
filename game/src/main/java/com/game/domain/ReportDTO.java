@@ -16,6 +16,6 @@ public class ReportDTO extends CommentDTO {
 	 * varchar2()로 수정 2. Member_table에서 ID를 PK값으로 사용하기로 결정됨으로써 시퀀스 삭제함.
 	 */
 
-	private String repNum, repId, repType;
+	private String repNum, repId, repType, repDate;
 
 }

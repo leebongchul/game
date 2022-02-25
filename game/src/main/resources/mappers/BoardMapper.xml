@@ -203,22 +203,20 @@
 	</select>
 
 	<select id="selectReportList" resultType="ReportDTO">
-	SELECT * FROM
-		(SELECT rownum rno, r.rep_num, r.mem_id, r.rep_id, r.rep_type, r.board_num, r.comm_num, m.mem_block
+	SELECT r.rep_date, r.rep_num, r.mem_id, r.rep_id, r.rep_type, r.board_num, r.comm_num, m.mem_block
 		FROM report_table r, member_table m
-		WHERE r.rep_id= m.mem_id)
-	ORDER BY rno desc
+		WHERE r.rep_id= m.mem_id order by r.rep_date desc
 
 	</select>
 
 	<insert id="insertReport" parameterType="ReportDTO">
 		INSERT INTO
-			report_table (rep_num, mem_id, rep_id, rep_type
+			report_table (rep_num, mem_id, rep_id, rep_type,rep_date
 			<if test='boardNum != null'>, board_num</if>
 			<if test='commNum != null'>, comm_num</if>
 			)
 		VALUES
-			('r_'||sequ_report_num.nextval, #{memId}, #{repId}, #{repType}
+			('r_'||sequ_report_num.nextval, #{memId}, #{repId}, #{repType},sysdate
 			<if test='boardNum != null'>, #{boardNum}</if>
 			<if test='commNum != null'>, #{commNum}</if>
 			)
