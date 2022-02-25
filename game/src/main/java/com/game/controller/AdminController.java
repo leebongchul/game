@@ -156,4 +156,25 @@ public class AdminController extends UiUtils {
 		return "admin/report";
 	}
 
+	@GetMapping(value = "/comment")
+	public String openCommentpage(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+			@ModelAttribute("params") CommentDTO params, Model model) {
+		if (loginMember == null) {
+			return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
+		}
+
+		/******************************
+		 * 권한 설정-> 테스트 완료시 주석 해제
+		 ************************/
+//		if (loginMember.getMemRole().equals("user")) {
+//			return showMessageWithRedirect("페이지 접속 권한이 없습니다. 관리자 계정으로 로그인하세요.", "/index", Method.GET, null, model);
+//		}
+		/*****************************************************************/
+		params.setMemId(loginMember.getMemId());
+		List<CommentDTO> commList = commentService.selectMyComment(params);
+		model.addAttribute("commList", commList);
+
+		return "admin/comment";
+	}
+
 }
