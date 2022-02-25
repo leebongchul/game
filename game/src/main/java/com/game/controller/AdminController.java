@@ -44,17 +44,20 @@ public class AdminController extends UiUtils {
 		return "admin/adminpagemain";
 	}
 
-//	@GetMapping(value = "/mainboard")
-//	public String openMainboardpage(@ModelAttribute("params") BoardDTO params, Model model) {
-//		if (params.getBoardType() == 0) {
-//			params.setBoardType(1);
-//		}
-//		List<BoardDTO> boardList = boardService.getBoardList(params);
-//		model.addAttribute("boardList", boardList);
-//		return "admin/mainboard";
-//	}
+	@GetMapping(value = "/report")
+	public String openReportpage(Model model) {
+		List<ReportDTO> reportList = boardService.getReportList();
+		if (reportList == null) {
+			// 신고가 없을 때
+			return "member/test";
+		}
 
-	@GetMapping(value = "/noticeboard/list")
+		model.addAttribute("reportList", reportList);
+
+		return "admin/report";
+	}
+
+	@GetMapping(value = "/noticelist")
 	public String openNoticeBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
 		// 메인 생성되면 보드타입 변경?
 		params.setBoardType(2);
@@ -62,6 +65,16 @@ public class AdminController extends UiUtils {
 		model.addAttribute("boardList", boardList);
 
 		return "admin/noticelist";
+	}
+
+	@GetMapping(value = "/mainboard")
+	public String openMainboardpage(@ModelAttribute("params") BoardDTO params, Model model) {
+		if (params.getBoardType() == 0) {
+			params.setBoardType(1);
+		}
+		List<BoardDTO> boardList = boardService.getBoardList(params);
+		model.addAttribute("boardList", boardList);
+		return "admin/mainboard";
 	}
 
 	// 게시글 삭제
@@ -100,36 +113,23 @@ public class AdminController extends UiUtils {
 	public String commentdelete(@ModelAttribute("params") CommentDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		/***************** 로그인 세션 구현시 *******************/
-		// params.setCommUpdateId(loginMember.getMemId());
-		// params.setMemId(loginMember.getMemId());
+		params.setCommUpdateId(loginMember.getMemId());
+//		params.setMemId(loginMember.getMemId());
 		/************************************************/
-		params.setCommUpdateId("admin");// 테스트용 하드코딩->글삭제 시도 회원 (댓글작성자 또는 관리자)
-		params.setMemId("admin");// 테스트용 하드코딩->댓글 작성자
+//		params.setCommUpdateId("admin");// 테스트용 하드코딩->글삭제 시도 회원 (댓글작성자 또는 관리자)
+//		params.setMemId("admin");// 테스트용 하드코딩->댓글 작성자
 		try {
 			if (commentService.deleteComment(params)) {
-				return showMessageWithRedirect("삭제가 완료되었습니다.", "/mypage/usercommentview", Method.GET, null, model);
+				return showMessageWithRedirect("삭제가 완료되었습니다.", "/admin/comment", Method.GET, null, model);
 			} else {
-				return showMessageWithRedirect("삭제를 실패하였습니다.", "/mypage/usercommentview", Method.GET, null, model);
+				return showMessageWithRedirect("삭제를 실패하였습니다.", "/admin/comment", Method.GET, null, model);
 			}
 		} catch (DataAccessException e) {
-			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/mypage/usercommentview", Method.GET, null,
-					model);
+			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/admin/comment", Method.GET, null, model);
 
 		} catch (Exception e) {
-			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/mypage/usercommentview", Method.GET, null, model);
+			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/admin/comment", Method.GET, null, model);
 		}
-	}
-
-	@GetMapping(value = "/report/list")
-	public String openReportpage(Model model) {
-		List<ReportDTO> reportList = boardService.getReportList();
-		if (reportList == null) {
-			// 신고가 없을 때
-			return "member/test";
-		}
-		model.addAttribute("reportList", reportList);
-
-		return "admin/report";
 	}
 
 	@GetMapping(value = "/block")
@@ -138,17 +138,38 @@ public class AdminController extends UiUtils {
 		try {
 			if (params.getMemId() != null && params.getBlockPeriod() != 0) {
 				if (memberService.updateMemberBlock(params)) {
-					return showMessageWithRedirect("차단이 완료되었습니다.", "/admin/report/list", Method.GET, null, model);
+					return showMessageWithRedirect("차단이 완료되었습니다.", "/admin/report", Method.GET, null, model);
 				}
-				return showMessageWithRedirect("차단을 실패하였습니다.", "/admin/report/list", Method.GET, null, model);
+				return showMessageWithRedirect("차단을 실패하였습니다.", "/admin/report", Method.GET, null, model);
 			}
 		} catch (DataAccessException e) {
-			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/admin/report/list", Method.GET, null, model);
+			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/admin/report", Method.GET, null, model);
 
 		} catch (Exception e) {
-			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/admin/report/list", Method.GET, null, model);
+			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/admin/report", Method.GET, null, model);
 		}
 		return "admin/report";
+	}
+
+	@GetMapping(value = "/comment")
+	public String openCommentpage(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+			@ModelAttribute("params") CommentDTO params, Model model) {
+		if (loginMember == null) {
+			return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
+		}
+
+		/******************************
+		 * 권한 설정-> 테스트 완료시 주석 해제
+		 ************************/
+//		if (loginMember.getMemRole().equals("user")) {
+//			return showMessageWithRedirect("페이지 접속 권한이 없습니다. 관리자 계정으로 로그인하세요.", "/index", Method.GET, null, model);
+//		}
+		/*****************************************************************/
+		params.setMemId(loginMember.getMemId());
+		List<CommentDTO> commList = commentService.getCommentList(params);
+		model.addAttribute("commList", commList);
+
+		return "admin/comment";
 	}
 
 }
