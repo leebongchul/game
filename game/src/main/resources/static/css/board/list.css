@@ -12,6 +12,7 @@
 }
 .text-h1:hover{
 	text-decoration:none;
+	color:black;
 }
 .btn-write {
 	color:white;
@@ -24,12 +25,16 @@
 	font-size:11px;
 	color:white;
 }
+.btn-write-a:visited{
+	color:white;
+}
 .btn-write-a:hover {
 	color:white;
 }
 .title_link:hover {
 	
 	text-decoration:none;
+	color:black;
 }
 /*
 .select{
