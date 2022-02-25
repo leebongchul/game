@@ -299,22 +299,22 @@ h1, h2, h3, h4, h5, h6 {
   top: 100%;
   visibility: visible;
 }
-.navbar .dropdown .dropdown ul {
+.navbar .dropdown .dropdown #dropdown-ul {
   top: 0;
   left: calc(100% - 30px);
   visibility: hidden;
 }
-.navbar .dropdown .dropdown:hover > ul {
+.navbar .dropdown .dropdown:hover > #dropdown-ul {
   opacity: 1;
   top: 0;
   left: 100%;
   visibility: visible;
 }
 @media (max-width: 1366px) {
-  .navbar .dropdown .dropdown ul {
+  .navbar .dropdown .dropdown #dropdown-ul {
     left: -90%;
   }
-  .navbar .dropdown .dropdown:hover > ul {
+  .navbar .dropdown .dropdown:hover > #dropdown-ul {
     left: -100%;
   }
 }
