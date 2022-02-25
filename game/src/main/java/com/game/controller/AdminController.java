@@ -43,26 +43,41 @@ public class AdminController extends UiUtils {
 	public String adminpageMain(Model model) {
 		return "admin/adminpagemain";
 	}
+	
+	@GetMapping(value = "/report")
+    public String openReportpage(Model model) {
+        List<ReportDTO> reportList = boardService.getReportList();
+        if (reportList == null) {
+            // 신고가 없을 때
+            return "member/test";
+        }
+        
+        model.addAttribute("reportList", reportList);
 
-//	@GetMapping(value = "/mainboard")
-//	public String openMainboardpage(@ModelAttribute("params") BoardDTO params, Model model) {
-//		if (params.getBoardType() == 0) {
-//			params.setBoardType(1);
-//		}
-//		List<BoardDTO> boardList = boardService.getBoardList(params);
-//		model.addAttribute("boardList", boardList);
-//		return "admin/mainboard";
-//	}
+        return "admin/report";
+    }
+	
+	@GetMapping(value = "/noticelist")
+    public String openNoticeBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
+        // 메인 생성되면 보드타입 변경?
+        params.setBoardType(2);
+        List<BoardDTO> boardList = boardService.getBoardList(params);
+        model.addAttribute("boardList", boardList);
 
-	@GetMapping(value = "/noticeboard/list")
-	public String openNoticeBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
-		// 메인 생성되면 보드타입 변경?
-		params.setBoardType(2);
+        return "admin/noticelist";
+    }
+	
+	@GetMapping(value = "/mainboard")
+	public String openMainboardpage(@ModelAttribute("params") BoardDTO params, Model model) {
+		if (params.getBoardType() == 0) {
+			params.setBoardType(1);
+		}
 		List<BoardDTO> boardList = boardService.getBoardList(params);
 		model.addAttribute("boardList", boardList);
-
-		return "admin/noticelist";
+		return "admin/mainboard";
 	}
+
+	
 
 	// 게시글 삭제
 	@GetMapping(value = "/boardDelete")
@@ -120,17 +135,7 @@ public class AdminController extends UiUtils {
 		}
 	}
 
-	@GetMapping(value = "/report/list")
-	public String openReportpage(Model model) {
-		List<ReportDTO> reportList = boardService.getReportList();
-		if (reportList == null) {
-			// 신고가 없을 때
-			return "member/test";
-		}
-		model.addAttribute("reportList", reportList);
-
-		return "admin/report";
-	}
+	
 
 	@GetMapping(value = "/block")
 	public String blockUser(@ModelAttribute("params") MemberDTO params, Model model) {
@@ -138,15 +143,15 @@ public class AdminController extends UiUtils {
 		try {
 			if (params.getMemId() != null && params.getBlockPeriod() != 0) {
 				if (memberService.updateMemberBlock(params)) {
-					return showMessageWithRedirect("차단이 완료되었습니다.", "/admin/report/list", Method.GET, null, model);
+					return showMessageWithRedirect("차단이 완료되었습니다.", "/admin/report", Method.GET, null, model);
 				}
-				return showMessageWithRedirect("차단을 실패하였습니다.", "/admin/report/list", Method.GET, null, model);
+				return showMessageWithRedirect("차단을 실패하였습니다.", "/admin/report", Method.GET, null, model);
 			}
 		} catch (DataAccessException e) {
-			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/admin/report/list", Method.GET, null, model);
+			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/admin/report", Method.GET, null, model);
 
 		} catch (Exception e) {
-			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/admin/report/list", Method.GET, null, model);
+			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/admin/report", Method.GET, null, model);
 		}
 		return "admin/report";
 	}

@@ -94,7 +94,7 @@
 		(select * from comment_table where comm_delete = 'N') comm RIGHT OUTER JOIN board_table board
 		ON(comm.board_num = board.board_num)LEFT OUTER JOIN  member_table member
 		ON(board.mem_id = member.mem_id) 
-		WHERE board.board_delete = 'N'  
+		WHERE board.board_delete = 'N' and board_type = #{boardType}
 		GROUP BY 
 		comm.board_num,board.board_num, board_title, board_content, board_date, board.mem_id, board_delete, member.mem_nick, board_type, board_hit
 		ORDER BY board_date)a
