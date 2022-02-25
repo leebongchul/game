@@ -3,8 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="../css/header.css" rel="stylesheet">
 </head>
     <body>
+    <th:block layout:fragment="header">
+<nav th:replace="/fragment/header":: header></nav>
+</th:block>
         <h2>로그아웃!</h2>
     </body>
 </html>

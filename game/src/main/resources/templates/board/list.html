@@ -95,8 +95,12 @@ a[name="btn_write"]{
     <head>
         <meta charset="UTF-8">
         <title>The page is a write page</title>
+        <link href="../css/header.css" rel="stylesheet">
     </head>
     <body>
+    <th:block layout:fragment="header">
+<nav th:replace="/fragment/header":: header></nav>
+</th:block>
     <div class="content">
     <h1>자유 게시판</h1>
               

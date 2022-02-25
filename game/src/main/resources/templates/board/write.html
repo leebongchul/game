@@ -3,7 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <title>The page is a write page</title>
+        <link href="../css/header.css" rel="stylesheet">
     </head>
+    <th:block layout:fragment="header">
+<nav th:replace="/fragment/header":: header></nav>
+</th:block>
         <div class="card-content">
             <form class="form-horizontal" th:action="@{/board/freeboard/register}" th:object="${board}" method="post" onsubmit="return registerBoard(this)">
                 <!--/* update의 경우 서버로 전달할 게시글 번호 (PK) */-->

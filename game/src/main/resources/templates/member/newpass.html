@@ -4,8 +4,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="../css/member/newpass.css" rel="stylesheet">
+<link href="../css/header.css" rel="stylesheet">
 </head>
 <body>
+<th:block layout:fragment="header">
+<nav th:replace="/fragment/header":: header></nav>
+</th:block>
 <section class="newpass">
     <img src="../image/로고.PNG">
     <h3>새로운 비밀번호를 입력해주세요.</h3>

@@ -4,10 +4,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="../css/mypage/userupdate.css" rel="stylesheet">
+<link href="../css/header.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script th:src="@{/scripts/jquery.min.js}"></script>
 </head>
 <body>
+<th:block layout:fragment="header">
+<nav th:replace="/fragment/header":: header></nav>
+</th:block>
          <section class="userupdate">
          <h1>사용자정보</h1>
          <form name = "userupdateform"th:action="@{/mypage/userupdate}" th:object="${member}" method="post" onsubmit="return userUpdate()">
