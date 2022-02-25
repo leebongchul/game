@@ -116,7 +116,7 @@ public class BoardController extends UiUtils {
 	public String reportBoard(@ModelAttribute("params") ReportDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		/*********** 로그인 세션 구현시 ***************/
-//		params.setMemId(loginMember.getMemId());
+		params.setMemId(loginMember.getMemId());
 		/******************************************/
 		params.setMemId("admin");
 		String url = "/board/noticeboard/view?boardNum=" + params.getBoardNum() + "&&boardType=" + params.getBoardType()
