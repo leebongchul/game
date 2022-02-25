@@ -30,7 +30,7 @@
     li  { 
         clear:left; 
         /*border:1px solid red;*/
-        overflow:hidden;
+        /* overflow:hidden; */
     }   
     .input1 {
         margin-bottom: 15px;

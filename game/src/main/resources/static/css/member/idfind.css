@@ -6,7 +6,8 @@
         width:450px;
         margin:auto;
         height:100%;
-        margin-top:100px;
+        margin-top:10px;
+        padding-left:50px;
         /*border:1px solid red;*/
     }
     .idfind-ul {
@@ -30,7 +31,7 @@
     li  { 
         clear:left; 
         /*border:1px solid red;*/
-        overflow:hidden;
+        /* overflow:hidden; */
     }   
     .input1, .email {
         margin-bottom: 15px;
