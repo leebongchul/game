@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
+<th:block  th:replace="/fragment/header :: main-head">
+</th:block>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -9,9 +11,7 @@
 <link href="../css/header.css" rel="stylesheet">
 </head>
 <body>
-<th:block layout:fragment="header">
-<nav th:replace="/fragment/header":: header></nav>
-</th:block>
+<nav th:replace="/fragment/header :: main-header"></nav> 
     <th:block layout:fragment="content">
         <div class="join">
          <section class="join">
