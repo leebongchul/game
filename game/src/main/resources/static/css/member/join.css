@@ -5,9 +5,9 @@ body {
     section.join {
         width:535px;
         margin:auto;
-        height:1000px;
+        height:800px;
         /*border:1px solid red;*/
-        margin-top:50px;
+        margin-top:100px;
     }
    ul {
         list-style-type:none;
@@ -40,7 +40,7 @@ body {
         width:250px;
         padding:13px;
         padding-left:15px;
-        font-size:14px;
+        font-size:12px;
     }
     .gender {
         margin-bottom: 15px;
@@ -54,10 +54,11 @@ body {
         margin-bottom: 15px;
         border-radius:5px;
         border:1px solid lightgray;
-        width:252px;
+        width:249px;
         padding:13px;
         padding-left:15px;
-        font-size:14px;
+        font-size:12px;
+        margin-top:-13px;
     }
     .tel {
         margin-bottom: 15px;
@@ -68,21 +69,21 @@ body {
         font-size:13px;
     }
     .hp {
-        width:59px;
+        width:63px;
         margin-bottom: 15px;
         border-radius:5px;
         border:1px solid lightgray;
         padding:9px;
-        padding-left:20px;
-        
+        padding-left:15px;
     }
     .email {
-        width:105px;
+        width:109px;
         margin-bottom: 15px;
         border-radius:5px;
         border:1px solid lightgray;
         padding:10px;
-        padding-left:20px;
+        padding-left:15px;
+         font-size:13px;
     }
      .email2 {
         width:130px;
@@ -91,14 +92,14 @@ body {
         border:1px solid lightgray;
         padding:10px;
         padding-left:20px;
-        font-size:14px;
+        font-size:13px;
     }
     .btn_check {
         color:white;
         background:black;
         border-radius:5px;
         padding:9px 10px;
-        font-size:14px;
+        font-size:13px;
         border: 1px solid black;
         cursor:pointer;
     }

@@ -15,7 +15,7 @@
                 
                 if (data == 1) {
                         // 1 : 아이디가 중복되는 문구
-                        $("#idmsg").text("사용중인 아이디입니다.");
+                        $("#idmsg").text("사용중인 아이디입니다");
                         $("#idmsg").css("color","red");
                         $("#idcheck").val("N");
                         
@@ -26,7 +26,7 @@
                         $("#idmsg").css("color","red");
                         $("#idcheck").val("N");
                     }else if(!check.test(id)){
-                        $("#idmsg").text("6~12자 영문, 숫자를 조합하세요.");
+                        $("#idmsg").text("6~12자 영문, 숫자를 조합하세요");
                         $("#idmsg").css("color","red");
                         $("#idcheck").val("N");
                     }else{
@@ -54,17 +54,17 @@
                 
                 if (data == 1) {
                         // 1 : 아이디가 중복되는 문구
-                        $("#nickmsg").text("사용중인 닉네임입니다.");
+                        $("#nickmsg").text("사용중인 닉네임입니다");
                         $("#nickmsg").css("color","red");
                         $("#nickcheck").val("N");
                 } else {
                         
                     if(nick ==""){
-                        $("#nickmsg").text("닉네임을 입력해주세요.");
+                        $("#nickmsg").text("닉네임을 입력해주세요");
                         $("#nickmsg").css("color","red");
                         $("#nickcheck").val("N");
                     }else if(!check.test(nick)){
-                        $("#nickmsg").text("1~10자의 한글 또는 영문 또는 숫자를 사용하세요.");
+                        $("#nickmsg").text("1~10자의 한글 또는 영문 또는 숫자를 사용하세요");
                         $("#nickmsg").css("color","red");
                         $("#nickcheck").val("N");
                     }else{
@@ -97,7 +97,7 @@
                 
                 if (data == 1) {
                         // 1 : 아이디가 중복되는 문구
-                        $("#hpmsg").text("사용중인 핸드폰번호입니다.");
+                        $("#hpmsg").text("사용중인 핸드폰번호입니다");
                         $("#hpmsg").css("color","red");
                         $("#hpcheck").val("N");
                 } else {
@@ -107,7 +107,7 @@
                         $("#hpmsg").css("color","red");
                         $("#hpcheck").val("N");
                     }else if(!check1.test($("#hp1").val())){
-                        $("#hpmsg").text("전화번호 앞자리는 3자리의 숫자를 사용하세요.");
+                        $("#hpmsg").text("전화번호 앞자리는 3자리의 숫자를 사용하세요");
                         $("#hpmsg").css("color","red");
                         $("#hpcheck").val("N");
                     }else if(!check2.test($("#hp2").val())){
@@ -115,7 +115,7 @@
                         $("#hpmsg").css("color","red");
                         $("#hpcheck").val("N");
                     }else if(!check3.test($("#hp3").val())){
-                        $("#hpmsg").text("전화번호 끝자리는 4자리의 숫자를 사용하세요.");
+                        $("#hpmsg").text("전화번호 끝자리는 4자리의 숫자를 사용하세요");
                         $("#hpmsg").css("color","red");
                         $("#hpcheck").val("N");
                     }else{
@@ -158,7 +158,7 @@
                 
                 if (data == 1) {
                         // 1 : 아이디가 중복되는 문구
-                        $("#emailmsg").text("사용중인 이메일입니다.");
+                        $("#emailmsg").text("사용중인 이메일입니다");
                         $("#emailmsg").css("color","red");
                         $("#emailcheck").val("N");
                 } else {
@@ -172,7 +172,7 @@
                         $("#emailmsg").css("color","red");
                         $("#emailcheck").val("N");
                     }else if(!check2.test($('#email2').val())){
-                        $("#emailmsg").text("이메일 형식을 확인해주세요.");
+                        $("#emailmsg").text("이메일 형식을 확인해주세요");
                         $("#emailmsg").css("color","red");
                         $("#emailcheck").val("N");
                     }else if($("#email1").val() !== "" && $("email2").val() !== ""){
@@ -207,7 +207,7 @@
                 
                 if (data == 1) {
                         // 1 : 아이디가 중복되는 문구
-                        $("#emailmsg").text("사용중인 이메일입니다.");
+                        $("#emailmsg").text("사용중인 이메일입니다");
                         $("#emailmsg").css("color","red");
                         $("#emailcheck").val("N");
                 } else {
@@ -221,7 +221,7 @@
                         $("#emailmsg").css("color","red");
                         $("#emailcheck").val("N");
                     }else if(!check2.test($('#email2').val())){
-                        $("#emailmsg").text("이메일 형식을 확인해주세요.");
+                        $("#emailmsg").text("이메일 형식을 확인해주세요");
                         $("#emailmsg").css("color","red");
                         $("#emailcheck").val("N");
                     }else if($("#email1").val() !== "" && $("email2").val() !== ""){
@@ -248,7 +248,7 @@
             type : 'post',
             data:{memEmail:email},
             success : function(data) {
-                alert("인증번호가 발송되었습니다.");
+                alert("인증번호가 발송되었습니다");
             }, error : function() {
                     console.log("실패");
                 }
@@ -311,25 +311,25 @@ function formsubmit(form) {
     document.getElementById("memEmail").value = email1.value + "@" + email2.value;
 
     if (!textCheck_id(form.id)) {
-        alert("ID를 확인해주세요.");
+        alert("ID를 확인해주세요");
         return false;
     } else if (!textCheck_pass(form.pass)) {
         alert("비밀번호를 확인해주세요");
         return false;
     } else if (!cpassCheck()) {
-        alert("비밀번호 확인을 확인해주세요.");
+        alert("비밀번호 확인을 확인해주세요");
         return false;
     } else if (!textCheck_name(form.name)) {
-        alert("이름을 확인해주세요.");
+        alert("이름을 확인해주세요");
         return false;
     } else if (!textCheck_nick(form.nick)) {
-        alert("닉네임을 확인해주세요.");
+        alert("닉네임을 확인해주세요");
         return false;
     } else if (!textCheck_hp()) {
-        alert("핸드폰번호를 확인해주세요.");
+        alert("핸드폰번호를 확인해주세요");
         return false;
     } else if (!textCheck_email()) {
-        alert("이메일을 확인해주세요.");
+        alert("이메일을 확인해주세요");
         return false;
     } else if (idcheck.value == 'N') {
         alert("아이디 중복을 확인해주세요");
@@ -362,11 +362,11 @@ function textCheck_id(obj) {
     //let check = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,12}$/;
     let check = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,12}$/;
     if (obj.value == "" && kakaoJoin.value == 'N') {
-        idmsg.innerHTML = "회원ID를 입력해주세요.";
+        idmsg.innerHTML = "회원ID를 입력해주세요";
         idmsg.style.color = "red";
         return false;
     } else if (!check.test(obj.value) && kakaoJoin.value == 'N') {
-        idmsg.innerHTML = "6~12자 영문, 숫자를 조합하세요.";
+        idmsg.innerHTML = "6~12자 영문, 숫자를 조합하세요";
         idmsg.style.color = "red";
         return false;
     } else {
@@ -386,11 +386,11 @@ function textCheck_pass(obj) {
     let check = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
 
     if (obj.value == "") {
-        passmsg.innerHTML = "비밀번호를 입력해주세요.";
+        passmsg.innerHTML = "비밀번호를 입력해주세요";
         passmsg.style.color = "red";
         return false;
     } else if (!check.test(obj.value)) {
-        passmsg.innerHTML = "8~16자 영문, 숫자, 특수문자를 사용하세요.";
+        passmsg.innerHTML = "8~16자 영문, 숫자, 특수문자를 사용하세요";
         passmsg.style.color = "red";
         return false;
     } else {
@@ -400,7 +400,7 @@ function textCheck_pass(obj) {
 
     if (pass.value != "" && cpass.value != "") {
         if (pass.value != cpass.value) {
-            cpassmsg.innerHTML = "비밀번호가 다릅니다.";
+            cpassmsg.innerHTML = "비밀번호가 다릅니다";
             cpassmsg.style.color = "red";
             return false;
         } else {
@@ -422,7 +422,7 @@ function cpassCheck() {
 
     if (pass.value != "" && cpass.value != "") {
         if (pass.value != cpass.value) {
-            cpassmsg.innerHTML = "비밀번호가 다릅니다.";
+            cpassmsg.innerHTML = "비밀번호가 다릅니다";
             cpassmsg.style.color = "red";
             return false;
         } else {
@@ -430,7 +430,7 @@ function cpassCheck() {
             return true;
         }
     } else if (cpass.value == "") {
-        cpassmsg.innerHTML = "비밀번호 확인을 입력해주세요.";
+        cpassmsg.innerHTML = "비밀번호 확인을 입력해주세요";
         cpassmsg.style.color = "red";
         return false;
     } else if (cpass.value !== "" || pass.value == cpass.value) {
@@ -447,11 +447,11 @@ function textCheck_name(obj) {
     let check = /^[ㄱ-ㅎ가-힣a-zA-Z]+$/;
 
     if (obj.value == "") {
-        namemsg.innerHTML = "이름을 입력해주세요.";
+        namemsg.innerHTML = "이름을 입력해주세요";
         namemsg.style.color = "red";
         return false;
     } else if (!check.test(str)) {
-        namemsg.innerHTML = "한글 또는 영문을 사용하세요.";
+        namemsg.innerHTML = "한글 또는 영문을 사용하세요";
         namemsg.style.color = "red";
         return false;
     } else {
@@ -471,11 +471,11 @@ function textCheck_nick(obj) {
     let check = /^[^@$!%*#?&]{1,10}$/;
 
     if (obj.value == "") {
-        nickmsg.innerHTML = "닉네임을 입력해주세요.";
+        nickmsg.innerHTML = "닉네임을 입력해주세요";
         nickmsg.style.color = "red";
         return false;
     } else if (!check.test(str)) {
-        nickmsg.innerHTML = "1~10자의 한글 또는 영문 또는 숫자를 사용하세요.";
+        nickmsg.innerHTML = "1~10자의 한글 또는 영문 또는 숫자를 사용하세요";
         nickmsg.style.color = "red";
         return false;
     } else {
@@ -499,19 +499,19 @@ function textCheck_hp() {
     let check3 = /^(?=.*\d)[\d]{4,4}$/;
 
     if (hp1.value == "" || hp2.value == "" || hp3.value == "") {   //또는
-        hpmsg.innerHTML = "전화번호를 입력해주세요.";
+        hpmsg.innerHTML = "전화번호를 입력해주세요";
         hpmsg.style.color = "red";
         return false;
     } else if (!check1.test(str1)) {
-        hpmsg.innerHTML = "전화번호 앞자리는 3자리의 숫자를 사용하세요.";
+        hpmsg.innerHTML = "전화번호 앞자리는 3자리의 숫자를 사용하세요";
         hpmsg.style.color = "red";
         return false;
     } else if (!check2.test(str2)) {
-        hpmsg.innerHTML = "전화번호 중간자리는 3~4자리의 숫자를 사용하세요.";
+        hpmsg.innerHTML = "전화번호 중간자리는 3~4자리의 숫자를 사용하세요";
         hpmsg.style.color = "red";
         return false;
     } else if (!check3.test(str3)) {
-        hpmsg.innerHTML = "전화번호 끝자리는 4자리의 숫자를 사용하세요.";
+        hpmsg.innerHTML = "전화번호 끝자리는 4자리의 숫자를 사용하세요";
         hpmsg.style.color = "red";
         return false;
     } else {
@@ -536,15 +536,15 @@ function textCheck_email() {
     let check2 = /^(.*[a-zA-Z])(?=.*[.])[a-zA-Z\.]+$/;
 
     if (email1.value == "" || email2.value == "") {
-        emailmsg.innerHTML = "이메일을 입력해주세요.";
+        emailmsg.innerHTML = "이메일을 입력해주세요";
         emailmsg.style.color = "red";
         return false;
     } else if (!check1.test(str1)) {
-        emailmsg.innerHTML = "한글은 사용 불가능합니다.";   //영문,숫자 모두 사용하여 조합
+        emailmsg.innerHTML = "한글은 사용 불가능합니다";   //영문,숫자 모두 사용하여 조합
         emailmsg.style.color = "red";
         return false;
     } else if (!check2.test(str2)) {
-        emailmsg.innerHTML = "이메일 형식을 확인해주세요.";
+        emailmsg.innerHTML = "이메일 형식을 확인해주세요";
         emailmsg.style.color = "red";
         return false;
 

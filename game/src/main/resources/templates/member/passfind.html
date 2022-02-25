@@ -11,7 +11,7 @@
 <body>
  <section class="pass_find">
     <img src="../image/로고.PNG">
-    <h3>회원가입 시 입력한 아이디와 이메일을 입력해주세요.</h3>
+    <h3>회원가입 시 입력한 아이디와 이메일을 입력해주세요</h3>
     <form name="passfindForm" th:action="@{/member/passfind}" th:object="${member}" method="post" onsubmit="return passfindCheck()">
      <th:block layout:fragment="content">
       <ul>
@@ -37,12 +37,12 @@
                 </select>
                  <input type="hidden" name="memEmail" id="email" value = "">
                  <button type="button" class="btn_check" onclick="sendEmailCode()">인증번호 받기</button>
-             <li>
-                <input type="text" name="code" class="code" id="code" placeholder="인증번호를 입력해주세요" onchange="emailCodeCheck()" autocomplete="off">
+             
+                <input type="text" name="code" class="code" id="code" placeholder="인증번호를 입력해주세요" onblur="emailCodeCheck()" autocomplete="off">
                 <div id="emailmsg"></div>
-             </li>
+             
              <li>
-                <button type="submit" class="btn_ok">확인</button>
+                <button type="submit" class="btn_ok">확 인</button>
              </li>
              <li>
                 <input type = "hidden" id = "emailcodecheck" value = "N">
@@ -61,7 +61,7 @@
             type : 'post',
             data:{memEmail:email},
             success : function(data) {
-                
+            	alert("인증번호가 발송되었습니다");
             }, error : function() {
                     console.log("실패");
                 }
