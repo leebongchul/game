@@ -84,8 +84,10 @@ public class CommentController {
 	}
 
 	@GetMapping(value = "/comments/{boardNum}")
-	public JsonObject getCommentList(@ModelAttribute("params") CommentDTO params) {
+	public JsonObject getCommentList(@PathVariable("boardNum") String str,
+			@ModelAttribute("params") CommentDTO params) {
 
+		System.out.println("params = " + params);
 		/**
 		 * rest 방식으로 입력된 데이터(=여기선 JSON)를 확인하기 쉽게 하기 위한 rest 클라이언트 프로그램 설치하면 좋긴 할듯
 		 * https://install.advancedrestclient.com/install 나는 저 위 사이트에서 다운 받았음. 블로그에서
