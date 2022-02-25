@@ -13,7 +13,7 @@
          <form name = "userupdateform"th:action="@{/mypage/userupdate}" th:object="${member}" method="post" onsubmit="return userUpdate()">
             <ul>
              <li>
-                <label>아이디</label>
+                <label>*아이디</label>
             </li>
             <li>
                 <input type="text" name="memId" class="input1" id="id" th:value = "${user.memId}" autocomplete="off" disabled>
@@ -73,7 +73,7 @@
                 <input type="hidden" name="memEmail" id="memEmail" value = "">
              </li>
              <li>
-                <button type="submit" id = "submitbtn" class="btn-update">수정</button>
+                <button type="submit" id = "submitbtn" class="btn-update">수 정</button>
                 <a href="../mypage/mypagemain">
                 <button type="button" id = "submitbtn" class="btn-back">뒤로가기</button>
                 </a>

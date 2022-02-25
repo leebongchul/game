@@ -6,8 +6,8 @@ body {
 section.userdelete {
 	width: 280px;
 	margin: auto;
-	height: 1000px;
-	border: 1px solid red;
+	height: 800px;
+	/*border: 1px solid red;*/
 	margin-top: 100px;
 }
 
@@ -18,7 +18,7 @@ section.userdelete {
 	width: 250px;
 	padding: 13px;
 	padding-left: 15px;
-	font-size: 14px;
+	font-size: 13px;
 }
 
 .btn_drop {

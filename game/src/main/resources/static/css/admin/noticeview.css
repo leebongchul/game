@@ -294,6 +294,7 @@ body {
 .freeboard {
 	font-weight:bold;
 	font-size:30px;
+	margin-left:8px;
 }
 .comment-write{
 	font-size:20px;
@@ -325,6 +326,7 @@ h3.boardtitle {
 .btn_back {
 	margin-left:450px;
 	margin-top:50px;
+	font-size:13px;
 }
 .btn_decl {
 display:inline;

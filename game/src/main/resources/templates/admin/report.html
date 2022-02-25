@@ -55,8 +55,8 @@
 											<td class="col-md-2, text-center" th:text="${row.repId}"></td>
 											<td class="col-md-1, text-center" th:text="${row.repType}"></td>
 											<td class="col-md-6, text-center"><a
-												th:href="@{/board/noticeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}">
-													<button class="btn">이동</button>
+												th:href="@{/board/noticeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" class="btn-back-a">
+													<button class="btn btn-back">이 동</button>
 											</a></td>
 											<td class="col-md-1, text-center" th:text="${row.memBlock}"></td>
 
@@ -67,9 +67,7 @@
 								</table>
 								<div class="text-right">
 									<!-- Button trigger modal -->
-									<button type="button" class="btn" onclick="blockUserFormCheck()">
-										<strong>차 단</strong>
-									</button>
+									<button type="button" class="btn btn-block" onclick="blockUserFormCheck()">차 단</button>
 									<!-- 차단 버튼 클릭시 유효성 검사(onclick="blockFormCheck()")을 하기 위해 모달창 띄우는 버튼 분리하여 자바스크립트로 처리 -->
 									<button type="button" class="btn dropdown-item" id="btnBlock" data-toggle="modal" data-target="#myModal" style="display: none"></button>
 								</div>
