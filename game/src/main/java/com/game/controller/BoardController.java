@@ -93,6 +93,7 @@ public class BoardController extends UiUtils {
 	@GetMapping(value = "/noticeboard/view")
 	public String openNoticeBoardDetail(@ModelAttribute("params") BoardDTO params, Model model) {
 		System.out.println("boardNum:" + params.getBoardNum());
+
 		if (params.getBoardNum() == null) {
 			return showMessageWithRedirect("올바르지 않은 접근입니다. 목록화면으로 이동합니다,", "/board/noticeboard/list", Method.GET, null,
 					model);
@@ -138,8 +139,20 @@ public class BoardController extends UiUtils {
 ///////////////////////////////////////////////////////////신고하기
 
 	@GetMapping(value = "/freeboard/view")
-	public String openBoardDetail(@ModelAttribute("params") BoardDTO params, Model model) {
+	public String openBoardDetail(@ModelAttribute("params") BoardDTO params,
+			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		System.out.println("boardNum:" + params.getBoardNum());
+
+		// 댓글 작성을 위한 세션 넘겨줌(권한, 닉네임, 아이디 등)
+		if (loginMember == null) {
+			MemberDTO member = new MemberDTO();
+			member.setMemNick("비회원");
+			model.addAttribute("member", member);
+		} else {
+			model.addAttribute("member", loginMember);
+		}
+		///////
+
 		if (params.getBoardNum() == null) {
 			return showMessageWithRedirect("올바르지 않은 접근입니다. 목록화면으로 이동합니다.", "/board/list", Method.GET, null, model);
 		}
