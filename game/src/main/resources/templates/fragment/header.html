@@ -31,11 +31,13 @@
         <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
       </div> -->
       <div th:if="${member} == null">
+      <div class="topbar-div">
           <div class="social-links d-none d-md-flex align-items-center justify-content-end">
-            <a href="/member/login" class="twitter"><i class="login">로그인</i></a>
-            <a href="/member/join" class="facebook"><i class="join">회원가입</i></a>
+            <a href="/member/login" class="topbar-a"><i class="login">로그인</i></a>
+            <a href="/member/join"  class="topbar-a"><i class="join">회원가입</i></a>
     <!--         <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
             <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a> -->
+            </div>
           </div>
         </div>
         
@@ -65,7 +67,7 @@
       <nav id="navbar" class="navbar">
         <ul id="navbar-ul">
           <li id="navbar-li" class="dropdown"><a href="#"><span>미니게임</span> <i class="bi bi-chevron-right"></i></a>
-          <ul id="dropdown-ul">
+          <ul id="dropdown-ul" class="dropdown-ul">
                   <li><a id="dropdown-a" href="../game/dino" class="dino_a">공룡게임</a></li>
                   <li><a id="dropdown-a" href="../game/ddong"class="ddong_a">똥피하기</a></li>
                 </ul>
