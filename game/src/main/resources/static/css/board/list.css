@@ -20,23 +20,24 @@
 	border-color: white;
 	border:1px solid white;
 	border-radius:5px;
-	margin-left:100px;
-	padding:7px 9px;
-	font-size:11px;
+	padding:10px 15px;
 }
-.btn-write:hover {
+.btn-write2 {
 	color:white;
+	background-color: black;
+	border-color: white;
+	border:1px solid white;
+	border-radius:5px;
+	padding:10px 15px;
+	
 }
-.btn-write-a {
-	font-size:11px;
-	color:white;
+.btn-write-a{
+	color:white;	
 }
 .btn-write-a:visited{
-	color:white;
+	color:white;	
 }
-.btn-write-a:hover {
-	color:white;
-}
+
 .title_link:hover {
 	
 	text-decoration:none;
