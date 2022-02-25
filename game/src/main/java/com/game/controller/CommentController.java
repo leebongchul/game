@@ -85,21 +85,23 @@ public class CommentController {
 
 	@GetMapping(value = "/comments/{boardNum}")
 	public JsonObject getCommentList(@PathVariable("boardNum") String str,
+			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			@ModelAttribute("params") CommentDTO params) {
 
-		System.out.println("params = " + params);
-		/**
+				/**
 		 * rest 방식으로 입력된 데이터(=여기선 JSON)를 확인하기 쉽게 하기 위한 rest 클라이언트 프로그램 설치하면 좋긴 할듯
 		 * https://install.advancedrestclient.com/install 나는 저 위 사이트에서 다운 받았음. 블로그에서
 		 * 다운받으라는 거 해밨는데 안댐.
 		 */
-
+	
 		// JSON 객체 생성
 		JsonObject jsonObj = new JsonObject();
+		params.setMemId(loginMember.getMemId());
 
 		// commentService.getCommentList(params) =
 		// 특정 게시글에 포함된 댓글의 개수가 1이상이면, 특정 게시글의 모든 댓글 목록을 조회하는 메소드
 		List<CommentDTO> commentList = commentService.getCommentList(params);
+		System.out.println("params = " + params);
 
 		// commentList의 리턴값이 false라면(=commentList가 null이 아니라면=댓글이 1개 이상 달렸다면)
 		if (CollectionUtils.isEmpty(commentList) == false) {
