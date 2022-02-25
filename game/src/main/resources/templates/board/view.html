@@ -314,8 +314,8 @@ div.card-content {
                            	 if(comment.memId==/*[[${member.memId}]]*/null){
                            		
                            	  commentsHtml += `
-                                  <button id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제<i class="fa fa-close" aria-hidden="true"></i></button>
-                                  <button id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
+                           		<button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제<i class="fa fa-close" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
                              `;
                                 }
                            }
@@ -344,7 +344,6 @@ div.card-content {
                   html += '<input type="hidden" name="memId" value="'+memId+'" />';
                   html += '<input type="hidden" name="boardType" value="'+boardType+'" />';
               html += '</form>';
-//               $(".delet_board").html(html);
               
               $("body").append(html);
               document.dataForm.submit();
