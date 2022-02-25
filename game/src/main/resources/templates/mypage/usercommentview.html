@@ -2,6 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
+<th:block  th:replace="/fragment/header :: main-head">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="../css/mypage/usercommentview.css" rel="stylesheet">
@@ -12,6 +13,7 @@
 <link href="../css/mypage/usercommentview.css" rel="stylesheet">
 </head>
 <body>
+<nav th:replace="/fragment/header :: main-header"></nav>
 <section class="content">
 	<h1 class="text-h1">내 댓글 보기</h1>
 	<th:block layout:fragment="search">
