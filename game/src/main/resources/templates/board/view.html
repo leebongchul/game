@@ -41,9 +41,6 @@
 											<button type="button" class="btn btn-dark waves-effect waves-light btn_delete"
 												th:onclick="deleteBoard([[ ${board.boardNum} ]], [[ ${board.memId} ]], [[ ${board.boardType} ]])">삭제하기</button>
 										</div>
-
-
-
 										<div class="col-sm-10, text-left">
 										<span class="user-icons">
 									<i class="bi bi-emoji-smile user-icon"></i>
@@ -67,7 +64,7 @@
 									</form>
 									<br>
 <!-- 									<div class="delet_board"> -->
-<!-- <!-- 									//삭제 폼 들어감 --> -->
+<!-- <!-- 									//삭제 폼 들어감 -->
 <!--                                     </div> -->
 
 
@@ -311,8 +308,8 @@
                            	 if(comment.memId==/*[[${member.memId}]]*/null){
                            		
                            	  commentsHtml += `
-                                  <button id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제<i class="fa fa-close" aria-hidden="true"></i></button>
-                                  <button id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
+                           		<button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제<i class="fa fa-close" aria-hidden="true"></i></button>
+                                <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
                              `;
                                 }
                            }
@@ -341,7 +338,6 @@
                   html += '<input type="hidden" name="memId" value="'+memId+'" />';
                   html += '<input type="hidden" name="boardType" value="'+boardType+'" />';
               html += '</form>';
-//               $(".delet_board").html(html);
               
               $("body").append(html);
               document.dataForm.submit();
