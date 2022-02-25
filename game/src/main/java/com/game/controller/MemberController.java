@@ -250,7 +250,7 @@ public class MemberController extends UiUtils {
 	public String newPassCheck(MemberDTO member, Model model) {
 		System.out.println("아이디값" + member.getMemId());
 		try {
-
+		    
 			member.setMemPass(passwordEncoder.encode(member.getMemPass()));
 			int newpass = memberService.newpassMember(member);
 			if (newpass == 0) {
@@ -291,16 +291,23 @@ public class MemberController extends UiUtils {
 	@PostMapping(value = "/login")
 	public String successLogin(MemberDTO member, Model model, HttpServletRequest request) {
 		try {
-
+		    boolean blocklogin = memberService.blockMemberLogin(member);
+		   
 			MemberDTO result = memberService.selectMember(member);
 			if (result.getMemId() == null) {
 				return showMessageWithRedirect("해당 아이디가 존재하지 않습니다.", "/member/login", Method.GET, null, model);
 			}
 
 			if (!passwordEncoder.matches(member.getMemPass(), result.getMemPass())) {
-				return showMessageWithRedirect("비밀번호가 일치하지 않습니다..", "/member/login", Method.GET, null, model);
+				return showMessageWithRedirect("비밀번호가 일치하지 않습니다.", "/member/login", Method.GET, null, model);
 			}
-
+			if (blocklogin == true) {
+			    request.getSession().invalidate();
+//			    request.getSession(true);
+//			    session.invalidate();
+			    return showMessageWithRedirect("차단된 회원입니다." , "/index", Method.GET, null, model);
+			 
+			}
 			// 아이디와 비밀번호가 일치
 			HttpSession session = request.getSession(); // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
 			session.setAttribute("loginMem", result); // 세션에 로그인 회원 정보 보관

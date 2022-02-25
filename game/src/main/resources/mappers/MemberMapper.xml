@@ -40,7 +40,7 @@
 		FROM
 		member_table
 		WHERE
-		mem_id = #{memId} and mem_block ='N'
+		mem_id = #{memId} 
 		
 	
 
@@ -176,7 +176,10 @@
 	<update id="clearBlockMember" parameterType="MemberDTO">
 		update member_table 
 			set mem_block = 'N' 
-				where mem_id =#{memId}
+				where mem_id =#{memId} 
+				    and mem_block_date &gt; mem_block_end_date 
+				    and  
+				
 	</update>
 	
 	

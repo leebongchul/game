@@ -135,7 +135,7 @@
 													
 													<textarea rows="4" class="form-control no-resize view-textarea"
 														th:placeholder="${member.memNick.equals('비회원')? '로그인을 해주세요' : '작성할 댓글 내용을 입력해주세요'}" id="content"></textarea>
-													<!--  <button type="submit" class="btn btn-block btn-dark btn_insert">댓글 등록</button>-->
+<!-- 													 <button type="submit" class="btn btn-block btn-dark btn_insert">댓글 등록</button> -->
 													<button type="button" class="btn waves-effect waves-light btn-insert"
 														th:onclick="insertComment([[ ${board.boardNum} ]], [[ ${member.memId} ]], [[ ${member.memNick} ]])">댓글등록</button>
 												</div>
