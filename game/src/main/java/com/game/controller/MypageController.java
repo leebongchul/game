@@ -65,12 +65,15 @@ public class MypageController extends UiUtils {
 		 * 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리 if (loginMember == null) { return
 		 * showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model); }
 		 */
-		// params.setMemId(loginMember.getMemId());
-		params.setMemId("admin"); // 테스트용 하드코딩.
+		if (loginMember == null) {
+			return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
+		}
+		params.setMemId(loginMember.getMemId());
+//		params.setMemId("admin"); // 테스트용 하드코딩.
 		params.setBoardType(1);
 		List<BoardDTO> boardList = boardService.getBoardList(params);
 		model.addAttribute("boardList", boardList);
-		
+
 		return "mypage/userboardview";
 	}
 
@@ -81,7 +84,12 @@ public class MypageController extends UiUtils {
 		 * 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리 if (loginMember == null) { return
 		 * showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model); }
 		 */
-		params.setMemId("admin"); // 테스트용 하드코딩.
+//		params.setMemId("admin"); // 테스트용 하드코딩.
+
+		if (loginMember == null) {
+			return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
+		}
+		params.setMemId(loginMember.getMemId());
 		List<CommentDTO> commList = commentService.selectMyComment(params);
 		model.addAttribute("commList", commList);
 
@@ -95,6 +103,10 @@ public class MypageController extends UiUtils {
 		 * 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리 if (loginMember == null) { return
 		 * showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model); }
 		 */
+		if (loginMember == null) {
+			return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
+		}
+
 		return "mypage/userrankview";
 	}
 
@@ -103,10 +115,14 @@ public class MypageController extends UiUtils {
 			Model model) {
 		System.out.println("사용자정보 접속");
 		MemberDTO user = new MemberDTO();
+
+		if (loginMember == null) {
+			return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
+		}
 		/**********************************/
-		//user.setMemId(loginMember.getMemId());
+		user.setMemId(loginMember.getMemId());
 		/************************************/
-		user.setMemId("admin");
+//		user.setMemId("admin");
 		user = memberService.selectMember(user);
 		model.addAttribute("user", user);
 		return "mypage/userupdate";
@@ -120,6 +136,9 @@ public class MypageController extends UiUtils {
 		// System.out.println(member.getMemNick()); //memNick
 		// System.out.println(member.getMemHp());
 		// System.out.println(member.getMemEmail());
+		if (loginMember == null) {
+			return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
+		}
 		member.setMemId(loginMember.getMemId());
 		try {
 			int userupdate = memberService.userUpdate(member);

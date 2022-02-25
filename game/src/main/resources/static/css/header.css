@@ -122,6 +122,7 @@ body{
 #header_navbar .dino_a:hover{
     color:#FFEB5A;
 }
+
 .header_navbar ul {
   margin: 0;
   padding: 0;
@@ -144,7 +145,7 @@ body{
 .header_navbar .header_dropdown ul {
   display: block;
   position: absolute;
-  left: 28px;
+  left: 570px;
   top: calc(100% + 30px);
   margin: 0;
   padding: 10px 0;
@@ -184,6 +185,11 @@ body{
 }
 .header_navbar ul ul li  a{
 	float:right;
+}
+.test {
+	border:1px solid red;
+	display:block;
+	
 }
 
 

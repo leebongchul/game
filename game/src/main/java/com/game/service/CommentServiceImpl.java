@@ -72,4 +72,13 @@ public class CommentServiceImpl implements CommentService {
 
 		return commList;
 	}
+
+	@Override
+	public CommentDTO selectCommentDetail(String params) {
+
+		CommentDTO comment = commentMapper.selectCommentDetail(params);
+
+		return comment;
+
+	}
 }

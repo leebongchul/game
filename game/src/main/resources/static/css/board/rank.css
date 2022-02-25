@@ -1,0 +1,16 @@
+@charset "UTF-8";
+.content {
+	width:1000px;
+	margin:auto;
+	/*border:1px solid red;*/
+	margin-top:50px;
+}
+h1 {
+	font-size:28px;
+}
+.blank {
+	margin-left:90px;
+}
+.dino {
+	margin-left:60px;
+}

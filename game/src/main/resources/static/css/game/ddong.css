@@ -53,3 +53,11 @@
        margin-left:100px;
       
     }
+	.text-top {
+    	margin-left:450px;
+    	margin-bottom:20px;
+    	font-weight:bold;
+    }
+    th {
+    	background:#FEFECC;
+    }

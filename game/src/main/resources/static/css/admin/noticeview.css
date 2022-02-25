@@ -294,6 +294,7 @@ body {
 .freeboard {
 	font-weight:bold;
 	font-size:30px;
+	margin-left:8px;
 }
 .comment-write{
 	font-size:20px;
@@ -308,7 +309,8 @@ h3.boardtitle {
 	/*border:1px solid red;*/
 }
 .btn-nick-decl {
-	margin-left:540px;
+	/*margin-left:540px;*/
+	margin-top:-6px;
 }
 .btn_tot {
 	/*display:inline;*/
@@ -325,6 +327,7 @@ h3.boardtitle {
 .btn_back {
 	margin-left:450px;
 	margin-top:50px;
+	font-size:13px;
 }
 .btn_decl {
 display:inline;
@@ -379,7 +382,12 @@ display:inline;
 	margin-top:-100px;
 	margin-left:8px;
 }
-.content {
-
-	
+.user-icon {
+	/*border: 1px solid blue;*/
+	margin-left:540px;
+	margin-right:-6px;
+}
+.user-icons {
+	/*border: 1px solid red;*/
+	margin-top:50px;
 }
