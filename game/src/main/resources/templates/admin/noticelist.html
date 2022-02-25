@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <title>The page is a write page</title>
 <!-- CSS -->
+<link href="../css/header.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
 <!-- 테마 -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
 
@@ -15,6 +15,9 @@
 <link href="/css/admin/noticelist.css" rel="stylesheet" type="text/css">
 </head>
 <body class="mainbody">
+<th:block layout:fragment="header">
+<nav th:replace="/fragment/header":: header></nav>
+</th:block>
 <section class="content">
 	<!--  
 	<div class="container">

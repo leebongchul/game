@@ -11,8 +11,12 @@
 <!-- CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="../css/admin/mainboard.css" rel="stylesheet">
+<link href="../css/header.css" rel="stylesheet">
 </head>
 <body>
+<th:block layout:fragment="header">
+<nav th:replace="/fragment/header":: header></nav>
+</th:block>
 	<div class="content">
 		<h1>게시글 관리</h1>
 		 <span>
