@@ -4,15 +4,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="../css/mypage/userupdate.css" rel="stylesheet">
-<link href="../css/header.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script th:src="@{/scripts/jquery.min.js}"></script>
 </head>
 <body>
-<th:block layout:fragment="header">
-<nav th:replace="/fragment/header":: header></nav>
-</th:block>
-         <section class="userupdate">
+         <section class="content">
          <h1>사용자정보</h1>
          <form name = "userupdateform"th:action="@{/mypage/userupdate}" th:object="${member}" method="post" onsubmit="return userUpdate()">
             <ul>
@@ -77,9 +73,9 @@
                 <input type="hidden" name="memEmail" id="memEmail" value = "">
              </li>
              <li>
-                <button type="submit" id = "submitbtn" class="btn_update">수정</button>
+                <button type="submit" id = "submitbtn" class="btn-update">수정</button>
                 <a href="../mypage/mypagemain">
-                <button type="button" id = "submitbtn" class="btn_back">뒤로가기</button>
+                <button type="button" id = "submitbtn" class="btn-back">뒤로가기</button>
                 </a>
              </li>
           </ul> 

@@ -20,7 +20,7 @@
 </head>
 <body>
 	<div id="main-content" class="blog-page">
-		<h4 class="freeboard">자유게시판</h4>
+		<h4 class="freeboard">공지사항</h4>
 		<div class="container">
 			<div class="row clearfix">
 				<div class="col-lg-12 col-md-12 left-box">
@@ -28,28 +28,26 @@
 						<div class="body">
 							<form th:object="${board}">
 								<h3 th:text="*{boardTitle}" class="boardtitle"></h3>
-								
+
 								<div class="btn_wrap text-center btn_tot">
-									
+
 									<a th:href="@{/board/freeboard/write( boardNum=${board.boardNum}, boardType=${board.boardType}, memId=${board.memId} )}"
 										class="btn btn-dark waves-effect waves-light btn_update">수정하기</a>
 									<button type="button" class="btn btn-dark waves-effect waves-light btn_delete"
 										th:onclick="deleteBoard([[ ${board.boardNum} ]], [[ ${board.memId} ]], [[ ${board.boardType} ]])">삭제하기</button>
 								</div>
 
-								
-								
+
+
 								<div class="col-sm-10, text-left">
 									<div class="dropdown">
 										<button type="button" class="nickbtn btn-dark btn-nick-decl" data-bs-toggle="dropdown" aria-expanded="false">
-									
-										
 											<span th:text="*{memNick}"></span>
 										</button>
 										&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <span th:text="*{boardDate}"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <span
 											th:text="'조회수&nbsp&nbsp'+*{boardHit}"></span>
-												<hr>
-									
+										<hr>
+
 										<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
 											<!-- Button trigger modal -->
 											<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="#">신고하기</a></li>
@@ -60,7 +58,7 @@
 								<p th:text="*{boardContent}"></p>
 							</form>
 							<br>
-							
+
 
 							<!-- Modal -->
 							<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -84,28 +82,27 @@
 														성적인 컨텐츠 </label>
 												</div>
 												<div class="form-check my-2">
-													<input class="form-check-input" type="radio" name="repType" value="광고"> <label class="form-check-label"
-														for="flexRadioDefault2"> 광고 컨텐츠 </label>
+													<input class="form-check-input" type="radio" name="repType" value="광고"> <label class="form-check-label" for="flexRadioDefault2">
+														광고 컨텐츠 </label>
 												</div>
 												<div class="form-check my-2">
 													<input class="form-check-input" type="radio" name="repType" value="욕설"> <label class="form-check-label" for="flexRadioDefault1">
 														욕설 또는 폭력적인 콘텐트 </label>
 												</div>
 												<div class="form-check my-2">
-													<input class="form-check-input" type="radio" name="repType" value="사행성"> <label class="form-check-label"
-														for="flexRadioDefault2"> 사행성 컨텐츠 </label>
+													<input class="form-check-input" type="radio" name="repType" value="사행성"> <label class="form-check-label" for="flexRadioDefault2">
+														사행성 컨텐츠 </label>
 												</div>
 												<div class="form-check my-2">
 													<input class="form-check-input" type="radio" name="repType" value="정치글"> <label class="form-check-label" for="flexRadioDefault1">
 														정치적 컨텐츠 </label>
 												</div>
 												<div class="form-check my-2">
-													<input class="form-check-input" type="radio" name="repType" value="분란"> <label class="form-check-label"
-														for="flexRadioDefault2"> 분란 조장 컨텐츠 </label>
+													<input class="form-check-input" type="radio" name="repType" value="분란"> <label class="form-check-label" for="flexRadioDefault2">
+														분란 조장 컨텐츠 </label>
 												</div>
-												<input type="hidden" name="boardNum" th:value="${board.boardNum}"> 
-												<input type="hidden" name="boardType" th:value="${board.boardType}"> 
-												<input type="hidden" name="repId" th:value="${board.memId}"> 
+												<input type="hidden" name="boardNum" th:value="${board.boardNum}"> <input type="hidden" name="boardType"
+													th:value="${board.boardType}"> <input type="hidden" name="repId" th:value="${board.memId}">
 											</form>
 										</div>
 										<div class="modal-footer">
@@ -117,6 +114,7 @@
 							</div>
 						</div>
 					</div>
+					<!--  
 										<div class="card">
 											<div class="header">
 												<h4 class="comment-write">댓글 작성</h4>
@@ -151,7 +149,10 @@
 														
 										<button type="button" class="btn btn-danger waves-effect waves-light btn_decl" data-bs-toggle="dropdown">신고</button>
 										<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-											<!-- Button trigger modal -->
+											-->
+
+					<!-- Button trigger modal -->
+					<!--  
 											<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="#">신고하기</a></li>
 										</ul>
 														
@@ -167,7 +168,9 @@
 																<span class="user-date"><a href="javascript:void(0);" >Mar 12 2018</a></span>
 															<button type="button" class="btn btn-danger waves-effect waves-light btn_decl" data-bs-toggle="dropdown">신고</button>
 										<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-											<!-- Button trigger modal -->
+											-->
+					<!-- Button trigger modal -->
+					<!--  
 											<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="#">신고하기</a></li>
 										</ul>
 													<hr>
@@ -177,7 +180,9 @@
 																<span class="user-date"><a href="javascript:void(0);" class="date">Mar 20 2018</a></span>
 															<button type="button" class="btn btn-danger waves-effect waves-light btn_decl" data-bs-toggle="dropdown">신고</button>
 										<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-											<!-- Button trigger modal -->
+											-->
+					<!-- Button trigger modal -->
+					<!--  
 											<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="#">신고하기</a></li>
 										</ul>
 													<hr>
@@ -185,7 +190,8 @@
 											</div>
 											
 										</div>
-										<a th:href="@{/board/noticeboard/list}" class="btn btn-dark waves-effect waves-light btn_back">목록</a>
+										-->
+					<a th:href="@{/board/noticeboard/list}" class="btn btn-dark waves-effect waves-light btn_back">목록</a>
 				</div>
 			</div>
 
@@ -197,7 +203,7 @@
 	function deleteBoard(boardNum, memId, boardType) {
 
 		if (confirm(boardNum + "번 게시글을 삭제할까요?")) {
-			var uri = "/board/freeboard/delete";
+			var uri = "/admin/boardDelete";
 			var html = "";
 
 			html += '<form name="dataForm" action="'+uri+'" method="get">';
@@ -213,10 +219,10 @@
 
 	//신고 유효성 검사
 	function reportFormCheck() {
-		if($('input:radio[name="repType"]').is(':checked')){
+		if ($('input:radio[name="repType"]').is(':checked')) {
 			$("#repTypeForm").submit();
-// 			alert("신고유형을 선택");
-		}else{
+			// 			alert("신고유형을 선택");
+		} else {
 			alert("신고유형을 선택해주세요");
 		}
 	}

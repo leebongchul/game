@@ -12,19 +12,23 @@
 <!-- 자바스크립트 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<!--<link href="/css/admin/noticelist.css" rel="stylesheet" type="text/css">-->
-
+<link href="/css/admin/noticelist.css" rel="stylesheet" type="text/css">
 </head>
 <body class="mainbody">
+<section class="content">
+	<!--  
 	<div class="container">
 		<div class="container-fluid p-0">
-			<h1 class="h3 mb-3">공지사항</h1>
+	-->
+			<h1 class="h3 mb-3 notice-text">공지사항</h1>
+			<!--  
 			<div class="row">
 				<div class="col-xl-8">
 					<div class="card2">
 						<div class="card-header pb-0">
 							<div class="card-actions float-right"></div>
 						</div>
+			-->
 						<div class="card-body table-responsive clearfix">
 							<table class="table table-hover" style="width: 100%">
 								<thead>
@@ -42,7 +46,7 @@
 										<td class="col-md-1, text-center" scope="row" th:text="${row.rno}"></td>
 										<td class="col-md-6, text-left"><a
 											th:href="@{/board/noticeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}"
-											th:text="${row.boardTitle}"></a></td>
+											th:text="${row.boardTitle}" class="content-a"></a></td>
 										<td class="col-md-2, text-center" th:text="${row.memNick}"></td>
 										<td class="col-md-2, text-center" th:text="${row.boardDate}"></td>
 										<!-- 첫 번째 파라미터는 '?'로 연결하고, 두 번째부터는 '&'로 연결하는데요, 타임리프는 URI 뒤에 ?대신 괄호를, & 대신 ,(콤마)를 사용 -->
@@ -53,10 +57,15 @@
 								
 							</table>
 						</div>
+						<!--  
 					</div>
 				</div>
 			</div>
+			-->
+			<!--  
 		</div>
 	</div>
+	-->
+	</section>
 </body>
 </html>

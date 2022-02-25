@@ -35,6 +35,9 @@
 		WHERE
 		board_delete = 'N'
 		AND board_type = #{boardType}
+		<if test="memId !=null">
+        AND mem_id=#{memId} 
+        </if>
 <!-- 		<if test='boardType!=0' > AND board_type = #{boardType}</if> //관리자페이지 게시판 관리 페이지에서 boardType을 0으로 넘겨줌(자유,공지 둘다 출력을 하기 위함)// -->
 		
 	</select>
@@ -49,17 +52,17 @@
                     <choose>
                         <when test="'title'.equals(searchType)">
                         <![CDATA[
-                             e.board_title LIKE '%' || #{searchKeyword} || '%' 
+                             b.board_title LIKE '%' || #{searchKeyword} || '%' 
                         ]]>
                         </when>
                         <when test="'content'.equals(searchType)">
                         <![CDATA[
-                             e.board_content LIKE '%' || #{searchKeyword} || '%' 
+                             b.board_content LIKE '%' || #{searchKeyword} || '%' 
                         ]]>
                         </when>
                         <when test="'writer'.equals(searchType)">
                         <![CDATA[
-                             e.mem_nick LIKE '%'|| #{searchKeyword} || '%' 
+                             b.mem_nick LIKE '%'|| #{searchKeyword} || '%' 
                         ]]>
                         </when>
                     </choose>
@@ -68,9 +71,9 @@
                 <otherwise>
                     <![CDATA[
                         
-                           where e.board_title LIKE '%' || #{searchKeyword} || '%'
-                            OR e.board_content LIKE '%' || #{searchKeyword} || '%'
-                            OR e.mem_nick LIKE '%'|| #{searchKeyword} || '%'
+                           where b.board_title LIKE '%' || #{searchKeyword} || '%'
+                            OR b.board_content LIKE '%' || #{searchKeyword} || '%'
+                            OR b.mem_nick LIKE '%'|| #{searchKeyword} || '%'
                          
                         
                      ]]>
@@ -81,29 +84,27 @@
     </sql>
 	<select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO"> <!-- 자유게시판은 댓글 갯수도 갖고 와야함 -->
 
-		SELECT f.*
-		from
-		(SELECT rownum rno, e.*
+		SELECT c.* 
 		FROM
-		(SELECT rownum listnum, d.*
-		FROM
-		(SELECT count(a.board_num) as comm_count, b.board_num, b.board_content, b.board_title, b.mem_id, b.board_date, c.mem_nick, b.board_type, b.board_hit
-		FROM
-		comment_view a
-		RIGHT OUTER JOIN board_table b ON a.board_num = b.board_num
-		LEFT OUTER JOIN member_table c ON c.mem_id = b.mem_id
-		WHERE b.board_delete = 'N' and (a.COMM_DELETE = 'N' or a.comm_delete is null) AND b.board_type = #{boardType}
-<!-- 		<if test='boardType!=0' > AND b.board_type = #{boardType}</if> -->
-		GROUP BY b.board_num, b.board_title, b.board_content, b.board_date, b.mem_id, b.board_delete, c.mem_nick, b.board_type, b.board_hit
-		ORDER BY board_date) d
-		ORDER BY listnum desc)e <include refid="search" />)f
+		(SELECT rownum rno, b.*
+		FROM(SELECT rownum listnum, a.*
+		FROM(select count(comm.board_num) as comm_count, board.board_num, board_title, board_content,
+		board_date, board.mem_id, board_delete, member.mem_nick, board_type, board_hit 
+		FROM 
+		(select * from comment_table where comm_delete = 'N') comm RIGHT OUTER JOIN board_table board
+		ON(comm.board_num = board.board_num)LEFT OUTER JOIN  member_table member
+		ON(board.mem_id = member.mem_id) 
+		WHERE board.board_delete = 'N'  
+		GROUP BY 
+		comm.board_num,board.board_num, board_title, board_content, board_date, board.mem_id, board_delete, member.mem_nick, board_type, board_hit
+		ORDER BY board_date)a
+		ORDER BY listnum DESC)b <include refid="search" />)c
 		where
 		<if test="memId !=null">
-		 f.mem_id=#{memId} and
+		 c.mem_id=#{memId} and
 		</if>
-		
-		f.rno between #{startPage} and #{endPage}
-		ORDER BY f.rno
+		c.rno between #{startPage} and #{endPage}
+		ORDER BY c.rno
 
 	</select>
 

@@ -3,16 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../css/header.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <style>
+.content {
+	/*border:1px solid blue;*/
+	width:500px;
+}
+thead{
+	background:#F0F0F0;
+}
+tbody {
+	background:#FFFDA2;
+	font-weight:bold;
+}
+img {
+	/*border:1px solid red;*/
+	height:70px;
+	margin-bottom:10px;
+	margin-left:145px;
+}
+span{
+	display:inline;
+	font-size:25px;
+	font-weight:bold;
+	margin-top:50px;
+	/*border:1px solid blue;*/
+}
+ table {
+    width: 400px;
+  }
 </style>
 </head>
 <body>
-<th:block layout:fragment="header">
-<nav th:replace="/fragment/header":: header></nav>
-</th:block>
-<div class="ddong">
-<h1>똥랭킹 뜨는 곳</h1>
+<section class="content">
+<img src="/image/똥확정3.PNG">
+<span>똥피하기</span>
 <table class = "table">
                 <thead>
                     <tr>
@@ -29,6 +54,6 @@
                     </tr>
                 </tbody>
         </table>
-</div>
+</section>
 </body>
 </html>

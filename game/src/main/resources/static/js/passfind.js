@@ -7,11 +7,11 @@ function textCheck_id(obj){
     let check = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{6,12}$/;
     
     if(obj.value == ""){
-        idmsg.innerHTML = "회원ID를 입력해주세요.";
+        idmsg.innerHTML = "아이디를 입력해주세요";
         idmsg.style.color = "red";
         return false;
     }else if(!check.test(str)){
-        idmsg.innerHTML = "6~12자 영문, 숫자를 조합하세요.";
+        idmsg.innerHTML = "6~12자 영문, 숫자를 조합하세요";
         idmsg.style.color = "red";
     }else{
         idmsg.innerHTML = "";
@@ -36,14 +36,14 @@ function textCheck_email(){
     
 
     if(email1.value == "" || email2.value == ""){
-        emailmsg.innerHTML = "이메일을 입력해주세요.";
+        emailmsg.innerHTML = "이메일을 입력해주세요";
         emailmsg.style.color = "red";
         return false;
     }else if(!check1.test(str1)){
-        emailmsg.innerHTML = "한글은 사용 불가능합니다.";   //영문,숫자 모두 사용하여 조합
+        emailmsg.innerHTML = "한글은 사용 불가능합니다";   //영문,숫자 모두 사용하여 조합
         emailmsg.style.color = "red";
     }else if(!check2.test(str2)){
-            emailmsg.innerHTML = "이메일 형식을 확인해주세요.";
+            emailmsg.innerHTML = "이메일 형식을 확인해주세요";
             emailmsg.style.color = "red";
     
         
@@ -75,29 +75,29 @@ function passfindCheck(){
         document.getElementById("email").value = email1.value + "@" + email2.value;
         
         if(id.value == ""){
-            alert("아이디를 입력해주세요.");
+            alert("아이디를 입력해주세요");
             return false;
         }else if(!check.test(id.value)){
-            alert("아이디는 6~12자 영문, 숫자를 조합하세요.");
+            alert("아이디는 6~12자 영문, 숫자를 조합하세요");
             return false;
         }else if(email1.value == ""){
-            alert("이메일을 입력해주세요.");
+            alert("이메일을 입력해주세요");
             return false;
         }else if(email2.value == ""){
-            alert("이메일 주소를 입력해주세요.");
+            alert("이메일 주소를 입력해주세요");
             return false;
         }else if(email3.value == "choice"){
-            alert("이메일 주소를 입력해주세요.")
+            alert("이메일 주소를 입력해주세요")
             email3.focus();
             return false;
         }else if(!check3.test(email1.value)){
-            alert("이메일에 한글은 사용 불가능합니다.");
+            alert("이메일에 한글은 사용 불가능합니다");
             return false;
         }else if(!check2.test(email2.value)){
-            alert("이메일 형식을 확인해주세요.");
+            alert("이메일 형식을 확인해주세요");
             return false;
         }else if(code.value == ""){
-             alert("인증번호를 입력해주세요.");
+             alert("인증번호를 입력해주세요");
             return false;
         }else if(emailcodeCheck.value == "N"){
             alert("이메일 인증을 진행해주세요");
@@ -149,11 +149,11 @@ function numberCheck_email(obj){
     var check1 = /^[\d]+$/;
     
     if(number.value == ""){
-        emailmsg.innerHTML = "인증번호를 입력해주세요.";
+        emailmsg.innerHTML = "인증번호를 입력해주세요";
         emailmsg.style.color = "red";
         return false;
     }else if(!check1.test(str1)){
-        emailmsg.innerHTML = "인증번호는 숫자만 입력 가능합니다.";
+        emailmsg.innerHTML = "인증번호는 숫자만 입력 가능합니다";
         emailmsg.style.color = "red";
     }else if(number.value !== ""){
         emailmsg.innerHTML = "";

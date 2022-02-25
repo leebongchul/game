@@ -3,8 +3,11 @@
 	width:900px;
 	margin:auto;
 	margin-top:50px;
-	/*border:1px solid red;*/
 }
+#paging-color {
+background-color: black;		
+}
+
 .text-h1{
 	font-size:25px;
 	font-weight:bold;
@@ -13,31 +16,32 @@
 .text-h1:hover{
 	text-decoration:none;
 }
-.btn-delete {
+.btn-write, .btn-delete {
 	color:white;
 	background-color: black;
 	border-color: white;
 	border:1px solid white;
 	border-radius:5px;
-	margin-left:100px;
-	padding:7px 9px;
-	font-size:11px;
 }
-.btn-mypage {
-	color:white;
-	background-color: black;
-	border-color: white;
-	border:1px solid white;
-	border-radius:5px;
-	padding:7px 9px;
+.btn-write-a, .btn-delete-a  {
 	font-size:11px;
+	color:white;
+}
+.btn-write-a:hover, .btn-delete-a:hover {
+	color:white;
 }
 .title_link:hover {
 	
 	text-decoration:none;
 }
-.row-content {
-	margin-left:18px;	
+h1{
+	font-size:25px;
+	font-weight:bold;
+}
+.boardtype1, .boardtype2 {
+	font-size:14px;	
+	color:gray;
+	margin-left:7px;
 }
 /*
 .select{

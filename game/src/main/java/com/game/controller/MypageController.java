@@ -70,6 +70,7 @@ public class MypageController extends UiUtils {
 		params.setBoardType(1);
 		List<BoardDTO> boardList = boardService.getBoardList(params);
 		model.addAttribute("boardList", boardList);
+		
 		return "mypage/userboardview";
 	}
 
@@ -102,7 +103,10 @@ public class MypageController extends UiUtils {
 			Model model) {
 		System.out.println("사용자정보 접속");
 		MemberDTO user = new MemberDTO();
-		user.setMemId(loginMember.getMemId());
+		/**********************************/
+		//user.setMemId(loginMember.getMemId());
+		/************************************/
+		user.setMemId("admin");
 		user = memberService.selectMember(user);
 		model.addAttribute("user", user);
 		return "mypage/userupdate";

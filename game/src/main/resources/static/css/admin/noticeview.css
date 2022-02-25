@@ -291,8 +291,9 @@ body {
 	border-radius: 0.25rem;
 	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
-h4.freeboard {
+.freeboard {
 	font-weight:bold;
+	font-size:30px;
 }
 .comment-write{
 	font-size:20px;
@@ -310,9 +311,9 @@ h3.boardtitle {
 	margin-left:540px;
 }
 .btn_tot {
-	display:inline;
+	/*display:inline;*/
 	/*border:1px solid red;*/
-	margin-left:540px;
+	margin-left:690px;
 }
 .btn_back, .btn_update, .btn_delete, .btn_insert, .btn_decl {
 	font-size:11px;
@@ -336,7 +337,7 @@ display:inline;
 	margin-left:5px;
 }
 .view-textarea {
-	width:790px;
+	width:750px;
 	display:inline;
 }
 .text-nick {
@@ -365,4 +366,20 @@ display:inline;
 	display:inline;
 	margin-left:27px;
 	margin-top:7px;
+}
+.comment-nick {
+	float:left;
+	margin-right:15px;
+}
+.btn-insert{
+	background-color:black;
+	color:white;
+	display:inline;
+	font-size:11px;
+	margin-top:-100px;
+	margin-left:8px;
+}
+.content {
+
+	
 }

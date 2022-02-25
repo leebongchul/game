@@ -3,12 +3,14 @@
 	margin:auto;
 	margin-top:50px;
 }
-#paging-color {
-background-color: black;		
-}
-h1{
-	font-size:20px;
+
+.text-h1{
+	font-size:25px;
 	font-weight:bold;
+	color:black;
+}
+.text-h1:hover{
+	text-decoration:none;
 }
 .btn-write {
 	color:white;
@@ -21,6 +23,14 @@ h1{
 	font-size:11px;
 	color:white;
 }
+.btn-write-a:hover {
+	color:white;
+}
+.title_link:hover {
+	
+	text-decoration:none;
+}
+/*
 .select{
 	width:130px;
     border-radius:5px;
@@ -48,6 +58,7 @@ h1{
         margin-left:2px;
         margin-bottom:15px;
 }
+*/
 .paging2{
 	color:black;
 }
