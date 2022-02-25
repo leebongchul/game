@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-<th:block  th:replace="/fragment/header :: main-head">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="../css/mypage/userupdate.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script th:src="@{/scripts/jquery.min.js}"></script>
+<script src="../js/userupdate.js"></script>
 </head>
 <body>
-<nav th:replace="/fragment/header :: main-header"></nav> 
          <section class="content">
          <h1>사용자정보</h1>
          <form name = "userupdateform"th:action="@{/mypage/userupdate}" th:object="${member}" method="post" onsubmit="return userUpdate()">
@@ -81,14 +80,31 @@
                 </a>
              </li>
           </ul> 
-          <input type = "hidden" id = "nickcheck" value = "N">
-          <input type = "hidden" id = "hpcheck" value = "N">
-          <input type = "hidden" id = "emailcheck" th:value ="${memEmail1 !=null && memEmail2 !=null ? 'Y' : 'N'}">
+          <input type = "hidden" id = "nickcheck" value = "Y">
+          <input type = "hidden" id = "hpcheck" value = "Y">
+          <input type = "hidden" id = "emailcheck" value ="Y">
           <input type = "hidden" id = "nickval" th:value = "${user.memNick}">
           <input type = "hidden" id = "hpval" th:value = "${user.memHp}">
           <input type = "hidden" id = "emailval" th:value = "${user.memEmail}">
+          <input type = "hidden" id = "usertel" th:value = "${user.memTel}">
           </form>
       </section>      
         </div>
+        <!-- Vendor JS Files -->
+  <script src="../assets/vendor/purecounter/purecounter.js"></script>
+  <script src="../assets/vendor/aos/aos.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="../assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="../assets/vendor/php-email-form/validate.js"></script>
 
+  <!-- Template Main JS File -->
+  <script src="../assets/js/main.js"></script>
+    </th:block>
+</body>
+<script>
+
+</script>
 </html>
