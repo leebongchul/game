@@ -4,9 +4,9 @@ body {
 }
 
 section.userdelete {
-	width: 280px;
+	width: 290px;
 	margin: auto;
-	height: 800px;
+	height: 100%;
 	/*border: 1px solid red;*/
 	margin-top: 100px;
 }
@@ -15,7 +15,7 @@ section.userdelete {
 	margin-bottom: 15px;
 	border-radius: 5px;
 	border: 1px solid lightgray;
-	width: 250px;
+	width: 280px;
 	padding: 13px;
 	padding-left: 15px;
 	font-size: 13px;
