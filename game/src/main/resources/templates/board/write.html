@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <head>
-    <th:block  th:replace="/fragment/header :: main-head">
-</th:block>
+    <th:block  th:replace="/fragment/header2 :: main-head">
+	</th:block>
         <meta charset="UTF-8">
         <title>The page is a write page</title>
         <link href="/css/board/write.css" rel="stylesheet">
     </head>
-    <nav th:replace="/fragment/header :: main-header"></nav>
+    <body>
+    <nav th:replace="/fragment/header2 :: main-header"></nav>
         <div class="card-content">
             <form class="form-horizontal" th:action="@{/board/freeboard/register}" th:object="${board}" method="post" onsubmit="return registerBoard(this)">
                 <!--/* update의 경우 서버로 전달할 게시글 번호 (PK) */-->
@@ -48,6 +49,7 @@
                 </div>
             </form>
         </div>
+        </body>
         <!-- /.card-content -->
 
         <script th:inline="javascript">
