@@ -103,7 +103,10 @@ public class MypageController extends UiUtils {
 			Model model) {
 		System.out.println("사용자정보 접속");
 		MemberDTO user = new MemberDTO();
-		user.setMemId(loginMember.getMemId());
+		/**********************************/
+		//user.setMemId(loginMember.getMemId());
+		/************************************/
+		user.setMemId("admin");
 		user = memberService.selectMember(user);
 		model.addAttribute("user", user);
 		return "mypage/userupdate";

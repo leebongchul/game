@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>The page is a write page</title>
+        <link href="/css/board/write.css" rel="stylesheet">
     </head>
         <div class="card-content">
             <form class="form-horizontal" th:action="@{/board/freeboard/register}" th:object="${board}" method="post" onsubmit="return registerBoard(this)">
@@ -10,31 +11,37 @@
                 <input type="hidden" th:if="*{boardNum != null}" th:field="*{boardNum}" />
                 <input type="hidden" th:if="*{boardType != null}" th:field="*{boardType}" />
                 <input type="hidden" th:if="*{memId != null}" th:field="*{memId}" />
-
                 <div class="form-group">
+                <!--  
                     <label for="boardTitle" class="col-sm-2 control-label">제목</label>
+                    -->
+                    <h3>자유게시판</h3>
                     <div class="col-sm-10">
-                        <input type="text" th:field="*{boardTitle}" name="boardTitle" class="form-control" placeholder="제목을 입력해 주세요." />
+                        <input type="text" th:field="*{boardTitle}" name="boardTitle" class="form-control1" placeholder="제목을 입력해 주세요." autocomplete="off" />
                     </div>
                 </div>
 
                 <div class="form-group">
+                  <!--  
                     <label for="memNick" class="col-sm-2 control-label">작성자</label>
+                   --> 
                     <div class="col-sm-10">
-                        <input type="text" th:field="*{memNick}" class="form-control" readonly />
+                        <input type="text" th:field="*{memNick}" class="form-control2" readonly />
                     </div>
                 </div>
 
                 <div class="form-group">
+                <!--  
                     <label for="boardContent" class="col-sm-2 control-label">내용</label>
+                    -->
                     <div class="col-sm-10">
-                        <textarea th:field="*{boardContent}" name="boardContent" class="form-control" placeholder="내용을 입력해 주세요."></textarea>
+                        <textarea th:field="*{boardContent}" name="boardContent" class="form-control3" placeholder="내용을 입력해 주세요." autocomplete="off"></textarea>
                     </div>
                 </div>
 
                 <div class="btn_wrap text-center">
-                    <button type ="button" onclick = "history.back()">뒤로가기</button>
-                    <button type="submit" class="btn btn-primary waves-effect waves-light">저장하기</button>
+                    <button type="submit" class="btn waves-effect waves-light btn-insert">등 록</button>
+                    <button type ="button" onclick = "history.back()" class="btn-back">취 소</button>
                 </div>
             </form>
         </div>
