@@ -37,11 +37,22 @@ public class BoardController extends UiUtils {
 	}
 
 	@GetMapping(value = "/list")
-	public String openBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
+	public String openBoardList(@ModelAttribute("params") BoardDTO params,
+			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		// 메인 생성되면 보드타입 변경?
+
 		params.setBoardType(1);
 		List<BoardDTO> boardList = boardService.getBoardList(params);
 		model.addAttribute("boardList", boardList);
+
+		if (loginMember == null) {
+			MemberDTO member = new MemberDTO();
+			member.setMemRole("user");
+			model.addAttribute("member", member);
+		} else {
+			model.addAttribute("member", loginMember);
+		}
+
 		return "board/list";
 	}
 
@@ -145,13 +156,16 @@ public class BoardController extends UiUtils {
 	@GetMapping(value = "/freeboard/write") // 글쓰기, 상세보기-수정화면
 	public String openBoardWrite(@ModelAttribute("params") BoardDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
+		if (loginMember == null) {
+			return showMessageWithRedirect("글쓰기 권한이 없습니다. 로그인해주세요.", "/board/list", Method.GET, null, model);
+		}
 		if (params.getBoardNum() == null) { // 글쓰기 화면
 			/*********** 로그인 세션 구현시 ***************/
-//			params.setMemId(loginMember.getMemId());
-//			params.setMemNick(loginMember.getMemNick());
+			params.setMemId(loginMember.getMemId());
+			params.setMemNick(loginMember.getMemNick());
 			/******************************************/
-			params.setMemId("admin");
-//			params.setMemNick("관리자1");
+//			params.setMemId("admin");
+////			params.setMemNick("관리자1");
 
 			model.addAttribute("board", params);
 		} else {
@@ -188,38 +202,6 @@ public class BoardController extends UiUtils {
 
 		return showMessageWithRedirect("게시글 등록이 완료되었습니다.", "/board/list", Method.GET, null, model);
 	}
-
-//	@PostMapping(value = "/freeboard/delete")
-//	public String deleteBoard(@ModelAttribute("params") BoardDTO params,
-//			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
-//		/***************** 로그인 세션 구현시 *******************/
-////		params.setBoardUpdateId(loginMember.getMemId());
-////		params.setMemRole(loginMember.getMemRole());
-//		/************************************************/
-//		params.setBoardUpdateId("admin");// 테스트용 하드코딩
-//		params.setMemRole("user");// 테스트용 하드코딩
-//
-//		if (params.getBoardNum() == null && params.getMemId() == null) {
-//			return showMessageWithRedirect("올바르지 않은 접근입니다.", "/board/list", Method.GET, null, model);
-//		}
-//		try {
-//			if (params.getBoardUpdateId() == params.getMemId() || params.getMemRole() == "admin") {
-//				boolean isDeleted = boardService.deleteBoard(params);
-//				if (isDeleted == false) {
-//					return showMessageWithRedirect("게시글 삭제에 실패하였습니다.", "/board/list", Method.GET, null, model);
-//				}
-//			} else {
-//				return showMessageWithRedirect("게시글 삭제 권한이 없습니다.", "/board/list", Method.GET, null, model);
-//			}
-//		} catch (DataAccessException e) {
-//			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/board/list", Method.GET, null, model);
-//
-//		} catch (Exception e) {
-//			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/board/list", Method.GET, null, model);
-//		}
-//
-//		return showMessageWithRedirect("게시글 삭제가 완료되었습니다.", "/board/list", Method.GET, null, model);
-//	}
 
 	@GetMapping(value = "/freeboard/delete")
 	public String GetdeleteBoard(@ModelAttribute("params") BoardDTO params,

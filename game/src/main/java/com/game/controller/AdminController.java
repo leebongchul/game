@@ -44,14 +44,24 @@ public class AdminController extends UiUtils {
 		return "admin/adminpagemain";
 	}
 
-	@GetMapping(value = "/mainboard")
-	public String openMainboardpage(@ModelAttribute("params") BoardDTO params, Model model) {
-		if (params.getBoardType() == 0) {
-			params.setBoardType(1);
-		}
+//	@GetMapping(value = "/mainboard")
+//	public String openMainboardpage(@ModelAttribute("params") BoardDTO params, Model model) {
+//		if (params.getBoardType() == 0) {
+//			params.setBoardType(1);
+//		}
+//		List<BoardDTO> boardList = boardService.getBoardList(params);
+//		model.addAttribute("boardList", boardList);
+//		return "admin/mainboard";
+//	}
+
+	@GetMapping(value = "/noticeboard/list")
+	public String openNoticeBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
+		// 메인 생성되면 보드타입 변경?
+		params.setBoardType(2);
 		List<BoardDTO> boardList = boardService.getBoardList(params);
 		model.addAttribute("boardList", boardList);
-		return "admin/mainboard";
+
+		return "admin/noticelist";
 	}
 
 	// 게시글 삭제
