@@ -2,15 +2,15 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
     <nav th:fragment="pagination" th:if="${params != null and params.paginationInfo.totalRecordCount > 0}"
-     th:object="${params.paginationInfo}" th:with="info=${params.paginationInfo}" aria-label="Page navigation" class="text-center" style="text-align:center; border:1px solid red;">
+     th:object="${params.paginationInfo}" th:with="info=${params.paginationInfo}" aria-label="Page navigation" class="text-center">
         <ul class="pagination">
             <li th:if="*{hasPreviousPage == true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${params.makeQueryString(1)} ]])">
-                <a href="javascript:void(0)" aria-label="Previous"><span aria-hidden="true" style="background-color:black; border:1px solid black; cursor:pointer; color:white; text-align:center;">&laquo;</span></a>
+                <a href="javascript:void(0)" aria-label="Previous"><span aria-hidden="true" style="background-color:black; border:1px solid black; cursor:pointer; color:white;">&laquo;</span></a>
             </li>
             <li th:if="*{hasPreviousPage == true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${params.makeQueryString(info.firstPage - 1)} ]])">
                 <a href="javascript:void(0)" aria-label="Previous"><span aria-hidden="true" style="background-color:black; border:1px solid black; cursor:pointer; color:white;">&lsaquo;</span></a>
             </li>
-            <li th:each="pageNo : *{#numbers.sequence( firstPage, lastPage )}" th:class="${pageNo == params.currentPageNo} ? 'active'" style="text-align:center;" >
+            <li th:each="pageNo : *{#numbers.sequence( firstPage, lastPage )}" th:class="${pageNo == params.currentPageNo} ? 'active'">
                 <a href="javascript:void(0)" th:text="${pageNo}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${params.makeQueryString(pageNo)} ]])" style="background-color:black; border:1px solid black; cursor:pointer; color:white;"></a>
             </li>
             <li th:if="*{hasNextPage == true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${params.makeQueryString(info.lastPage + 1)} ]])">
@@ -19,13 +19,11 @@
             <li th:if="*{hasNextPage == true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${params.makeQueryString(info.totalPageCount)} ]])">
                 <a href="javascript:void(0)" aria-label="Next"><span aria-hidden="true" style="background-color:black; border:1px solid black; cursor:pointer; color:white;">&raquo;</span></a>
             </li>
-        
         </ul>
     </nav>
-    
 <!--/* 검색 form */-->
     <div th:fragment="search" id="adv-search" class="input-group">
-               <form id="searchForm" th:action="@{/board/list}" method="get" th:onsubmit="return searchBoard(this)" class="form-horizontal" role="form">
+               <form id="searchForm" th:action="@{/admin/noticelist}" method="get" th:onsubmit="return searchBoard(this)" class="form-horizontal" role="form">
                    <!-- /* 현재 페이지 번호, 페이지당 출력할 데이터 개수, 페이지 하단에 출력할 페이지 개수 Hidden 파라미터 */ -->
                    <input type="hidden" name="currentPageNo" value="1" />
                    <input type="hidden" name="recordsPerPage" th:value="${params.recordsPerPage}" />

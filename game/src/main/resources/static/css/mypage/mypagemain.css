@@ -1,9 +1,10 @@
 @charset "UTF-8";
     section.mypagemain {
-        width:575px;
+        width:640px;
         margin:auto;
-        /*height:500px;*/
+        height:100%;
         margin-top:100px;
+        padding-left:50px;
         /*border:1px solid red;*/
     }
     div {

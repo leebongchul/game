@@ -12,6 +12,7 @@
 }
 .text-h1:hover{
 	text-decoration:none;
+	color:black;
 }
 .btn-write {
 	color:white;
@@ -19,17 +20,28 @@
 	border-color: white;
 	border:1px solid white;
 	border-radius:5px;
+	padding:10px 15px;
 }
-.btn-write-a {
-	font-size:11px;
+.btn-write2 {
 	color:white;
+	background-color: black;
+	border-color: white;
+	border:1px solid white;
+	border-radius:5px;
+	padding:10px 15px;
+	
 }
-.btn-write-a:hover {
-	color:white;
+.btn-write-a{
+	color:white;	
 }
+.btn-write-a:visited{
+	color:white;	
+}
+
 .title_link:hover {
 	
 	text-decoration:none;
+	color:black;
 }
 /*
 .select{

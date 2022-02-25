@@ -5,14 +5,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="../css/board/list.css" rel="stylesheet">
     <head>
+    <th:block  th:replace="/fragment/header :: main-head">
+</th:block>
         <meta charset="UTF-8">
         <title>The page is a write page</title>
-        <link href="../css/header.css" rel="stylesheet">
     </head>
     <body>
-    <th:block layout:fragment="header">
-<nav th:replace="/fragment/header":: header></nav>
-</th:block>
+    <nav th:replace="/fragment/header :: main-header"></nav>
     <div class="content">
     <a href = "./list" class="text-h1">자유 게시판</a>
               <span>
@@ -39,7 +38,7 @@
 	                    <td th:if="${member.memRole!=null && member.memRole=='admin'}" class="col-md-1 text-center" scope="row"><input type="checkbox" name="boardNum" th:value=${row.boardNum}></td>
 	                        <td class= "col-md-1 text-center" scope="row" th:text="${row.listnum}"></td>
 	                        <td th:class="${member.memRole!=null && member.memRole=='admin' ? 'col-md-5 text-left': 'col-md-6 text-left'}">>
-	                            <a class="title_link" th:href="@{/board/freeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" th:text="${row.boardTitle} + '('+ ${row.commCount} +')'"></a>
+	                            <a class="title_link" th:href="@{/board/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" th:text="${row.boardTitle} + '('+ ${row.commCount} +')'"></a>
 	                        </td>
 	                        <td class= "col-md-2 text-center" th:text="${row.memNick}"></td>
 	                        <td class= "col-md-2 text-center" th:text="${row.boardDate}"></td>
@@ -54,10 +53,10 @@
 	            </table>
 	            </form>
 	            <div class="btn_wrap text-right">
-	              <button th:if="${member.memRole !=null && member.memRole=='admin'}" type="button" class="btn-write" onclick="deleteMainboardFormCheck()">
-                        <a class="btn waves-effect waves-light btn-write-a">삭제</a>
-                    </button>
-	                <button type="button" class="btn-write"><a th:href="@{/board/freeboard/write(boardType=1)}" class="btn waves-effect waves-light btn-write-a">글쓰기</a></button>
+	              <button th:if="${member.memRole !=null && member.memRole=='admin'}" type="button" class="btn-write" onclick="deleteMainboardFormCheck()">삭제</button>
+	                <a th:href="@{/board/freeboard/write(boardType=1)}">
+	                	<button type="button" class="btn-write2">글쓰기</button>
+	                </a>
 	            </div>
 	        </div>
 	        <div class="paging">

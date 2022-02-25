@@ -3,10 +3,11 @@
         background: rgb(94,94,94);
     } 
     section.pass_find {
-        width:540px;
+        width:700px;
         margin:auto;
         height:100%;
-        margin-top:100px;
+        margin-top:10px;
+        padding-left:180px;
         /*border:1px solid red;*/
     }
      ul {
@@ -30,7 +31,7 @@
     li  { 
         clear:left; 
         /*border:1px solid red;*/
-        overflow:hidden;
+        /* overflow:hidden; */
     }   
     .input1, .number {
         margin-bottom: 15px;

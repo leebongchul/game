@@ -39,11 +39,12 @@
     
     <select id="selectGameRankList" parameterType="GameScoreDTO" resultType="GameScoreDTO"> 
         
-        SELECT rownum rno, a.* 
+        select b.* from 
+		(SELECT rownum rno, a.* 
         FROM (SELECT rank_score, member_table.mem_nick,  game_name from rank_table, member_table 
-        WHERE member_table.mem_id = rank_table.mem_id and game_name = #{gameName} 
-        ORDER BY rank_score desc)a 
-        WHERE rownum between 1 and 5
+        WHERE member_table.mem_id = rank_table.mem_id and game_name = #{gameName}
+        ORDER BY rank_score desc)a)b 
+        WHERE b.rno between #{startPage} and #{endPage}
         
     </select>
     

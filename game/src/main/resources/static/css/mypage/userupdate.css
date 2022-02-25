@@ -3,11 +3,12 @@
         background: rgb(94,94,94);
     }
     .content {
-        width:460px;
+        width:650px;
         margin:auto;
-        height:800px;
+        height:100vh;
         /*border:1px solid red;*/
-        margin-top:100px;
+        margin-top:10px;
+        padding-left:180px;
     }
    ul {
         list-style-type:none;
@@ -31,14 +32,14 @@
     li  { 
         clear:left; 
         /*border:1px solid red;*/
-        overflow:hidden;
+        /* overflow:hidden; */
     }   
 
      .input1 {
         margin-bottom: 15px;
         border-radius:5px;
         border:1px solid lightgray;
-        width:250px;
+        width:280px;
         padding:13px;
         padding-left:15px;
         font-size:13px;
@@ -53,17 +54,17 @@
     }
     
    .hp {
-        width:59px;
+        width:90px;
         margin-bottom: 15px;
         border-radius:5px;
         border:1px solid lightgray;
         padding:9px;
         padding-left:20px;
-        
+         font-size:13px;
     }
     
     .email {
-        width:105px;
+        width:137px;
         margin-bottom: 15px;
         border-radius:5px;
         border:1px solid lightgray;
@@ -72,15 +73,18 @@
     }
      .email2 {
         width:130px;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
         border-radius:5px;
         border:1px solid lightgray;
-        padding:10px;
+        padding:13px;
         padding-left:20px;
         font-size:13px;
     }
     h1 {
     	color:white;
+    	font-size:25px;
+    	font-weight:bold;
+    	margin-bottom:20px;
     }
    	.btn-update {
    		color:white;

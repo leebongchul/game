@@ -7,7 +7,90 @@
 		board_date, board_update_id, board_update_date, board_hit, board_delete
 
 	</sql>
-
+    
+    <sql id="search">
+       
+        <!-- 검색 키워드가 있을 때 -->
+        <if test="searchKeyword != null and searchKeyword != ''">
+            <choose>
+                <!-- 검색 유형이 있을 때 -->
+                <when test="searchType != null and searchType != ''">
+                and
+                    <choose>
+                        <when test="'title'.equals(searchType)">
+                        <![CDATA[
+                             board_title LIKE '%' || #{searchKeyword} || '%' 
+                        ]]>
+                        </when>
+                        <when test="'content'.equals(searchType)">
+                        <![CDATA[
+                             board_content LIKE '%' || #{searchKeyword} || '%' 
+                        ]]>
+                        </when>
+                        <when test="'writer'.equals(searchType)">
+                        <![CDATA[
+                             mem_nick LIKE '%'|| #{searchKeyword} || '%' 
+                        ]]>
+                        </when>
+                    </choose>
+                </when>
+                <!-- 검색 유형이 없을 때 -->
+                <otherwise>
+                    <![CDATA[
+                        
+                           and board_title LIKE '%' || #{searchKeyword} || '%'
+                            OR board_content LIKE '%' || #{searchKeyword} || '%'
+                            OR mem_nick LIKE '%'|| #{searchKeyword} || '%'
+                         
+                        
+                     ]]>
+                </otherwise>
+            </choose>
+        </if>
+        
+    </sql>
+    
+    <sql id="reportSearch">
+       
+        <!-- 검색 키워드가 있을 때 -->
+        <if test="searchKeyword != null and searchKeyword != ''">
+            <choose>
+                <!-- 검색 유형이 있을 때 -->
+                <when test="searchType != null and searchType != ''">
+                and
+                    <choose>
+                        <when test="'repoter'.equals(searchType)">
+                        <![CDATA[
+                             a.mem_id LIKE '%' || #{searchKeyword} || '%' 
+                        ]]>
+                        </when>
+                        <when test="'reportUser'.equals(searchType)">
+                        <![CDATA[
+                             a.rep_id LIKE '%' || #{searchKeyword} || '%' 
+                        ]]>
+                        </when>
+                        <when test="'reportType'.equals(searchType)">
+                        <![CDATA[
+                             a.rep_type LIKE '%'|| #{searchKeyword} || '%' 
+                        ]]>
+                        </when>
+                    </choose>
+                </when>
+                <!-- 검색 유형이 없을 때 -->
+                <otherwise>
+                    <![CDATA[
+                        
+                           and a.mem_id LIKE '%' || #{searchKeyword} || '%'
+                            OR a.rep_id LIKE '%' || #{searchKeyword} || '%'
+                            OR a.rep_type LIKE '%'|| #{searchKeyword} || '%'
+                         
+                        
+                     ]]>
+                </otherwise>
+            </choose>
+        </if>
+        
+    </sql>
 	<insert id="insertBoard" parameterType="BoardDTO">
 
 		INSERT INTO board_table (
@@ -38,50 +121,11 @@
 		<if test="memId !=null">
         AND mem_id=#{memId} 
         </if>
+        <include refid="search" />
 <!-- 		<if test='boardType!=0' > AND board_type = #{boardType}</if> //관리자페이지 게시판 관리 페이지에서 boardType을 0으로 넘겨줌(자유,공지 둘다 출력을 하기 위함)// -->
 		
 	</select>
-	<sql id="search">
-	   
-        <!-- 검색 키워드가 있을 때 -->
-        <if test="searchKeyword != null and searchKeyword != ''">
-            <choose>
-                <!-- 검색 유형이 있을 때 -->
-                <when test="searchType != null and searchType != ''">
-                where 
-                    <choose>
-                        <when test="'title'.equals(searchType)">
-                        <![CDATA[
-                             b.board_title LIKE '%' || #{searchKeyword} || '%' 
-                        ]]>
-                        </when>
-                        <when test="'content'.equals(searchType)">
-                        <![CDATA[
-                             b.board_content LIKE '%' || #{searchKeyword} || '%' 
-                        ]]>
-                        </when>
-                        <when test="'writer'.equals(searchType)">
-                        <![CDATA[
-                             b.mem_nick LIKE '%'|| #{searchKeyword} || '%' 
-                        ]]>
-                        </when>
-                    </choose>
-                </when>
-                <!-- 검색 유형이 없을 때 -->
-                <otherwise>
-                    <![CDATA[
-                        
-                           where b.board_title LIKE '%' || #{searchKeyword} || '%'
-                            OR b.board_content LIKE '%' || #{searchKeyword} || '%'
-                            OR b.mem_nick LIKE '%'|| #{searchKeyword} || '%'
-                         
-                        
-                     ]]>
-                </otherwise>
-            </choose>
-        </if>
-        
-    </sql>
+	
 	<select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO"> <!-- 자유게시판은 댓글 갯수도 갖고 와야함 -->
 
 		SELECT c.* 
@@ -94,11 +138,11 @@
 		(select * from comment_table where comm_delete = 'N') comm RIGHT OUTER JOIN board_table board
 		ON(comm.board_num = board.board_num)LEFT OUTER JOIN  member_table member
 		ON(board.mem_id = member.mem_id) 
-		WHERE board.board_delete = 'N'  
+		WHERE board.board_delete = 'N' and board_type = #{boardType} <include refid="search" />
 		GROUP BY 
 		comm.board_num,board.board_num, board_title, board_content, board_date, board.mem_id, board_delete, member.mem_nick, board_type, board_hit
 		ORDER BY board_date)a
-		ORDER BY listnum DESC)b <include refid="search" />)c
+		ORDER BY listnum DESC)b )c
 		where
 		<if test="memId !=null">
 		 c.mem_id=#{memId} and
@@ -199,24 +243,32 @@
 		order by rownum asc
 
 	</select>
-
-	<select id="selectReportList" resultType="ReportDTO">
-	SELECT * FROM
-		(SELECT rownum rno, r.rep_num, r.mem_id, r.rep_id, r.rep_type, r.board_num, r.comm_num, m.mem_block
+    <select id="reportTotalCount" parameterType = "ReportDTO" resultType="int">
+        select count(*) from report_table
+    </select>
+    
+	<select id="selectReportList" parameterType="BoardDTO" resultType="ReportDTO">
+	SELECT a.* FROM
+	(SELECT 
+	rownum rno, r.rep_date, r.rep_num, r.mem_id, r.rep_id, r.rep_type, r.board_num, r.comm_num, m.mem_block
+		
 		FROM report_table r, member_table m
-		WHERE r.rep_id= m.mem_id)
-	ORDER BY rno desc
-
+		
+		WHERE r.rep_id= m.mem_id 
+		order by r.rep_date desc)a
+		where
+		a.rno between #{startPage} and #{endPage}
+        <include refid="reportSearch" />
 	</select>
 
 	<insert id="insertReport" parameterType="ReportDTO">
 		INSERT INTO
-			report_table (rep_num, mem_id, rep_id, rep_type
+			report_table (rep_num, mem_id, rep_id, rep_type,rep_date
 			<if test='boardNum != null'>, board_num</if>
 			<if test='commNum != null'>, comm_num</if>
 			)
 		VALUES
-			('r_'||sequ_report_num.nextval, #{memId}, #{repId}, #{repType}
+			('r_'||sequ_report_num.nextval, #{memId}, #{repId}, #{repType},sysdate
 			<if test='boardNum != null'>, #{boardNum}</if>
 			<if test='commNum != null'>, #{commNum}</if>
 			)

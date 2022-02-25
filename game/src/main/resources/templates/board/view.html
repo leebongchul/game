@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">a
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -13,14 +13,17 @@
 
 <!-- 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<link href="/css/admin/noticeview.css" rel="stylesheet" type="text/css">
+<link href="/css/board/view.css" rel="stylesheet" type="text/css">
 
 <head>
+<th:block  th:replace="/fragment/header2 :: main-head">
+</th:block>
 <meta charset="UTF-8">
 <title>The page is a write page</title>
 </head>
 
 <body>
+<nav th:replace="/fragment/header2 :: main-header"></nav>
 	<section class="content">
 		<form class="form-horizontal form-view" th:object="${board}">
 			<div id="main-content" class="blog-page">
@@ -132,6 +135,7 @@
 											<div class="col-sm-12">
 												<div class="form-group">
 													<span th:text="${member.memNick}" class="comment-nick" id="comment-nick"></span>
+													
 													<textarea rows="4" class="form-control no-resize view-textarea"
 														th:placeholder="${member.memNick.equals('비회원')? '로그인을 해주세요' : '작성할 댓글 내용을 입력해주세요'}" id="content"></textarea>
 													<!--  <button type="submit" class="btn btn-block btn-dark btn_insert">댓글 등록</button>-->

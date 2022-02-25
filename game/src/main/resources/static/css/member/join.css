@@ -3,17 +3,17 @@ body {
         background: rgb(94,94,94);
     }
     section.join {
-        width:590px;
+        width:750px;
         height:100%;
         margin:auto;
         /*border:1px solid red;*/
-        margin-top:100px;
-        padding-left:50px;
+        margin-top:10px;
+        padding-left:200px;
     }
-   ul {
+   #join-ul {
         list-style-type:none;
         font-size:12pt;
-        /*border:1px solid blue;*/
+        border:1px solid blue;
         margin-left:30px;
         margin:0;
         padding:0;
@@ -32,7 +32,7 @@ body {
     li  { 
         clear:left; 
         /*border:1px solid red;*/
-        overflow:hidden;
+/*         overflow:hidden; */
     }   
     .input1 {
         margin-bottom: 15px;

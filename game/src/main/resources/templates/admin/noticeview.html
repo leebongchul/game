@@ -2,6 +2,8 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
+<th:block  th:replace="/fragment/header :: main-head">
+</th:block>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The page is a write page</title>
@@ -20,9 +22,7 @@
 <link href="../css/header.css" rel="stylesheet">
 </head>
 <body>
-<th:block layout:fragment="header">
-<nav th:replace="/fragment/header":: header></nav>
-</th:block>
+<nav th:replace="/fragment/header :: main-header"></nav> 
 	<div id="main-content" class="blog-page">
 		<h4 class="freeboard">공지사항</h4>
 		<div class="container">

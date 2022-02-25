@@ -71,21 +71,35 @@ public class BoardServiceImpl implements BoardService {
 
 		return boardList;
 	}
-
+	
+	@Override
+    public List<ReportDTO> getReportList(ReportDTO params) {
+	    List<ReportDTO> reportList = Collections.emptyList();
+	    
+	    int reportTotalCount = boardMapper.reportTotalCount(params);
+	    
+	    PaginationInfo paginationInfo = new PaginationInfo(params);
+        paginationInfo.setTotalRecordCount(reportTotalCount);
+	    
+        params.setPaginationInfo(paginationInfo);
+        
+        if (reportTotalCount > 0) {
+            reportList = boardMapper.selectReportList(params);
+        }
+        return reportList;
+    }
+    
 	@Override
 	public List<BoardDTO> searchBoard(BoardDTO params) {
 		return boardMapper.searchBoard(params);
-	};
+	}
 
 	@Override
 	public int plusBoardHit(BoardDTO params) {
 		return boardMapper.plusBoardHit(params);
-	};
+	}
 
-	@Override
-	public List<ReportDTO> getReportList() {
-		return boardMapper.selectReportList();
-	};
+	
 
 	@Override
 	public boolean registerReport(ReportDTO params) {

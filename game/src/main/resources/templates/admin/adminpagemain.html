@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
+<th:block  th:replace="/fragment/header :: main-head">
+</th:block>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="../css/admin/adminpagemain.css" rel="stylesheet">
 <link href="../css/header.css" rel="stylesheet">
 </head>
 <body>
-<th:block layout:fragment="header">
-<nav th:replace="/fragment/header":: header></nav>
-</th:block>
+<nav th:replace="/fragment/header :: main-header"></nav> 
   <section class="adminpagemain">
    <h1>관리자페이지</h1>
    <div class="first_line">
       <div class="div1">
             <img src="../image/마이페이지.PNG">
-             <a href="/board/list" class="a1"><span class="text1">게시글 관리</span></a>
+             <a href="../board/list" class="a1"><span class="text1">게시글 관리</span></a>
        </div>
        <div class="div2">
               <img src="../image/마이페이지.PNG">
-              <a href="../adminpage/" class="a2"><span class="text1">댓글 관리</span></a>
+              <a href="../admin/comment" class="a2"><span class="text1">댓글 관리</span></a>
        </div>
     </div> 
       
        <div class="div3">
               <img src="../image/마이페이지.PNG">
-              <a th:href="@{noticeboard/list}" class="a3"><span class="text1">공지사항 관리</span></a>
+              <a href="../admin/noticelist" class="a3"><span class="text1">공지사항 관리</span></a>
        </div>
        <div class="div4">
               <img src="../image/마이페이지.PNG">
-              <a href="./adminpage/" class="a4"><span class="text1">사용자 관리</span></a>
+              <a href="../admin/report" class="a4"><span class="text1">사용자 관리</span></a>
        </div>
    </section>
 </body>

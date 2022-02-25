@@ -86,9 +86,10 @@
 
 	<update id="updateMemberBlock" parameterType="MemberDTO">
 		UPDATE
-		member_table
+		  member_table
 		SET
-		mem_block = #{memBlock}, mem_block_date = sysdate, mem_block_end_date=sysdate+#{blockPeriod}
+		  mem_block = #{memBlock} 
+		<if test="memBlock=='Y">,mem_block_date = sysdate, mem_block_end_date=sysdate+#{blockPeriod}</if>
 		WHERE mem_id in
 		<foreach collection="memidArr" item="item" open="(" close=")" separator=",">
 			#{item}
