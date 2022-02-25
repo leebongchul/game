@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
 <head>
 <th:block  th:replace="/fragment/header :: main-head">
+</th:block>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="../css/mypage/usercommentview.css" rel="stylesheet">
@@ -15,56 +15,58 @@
 <body>
 <nav th:replace="/fragment/header :: main-header"></nav>
 <section class="content">
-	<h1 class="text-h1">내 댓글 보기</h1>
-	<th:block layout:fragment="search">
+    <h1 class="text-h1">내 댓글 보기</h1>
+    <th:block layout:fragment="search">
                 <nav th:replace="mypage/layout/commentSearch :: search"></nav>
             </th:block>
             <div class="table-responsive clearfix">
-	<form name="deleteCommentForm" id="deleteCommentForm" action="/mypage/commentDelete" method="get">
-		<table id = "freeboardtable" class="table table-hover">
-			<thead>
-					<tr class="tr1">
-						<th class="text-center">선택</th>
-						<th class="text-center">제목</th>
-						<th class="text-center">내용</th>
-						<th class="text-center">작성일자</th>
-					</tr>
-				</thead>
-			<tbody>
-				<tr th:if="${not #lists.isEmpty( commList )}" th:each="row : ${commList}">
-					<td class="text-center"><input type="checkbox" name="commNum" th:value="${row.commNum}"></td>
-					<td><a th:href="@{/board/freeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}"
-						th:text="${row.boardTitle} + '('+ ${row.commCount} +')'" class="row-content"></a></td>
-					<td th:text="${row.commContents}" class="text-center"></td>
-					<td th:text="${row.commDate}" class="text-center"></td>
-					<!-- 첫 번째 파라미터는 '?'로 연결하고, 두 번째부터는 '&'로 연결하는데요, 타임리프는 URI 뒤에 ?대신 괄호를, & 대신 ,(콤마)를 사용 -->
-				</tr>
-				<tr th:unless="${not #lists.isEmpty( commList )}">
-					<td colspan="5">조회된 결과가 없습니다.</td>
-				</tr>
-			</tbody>
-		</table>
-		<div class="btn_wrap text-right">
-		<button type="button" class="btn-delete" onclick="deleteCommentFormCheck()">삭제</button>
-		<a href = "./mypagemain">
+    <form name="deleteCommentForm" id="deleteCommentForm" action="/admin/commentDelete" method="get">
+        <table id = "freeboardtable" class="table table-hover">
+            <thead>
+                    <tr class="tr1">
+                        <th class="text-center">선택</th>
+                        <th class="text-center">작성자</th>
+                        <th class="text-center">제목</th>
+                        <th class="text-center">내용</th>
+                        <th class="text-center">작성일자</th>
+                    </tr>
+                </thead>
+            <tbody>
+                <tr th:if="${not #lists.isEmpty( commList )}" th:each="row : ${commList}">
+                    <td class="text-center"><input type="checkbox" name="commNum" th:value="${row.commNum}"></td>
+                    <td th:text="${row.memNick}" class="text-center"></td>
+                    <td><a th:href="@{/board/freeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}"
+                        th:text="${row.boardTitle} + '('+ ${row.commCount} +')'" class="row-content"></a></td>
+                    <td th:text="${row.commContents}" class="text-center"></td>
+                    <td th:text="${row.commDate}" class="text-center"></td>
+                    <!-- 첫 번째 파라미터는 '?'로 연결하고, 두 번째부터는 '&'로 연결하는데요, 타임리프는 URI 뒤에 ?대신 괄호를, & 대신 ,(콤마)를 사용 -->
+                </tr>
+                <tr th:unless="${not #lists.isEmpty( commList )}">
+                    <td colspan="6">조회된 결과가 없습니다.</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="btn_wrap text-right">
+        <button type="button" class="btn-delete" onclick="deleteCommentFormCheck()">삭제</button>
+        <a href = "./mypagemain">
              <button type="button" class="btn-mypage">마이페이지</button>
         </a>
-       	</div>
-	</form>
-	</div>
+        </div>
+    </form>
+    </div>
 
-	<th:block layout:fragment="paging">
-		<nav th:replace="board/layout/common :: pagination"></nav>
-	</th:block>
-	<th:block layout:fragment="script">
-		<script th:inline="javascript">
-			/*<![CDATA[*/
+    <th:block layout:fragment="paging">
+        <nav th:replace="board/layout/common :: pagination"></nav>
+    </th:block>
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
 
-			function movePage(uri, queryString) {
-				location.href = uri + queryString;
-			}
-			
-			function searchBoard(form) {
+            function movePage(uri, queryString) {
+                location.href = uri + queryString;
+            }
+            
+            function searchBoard(form) {
                 /*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
                     var searchKeyword = document.getElementById("searchKeyword");
                     console.log("키워드값 : "+searchKeyword.value);
@@ -78,31 +80,32 @@
                     form = document.getElementById("searchForm");
                     form.submit();
             }
-			/*]]>*/
+            /*]]>*/
 
-		</script>
-	</th:block>
+        </script>
+    </th:block>
 </section>
 </body>
 <script>
+$(document).ready(function(){
+    var len = $("#searchKeyword").val().length;
+    $("#searchKeyword").focus();
+    $("#searchKeyword")[0].setSelectionRange(len, len);
+});
 //삭제댓글 선택 여부 체크
 function deleteCommentFormCheck() {
-    if ($('input:checkbox[name="commNum"]').is(':checked')) {
-    	let result = confirm("정말로 삭제하시겠습니까?");
-    	if(result){
-    		$("#deleteCommentForm").submit();
-    	}
+	const query = 'input:checkbox[name="commNum"]:checked';
+    if (query!=null) {
+        let result = confirm("정말로 삭제하시겠습니까?");
+        if(result){
+        	document.getElementById('deleteCommentForm').submit();
+        }
         
     } else {
         alert("삭제할 게시글을 선택해주세요.");
     }
 }
 
-$(document).ready(function(){
-    var len = $("#searchKeyword").val().length;
-    $("#searchKeyword").focus();
-    $("#searchKeyword")[0].setSelectionRange(len, len);
-});
 
 </script>
 </html>
