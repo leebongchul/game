@@ -19,26 +19,29 @@
             </span>
         		
 	        <div class="table-responsive clearfix">
+	        <form name="deleteBoardForm" id="deleteBoardForm" action="/admin/boardDelete" method="get">
 	            <table id = "freeboardtable" class="table table-hover">
 	                <thead>
 	                    <tr class="tr1">
-	                        <th>번호</th>
-	                        <th>제목</th>
-	                        <th>작성자</th>
-	                        <th>등록일</th>
-	                        <th>조회수</th>
+	                    <th th:if="${member.memRole!=null && member.memRole=='admin'}" class="text-center">선택</th>
+	                        <th class="text-center">번호</th>
+	                        <th class="text-center">제목</th>
+	                        <th class="text-center">작성자</th>
+	                        <th class="text-center">등록일</th>
+	                        <th class="text-center">조회수</th>
 	                    </tr>
 	                </thead>
 	                <tbody>
 	                    <tr th:if="${not #lists.isEmpty( boardList )}" th:each="row : ${boardList}">
-	                        <td class= "col-md-1" scope="row" th:text="${row.listnum}"></td>
-	                        <td class="col-md-6, text-left">
+	                    <td th:if="${member.memRole!=null && member.memRole=='admin'}" class="col-md-1 text-center" scope="row"><input type="checkbox" name="boardNum" th:value=${row.boardNum}></td>
+	                        <td class= "col-md-1 text-center" scope="row" th:text="${row.listnum}"></td>
+	                        <td th:class="${member.memRole!=null && member.memRole=='admin' ? 'col-md-5 text-left': 'col-md-6 text-left'}">>
 	                            <a class="title_link" th:href="@{/board/freeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" th:text="${row.boardTitle} + '('+ ${row.commCount} +')'"></a>
 	                        </td>
-	                        <td class= "col-md-2" th:text="${row.memNick}"></td>
-	                        <td class= "col-md-2" th:text="${row.boardDate}"></td>
+	                        <td class= "col-md-2 text-center" th:text="${row.memNick}"></td>
+	                        <td class= "col-md-2 text-center" th:text="${row.boardDate}"></td>
 	                        <!-- 첫 번째 파라미터는 '?'로 연결하고, 두 번째부터는 '&'로 연결하는데요, 타임리프는 URI 뒤에 ?대신 괄호를, & 대신 ,(콤마)를 사용 -->
-	                        <td class= "col-md-1" th:text="${row.boardHit}"></td>
+	                        <td class= "col-md-1 text-center" th:text="${row.boardHit}"></td>
 	                        
 	                    </tr>
 	                    <tr th:unless="${not #lists.isEmpty( boardList )}">
@@ -47,6 +50,9 @@
 	                </tbody>
 	            </table>
 	            <div class="btn_wrap text-right">
+	              <button th:if="${member.memRole !=null && member.memRole=='admin'}" type="button" class="btn-write" onclick="deleteMainboardFormCheck()">
+                        <a class="btn waves-effect waves-light btn-write-a">삭제</a>
+                    </button>
 	                <button type="button" class="btn-write"><a th:href="@{/board/freeboard/write(boardType=1)}" class="btn waves-effect waves-light btn-write-a">글쓰기</a></button>
 	            </div>
 	        </div>
@@ -77,6 +83,18 @@
 */
                     form = document.getElementById("searchForm");
                     form.submit();
+            }
+            
+          //삭제게시글 선택 여부 체크
+            function deleteMainboardFormCheck() {
+                if ($('input:checkbox[name="boardNum"]').is(':checked')) {
+                    let result = confirm("정말로 삭제하시겠습니까?");
+                    if (result) {
+                        $("#deleteBoardForm").submit();
+                    }
+                } else {
+                    alert("삭제할 게시글을 선택해주세요.");
+                }
             }
             
             /*]]>*/

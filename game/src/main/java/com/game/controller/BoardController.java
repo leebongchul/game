@@ -207,11 +207,11 @@ public class BoardController extends UiUtils {
 	public String GetdeleteBoard(@ModelAttribute("params") BoardDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		/***************** 로그인 세션 구현시 *******************/
-//		params.setBoardUpdateId(loginMember.getMemId());
-//		params.setMemRole(loginMember.getMemRole());
+		params.setBoardUpdateId(loginMember.getMemId());
+		params.setMemRole(loginMember.getMemRole());
 		/************************************************/
-		params.setBoardUpdateId("admin");// 테스트용 하드코딩
-		params.setMemRole("user");// 테스트용 하드코딩
+//		params.setBoardUpdateId("admin");// 테스트용 하드코딩
+//		params.setMemRole("user");// 테스트용 하드코딩
 		model.addAttribute("board", params);
 
 		if (params.getBoardNum() == null && params.getMemId() == null) {
