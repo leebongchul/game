@@ -69,6 +69,9 @@ div.card-content {
 										<p th:text="*{boardContent}"></p>
 									</form>
 									<br>
+<!-- 									<div class="delet_board"> -->
+<!-- <!-- 									//삭제 폼 들어감 --> -->
+<!--                                     </div> -->
 
 
 									<!-- Modal -->
@@ -222,10 +225,7 @@ div.card-content {
 
 <script th:inline="javascript">
        
-//        $(function() {
-//     	   insertComment(); 
-//        });
-       
+/*<![CDATA[*/       
         function insertComment(boardNum, loginId, loginNick) {
         	var content = document.getElementById("content");
         	
@@ -310,13 +310,13 @@ div.card-content {
                                 <span class="conts" id="commConts">${comment.commContents}</span>`;
                                 
                                 
-                           if(/*[[${member.memNick}]]*/ == "비회원"){
-                           	 if(comment.memId==/*[[${member.memId}]]*/){
+                           if(/*[[${member.memNick}]]*/null == "비회원"){
+                           	 if(comment.memId==/*[[${member.memId}]]*/null){
                            		
-                                    commentsHtml += `
-                                        <button class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제<i class="fa fa-close" aria-hidden="true"></i></button>
-                                        <button class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
-                                   `;
+                           	  commentsHtml += `
+                                  <button id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제<i class="fa fa-close" aria-hidden="true"></i></button>
+                                  <button id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
+                             `;
                                 }
                            }
                                
@@ -326,29 +326,30 @@ div.card-content {
                     });
                 	  
                     $(".notice-list").html(commentsHtml);
+//                     $("body").append(commentsHtml);
             }, "json")
                     
         }
-        /*]]*/
     
         
       
-            function deleteBoard(boardNum, memId, boardType) {
+      function deleteBoard(boardNum, memId, boardType) {
 
-                if (confirm(boardNum + "번 게시글을 삭제할까요?")) {
-                    var uri = "/board/freeboard/delete";
-                    var html = "";
+          if (confirm(boardNum + "번 게시글을 삭제할까요?")) {
+              var uri = "/board/freeboard/delete";
+              var html = "";
 
-                    html += '<form name="dataForm" action="'+uri+'" method="get">';
-                        html += '<input type="hidden" name="boardNum" value="'+boardNum+'" />';
-                        html += '<input type="hidden" name="memId" value="'+memId+'" />';
-                        html += '<input type="hidden" name="boardType" value="'+boardType+'" />';
-                    html += '</form>';
-
-                    $("body").append(html);
-                    document.dataForm.submit();
-                }
-            }
+              html += '<form name="dataForm" action="'+uri+'" method="get">';
+                  html += '<input type="hidden" name="boardNum" value="'+boardNum+'" />';
+                  html += '<input type="hidden" name="memId" value="'+memId+'" />';
+                  html += '<input type="hidden" name="boardType" value="'+boardType+'" />';
+              html += '</form>';
+//               $(".delet_board").html(html);
+              
+              $("body").append(html);
+              document.dataForm.submit();
+          }
+      }
             
             
     function deleteComment(commNum) {
@@ -358,8 +359,6 @@ div.card-content {
 		}
             
             
-// 		 var commNum = document.getElementById("commNum1").value;
-//          commNum.innerHTML="바뀐html";
 		var uri = "/comments/" + commNum;
 		var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "DELETE"};
 		
@@ -375,7 +374,6 @@ div.card-content {
 				}
 	
 				printCommentList();
-	// 			$("#commentModal").modal("hide");
 			},
 			error: function(xhr, status, error) {
 				alert("에러가 발생하였습니다.");
@@ -386,13 +384,6 @@ div.card-content {
 	  }
     /*[- end of function -]*/
             
-//           function boardhitplus ()  {
-        	  
-//         	  var uri = "/board/freeboard/delete";
-        	  
-          
-//           }
-          
     
     function beforeupdate(commNum, commContents, memNick) {
     	console.log(commNum +"의 수정버튼을 눌렀습니다");
@@ -413,17 +404,17 @@ div.card-content {
     $('#'+commNum).replaceWith(change);
     $('.conts1').focus();
     };
-    /*[- end of function -]*/
     
-	/*<![CDATA[*/ 
+    
+    
+    
     function updateComment(commNum) {
     	
-    	  var text = document.getElementById("tex");
-    var uri = /*[[ @{/comments/} ]]*/ + commNum;
+    var text = document.getElementById("tex");
+    var uri = /*[[ @{/comments/} ]]*/ null + commNum;
     var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "PATCH"};
-    var params = {"commNum": commNum, "memId": /*[[${member.memId}]]*/, "commContents": text.value};
+    var params = {"commNum": commNum, "memId": /*[[${member.memId}]]*/null, "commContents": text.value};
 	console.log("수정완료 버튼을 누른뒤의 값: "+text.value);
-	 /*]]*/
     
     $.ajax({
         url: uri,
@@ -446,7 +437,6 @@ div.card-content {
         }
     });
 		   }	
-    /*[- end of function -]*/
 		/*]]>*/
 </script>
 

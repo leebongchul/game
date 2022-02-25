@@ -91,7 +91,7 @@ insert into comment_table (
 
 
 <!-- 특정한 댓글 보기 -->
-<select id="selectCommentDetail" parameterType="CommentDTO" resultType="CommentDTO">
+<select id="selectCommentDetail" parameterType="String" resultType="CommentDTO">
 select 
     comm_num 
     , comm_contents

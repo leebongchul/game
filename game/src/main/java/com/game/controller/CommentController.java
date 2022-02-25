@@ -126,14 +126,11 @@ public class CommentController {
 	public JsonObject deleteComment(@PathVariable("commNum") final String str,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember) {
 
-		CommentDTO dto = new CommentDTO();
+		CommentDTO dto = commentService.selectCommentDetail(str);
+
 		// 아이디값을 안주니까 삭제가 안됐음.
-		dto.setMemId("admin");//// 하드코딩
-		dto.setCommNum(str);
-		/****************** 로그인 세션 구현시 ****************/
+//		dto.setCommNum(str);
 		dto.setCommUpdateId(loginMember.getMemId());
-		/***********************************************/
-//		dto.setCommUpdateId("admin");//// 하드코딩
 
 		JsonObject jsonObj = new JsonObject();
 
