@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<head>
+<head th:replace="/fragment/header :: main-head">
 <meta charset="UTF-8">
 <title>Insert title here</title>    
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-<link href="../css/member/login.css" rel="stylesheet">
-<link href="../css/header.css" rel="stylesheet">
-<script src="../js/login.js"></script>
+
+
+
+
+
+
 </head>
-<body>
-<th:block layout:fragment="header">
-<nav th:replace="/fragment/header":: header></nav>
-</th:block>
+<body class="login-body">
+<nav th:replace="/fragment/header :: main-header"></nav> 
 <section class="login">
 <img src="../image/로고.PNG">
 	<div class="form-group">
