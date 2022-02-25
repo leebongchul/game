@@ -37,7 +37,7 @@ div.card-content {
 							<div class="card single_post">
 								<div class="body">
 									<form th:object="${board}">
-									   <input type="hidden" id="loginMemId" th:value="${member.memId}">
+										<input type="hidden" id="loginMemId" th:value="${member.memId}">
 										<h3 th:text="*{boardTitle}" class="boardtitle"></h3>
 
 										<div class="btn_wrap text-center btn_tot">
@@ -138,7 +138,8 @@ div.card-content {
 													<textarea rows="4" class="form-control no-resize view-textarea"
 														th:placeholder="${member.memNick.equals('비회원')? '로그인을 해주세요' : '작성할 댓글 내용을 입력해주세요'}" id="content"></textarea>
 													<!--  <button type="submit" class="btn btn-block btn-dark btn_insert">댓글 등록</button>-->
-													<button type="button" class="btn waves-effect waves-light btn-insert" th:onclick="insertComment([[ ${board.boardNum} ]], [[ ${member.memId} ]], [[ ${member.memNick} ]])">댓글등록</button>
+													<button type="button" class="btn waves-effect waves-light btn-insert"
+														th:onclick="insertComment([[ ${board.boardNum} ]], [[ ${member.memId} ]], [[ ${member.memNick} ]])">댓글등록</button>
 												</div>
 											</div>
 										</form>
@@ -220,7 +221,7 @@ div.card-content {
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script th:inline="javascript">
-       /*<![CDATA[*/
+       
 //        $(function() {
 //     	   insertComment(); 
 //        });
@@ -280,6 +281,7 @@ div.card-content {
             //클라이언트가 서버로 요청을 보낼 주소.             
             
            var uri = /*[[ @{/comments/} + ${board.boardNum}]]*/null;
+            var loginMemId=document.getElementById("loginMemId").value;
 //             console.log("hi");
 
            //$.get 좀 더 편한 ajax 처리. uri에 http get요청을 날려서 comments/{boardNum}을 요청.
@@ -302,26 +304,32 @@ div.card-content {
                 	    // 두 번째 매개 변수 item은 해당 인덱스나 키가 가진 값을 의미합니다.
                   
                     $(response.commentList).each(function(commNum, comment) {
-                    	
                     	commentsHtml += `
                             <li id="${comment.commNum}">
                                 <span class="nick" id="commNick" >${comment.memNick}</span>
-							 	<span class="conts" id="commConts">${comment.commContents}</span>  
+                                <span class="conts" id="commConts">${comment.commContents}</span>`;
+                                
+                                
+                           if(/*[[${member.memNick}]]*/ == "비회원"){
+                           	 if(comment.memId==/*[[${member.memId}]]*/){
+                           		
+                                    commentsHtml += `
+                                        <button class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제<i class="fa fa-close" aria-hidden="true"></i></button>
+                                        <button class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
+                                   `;
+                                }
+                           }
                                
-                                <button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제<i class="fa fa-close" aria-hidden="true"></i></button>
-                                <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
-                            </li>
-                            <hr>
-                        `;
+                          commentsHtml += `
+                        	  </li>
+                              <hr> `;
                     });
                 	  
                     $(".notice-list").html(commentsHtml);
-         	//	    }
-            }, "json");
+            }, "json")
                     
         }
-       
-        /*[- end of function -]*/
+        /*]]*/
     
         
       
@@ -341,7 +349,7 @@ div.card-content {
                     document.dataForm.submit();
                 }
             }
-            /*[- end of function -]*/
+            
             
     function deleteComment(commNum) {
     	console.log("값 : " + commNum);
@@ -399,26 +407,23 @@ div.card-content {
 	 	<button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="printCommentList()" >취소<i class="fa fa-close" aria-hidden="true"></i></button>
         <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="updateComment('${commNum}')">수정완료<i class="fa fa-close1" aria-hidden="true"></i></button>
     </li>
-    
-    
     `;
     
-     
     
     $('#'+commNum).replaceWith(change);
     $('.conts1').focus();
     };
     /*[- end of function -]*/
     
-		 
+	/*<![CDATA[*/ 
     function updateComment(commNum) {
     	
     	  var text = document.getElementById("tex");
     var uri = /*[[ @{/comments/} ]]*/ + commNum;
     var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "PATCH"};
-    var params = {"commNum": commNum, "memId": "admin", "commContents": text.value};
+    var params = {"commNum": commNum, "memId": /*[[${member.memId}]]*/, "commContents": text.value};
 	console.log("수정완료 버튼을 누른뒤의 값: "+text.value);
-    
+	 /*]]*/
     
     $.ajax({
         url: uri,
@@ -443,8 +448,6 @@ div.card-content {
 		   }	
     /*[- end of function -]*/
 		/*]]>*/
-        </script>
-
-
+</script>
 
 </html>

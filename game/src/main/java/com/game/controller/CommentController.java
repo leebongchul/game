@@ -85,7 +85,6 @@ public class CommentController {
 
 	@GetMapping(value = "/comments/{boardNum}")
 	public JsonObject getCommentList(@PathVariable("boardNum") String str,
-			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			@ModelAttribute("params") CommentDTO params) {
 
 		System.out.println("params = " + params);
@@ -104,10 +103,6 @@ public class CommentController {
 
 		// commentList의 리턴값이 false라면(=commentList가 null이 아니라면=댓글이 1개 이상 달렸다면)
 		if (CollectionUtils.isEmpty(commentList) == false) {
-
-			for (CommentDTO comm : commentList) {
-				comm.setCommUpdateId(loginMember.getMemId());
-			}
 
 			// 댓글의 날짜 표시 처리를 위한 코드
 			Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new GsonLocalDateTimeAdapter())
