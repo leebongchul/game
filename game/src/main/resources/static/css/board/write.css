@@ -3,8 +3,10 @@
 .card-content{
         	width:1000px;
         	margin:auto;
-        	/*border:1px solid red;*/
+        	height:100%;
         	margin-top:50px;
+        	/*border:1px solid red;*/
+        	padding-left:150px;
 }
 .form-horizontal {
 	text-align:center;
@@ -44,7 +46,7 @@
 h3{
 	font-size:25px;
 	font-weight:bold;
-	margin-left:-500px;
+	margin-left:-620px;
 	
 }
 .btn-insert{
@@ -56,6 +58,7 @@ h3{
         border: 1px solid black;
         cursor:pointer;
         margin-left:2px;
+        margin-top:15px;
         margin-bottom:15px;
 }
 .btn-back{
@@ -67,5 +70,9 @@ h3{
         border: 1px solid black;
         cursor:pointer;
         margin-left:30px;
-        margin-top:20px;
+        display:inline-block;
+}
+.btn-tot {
+	/*border:1px solid red;*/
+	width:730px;
 }
