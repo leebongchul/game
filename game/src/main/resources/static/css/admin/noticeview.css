@@ -309,7 +309,8 @@ h3.boardtitle {
 	/*border:1px solid red;*/
 }
 .btn-nick-decl {
-	margin-left:540px;
+	/*margin-left:540px;*/
+	margin-top:-6px;
 }
 .btn_tot {
 	/*display:inline;*/
@@ -339,7 +340,7 @@ display:inline;
 	margin-left:5px;
 }
 .view-textarea {
-	width:750px;
+	width:785px;
 	display:inline;
 }
 .text-nick {
@@ -381,7 +382,12 @@ display:inline;
 	margin-top:-100px;
 	margin-left:8px;
 }
-.content {
-
-	
+.user-icon {
+	/*border: 1px solid blue;*/
+	margin-left:540px;
+	margin-right:-6px;
+}
+.user-icons {
+	/*border: 1px solid red;*/
+	margin-top:50px;
 }

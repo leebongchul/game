@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-<style>
-div.card-content {
-	border: 1px solid black;
-}
-</style>
-
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">a
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -47,11 +41,11 @@ div.card-content {
 											<button type="button" class="btn btn-dark waves-effect waves-light btn_delete"
 												th:onclick="deleteBoard([[ ${board.boardNum} ]], [[ ${board.memId} ]], [[ ${board.boardType} ]])">삭제하기</button>
 										</div>
-
-
-
 										<div class="col-sm-10, text-left">
-											<div class="dropdown">
+										<span class="user-icons">
+									<i class="bi bi-emoji-smile user-icon"></i>
+									</span>
+											<span class="dropdown">
 												<button type="button" class="nickbtn btn-dark btn-nick-decl" data-bs-toggle="dropdown" aria-expanded="false">
 													<span th:text="*{memNick}"></span>
 												</button>
@@ -63,14 +57,14 @@ div.card-content {
 													<!-- Button trigger modal -->
 													<li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#staticBackdrop" href="#">신고하기</a></li>
 												</ul>
-											</div>
+											</span>
 										</div>
 										<br> <br> <br>
 										<p th:text="*{boardContent}"></p>
 									</form>
 									<br>
 <!-- 									<div class="delet_board"> -->
-<!-- <!-- 									//삭제 폼 들어감 --> -->
+<!-- <!-- 									//삭제 폼 들어감 -->
 <!--                                     </div> -->
 
 
