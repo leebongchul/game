@@ -15,7 +15,7 @@
 <body>
 <nav th:replace="/fragment/header :: main-header"></nav>
 <section class="content">
-    <h1 class="text-h1">내 댓글 보기</h1>
+    <h1 class="text-h1">댓글 관리</h1>
     <th:block layout:fragment="search">
                 <nav th:replace="mypage/layout/commentSearch :: search"></nav>
             </th:block>
@@ -48,8 +48,8 @@
         </table>
         <div class="btn_wrap text-right">
         <button type="button" class="btn-delete" onclick="deleteCommentFormCheck()">삭제</button>
-        <a href = "./mypagemain">
-             <button type="button" class="btn-mypage">마이페이지</button>
+        <a href = "/admin/adminpagemain">
+             <button type="button" class="btn-mypage">관리자페이지</button>
         </a>
         </div>
     </form>
