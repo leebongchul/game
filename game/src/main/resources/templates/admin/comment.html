@@ -5,17 +5,17 @@
 <th:block  th:replace="/fragment/header :: main-head">
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../css/mypage/usercommentview.css" rel="stylesheet">
 <!-- 자바스크립트 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- CSS -->
+<link href="../css/mypage/usercommentview.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link href="../css/mypage/usercommentview.css" rel="stylesheet">
 </head>
 <body>
 <nav th:replace="/fragment/header :: main-header"></nav>
 <section class="content">
-	<h1 class="text-h1">내 댓글 보기</h1>
+	<h1 class="text-h1">댓글 관리</h1>
 	<th:block layout:fragment="search">
                 <nav th:replace="mypage/layout/commentSearch :: search"></nav>
             </th:block>
@@ -25,6 +25,7 @@
 			<thead>
 					<tr class="tr1">
 						<th class="text-center">선택</th>
+						<th class="text-center">작성자</th>
 						<th class="text-center">제목</th>
 						<th class="text-center">내용</th>
 						<th class="text-center">작성일자</th>
@@ -33,6 +34,7 @@
 			<tbody>
 				<tr th:if="${not #lists.isEmpty( commList )}" th:each="row : ${commList}">
 					<td class="text-center"><input type="checkbox" name="commNum" th:value="${row.commNum}"></td>
+					<td th:text="${row.memNick}" class="text-center"></td>
 					<td><a th:href="@{/board/freeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}"
 						th:text="${row.boardTitle} + '('+ ${row.commCount} +')'" class="row-content"></a></td>
 					<td th:text="${row.commContents}" class="text-center"></td>
@@ -84,7 +86,8 @@
 	</th:block>
 </section>
 </body>
-<script>
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script  type="text/javascript">
 //삭제댓글 선택 여부 체크
 function deleteCommentFormCheck() {
     if ($('input:checkbox[name="commNum"]').is(':checked')) {
@@ -103,6 +106,5 @@ $(document).ready(function(){
     $("#searchKeyword").focus();
     $("#searchKeyword")[0].setSelectionRange(len, len);
 });
-
 </script>
 </html>
