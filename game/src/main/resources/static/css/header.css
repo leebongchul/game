@@ -8,7 +8,7 @@ body{
 #topbar {
   background: #FFEB5A;
   width:100%;
-  height: 40px;
+  height: 42.5px;
   font-size: 14px;
   transition: all 0.5s;
   color: #fff;
@@ -65,7 +65,7 @@ body{
   background: black;
   transition: all 0.5s;
   z-index: 997;
-  height: 86px;
+  height: 86.2px;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
   width:100%;
   margin-top:-20px;
@@ -92,8 +92,8 @@ body{
 	margin-left:112px;
 	padding:0;
 	position:absolute;
-	margin-top:19.5px;
-	letter-spacing:0.6px;
+	margin-top:20px;
+	letter-spacing:0.8px;
 }
 .header_top  .header_logo a span{
 	color: #FFEB5A;
@@ -131,7 +131,7 @@ body{
   align-items: center;
   float:right;
   margin-right:112px;
-  margin-top:22px;
+  margin-top:23px;
 }
 .header_navbar > ul > li {
   white-space: nowrap;
