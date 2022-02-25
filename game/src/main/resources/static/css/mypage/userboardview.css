@@ -1,9 +1,10 @@
+@charset "UTF-8";
 .content {
 	width:900px;
 	margin:auto;
 	margin-top:50px;
+	/*border:1px solid red;*/
 }
-
 .text-h1{
 	font-size:25px;
 	font-weight:bold;
@@ -12,19 +13,24 @@
 .text-h1:hover{
 	text-decoration:none;
 }
-.btn-write {
+.btn-delete {
 	color:white;
 	background-color: black;
 	border-color: white;
 	border:1px solid white;
 	border-radius:5px;
-}
-.btn-write-a {
+	margin-left:100px;
+	padding:7px 9px;
 	font-size:11px;
-	color:white;
 }
-.btn-write-a:hover {
+.btn-mypage {
 	color:white;
+	background-color: black;
+	border-color: white;
+	border:1px solid white;
+	border-radius:5px;
+	padding:7px 9px;
+	font-size:11px;
 }
 .title_link:hover {
 	
