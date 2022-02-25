@@ -40,7 +40,7 @@
 		FROM
 		member_table
 		WHERE
-		mem_id = #{memId}
+		mem_id = #{memId} and mem_block ='N'
 
 	</select>
 
