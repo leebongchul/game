@@ -5,7 +5,7 @@
     section.pass_find {
         width:540px;
         margin:auto;
-        height:800px;
+        height:100%;
         margin-top:100px;
         /*border:1px solid red;*/
     }
@@ -38,19 +38,19 @@
     h3 {
         color:white;
         font-size:14px;
-        margin-left:-18px;
+        margin-bottom:15px;
     }
      .input1 {
         margin-bottom: 15px;
         border-radius:5px;
         border:1px solid lightgray;
-        width:250px;
+        width:280px;
         padding:13px;
         padding-left:15px;
         font-size:13px;
     }
     .email {
-        width:105px;
+        width:137px;
         margin-bottom: 15px;
         border-radius:5px;
         border:1px solid lightgray;
@@ -74,7 +74,7 @@
         margin-bottom: 15px;
         border-radius:5px;
         border:1px solid lightgray;
-        padding:10px;
+        padding:13px;
         padding-left:20px;
         font-size:13px;
     }
@@ -82,7 +82,7 @@
         color:white;
         background:black;
         border-radius:5px;
-        padding:9px 10px;
+        padding:12px 10px;
         font-size:13px;
         border: 1px solid black;
         cursor:pointer;

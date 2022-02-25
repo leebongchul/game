@@ -1,11 +1,11 @@
 @charset "UTF-8";
-    body {
+    #newpass-body {
         background: rgb(94,94,94);
     }
     section.newpass {
-        width:285px;
+        width:290px;
         margin:auto;
-        height:800px;
+        height:100%;
          margin-top:100px;
         /*border:1px solid red;*/
     }
@@ -44,7 +44,7 @@
         margin-bottom: 15px;
         border-radius:5px;
         border:1px solid lightgray;
-        width:250px;
+        width:280px;
         padding:13px;
         padding-left:15px;
         font-size:13px;
