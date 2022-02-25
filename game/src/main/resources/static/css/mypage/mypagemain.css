@@ -2,9 +2,9 @@
     section.mypagemain {
         width:575px;
         margin:auto;
-        /*height:500px;*/
+        height:100%;
         margin-top:100px;
-        /*border:1px solid red;*/
+        border:1px solid red;
     }
     div {
         /*border:1px solid blue*/
