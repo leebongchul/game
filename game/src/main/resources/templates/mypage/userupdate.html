@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
+<th:block  th:replace="/fragment/header :: main-head">
+</th:block>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="../css/mypage/userupdate.css" rel="stylesheet">
@@ -9,6 +11,7 @@
 <script src="../js/userupdate.js"></script>
 </head>
 <body>
+<nav th:replace="/fragment/header :: main-header"></nav> 
          <section class="content">
          <h1>사용자정보</h1>
          <form name = "userupdateform"th:action="@{/mypage/userupdate}" th:object="${member}" method="post" onsubmit="return userUpdate()">
