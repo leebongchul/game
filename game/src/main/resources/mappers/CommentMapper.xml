@@ -133,14 +133,9 @@ where
 	      <foreach collection="commNumArr" item="item" open="(" close=")" separator=",">
 	          #{item}
 	      </foreach>
-and 
-    <if test='commUpdateId == "admin" and commUpdateId != memId'> <!-- 현재 로그인 계정이 관리자이면 글 작성자의 iD를 갖고 와서 넣어줌 -->
-            (
-    </if>
-    mem_id = #{commUpdateId} <!-- 글작성자가 현재 로그인 계정이면서 BOARD_NUM이 OO인 것을 지움#{boardUpdateId} -->
-    <if test='commUpdateId == "admin" and commUpdateId != memId'>
-        OR mem_id = #{memId})
-    </if>
+        <if test='memRole != "admin"'> <!-- 관리자가 아닐 때 로그인 게정과 글작성자 비교한 조건문 추가 -->
+             AND mem_id = #{commUpdateId}
+        </if>
 
 </update>
 

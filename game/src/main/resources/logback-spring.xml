@@ -23,10 +23,10 @@
     </appender>
 
     <!-- Logger -->
-    <logger name="jdbc.sqlonly" level="DEBUG" appender-ref="console-infolog" />
+    <logger name="jdbc.sqlonly" level="OFF" appender-ref="console-infolog" />
     <logger name="jdbc.resultsettable" level="INFO" appender-ref="console-infolog" />
-    
-
+    <logger name="jdbc.audit" level="INFO"/>
+    <logger name="jdbc.resultset" level="OFF"/>
     <!-- Root Logger -->
     <root level="off">
         <appender-ref ref="console" />
