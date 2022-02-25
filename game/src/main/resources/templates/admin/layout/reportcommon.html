@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    
+<!--/* 검색 form */-->
+    <div th:fragment="search" id="adv-search" class="input-group">
+               <form id="searchForm" th:action="@{/admin/report}" method="get" th:onsubmit="return searchBoard(this)" class="form-horizontal" role="form">
+                   <!-- /* 현재 페이지 번호, 페이지당 출력할 데이터 개수, 페이지 하단에 출력할 페이지 개수 Hidden 파라미터 */ -->
+                   <input type="hidden" name="currentPageNo" value="1" />
+                   <input type="hidden" name="recordsPerPage" th:value="${params.recordsPerPage}" />
+                   <input type="hidden" name="pageSize" th:value="${params.pageSize}" />
+
+                   
+                       <select name="searchType" class="form-control" style="display:inline; width:100px; margin-right:7px; margin-top:12px; border-radius:5px; font-size:11px;">
+                           <option value="" th:selected="${#strings.isEmpty( params.searchType )}">전체</option>
+                           <option value="title" th:selected="${#strings.equals( params.searchType, 'reporter' )}">신고자ID</option>
+                           <option value="content" th:selected="${#strings.equals( params.searchType, 'reportUser' )}">피신고자ID</option>
+                           <option value="writer" th:selected="${#strings.equals( params.searchType, 'reportType' )}">신고유형</option>
+                       </select>
+                       <span style="display:inline;">
+                   <input type="text" id="searchKeyword" name="searchKeyword" autocomplete="off" class="form-control" th:value="${params.searchKeyword}" style="display:inline; width:250px; margin-right:10px; border-radius:5px; margin-top:12px;" />
+               <button type="button" class="btn" onclick="searchBoard(null)" style="background-color:black; color:white; font-size:11px; padding:8px 10px; margin-top:12px; margin-bottom:12px; border-radius:5px;">검색</button>
+               </span>
+               </form>
+      </div>
+      
+            
+        
+</html>
