@@ -152,8 +152,7 @@ where
     member_table.mem_id = comment_table.mem_id
 and 
     comm_delete = 'N'
-and 
-    board_num = #{boardNum}   
+    <if test="">and board_num = #{boardNum}</if>
 order by comm_date 
     
 
@@ -167,8 +166,8 @@ select
     count(comm_num)
 from 
 comment_table 
-where 
-    board_num = #{boardNum} and comm_delete='N'
+where comm_delete='N'
+<if test ="boardNum != null"> and board_num = #{boardNum}</if>
 </select>
 
 
