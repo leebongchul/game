@@ -199,5 +199,37 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 	}
+	
+	
+	
+	/** 차단된 유저의 로그인을 막흠(Impl)*/
+	@Override
+	public boolean blockMemberLogin(MemberDTO params) {
+		if (memberMapper.selectMember(params) != null) {
+			if(memberMapper.seeBlockLogin(params).equals("차단")) {
+				System.out.println("차단진행");
+				return true;
+			}else {
+				System.out.println("유저는 있는데 차단유저는 아니네유");
+			}
+		}else {
+			System.out.println("유저가 없슈");
+		}
+		return false;
+	};
+	
+	/** 기한이 되면 자동으로 블락해제(Impl)*/
+	@Override
+	public int blocktimeout(MemberDTO params) {
+		int a = 0;
+		if (params.getBlockPeriod() == 0 ) {
+			System.out.println("차단해제 진행");
+		}else {
+			System.out.println("차단과 상관 없음");
+		}
+		return a;
+	};
+	
+	
 
 }

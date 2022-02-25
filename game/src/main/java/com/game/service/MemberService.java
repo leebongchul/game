@@ -38,4 +38,12 @@ public interface MemberService {
 	public int userUpdate(MemberDTO params);
 
 	public boolean updateMemberBlock(MemberDTO params);
+	
+	/** 차단된 유저의 로그인을 막흠*/
+	public boolean blockMemberLogin(MemberDTO params);
+	
+	/** 기한이 되면 자동으로 블락해제*/
+	public int blocktimeout(MemberDTO params);
+	
+	
 }

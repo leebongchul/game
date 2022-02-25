@@ -157,4 +157,26 @@
 		WHERE
 		mem_id = #{memId}
 	</update>
+	
+	
+	
+	
+	<select id="seeBlockLogin" parameterType="MemberDTO" resultType="String">
+	
+		select decode(mem_id, #{memId},  '차단', 0) as blockstate 
+			from member_table 
+				where mem_block='Y' 
+					and mem_block_date  &lt;  mem_block_end_date
+	
+	</select>
+
+	
+	<update id="clearBlockMember" parameterType="MemberDTO">
+		update member_table 
+			set mem_block = 'N' 
+				where mem_id =#{memId}
+	</update>
+	
+	
+	
 </mapper>
