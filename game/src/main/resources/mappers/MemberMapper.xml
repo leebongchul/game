@@ -41,6 +41,8 @@
 		member_table
 		WHERE
 		mem_id = #{memId} and mem_block ='N'
+		
+	
 
 	</select>
 
@@ -168,7 +170,6 @@
 			from member_table 
 				where mem_block='Y' 
 					and mem_block_date  &lt;  mem_block_end_date
-	
 	</select>
 
 	
