@@ -207,11 +207,12 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public boolean blockMemberLogin(MemberDTO params) {
 		if (memberMapper.selectMember(params) != null) {
-			if(memberMapper.seeBlockLogin(params).equals("차단")) {
+			if(memberMapper.seeBlockLogin(params).equals("차단대상")) {
 				System.out.println("차단진행하기");
 				return true;
-			}else {
+			}else if(memberMapper.seeBlockLogin(params).equals("해당없음")){
 				System.out.println("차단유저가 아닙니다.");
+				return false;
 			}
 		}else {
 			System.out.println("없는 사용자 입니다.");

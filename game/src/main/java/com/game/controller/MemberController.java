@@ -206,6 +206,8 @@ public class MemberController extends UiUtils {
 
 	/****************** POST *************************/
 
+	/** 차단회원 로그인 차단 **/
+	
 	/** 회원가입 **/
 	@PostMapping(value = "/member/insert.do")
 	public String memberjoin(MemberDTO member, Model model) {
@@ -291,9 +293,11 @@ public class MemberController extends UiUtils {
 	@PostMapping(value = "/login")
 	public String successLogin(MemberDTO member, Model model, HttpServletRequest request) {
 		try {
-		    boolean blocklogin = memberService.blockMemberLogin(member);
-		   
 			MemberDTO result = memberService.selectMember(member);
+			String sememid = memberService.selectMember(member).getMemId();
+			String sememblock = memberService.selectMember(member).getMemBlock();
+			String sememblockdate = memberService.selectMember(member).getMemBlockDate();
+			String sememblockend = memberService.selectMember(member).getMemBlockEndDate();
 			if (result.getMemId() == null) {
 				return showMessageWithRedirect("해당 아이디가 존재하지 않습니다.", "/member/login", Method.GET, null, model);
 			}
@@ -301,19 +305,16 @@ public class MemberController extends UiUtils {
 			if (!passwordEncoder.matches(member.getMemPass(), result.getMemPass())) {
 				return showMessageWithRedirect("비밀번호가 일치하지 않습니다.", "/member/login", Method.GET, null, model);
 			}
-			if (blocklogin == true) {
-			    request.getSession().invalidate();
-//			    request.getSession(true);
-//			    session.invalidate();
-			    return showMessageWithRedirect("차단된 회원입니다." , "/index", Method.GET, null, model);
-			 
-			}
-			// 아이디와 비밀번호가 일치
+			
 			HttpSession session = request.getSession(); // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
 			session.setAttribute("loginMem", result); // 세션에 로그인 회원 정보 보관
-
+			session.setAttribute("sememid", sememid);
+			session.setAttribute("sememblock", sememblock);
+			session.setAttribute("sememblockdate", sememblockdate);
+			session.setAttribute("sememblockend",sememblockend);
+//			model.addAttribute("loginMeminfo", result);
 			return showMessageWithRedirect("로그인이 완료되었습니다.", "../index", Method.GET, null, model);
-
+			
 		} catch (DataAccessException e) {
 			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/member/login", Method.GET, null, model);
 

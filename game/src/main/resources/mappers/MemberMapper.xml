@@ -166,9 +166,9 @@
 	
 	<select id="seeBlockLogin" parameterType="MemberDTO" resultType="String">
 	
-		select decode(mem_id, #{memId},  '차단', 0) as blockstate 
+		select decode(mem_id, #{memId},  '차단대상', '해당없음') as blockstate 
 			from member_table 
-				where mem_block='Y' 
+							where mem_block='Y' 
 					and mem_block_date  &lt;  mem_block_end_date
 	</select>
 
@@ -178,8 +178,6 @@
 			set mem_block = 'N' 
 				where mem_id =#{memId} 
 				    and mem_block_date &gt; mem_block_end_date 
-				    and  
-				
 	</update>
 	
 	
