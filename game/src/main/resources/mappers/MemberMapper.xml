@@ -163,13 +163,13 @@
 	
 	
 	
-	
+	<!-- &lt;  means   <  //////  &gt;   means    >    -->
 	<select id="seeBlockLogin" parameterType="MemberDTO" resultType="String">
 	
-		select decode(mem_id, #{memId},  '차단대상', '해당없음') as blockstate 
+		select decode(mem_id, #{memId},  '차단해제대상', '해당없음') as 차단해제여부 
 			from member_table 
 							where mem_block='Y' 
-					and mem_block_date  &lt;  mem_block_end_date
+					and   sysdate &gt;  mem_block_end_date
 	</select>
 
 	
@@ -177,7 +177,7 @@
 		update member_table 
 			set mem_block = 'N' 
 				where mem_id =#{memId} 
-				    and mem_block_date &gt; mem_block_end_date 
+				    and sysdate &gt; mem_block_end_date 
 	</update>
 	
 	

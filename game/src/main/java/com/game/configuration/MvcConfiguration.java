@@ -16,8 +16,9 @@ public class MvcConfiguration implements WebMvcConfigurer  {
                 .addPathPatterns("/member/login")
 //                .excludePathPatterns();
         .excludePathPatterns("/css/**", "/fonts/**", "/plugin/**", "/scripts/**");
-
-    }
+    
+     
 
     
+ }
 }

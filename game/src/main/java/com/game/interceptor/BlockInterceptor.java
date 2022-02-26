@@ -1,7 +1,6 @@
 package com.game.interceptor;
 
 
-import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.game.constant.Method;
 import com.game.domain.MemberDTO;
 import com.game.service.MemberService;
 
@@ -33,54 +33,7 @@ public class BlockInterceptor implements HandlerInterceptor{
 //    @Override
 //    public boolean preHandle(HttpServletRequest request,
 //                             HttpServletResponse response, Object handler) throws Exception { 
-//        HttpSession session =  request.getSession(); //세션값을 session이라느 변수에 저장.
-//        //컨트롤러로 받는 세션값을 도저히 못가져 오기때문에, 다른 클래스에 Static으로 선언해놓은 값에 세션값 저장
-//         MemberDTO sessionid = (MemberDTO)session.getAttribute("loginMem");
-//
-//        if(sessionid == null) {
-//            System.out.println(session);
-//            System.out.println("세션에 저장된 정보가 없음");
-//            return true; 
-//        }
-//        if(sessionid != null) {
-//            System.out.println("세션에 저장된 정보가 있음");
-//            return true; 
-//        }
-//        return true; 
-//        return false; 
-        
-//        System.out.println("작동여부확인!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//        System.out.println(sessionid);
-//        return true; 
-   //     MemberDTO sessionid = (MemberDTO)session.getAttribute("loginMem");
-//        MemberDTO logininfo = (MemberDTO)request.getSession().getAttribute("loginMem");
-//        logger.debug("===============================================");
-//        logger.debug("==================== BEGIN ====================");
 
-//        MemberDTO member = new MemberDTO(); //로그인한 사용자의 정보를 가져오기 위한 변수
-//        MemberDTO result = memberService.selectMember(member);//로그인한 사용자의 모든 정보를 가져옴.
-//        HttpSession session = request.getSession(); //세션을 생성.
-//        Object obj = session.getAttribute("loginMem");
-//        session.setAttribute("loginMem", result); //로그인한 사용자의 모든 정보를 세션에 담음.
-//        //로그인한 사용자의 mem_block, mem_id, mem_block_end_date, mem_block_date의 을 세션에 저장.
-//        session.setAttribute("memId", result.getMemId()); 
-//        session.setAttribute("memBlock", result.getMemBlock());
-//        session.setAttribute("memBlockEndDate", result.getMemBlockEndDate());
-//        session.setAttribute("memBlockDate", result.getMemBlockDate());
-////        String requestURI = request.getRequestURI();
-//        //로그인한 사용자의 정보를 저장하는 변수 생성
-//        String memId = (String)session.getAttribute("memId");
-//        String memBlock = (String)session.getAttribute("memBlock");
-//        int  memBlockEndDate= (int)session.getAttribute("memBlockEndDate");
-//        int  memBlockDate = (int)session.getAttribute("memBlockDate");
-//        MemberDTO memtotalinfo = (MemberDTO)session.getAttribute("loginMem");
-////        System.out.println(memtotalinfo);
-//       if (   memberService.blockMemberLogin(logininfo) == true) {
-//            
-//           response.sendRedirect("member/index");
-//           return false;
-//            
-//        };
         
 //        }
         
@@ -110,14 +63,31 @@ public class BlockInterceptor implements HandlerInterceptor{
       String sessionblockdate = request.getParameter("memBlockDate");
       String sessionblockend = request.getParameter("memBlockEndDate");
       String sessionblock = request.getParameter("memBlock");
+     
       
-      
-           
+//      if(sessioninfo != null) {
+//          System.out.println(memberService.clearBlock(sessioninfo));
+//      }
+//      if(memberService.clearBlock(sessioninfo) ==true) {
+//          System.out.println("차단해제");
+//          if(sessioninfo != null && sememblock.equals("Y")) {
+//              
+//              session.invalidate();
+//            
+//              }
+//      }
           if(sessioninfo != null && sememblock.equals("Y")) {
        
           session.invalidate();
-          
+        
           }
+          
+//          if(memberService.clearBlock(sememid) ==true) {
+//              System.out.println("차단해제");
+//          }
+//         
+          
+        
       
       
     }
@@ -127,6 +97,7 @@ public class BlockInterceptor implements HandlerInterceptor{
 //                                HttpServletResponse response, Object handler, Exception ex) throws Exception {
 //
 //    }
-
-
 }
+
+
+

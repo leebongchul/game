@@ -37,7 +37,7 @@ public interface MemberMapper {
 	/** 차단된 유저가 존재하면 '차단'이 출력 됨*/
 	public String seeBlockLogin(MemberDTO params);
 	
-	/** 차단기한이 만료되면 자동으로 차단해제*/
+	/**  차단해제*/
 	public int clearBlockMember(MemberDTO params);
 
 }

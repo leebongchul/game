@@ -203,15 +203,15 @@ public class MemberServiceImpl implements MemberService {
 	
 	
 	
-	/** 차단된 유저의 로그인을 막흠(Impl)*/
+	/** 차단해제 대상 판단 후 차단 해제(Impl)*/
 	@Override
-	public boolean blockMemberLogin(MemberDTO params) {
+	public boolean clearBlock(MemberDTO params) {
 		if (memberMapper.selectMember(params) != null) {
-			if(memberMapper.seeBlockLogin(params).equals("차단대상")) {
-				System.out.println("차단진행하기");
+			if(memberMapper.seeBlockLogin(params).equals("차단해제대상")) {
+			    memberMapper.clearBlockMember(params);
 				return true;
 			}else if(memberMapper.seeBlockLogin(params).equals("해당없음")){
-				System.out.println("차단유저가 아닙니다.");
+				System.out.println("차단해제대상이 아닙니다.");
 				return false;
 			}
 		}else {
@@ -220,7 +220,7 @@ public class MemberServiceImpl implements MemberService {
 		return false;
 	};
 	
-	/** 기한이 되면 자동으로 블락해제(Impl)*/
+	/** 안 쓸거 같아요..(Impl)*/
 	@Override
 	public int blocktimeout(MemberDTO params) {
 		
