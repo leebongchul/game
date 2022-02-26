@@ -26,7 +26,7 @@
         <hr class="hr1">
         <form id = "ScoreForm" th:action = "@{/game/ddong.do}" method="post" onsubmit="return formsubmit(this)" >
         
-        <div th:if="${member} == null">
+        <div th:if="${game} == null">
             <div class="text1">
                 <span>Guest님의 점수 &emsp;&ensp;&nbsp; :</span>
                 <input type = "text" id = "now_score" value = "0">
@@ -38,17 +38,17 @@
             <input type = "hidden" id = "guest" value = "true">
         </div>
          
-        <div th:unless="${member} == null">
+        <div th:unless="${game} == null">
             <div class="text1">
-                <span th:text = "|${member.memId}님의 점수 &emsp;&ensp;&nbsp; :|"></span>
+                <span th:text = "|${game.memId}님의 점수 &emsp;&ensp;&nbsp; :|"></span>
                 <input type = "text" id = "now_score" value = "0">
             </div>
             <div class="text2">
-                <span th:text = "|${member.memId}님의 최고점수 :|"></span>
-                <input type = "text" name = "rankScore" id = "max_score" th:value = ${member.rankScore}>
+                <span th:text = "|${game.memId}님의 최고점수 :|"></span>
+                <input type = "text" name = "rankScore" id = "max_score" th:value = ${game.rankScore}>
             </div>
             <input type = "hidden" id = "guest" value = "false">
-            <input type = "hidden" name = "memId" th:value = ${member.memId}>
+            <input type = "hidden" name = "memId" th:value = ${game.memId}>
         </div>
         
         
