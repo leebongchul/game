@@ -57,7 +57,10 @@ public class BoardController extends UiUtils {
 	}
 
 	@GetMapping(value = "/rank")
-	public String openRankList() {
+	public String openRankList(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	        Model model) {
+	    model.addAttribute("member", loginMember);
+	    
 		return "board/rank";
 	}
 
@@ -81,10 +84,12 @@ public class BoardController extends UiUtils {
 ///////////////////////////////////////////////////////////공지사항
 
 	@GetMapping(value = "/noticeboard/list")
-	public String openNoticeBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
+	public String openNoticeBoardList(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	        @ModelAttribute("params") BoardDTO params, Model model) {
 		// 메인 생성되면 보드타입 변경?
 		params.setBoardType(2);
 		List<BoardDTO> boardList = boardService.getBoardList(params);
+		model.addAttribute("member", loginMember);
 		model.addAttribute("boardList", boardList);
 
 		return "admin/noticelist";
