@@ -4,7 +4,7 @@ section.userrank {
         height:100%;
         /*border:1px solid red;*/
         margin:auto;
-        margin-top:100px;
+        margin-top:70px;
 }
 .myrank {
 	/*border:1px solid red;*/
@@ -12,7 +12,7 @@ section.userrank {
 }
 .iframe {
 	/*border:1px solid blue;*/
-	margin-left:250px;
+	margin-left:300px;
 	margin-top:-95px;
 }
 .myrankview{

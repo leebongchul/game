@@ -15,7 +15,7 @@
     <h3>회원가입 시 입력한 이름과 이메일을 입력해주세요</h3>
     <form name="idfindForm" th:action="@{/member/idfind}" th:object="${member}" method="post" onsubmit="return idfindCheck()">
      <th:block layout:fragment="content">
-      <ul class="infind-ul">
+      <ul class="idfind-ul">
              <li>
                 <label>*이름</label>
              </li>

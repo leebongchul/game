@@ -11,7 +11,7 @@
                    <input type="hidden" name="pageSize" th:value="${params.pageSize}" />
 
                    
-                       <select name="searchType" class="form-control" style="display:inline; width:100px; margin-right:7px; margin-top:12px; border-radius:5px; font-size:11px;">
+                       <select name="searchType" class="form-control" style="display:inline; width:100px; margin-right:7px; margin-left:3px; margin-top:12px; border-radius:5px; font-size:11px;">
                            <option value="" th:selected="${#strings.isEmpty( params.searchType )}">전체</option>
                            <option value="title" th:selected="${#strings.equals( params.searchType, 'reporter' )}">신고자ID</option>
                            <option value="content" th:selected="${#strings.equals( params.searchType, 'reportUser' )}">피신고자ID</option>
