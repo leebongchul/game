@@ -305,6 +305,9 @@ public class MemberController extends UiUtils {
 			if (!passwordEncoder.matches(member.getMemPass(), result.getMemPass())) {
 				return showMessageWithRedirect("비밀번호가 일치하지 않습니다.", "/member/login", Method.GET, null, model);
 			}
+			if (sememblock.equals("Y")) {
+			    return showMessageWithRedirect("차단된 유저입니다.", "/member/login", Method.GET, null, model);
+			}
 			
 			HttpSession session = request.getSession(); // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
 			session.setAttribute("loginMem", result); // 세션에 로그인 회원 정보 보관

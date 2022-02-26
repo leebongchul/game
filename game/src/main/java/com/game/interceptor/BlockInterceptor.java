@@ -112,45 +112,10 @@ public class BlockInterceptor implements HandlerInterceptor{
       String sessionblock = request.getParameter("memBlock");
       
       
-//       Enumeration names = session.getAttributeNames();
-//       while(names.hasMoreElements()) {
-//           String name = names.nextElement().toString();
-//           String value = session.getAttribute(name).toString();
-//           System.out.println(name + " : " + value + "<br>");
-//
-//       }
-       //세션값 정상출력. 로그인한 사용자의 값을 가져옴.
-//       session.setAttribute("loginMem", result);
-       
-                
-//        if(sessionid == null) {
-//          System.out.println(session);
-//         System.out.println("세션에 저장된 정보가 없음");
-//        }
            
           if(sessioninfo != null && sememblock.equals("Y")) {
-          System.out.println("세션에 저장된 정보가 있음");
-          System.out.println((MemberDTO)request.getSession().getAttribute("loginMem"));
-          System.out.println(sememid);
-          System.out.println(sememblock);
-          System.out.println(ssememblockdate);
-          System.out.println(sememblockend);
-          
+       
           session.invalidate();
-          //전체세션 value을 출력
-//          System.out.println(sessionmemid);
-           
-         
-          
-//          while(names.hasMoreElements()) {
-//              String name = names.nextElement().toString();
-//              String value = session.getAttribute(name).toString();
-//              System.out.println(name + " : " + value + "<br>");
-//
-//          }
-//          System.out.println(memberService.blockMemberLogin(sessioninfo));
-//          
-         
           
           }
       
