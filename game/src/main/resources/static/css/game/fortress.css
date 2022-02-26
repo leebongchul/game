@@ -44,4 +44,11 @@
        border-top: 7px solid black;
        
     }
-
+	.text-top {
+    	margin-left:465px;
+    	margin-bottom:20px;
+    	font-weight:bold;
+    }
+    #fortress-th {
+    	background:#FEFECC;
+    }

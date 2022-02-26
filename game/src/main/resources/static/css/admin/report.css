@@ -43,7 +43,6 @@ body {
 	flex-direction: column;
 	min-width: 0;
 	word-wrap: break-word;
-	background-color: #f4f7f6;
 	background-clip: initial;
 	border: 0 solid transparent;
 	border-radius: .25rem;
@@ -52,7 +51,10 @@ body {
 
 .card-body {
 	flex: 1 1 auto;
-	padding: 1.25rem;
+	width:1000px;
+	/*margin-left:15px;*/
+	/*border:1px solid blue;*/
+	margin:auto;
 }
 
 .card-header:first-child {
@@ -108,4 +110,18 @@ body {
 }
 .btn-block:hover {
 	color:white;	
+}
+.report-content{
+	/*border:1px solid red;*/
+	margin-top:0;
+	padding-top:0;
+	margin-left:100px;
+}
+.text1 {
+	margin-top:80px;
+}
+.text2{
+	font-size:20px;
+	margin-top:30px;
+	margin-left:-150px;
 }

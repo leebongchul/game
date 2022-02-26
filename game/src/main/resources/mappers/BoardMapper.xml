@@ -114,16 +114,47 @@
 		SELECT
 		COUNT(*)
 		FROM
-		board_table
+		board_table board LEFT OUTER JOIN member_table mem
+		ON(board.mem_id = mem.mem_id)
 		WHERE
 		board_delete = 'N'
 		AND board_type = #{boardType}
-		<if test="memId !=null">
-        AND mem_id=#{memId} 
+		<if test="memId !=null and memRole != 'admin'">
+        AND board.mem_id=#{memId}
         </if>
-        <include refid="search" />
-<!-- 		<if test='boardType!=0' > AND board_type = #{boardType}</if> //관리자페이지 게시판 관리 페이지에서 boardType을 0으로 넘겨줌(자유,공지 둘다 출력을 하기 위함)// -->
-		
+        <if test="searchKeyword != null and searchKeyword != ''">
+            <choose>
+                <!-- 검색 유형이 있을 때 -->
+                <when test="searchType != null and searchType != ''">
+                and
+                    <choose>
+                        <when test="'title'.equals(searchType)">
+                        <![CDATA[
+                             board_title LIKE '%' || #{searchKeyword} || '%' 
+                        ]]>
+                        </when>
+                        <when test="'content'.equals(searchType)">
+                        <![CDATA[
+                             board_content LIKE '%' || #{searchKeyword} || '%' 
+                        ]]>
+                        </when>
+                        <when test="'writer'.equals(searchType)">
+                        <![CDATA[
+                             mem.mem_nick LIKE '%'|| #{searchKeyword} || '%' 
+                        ]]>
+                        </when>
+                    </choose>
+                </when>
+                <!-- 검색 유형이 없을 때 -->
+                <otherwise>
+                    <![CDATA[
+                           and board_title LIKE '%' || #{searchKeyword} || '%'
+                            OR board_content LIKE '%' || #{searchKeyword} || '%'
+                            OR mem.mem_nick LIKE '%'|| #{searchKeyword} || '%'
+                     ]]>
+                </otherwise>
+            </choose>
+        </if>
 	</select>
 	
 	<select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO"> <!-- 자유게시판은 댓글 갯수도 갖고 와야함 -->

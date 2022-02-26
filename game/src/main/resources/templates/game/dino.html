@@ -2,16 +2,15 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <head>
+<th:block  th:replace="/fragment/header :: main-head">
+</th:block>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script th:src="@{/scripts/jquery.min.js}"></script>
 <link href="../css/game/dino.css" rel="stylesheet">
-<link href="../css/header.css" rel="stylesheet">
 </head>
 <body>
-<th:block layout:fragment="header">
-<nav th:replace="/fragment/header":: header></nav>
-</th:block>
+<nav th:replace="/fragment/header :: main-header"></nav> 
      <section class="game">
         <div>
             <button type="button" id = "gameexp_btn" class="btn_exp" onclick="openexp()">게임설명</button>
@@ -25,7 +24,7 @@
          <hr class="hr1">
         <form id = "ScoreForm" th:action = "@{/game/ddong.do}" method="post" onsubmit="return formsubmit(this)" >
         
-        <div th:if="${member} == null">
+        <div th:if="${game} == null">
             <div class="text1">
                 <span>Guest님의 점수 &emsp;&ensp;&nbsp; :</span>
                 <input type = "text" id = "now_score" value = "0">
@@ -37,17 +36,17 @@
             <input type = "hidden" id = "guest" value = "true">
         </div>
          
-        <div th:unless="${member} == null">
+        <div th:unless="${game} == null">
             <div class="text1">
-                <span th:text = "|${member.memId}님의 점수 &emsp;&ensp;&nbsp; :|"></span>
+                <span th:text = "|${game.memId}님의 점수 &emsp;&ensp;&nbsp; :|"></span>
                 <input type = "text" id = "now_score" value = "0">
             </div>
             <div class="text2">
-                <span th:text = "|${member.memId}님의 최고점수 :|"></span>
-                <input type = "text" name = "rankScore" id = "max_score" th:value = ${member.rankScore}>
+                <span th:text = "|${game.memId}님의 최고점수 :|"></span>
+                <input type = "text" name = "rankScore" id = "max_score" th:value = ${game.rankScore}>
             </div>
             <input type = "hidden" id = "guest" value = "false">
-            <input type = "hidden" name = "memId" th:value = ${member.memId}>
+            <input type = "hidden" name = "memId" th:value = ${game.memId}>
         </div>
         
         
@@ -60,9 +59,9 @@
         <table class = "table">
                 <thead>
                     <tr>
-                        <th class="text-center">랭킹</th>
-                        <th class="text-center">닉네임</th>
-                        <th class="text-center">점수</th>
+                        <th class="text-center" id="dino-th">랭킹</th>
+                        <th class="text-center" id="dino-th">닉네임</th>
+                        <th class="text-center" id="dino-th">점수</th>
                     </tr>
                 </thead>
                 <tbody>

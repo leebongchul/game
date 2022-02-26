@@ -2,16 +2,15 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <head>
+<th:block  th:replace="/fragment/header :: main-head">
+</th:block>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script th:src="@{/scripts/jquery.min.js}"></script>
 <link href="../css/game/fortress.css" rel="stylesheet">
-<link href="../css/header.css" rel="stylesheet">
 </head>
 <body>
-<th:block layout:fragment="header">
-<nav th:replace="/fragment/header":: header></nav>
-</th:block>
+<nav th:replace="/fragment/header :: main-header"></nav> 
      <section class="game">
         <div>
             <button type="button" id = "gameexp_btn" class="btn_exp" onclick="openexp()">게임설명</button>
@@ -32,45 +31,26 @@
         </div>
         <hr class="hr2">
         <div class="top">
-            <h1>TOP5</h1>
+            <h1 class="text-top">TOP5</h1>
         </div>
         
-        <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">랭킹</th>
-                  <th scope="col">닉네임</th>
-                  <th scope="col">점수</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>100</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>90</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Jacob</td>
-                  <td>80</td>
-                </tr>
-                <tr>
-                  <th scope="row">4</th>
-                  <td>Jacob</td>
-                  <td>70</td>
-                </tr>
-                <tr>
-                  <th scope="row">5</th>
-                 <td>Jacob</td>
-                  <td>60</td>
-                </tr>
-              </tbody>
-        </table>
+              <table class = "table">
+                <thead>
+                    <tr>
+                        <th class="text-center" id="fortress-th">랭킹</th>
+                        <th class="text-center" id="fortress-th">닉네임</th>
+                        <th class="text-center" id="fortress-th">점수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="row : ${top5}">
+                        <td th:text="${row.rno}" class="text-center"></td>
+                        <td th:text="${row.memNick}" class="text-center"></td>
+                        <td th:text="${row.rankScore}" class="text-center"></td>
+                    </tr>
+                </tbody>
+         </table>
+         
      </section>
 </body>
 <script src="../js/fortress.js"></script>

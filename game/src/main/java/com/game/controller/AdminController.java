@@ -40,23 +40,50 @@ public class AdminController extends UiUtils {
 	}
 
 	@GetMapping(value = "/adminpagemain")
-	public String adminpageMain(Model model) {
-		return "admin/adminpagemain";
+	public String adminpageMain(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	        Model model) {
+
+        model.addAttribute("member", loginMember);
+	    return "admin/adminpagemain";
 	}
 
 	@GetMapping(value = "/report")
-	public String openReportpage(@ModelAttribute("params") ReportDTO params,Model model) {
+	public String openReportpage(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	        @ModelAttribute("params") ReportDTO params,Model model) {
 		List<ReportDTO> reportList = boardService.getReportList(params);
 		if (reportList == null) {
 			// 신고가 없을 때
 			return "member/test";
 		}
 
-		model.addAttribute("reportList", reportList);
+		model.addAttribute("member", loginMember);
+        model.addAttribute("reportList", reportList);
 
 		return "admin/report";
 	}
+	
+	@GetMapping(value = "/comment")
+    public String openCommentpage(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+            @ModelAttribute("params") CommentDTO params, Model model) {
+        if (loginMember == null) {
+            return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
+        }
 
+        /******************************
+         * 권한 설정-> 테스트 완료시 주석 해제
+         ************************/
+//      if (loginMember.getMemRole().equals("user")) {
+//          return showMessageWithRedirect("페이지 접속 권한이 없습니다. 관리자 계정으로 로그인하세요.", "/index", Method.GET, null, model);
+//      }
+        /*****************************************************************/
+        params.setMemId(loginMember.getMemId());
+        List<CommentDTO> commList = commentService.getCommentList(params);
+        model.addAttribute("commList", commList);
+        model.addAttribute("member", loginMember);
+
+        return "admin/comment";
+    }
+	
 	@GetMapping(value = "/noticelist")
 	public String openNoticeBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
 		// 메인 생성되면 보드타입 변경?
@@ -141,25 +168,6 @@ public class AdminController extends UiUtils {
 		return "admin/report";
 	}
 
-	@GetMapping(value = "/comment")
-	public String openCommentpage(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-			@ModelAttribute("params") CommentDTO params, Model model) {
-		if (loginMember == null) {
-			return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
-		}
-
-		/******************************
-		 * 권한 설정-> 테스트 완료시 주석 해제
-		 ************************/
-//		if (loginMember.getMemRole().equals("user")) {
-//			return showMessageWithRedirect("페이지 접속 권한이 없습니다. 관리자 계정으로 로그인하세요.", "/index", Method.GET, null, model);
-//		}
-		/*****************************************************************/
-		params.setMemId(loginMember.getMemId());
-		List<CommentDTO> commList = commentService.getCommentList(params);
-		model.addAttribute("commList", commList);
-
-		return "admin/comment";
-	}
+	
 
 }
