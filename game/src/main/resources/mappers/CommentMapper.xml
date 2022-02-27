@@ -52,15 +52,24 @@
 
 <!-- 내 댓글 검색 -->
 <select id="selectMyComment" parameterType="CommentDTO" resultType="CommentDTO">
+<!-- 전체 검색시 문제 있는 쿼리임 -->
+<!-- SELECT b.* FROM (SELECT rownum rno,a.*  -->
+<!-- FROM ( -->
+<!-- SELECT board_table.board_title, comm_contents, comm_date,board_table.board_num,board_table.board_type, comment_table.mem_id, comment_table.comm_num, comment_table.comm_delete   -->
+<!-- FROM comment_table, board_table -->
+<!-- WHERE board_table.board_num = comment_table.board_num  AND comment_table.comm_delete='N' -->
+<!-- <include refid="search" /> -->
+<!-- ORDER BY comm_date desc)a where a.mem_id = #{memId})b where rno between #{startPage} and #{endPage} -->
 
-SELECT b.* FROM (SELECT rownum rno,a.* 
-FROM (
-SELECT board_table.board_title, comm_contents, comm_date,board_table.board_num,board_table.board_type, comment_table.mem_id, comment_table.comm_num, comment_table.comm_delete  
-FROM comment_table, board_table
-WHERE board_table.board_num = comment_table.board_num  AND comment_table.comm_delete='N'
-<include refid="search" />
-ORDER BY comm_date desc)a where a.mem_id = #{memId})b where rno between #{startPage} and #{endPage}
-
+SELECT * FROM (
+	SELECT
+	   rownum rno, board_title, comm_contents, comm_date, board_table.board_num, board_type, comment_table.mem_id, comm_num, comm_delete  
+	FROM comment_table
+	    left outer join board_table on comment_table.board_num=board_table.board_num
+	WHERE comm_delete='N' and comment_table.mem_id=#{memId}         
+	       <include refid="search" />
+	ORDER BY comm_date desc)
+WHERE rno between 0 and 10
 </select>
 
 <select id="selectMyCommentCount" parameterType="CommentDTO" resultType="int">
