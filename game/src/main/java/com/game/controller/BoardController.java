@@ -58,9 +58,9 @@ public class BoardController extends UiUtils {
 
 	@GetMapping(value = "/rank")
 	public String openRankList(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-	        Model model) {
-	    model.addAttribute("member", loginMember);
-	    
+			Model model) {
+		model.addAttribute("member", loginMember);
+
 		return "board/rank";
 	}
 
@@ -85,18 +85,28 @@ public class BoardController extends UiUtils {
 
 	@GetMapping(value = "/noticeboard/list")
 	public String openNoticeBoardList(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-	        @ModelAttribute("params") BoardDTO params, Model model) {
+			@ModelAttribute("params") BoardDTO params, Model model) {
 		// 메인 생성되면 보드타입 변경?
+
+		// 비회원
+		if (loginMember == null) {
+			MemberDTO member = new MemberDTO();
+			member.setMemRole("user");
+			model.addAttribute("member", member);
+		} else {
+			model.addAttribute("member", loginMember);
+		}
+
 		params.setBoardType(2);
 		List<BoardDTO> boardList = boardService.getBoardList(params);
-		model.addAttribute("member", loginMember);
 		model.addAttribute("boardList", boardList);
 
 		return "admin/noticelist";
 	}
 
 	@GetMapping(value = "/noticeboard/view")
-	public String openNoticeBoardDetail(@ModelAttribute("params") BoardDTO params, Model model) {
+	public String openNoticeBoardDetail(@ModelAttribute("params") BoardDTO params,
+			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		System.out.println("boardNum:" + params.getBoardNum());
 
 		if (params.getBoardNum() == null) {
@@ -108,7 +118,16 @@ public class BoardController extends UiUtils {
 			return showMessageWithRedirect("없거나 이미 삭제된 게시글입니다. 목록화면으로 이동합니다,", "/board/noticeboard/list", Method.GET,
 					null, model);
 		}
+
 		model.addAttribute("board", board);
+
+		// 비회원
+		if (loginMember == null) {
+			System.out.println("게스트접속");
+			model.addAttribute("member", new MemberDTO());
+		} else {
+			model.addAttribute("member", loginMember);
+		}
 
 		return "admin/noticeview";
 	}
