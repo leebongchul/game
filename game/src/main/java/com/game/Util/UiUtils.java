@@ -22,9 +22,6 @@ public class UiUtils {
 		model.addAttribute("params", params);
 
 		return "utils/message-redirect";
-		
-		
-
 	}
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.game.Util.UiUtils;
 import com.game.constant.Method;
@@ -294,10 +295,11 @@ public class MemberController extends UiUtils {
 	public String successLogin(MemberDTO member, Model model, HttpServletRequest request) {
 		try {
 			MemberDTO result = memberService.selectMember(member);
-			String sememid = memberService.selectMember(member).getMemId();
-			String sememblock = memberService.selectMember(member).getMemBlock();
-			String sememblockdate = memberService.selectMember(member).getMemBlockDate();
-			String sememblockend = memberService.selectMember(member).getMemBlockEndDate();
+			
+//			String sememid = memberService.selectMember(member).getMemId();
+//			String sememblock = memberService.selectMember(member).getMemBlock();
+//			String sememblockdate = memberService.selectMember(member).getMemBlockDate();
+//			String sememblockend = memberService.selectMember(member).getMemBlockEndDate();
 			if (result.getMemId() == null) {
 				return showMessageWithRedirect("해당 아이디가 존재하지 않습니다.", "/member/login", Method.GET, null, model);
 			}
@@ -305,9 +307,10 @@ public class MemberController extends UiUtils {
 			if (!passwordEncoder.matches(member.getMemPass(), result.getMemPass())) {
 				return showMessageWithRedirect("비밀번호가 일치하지 않습니다.", "/member/login", Method.GET, null, model);
 			}
-			if (sememblock.equals("Y")) {
-			    return showMessageWithRedirect("차단된 유저입니다. \n<차단해제일은 " + sememblockend + " 입니다>" , "/index", Method.GET, null, model);
-			}
+//			if (sememblock.equals("Y")) {
+//			    return showMessageWithRedirect("차단된 유저입니다. \n<차단해제일은 " + sememblockend + " 입니다>" , "/index", Method.GET, null, model);
+//			}
+			model.addAttribute("logininfo",result);
 			HttpSession session = request.getSession();
 //			if (memberService.clearBlock(result) == true) {
 //			    session.setAttribute("loginMem", result); // 세션에 로그인 회원 정보 보관
@@ -316,11 +319,10 @@ public class MemberController extends UiUtils {
 //            }
 //			HttpSession session = request.getSession(); // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
 			session.setAttribute("loginMem", result); // 세션에 로그인 회원 정보 보관
-			
-			session.setAttribute("sememid", sememid);
-			session.setAttribute("sememblock", sememblock);
-			session.setAttribute("sememblockdate", sememblockdate);
-			session.setAttribute("sememblockend",sememblockend);
+//			session.setAttribute("sememid", sememid);
+//			session.setAttribute("sememblock", sememblock);
+//			session.setAttribute("sememblockdate", sememblockdate);
+//			session.setAttribute("sememblockend",sememblockend);
 //			model.addAttribute("loginMeminfo", result);
 			return showMessageWithRedirect("로그인이 완료되었습니다.", "../index", Method.GET, null, model);
 			
@@ -332,6 +334,7 @@ public class MemberController extends UiUtils {
 		}
 
 	}
+	
 
 	/** 이메일 인증 **/
 	@PostMapping("/sendEmail") // 이메일 인증 코드 보내기
