@@ -193,11 +193,15 @@ public class AdminController extends UiUtils {
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		/***************** 로그인 세션 구현시 *******************/
 		params.setCommUpdateId(loginMember.getMemId());
-//		params.setMemId(loginMember.getMemId());
+		params.setMemRole(loginMember.getMemRole());
 		/************************************************/
+//		params.setMemId(loginMember.getMemId());
 //		params.setCommUpdateId("admin");// 테스트용 하드코딩->글삭제 시도 회원 (댓글작성자 또는 관리자)
 //		params.setMemId("admin");// 테스트용 하드코딩->댓글 작성자
 		try {
+			if (params.getCommNum() == null) {
+				return showMessageWithRedirect("삭제할 댓글을 선택해주세요.", "/admin/comment", Method.GET, null, model);
+			}
 			if (commentService.deleteComment(params)) {
 				return showMessageWithRedirect("삭제가 완료되었습니다.", "/admin/comment", Method.GET, null, model);
 			} else {

@@ -147,13 +147,16 @@ select
     , c.mem_id
     , c.comm_date
     , m.mem_nick
+    , b.board_num
     , b.board_title
+    , b.board_type
+    , b.mem_id
 from comment_table c 
   left outer join board_table b on c.board_num=b.board_num
   left outer join member_table m on c.mem_id=m.mem_id
 where 
-    comm_delete = 'N'
-    <if test="boardNum != null">and board_num = #{boardNum}</if>
+    c.comm_delete = 'N'
+    <if test="boardNum != null">and b.board_num = #{boardNum}</if>
 order by comm_date 
     
 
