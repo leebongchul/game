@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-<th:block th:replace="/fragment/header :: main-head">
+<th:block th:replace="/fragment/header2 :: main-head">
 </th:block>
 <meta charset="UTF-8">
 <title>The page is a write page</title>
@@ -37,7 +37,7 @@
 <link href="/css/admin/noticelist.css" rel="stylesheet" type="text/css">
 </head>
 <body class="mainbody">
-	<nav th:replace="/fragment/header" :: main-header></nav>
+	<nav th:replace="/fragment/header2" :: main-header></nav>
 
 	<section class="content">
 		<h1 class="h3 mb-3 notice-text" id="notice-text">공지사항</h1>
