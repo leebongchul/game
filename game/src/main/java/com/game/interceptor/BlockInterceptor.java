@@ -6,13 +6,14 @@ package com.game.interceptor;
 
 
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.Model;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -76,6 +77,13 @@ public class BlockInterceptor implements HandlerInterceptor {
             	 //로그인 차단 대상
             	 session.invalidate();
                  response.sendRedirect("/index");
+                 
+//                 response.setContentType("text/html; charset=UTF-8");
+//                 PrintWriter printwriter = response.getWriter();
+//                 printwriter.print("<script>alert('로그인을 다시 해주십시오');</script>");
+//                 printwriter.flush();
+//                 printwriter.close();
+
              }
              
           }
