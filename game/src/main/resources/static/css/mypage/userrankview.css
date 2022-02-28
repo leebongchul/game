@@ -30,7 +30,7 @@ ul, li {
 	margin:0;
 	padding:0;
 }
-li {
+.game-link {
 	 cursor:pointer;
 	 padding:5px;
 	 font-size:20px;
