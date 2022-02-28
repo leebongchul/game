@@ -22,12 +22,15 @@ section.userrank {
 	display:inline-block;
 	width:240px;
 }
+.navbar ul{
+	margin-top:-20px;
+}
 ul, li {
 	list-style-type:none;
 	margin:0;
 	padding:0;
 }
-li {
+.game-link {
 	 cursor:pointer;
 	 padding:5px;
 	 font-size:20px;

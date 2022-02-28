@@ -49,10 +49,22 @@ function textCheck_pass(obj){
         }
     }
     
-}
+}   
+function checkCount(pname){
+		let list,count;
+		
+		list = document.getElementsByName(pname);
+		count = 0;
+		
+		for(let i=0;i<list.length;i++){
+			if(list[i].checked){
+				count++;
+			}
+		}
+		return count;
+	}        
 
-
-function loginCheck(){
+function userDeleteCheck(){
         let loginId, loginPass;
         
         loginId = document.getElementById("loginId");
@@ -63,8 +75,12 @@ function loginCheck(){
         }else if(loginPass.value == ""){
             alert("비밀번호를 입력해주세요");
             return false;
+        }else if(checkCount("agree") == 0){
+        	alert("탈퇴 동의란을 확인해주세요");
+            return false;
         }else{
-            loginForm.submit();
+            userdeleteForm.submit();
         } 
         
 }
+    
