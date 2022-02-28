@@ -170,7 +170,7 @@ $(document).ready(function(){
    
  // 닉네임 유효성검사
  
-    $("#nick").blur(function() {
+    function nicknamecheck() {
         let check = /^[^@$!%*#?&]{1,10}$/;
         let nick = $('#nick').val();
         console.log(nick); 
@@ -213,8 +213,9 @@ $(document).ready(function(){
                 }
         });
         }
+      }
         
-    });
+    
    
    // 핸드폰번호 유효성검사
     function hpCheck() {
@@ -223,7 +224,6 @@ $(document).ready(function(){
         let check1 = /^(?=.*\d)[\d]{3,3}$/;
         let check2 = /^(?=.*\d)[\d]{3,4}$/;
         let check3 = /^(?=.*\d)[\d]{4,4}$/;
-        
         if(hpSplit[0] == $("#hp1").val()){            // 로그인중인 본인 번호와 같으면 
             $("#hpmsg").text("");
             $("#hpcheck").val("Y");

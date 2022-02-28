@@ -59,7 +59,6 @@ public class AdminController extends UiUtils {
 
 		model.addAttribute("member", loginMember);
 		model.addAttribute("reportList", reportList);
-
 		return "admin/report";
 	}
 
@@ -81,7 +80,7 @@ public class AdminController extends UiUtils {
 		List<CommentDTO> commList = commentService.getCommentList(params);
 		model.addAttribute("commList", commList);
 		model.addAttribute("member", loginMember);
-
+		System.out.println(params.getPaginationInfo());
 		return "admin/comment";
 	}
 

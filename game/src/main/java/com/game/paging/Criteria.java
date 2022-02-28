@@ -31,11 +31,11 @@ public class Criteria {
 	}
 	
 	public int getStartPage() {
-        return (currentPageNo - 1) * recordsPerPage;
+        return (currentPageNo - 1) * recordsPerPage + 1;
     }
 	
 	public int getEndPage() {
-	    return this.getStartPage() + recordsPerPage;
+	    return this.getStartPage() + recordsPerPage -1;
     }
 	
 	public String makeQueryString(int pageNo) {
