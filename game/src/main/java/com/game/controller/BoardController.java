@@ -188,7 +188,7 @@ public class BoardController extends UiUtils {
 			return showMessageWithRedirect("올바르지 않은 접근입니다. 목록화면으로 이동합니다.", "/board/list", Method.GET, null, model);
 		}
 		BoardDTO board = boardService.getBoardDetail(params);
-		if (board.getBoardNum() == null || "Y".equals(board.getBoardDelete())) {
+		if (board == null) {
 			return showMessageWithRedirect("없거나 이미 삭제된 게시글입니다. 목록화면으로 이동합니다.", "/board/list", Method.GET, null, model);
 		}
 		boardService.plusBoardHit(params);

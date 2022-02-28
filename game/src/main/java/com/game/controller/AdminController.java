@@ -63,6 +63,21 @@ public class AdminController extends UiUtils {
 		return "admin/report";
 	}
 
+	@GetMapping(value = "/report/boardview")
+	public String findBoardview(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+			@ModelAttribute("params") BoardDTO params, Model model) {
+		if (params.getBoardNum() == null) {
+			return showMessageWithRedirect("올바르지 않은 접근입니다. 목록화면으로 이동합니다.", "/admin/report", Method.GET, null, model);
+		}
+		BoardDTO board = boardService.getBoardDetail(params);
+		if (board == null) {
+			return showMessageWithRedirect("없거나 이미 삭제된 게시글입니다. 목록화면으로 이동합니다.", "/admin/report", Method.GET, null,
+					model);
+		}
+
+		return "redirect:/board/view?boardNum=" + params.getBoardNum() + "&&memId=" + params.getMemId() + "boardType=1";
+	}
+
 	@GetMapping(value = "/comment")
 	public String openCommentpage(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			@ModelAttribute("params") CommentDTO params, Model model) {

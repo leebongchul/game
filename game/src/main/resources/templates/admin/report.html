@@ -49,6 +49,7 @@
 											<th class="text-center">신고유형</th>
 											<th class="text-center">신고된 글/댓글</th>
 											<th class="text-center">차단상태</th>
+											<th class="text-center">차단기간</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -58,11 +59,13 @@
 											<td class="col-md-2, text-center" th:text="${row.repId}"></td>
 											<td class="col-md-1, text-center" th:text="${row.repType}"></td>
 											<td class="col-md-6, text-center">
-											<a th:href="@{/board/view(boardNum=${row.boardNum},memId=${row.memId}, boardType=1)}" class="btn-back-a">
+											<a th:href="@{/admin/report/boardview(boardNum=${row.boardNum},memId=${row.memId}, boardType=1)}" class="btn-back-a">
 													<button type="button" class="btn btn-back">이 동</button>
 											</a>
 											</td>
-											<td class="col-md-1, text-center" th:text="${row.memBlock}"></td>
+											<td class="col-md-1, text-center" th:text="${row.memBlock=='Y' ? '차단' : '-'}"></td>
+											<td th:if="${row.memBlock=='Y'}" class="col-md-1, text-center" th:text="${row.memBlockDate}+' ~ '+${row.memBlockDate}"></td>
+											<td th:if="${row.memBlock=='N'}" class="col-md-1, text-center" ></td>
 										</tr>
 										<tr>
 										</tr>
@@ -70,7 +73,8 @@
 								</table>
 								<div class="text-right">
 									<!-- Button trigger modal -->
-									<button type="button" class="btn btn-block" onclick="blockUserFormCheck()">차 단</button>
+									<button type="button" class="btn btn-block" onclick="blockUserFormCheck('차단해제')">차단해체</button>
+									<button type="button" class="btn btn-block" onclick="blockUserFormCheck('차단')">차 단</button>
 									<!-- 차단 버튼 클릭시 유효성 검사(onclick="blockFormCheck()")을 하기 위해 모달창 띄우는 버튼 분리하여 자바스크립트로 처리 -->
 									<button type="button" class="btn dropdown-item" id="btnBlock" data-toggle="modal" data-target="#myModal" style="display: none"></button>
 								</div>
@@ -184,14 +188,14 @@
        
 </body>
 <script>
-	//차단 유저 선택 여부 체크
-	function blockUserFormCheck() {
+	//차단 or 차단해제 유저 선택 여부 체크
+	function blockUserFormCheck(a) {
 		if ($('input:checkbox[name="memId"]').is(':checked')) {
 			$("[data-toggle='modal']").trigger({
 				type : "click"
 			});
 		} else {
-			alert("차단할 유저를 선택해주세요.");
+			alert(a+" 유저를 선택해주세요.");
 			$("[data-dismiss=modal]").trigger({
 				type : "click"
 			});
