@@ -335,10 +335,7 @@ display:inline;
 	margin-top:-100px;
 	margin-left:5px;
 }
-.view-textarea {
-	width:750px;
-	display:inline;
-}
+
 .text-nick {
 	float:left;
 	margin-right:7px;
@@ -379,13 +376,17 @@ display:inline;
 	margin-top:-100px;
 	margin-left:8px;
 }
+.view-textarea {
+	display:inline !important;
+}
 .btn-comminsert{
 	color: #fff !important;
     background-color: #212529 !important;
     border-color: #212529 !important;
-    display:inline;
+    display:inline !important;
     font-size:11px;
-    margin-top:8px;
+    margin-top:-100px;
+    margin-left:10px;
 }
 .user-icon {
 	/*border: 1px solid blue;*/
@@ -395,4 +396,7 @@ display:inline;
 .user-icons {
 	/*border: 1px solid red;*/
 	margin-top:50px;
+}
+#content{
+	width:750px;
 }
