@@ -25,11 +25,11 @@
         <form id = "ScoreForm" th:action = "@{/game/ddong.do}" method="post" onsubmit="return formsubmit(this)" >
          <div th:if="${game} == null">
             <div class="text1">
-                <span>Guest님의 점수 &emsp;&ensp;&nbsp; :</span>
+                <span>Guest님의 레벨 &emsp;&ensp;&nbsp; :</span>
                 <input type = "text" id = "now_score" value = "0">
             </div>
             <div class="text2">
-                <span>Guest님의 최고점수 :</span>
+                <span>Guest님의 최고레벨 :</span>
                 <input type = "text" id = "max_score" value = "0">
             </div>
             <input type = "hidden" id = "guest" value = "true">
@@ -37,11 +37,11 @@
          
         <div th:unless="${game} == null">
             <div class="text1">
-                <span th:text = "|${game.memId}님의 점수 &emsp;&ensp;&nbsp; :|"></span>
+                <span th:text = "|${game.memId}님의 레벨 &emsp;&ensp;&nbsp; :|"></span>
                 <input type = "text" id = "now_score" value = "0">
             </div>
             <div class="text2">
-                <span th:text = "|${game.memId}님의 최고점수 :|"></span>
+                <span th:text = "|${game.memId}님의 최고레벨 :|"></span>
                 <input type = "text" name = "rankScore" id = "max_score" th:value = ${game.rankScore}>
             </div>
             <input type = "hidden" id = "guest" value = "false">
@@ -69,7 +69,7 @@
                     <tr>
                         <th class="text-center" id="fortress-th">랭킹</th>
                         <th class="text-center" id="fortress-th">닉네임</th>
-                        <th class="text-center" id="fortress-th">점수</th>
+                        <th class="text-center" id="fortress-th">레벨</th>
                     </tr>
                 </thead>
                 <tbody>
