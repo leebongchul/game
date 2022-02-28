@@ -10,8 +10,10 @@
     div {
         /*border:1px solid blue*/
     }
-    span {
+    .header-mini-a {
         font-size:10pt;
+        color:white;
+        font-weight:bold;
     }
     img{
         margin-right: 150px;
@@ -43,37 +45,57 @@
         font-size:30px;
         font-weight:bold;
     }
-    a {
-        text-decoration:none;
-        color:black;
-        font-weight:bold;
+    .bi bi-chevron-right{
+        color:white;
     }
+    .navbar > ul > li > a{
+  color:white;
+}
+
     
     a:visited {
     	color:black;
     }
     
     .a1 {
-        margin-left:13px;   
+        margin-left:5px;   
         display:block; 
+        text-decoration:none;
+        color:black;
+        font-weight:bold;
     }
     .a2 {
-        margin-left:18px;
+        margin-left:14px;
         display:block;     
+        text-decoration:none;
+        color:black;
+        font-weight:bold;
     }
     .a3 {
-        margin-left:20px;
+        margin-left:15px;
         display:block;     
+        text-decoration:none;
+        color:black;
+        font-weight:bold;
     }
     .a4 {
-        margin-left:10px;
+       
         display:block;     
+        text-decoration:none;
+        color:black;
+        font-weight:bold;
     }
     .a5 {
-        margin-left:22px;
+        margin-left:16px;
         display:block;     
+        text-decoration:none;
+        color:black;
+        font-weight:bold;
     }
     .a6 {
-        margin-left:33px;
+        margin-left:27px;
         display:block;     
+        text-decoration:none;
+        color:black;
+        font-weight:bold;
     }

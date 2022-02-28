@@ -275,11 +275,6 @@ public class MypageController extends UiUtils {
 		}
 	}
 
-	@GetMapping(value = "/menulist")
-	public String menulist(Model model) {
-		return "mypage/menulist";
-	}
-
 	@GetMapping(value = "/dinorank")
 	public String dinorank(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		GameScoreDTO user = new GameScoreDTO();
@@ -303,5 +298,32 @@ public class MypageController extends UiUtils {
 		model.addAttribute("ddong", rank);
 		return "mypage/ddongrank";
 	}
+	
+	@GetMapping(value = "/beforenewpass")
+    public String beforeNewpass(Model model) {
+        return "mypage/beforenewpass";
+    }
+	
+	   @PostMapping(value = "/beforenewpass")
+	    public String beforeNewpass(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	            MemberDTO member, Model model, HttpServletRequest request) {
+	        System.out.println(loginMember.getMemId()+"세션아이디");
+	        System.out.println(member.getMemPass()+"입력비밀번호");
+	        try {
+
+	            if (!passwordEncoder.matches(member.getMemPass(), loginMember.getMemPass())) {
+	                System.out.print("함수진입3");
+	                return showMessageWithRedirect("비밀번호가 일치하지 않습니다..", "/mypage/beforenewpass", Method.GET, null, model);
+	            }
+	             
+	        } catch (DataAccessException e) {
+	            return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/mypage/beforenewpass", Method.GET, null, model);
+
+	        } catch (Exception e) {
+	            return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/mypage/beforenewpass", Method.GET, null, model);
+	        }
+	        return showMessageWithRedirect("비밀번호가 일치합니다. 비밀번호 재설정 창으로 이동합니다.", "../member/newpass", Method.GET, null, model);
+
+	    }
 
 }
