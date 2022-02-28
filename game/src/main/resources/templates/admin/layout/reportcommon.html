@@ -13,9 +13,9 @@
                    
                        <select name="searchType" class="form-control" style="display:inline; width:100px; margin-right:7px; margin-left:3px; margin-top:12px; border-radius:5px; font-size:11px;">
                            <option value="" th:selected="${#strings.isEmpty( params.searchType )}">전체</option>
-                           <option value="title" th:selected="${#strings.equals( params.searchType, 'reporter' )}">신고자ID</option>
-                           <option value="content" th:selected="${#strings.equals( params.searchType, 'reportUser' )}">피신고자ID</option>
-                           <option value="writer" th:selected="${#strings.equals( params.searchType, 'reportType' )}">신고유형</option>
+                           <option value="reporter" th:selected="${#strings.equals( params.searchType, 'reporter' )}">신고자ID</option>
+                           <option value="reportUser" th:selected="${#strings.equals( params.searchType, 'reportUser' )}">피신고자ID</option>
+                           <option value="reportType" th:selected="${#strings.equals( params.searchType, 'reportType' )}">신고유형</option>
                        </select>
                        <span style="display:inline;">
                    <input type="text" id="searchKeyword" name="searchKeyword" autocomplete="off" class="form-control" th:value="${params.searchKeyword}" style="display:inline; width:250px; margin-right:10px; border-radius:5px; margin-top:12px;" />

@@ -46,9 +46,15 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public List<CommentDTO> getCommentList(CommentDTO params) {
 		List<CommentDTO> commentList = Collections.emptyList();
+		
+		int commTotalCount = commentMapper.selectCommentTotalCount(params);
 
-		int commentTotalCount = commentMapper.selectCommentTotalCount(params);
-		if (commentTotalCount > 0) {
+        PaginationInfo paginationInfo = new PaginationInfo(params);
+        paginationInfo.setTotalRecordCount(commTotalCount);
+        
+        params.setPaginationInfo(paginationInfo);
+		
+        if (commTotalCount > 0) {
 			commentList = commentMapper.selectCommentList(params);
 		}
 

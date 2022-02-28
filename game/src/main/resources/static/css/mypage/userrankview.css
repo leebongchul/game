@@ -22,9 +22,6 @@ section.userrank {
 	display:inline-block;
 	width:240px;
 }
-.navbar ul{
-	margin-top:-20px;
-}
 ul, li {
 	list-style-type:none;
 	margin:0;
