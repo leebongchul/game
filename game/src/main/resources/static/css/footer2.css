@@ -1,0 +1,15 @@
+@charset "UTF-8";
+.footer-area {
+		margin-top:100px !important;
+		margin-bottom:100px !important;
+		border:1px solid red !important;
+	}
+	.footer-email {
+		color:black !important;
+		margin-left:10px !important;
+		border:1px solid white !important;
+		font-size:14px !important;
+	}
+	.footer-hr {
+		color:black !important;
+	}

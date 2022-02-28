@@ -8,6 +8,11 @@
         	/*border:1px solid red;*/
         	padding-left:150px;
 }
+.navbar .dropdown #dropdown-ul li {
+  min-width: 200px;
+  padding:10px;
+  margin-left:2px;
+}
 .form-horizontal {
 	text-align:center;
 }

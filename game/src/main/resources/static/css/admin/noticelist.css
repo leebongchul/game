@@ -3,6 +3,11 @@
 	font-size:25px;
 	font-weight:bold;
 }
+.navbar .dropdown #dropdown-ul li {
+  min-width: 200px;
+  padding:10px;
+  margin-left:2px;
+}
 .content-a:hover {
 	text-decoration:none;
 	color:black;
