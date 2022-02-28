@@ -40,7 +40,7 @@ public interface MemberService {
 	public boolean updateMemberBlock(MemberDTO params);
 	
 	/** 차단해제 대상 판단 후 차단 해제*/
-	public boolean clearBlock(MemberDTO params);
+	public int clearBlock(MemberDTO params);
 	
 	/**  안쓸거 같아요.. 아듀.. 세굿바*/
 	public int blocktimeout(MemberDTO params);

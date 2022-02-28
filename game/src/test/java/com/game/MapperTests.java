@@ -285,7 +285,7 @@ class MapperTests {
 	@Test
 	public void testsetBlockLogin() {
 		MemberDTO params = new MemberDTO();
-		params.setMemId("qwe123");
+		params.setMemId("user");
 		
 		String a = memberMapper.seeBlockLogin(params);
 		System.out.println(a);

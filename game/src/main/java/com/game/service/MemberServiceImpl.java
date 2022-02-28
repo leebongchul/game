@@ -205,19 +205,27 @@ public class MemberServiceImpl implements MemberService {
 	
 	/** 차단해제 대상 판단 후 차단 해제(Impl)*/
 	@Override
-	public boolean clearBlock(MemberDTO params) {
+	public int clearBlock(MemberDTO params) {
+		int value = 0;
 		if (memberMapper.selectMember(params) != null) {
 			if(memberMapper.seeBlockLogin(params).equals("차단해제대상")) {
 			    memberMapper.clearBlockMember(params);
-				return true;
+			    System.out.println("차단을 해제 합니다");
+			    //로그인 허용
+				return value = 1;
 			}else if(memberMapper.seeBlockLogin(params).equals("해당없음")){
-				System.out.println("차단해제대상이 아닙니다.");
-				return false;
+				System.out.println("차단해제 대상이 아닙니다.");
+				//로그인 허용
+				return value = 2;
+			}else if (memberMapper.seeBlockLogin(params).equals("차단유지대상")) {
+				System.out.println("차단유지 대상입니다.");
+				//로그인 막기
+				return value = 3;
 			}
 		}else {
 			System.out.println("없는 사용자 입니다.");
 		}
-		return false;
+		return value;
 	};
 	
 	/** 안 쓸거 같아요..(Impl)*/
