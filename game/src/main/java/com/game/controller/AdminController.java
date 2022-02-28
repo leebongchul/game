@@ -43,15 +43,23 @@ public class AdminController extends UiUtils {
 	@GetMapping(value = "/adminpagemain")
 	public String adminpageMain(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			Model model) {
-
+	    if(loginMember.getMemRole().equals("admin") == false ) {
+	        return showMessageWithRedirect("올바르지 않은 접근입니다.\n메인화면으로 이동합니다.", "/index", Method.GET, null, model);
+	    }
+	    model.addAttribute("headersession", loginMember);
 		model.addAttribute("member", loginMember);
+		
 		return "admin/adminpagemain";
 	}
 
 	@GetMapping(value = "/report")
 	public String openReportpage(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			@ModelAttribute("params") ReportDTO params, Model model) {
-		List<ReportDTO> reportList = boardService.getReportList(params);
+	    if(loginMember.getMemRole().equals("admin") == false ) {
+            return showMessageWithRedirect("올바르지 않은 접근입니다.\n메인화면으로 이동합니다.", "/index", Method.GET, null, model);
+        }
+	    model.addAttribute("headersession", loginMember);
+	    List<ReportDTO> reportList = boardService.getReportList(params);
 		if (reportList == null) {
 			// 신고가 없을 때
 			return "member/test";
@@ -65,7 +73,8 @@ public class AdminController extends UiUtils {
 	@GetMapping(value = "/report/boardview")
 	public String findBoardview(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			@ModelAttribute("params") BoardDTO params, Model model) {
-		if (params.getBoardNum() == null) {
+	    model.addAttribute("headersession", loginMember);
+	    if (params.getBoardNum() == null) {
 			return showMessageWithRedirect("올바르지 않은 접근입니다. 목록화면으로 이동합니다.", "/admin/report", Method.GET, null, model);
 		}
 		BoardDTO board = boardService.getBoardDetail(params);
@@ -80,7 +89,11 @@ public class AdminController extends UiUtils {
 	@GetMapping(value = "/comment")
 	public String openCommentpage(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			@ModelAttribute("params") CommentDTO params, Model model) {
-		if (loginMember == null) {
+	    if(loginMember.getMemRole().equals("admin") == false ) {
+            return showMessageWithRedirect("올바르지 않은 접근입니다.\n메인화면으로 이동합니다.", "/index", Method.GET, null, model);
+        }
+	    model.addAttribute("headersession", loginMember);
+	    if (loginMember == null) {
 			return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
 		}
 
@@ -102,7 +115,8 @@ public class AdminController extends UiUtils {
 	@GetMapping(value = "/noticelist")
 	public String openNoticeBoardList(@ModelAttribute("params") BoardDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
-		// 메인 생성되면 보드타입 변경?
+	    model.addAttribute("headersession", loginMember);
+	    // 메인 생성되면 보드타입 변경?
 		params.setBoardType(2);
 		List<BoardDTO> boardList = boardService.getBoardList(params);
 		model.addAttribute("boardList", boardList);
@@ -119,10 +133,11 @@ public class AdminController extends UiUtils {
 	}
 
 	// 공지사항 글쓰기, 상세보기-수정화면
-	@GetMapping(value = "/noticeboard/write")
+	@GetMapping(value = "/noticewrite")
 	public String openNoticeBoardWrite(@ModelAttribute("params") BoardDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
-		if (loginMember == null || loginMember.getMemRole().equals("user")) {
+	    model.addAttribute("headersession", loginMember);
+	    if (loginMember == null || loginMember.getMemRole().equals("user")) {
 			return showMessageWithRedirect("글쓰기 권한이 없습니다. 관리자 계정으로 로그인해주세요.", "/noticeboard/list", Method.GET, null,
 					model);
 		}
@@ -172,7 +187,8 @@ public class AdminController extends UiUtils {
 	@GetMapping(value = "/boardDelete")
 	public String boardDelete(@ModelAttribute("params") BoardDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
-		/***************** 로그인 세션 구현시 *******************/
+	    model.addAttribute("headersession", loginMember);
+	    /***************** 로그인 세션 구현시 *******************/
 		params.setBoardUpdateId(loginMember.getMemId());
 		params.setMemId(loginMember.getMemId());
 		params.setMemRole(loginMember.getMemRole());
@@ -205,7 +221,8 @@ public class AdminController extends UiUtils {
 	@GetMapping(value = "/commentDelete")
 	public String commentdelete(@ModelAttribute("params") CommentDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
-		/***************** 로그인 세션 구현시 *******************/
+	    model.addAttribute("headersession", loginMember);
+	    /***************** 로그인 세션 구현시 *******************/
 		params.setCommUpdateId(loginMember.getMemId());
 		params.setMemRole(loginMember.getMemRole());
 		/************************************************/

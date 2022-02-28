@@ -89,7 +89,7 @@
 			</form>
 			<div class="btn_wrap text-right">
 				<button th:if="${member.memRole !=null && member.memRole=='admin'}" type="button" class="btn" onclick="deleteMainboardFormCheck()">삭제</button>
-				<a th:if="${member.memRole !=null && member.memRole=='admin'}" th:href="@{/admin/noticeboard/write(boardType=2)}">
+				<a th:if="${member.memRole !=null && member.memRole=='admin'}" th:href="@{/admin/noticewrite(boardType=2)}">
 					<button type="button" class="btn">글쓰기</button>
 				</a>
 			</div>
