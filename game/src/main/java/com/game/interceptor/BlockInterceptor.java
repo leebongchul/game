@@ -5,7 +5,6 @@ package com.game.interceptor;
 
 
 
-import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,8 +32,7 @@ public class BlockInterceptor implements HandlerInterceptor {
     @Autowired
     private MemberService memberService;
 
-    @Autowired
-    Model model;
+   
    
 //    @Override
 //    public boolean preHandle(HttpServletRequest request,
@@ -61,14 +59,6 @@ public class BlockInterceptor implements HandlerInterceptor {
 //       MemberDTO sessionid = (MemberDTO)session.getAttribute("loginMem");
 //       MemberDTO seallinfo = (MemberDTO)request.getSession().getAttribute("loginMem"); //세션의 전체 정보 키=벨류, 키2=벨류2 형식
      //http에서 사용자가 폼을 통해 입력한 memId이라는 name의 value를 가져옴. httpㅌ를통해 입력하지 않은 정보는 못가져옴
-//       String sessionmemid = request.getParameter("memId"); 
-//      String sememid = (String)request.getSession().getAttribute("sememid");
-//      String  sememblock = (String )request.getSession().getAttribute("sememblock");
-//      String  ssememblockdate = (String )request.getSession().getAttribute("sememblockdate");
-//      String  sememblockend = (String )request.getSession().getAttribute("sememblockend");
-//      String sessionblockdate = request.getParameter("memBlockDate");
-//      String sessionblockend = request.getParameter("memBlockEndDate");
-//      String sessionblock = request.getParameter("memBlock");
 //      
       MemberDTO dto = (MemberDTO)modelAndView.getModel().get("logininfo");
       HttpSession session = request.getSession(false);
@@ -82,21 +72,10 @@ public class BlockInterceptor implements HandlerInterceptor {
             MemberDTO dto2 =(MemberDTO)request.getSession().getAttribute("infosession");
 //            System.out.println("dto 2 = "+dto2); //세션값 정상 출력
             
-//             if (memberService.clearBlock((MemberDTO)dto2) ==true) {
-//               System.out.println(memberService.clearBlock(dto2));
-//                 response.setContentType("text/html; charset=UTF-8");
-//                 PrintWriter out = response.getWriter();
-//                 out.println("<script>alert('차단이 해제 되었습니다'); </script>");
-//                 out.flush();
-//             }
              if (memberService.clearBlock((MemberDTO)dto2) == 3) {
             	 //로그인 차단 대상
             	 session.invalidate();
                  response.sendRedirect("/index");
-                 response.setContentType("text/html; charset=UTF-8");
-               PrintWriter out = response.getWriter();
-               out.println("<script>alert('차단된 사용자 입니다'); </script>");
-               out.flush();
              }
              
           }
@@ -104,35 +83,7 @@ public class BlockInterceptor implements HandlerInterceptor {
          e.printStackTrace();
      }
       
-//      if(dto.getMemBlock().equals("Y")) {
-//          System.out.println(memberService.clearBlock(dto));
-//          }
-      
-//      }
-//      if(memberService.clearBlock(sessioninfo) ==true) {
-//          System.out.println("차단해제");
-//          if(sessioninfo != null && sememblock.equals("Y")) {
-//              
-//              session.invalidate();
-//            
-//              }
-//      }
-//          if(sessioninfo != null && sememblock.equals("Y")) {
-//              System.out.println(memberService.clearBlock(sessioninfo));  
-//          session.invalidate();
-//        
-//          }
-//          if(sessioninfo != null) {
-//             System.out.println(sessioninfo); 
-//          }
-          
-//          if(memberService.clearBlock(sememid) ==true) {
-//              System.out.println("차단해제");
-//          }
-//         
-          
-        
-      
+
       
     }
 //// view까지 처리가 끝난 후에 처리됨
