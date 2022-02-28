@@ -15,21 +15,21 @@
             <choose>
                 <!-- 검색 유형이 있을 때 -->
                 <when test="searchType != null and searchType != ''">
-                and
+                
                     <choose>
                         <when test="'title'.equals(searchType)">
                         <![CDATA[
-                             board_title LIKE '%' || #{searchKeyword} || '%' 
+                            c.board_title LIKE '%' || #{searchKeyword} || '%' and
                         ]]>
                         </when>
                         <when test="'content'.equals(searchType)">
                         <![CDATA[
-                             board_content LIKE '%' || #{searchKeyword} || '%' 
+                            c.board_content LIKE '%' || #{searchKeyword} || '%' and
                         ]]>
                         </when>
                         <when test="'writer'.equals(searchType)">
                         <![CDATA[
-                             mem_nick LIKE '%'|| #{searchKeyword} || '%' 
+                            c.mem_nick LIKE '%'|| #{searchKeyword} || '%' and
                         ]]>
                         </when>
                     </choose>
@@ -38,9 +38,9 @@
                 <otherwise>
                     <![CDATA[
                         
-                           and board_title LIKE '%' || #{searchKeyword} || '%'
-                            OR board_content LIKE '%' || #{searchKeyword} || '%'
-                            OR mem_nick LIKE '%'|| #{searchKeyword} || '%'
+                            c.board_title LIKE '%' || #{searchKeyword} || '%'
+                            OR c.board_content LIKE '%' || #{searchKeyword} || '%'
+                            OR c.mem_nick LIKE '%'|| #{searchKeyword} || '%' and
                          
                         
                      ]]>
@@ -111,8 +111,9 @@
 	<!-- <select id="selectBoardTotalCount" parameterType="BoardDTO" resultType="int"> SELECT COUNT(*) FROM board_table WHERE board_delete = 'N' AND board_type 
 		= #{boardType} </select> -->
 	<select id="selectBoardTotalCount" parameterType="BoardDTO" resultType="int">
-		SELECT
-		COUNT(*)
+		SELECT count(*) FROM
+		(SELECT
+		*
 		FROM
 		board_table board LEFT OUTER JOIN member_table mem
 		ON(board.mem_id = mem.mem_id)
@@ -122,25 +123,27 @@
 		<if test="memId !=null and memRole != 'admin'">
         AND board.mem_id=#{memId}
         </if>
+        )a 
+        
         <if test="searchKeyword != null and searchKeyword != ''">
             <choose>
                 <!-- 검색 유형이 있을 때 -->
                 <when test="searchType != null and searchType != ''">
-                and
+                
                     <choose>
                         <when test="'title'.equals(searchType)">
                         <![CDATA[
-                             board_title LIKE '%' || #{searchKeyword} || '%' 
+                          WHERE a.board_title LIKE '%' || #{searchKeyword} || '%' 
                         ]]>
                         </when>
                         <when test="'content'.equals(searchType)">
                         <![CDATA[
-                             board_content LIKE '%' || #{searchKeyword} || '%' 
+                          WHERE a.board_content LIKE '%' || #{searchKeyword} || '%' 
                         ]]>
                         </when>
                         <when test="'writer'.equals(searchType)">
                         <![CDATA[
-                             mem.mem_nick LIKE '%'|| #{searchKeyword} || '%' 
+                          WHERE a.mem_nick LIKE '%'|| #{searchKeyword} || '%' 
                         ]]>
                         </when>
                     </choose>
@@ -148,9 +151,9 @@
                 <!-- 검색 유형이 없을 때 -->
                 <otherwise>
                     <![CDATA[
-                           and board_title LIKE '%' || #{searchKeyword} || '%'
-                            OR board_content LIKE '%' || #{searchKeyword} || '%'
-                            OR mem.mem_nick LIKE '%'|| #{searchKeyword} || '%'
+                         WHERE a.board_title LIKE '%' || #{searchKeyword} || '%'
+                            OR a.board_content LIKE '%' || #{searchKeyword} || '%'
+                            OR a.mem_nick LIKE '%'|| #{searchKeyword} || '%'
                      ]]>
                 </otherwise>
             </choose>
@@ -169,16 +172,18 @@
 		(select * from comment_table where comm_delete = 'N') comm RIGHT OUTER JOIN board_table board
 		ON(comm.board_num = board.board_num)LEFT OUTER JOIN  member_table member
 		ON(board.mem_id = member.mem_id) 
-		WHERE board.board_delete = 'N' and board_type = #{boardType} <include refid="search" />
+		WHERE board.board_delete = 'N' and board_type = #{boardType} 
 		GROUP BY 
 		comm.board_num,board.board_num, board_title, board_content, board_date, board.mem_id, board_delete, member.mem_nick, board_type, board_hit
 		ORDER BY board_date)a
 		ORDER BY listnum DESC)b )c
 		where
+		<include refid="search" />
 		<if test="memId !=null">
-		 c.mem_id=#{memId} and
-		</if>
+		 c.mem_id=#{memId} and 
+		</if> 
 		c.rno between #{startPage} and #{endPage}
+		
 		ORDER BY c.rno
 
 	</select>

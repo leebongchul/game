@@ -189,7 +189,9 @@ public class MypageController extends UiUtils {
 
 	// 회원탈퇴
 	@GetMapping(value = "/userdelete")
-	public String userDelete(Model model) {
+	public String userDelete(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	        Model model) {
+	    model.addAttribute("headersession", loginMember);
 		return "mypage/userdelete";
 	}
 
