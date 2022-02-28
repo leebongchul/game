@@ -167,10 +167,16 @@
 	<!-- &lt;  means   <  //////  &gt;   means    >    -->
 	<select id="seeBlockLogin" parameterType="MemberDTO" resultType="String">
 	
-		select decode(mem_id, #{memId},  '차단해제대상', '해당없음') as 차단해제여부 
-			from member_table 
-							where mem_block='Y' 
-					and   sysdate &gt;  mem_block_end_date
+select decode(차단여부판단, 'stopblock',  '차단해제대상', 'nvmblock', '해당없음', 'keepblock', '차단유지대상' ) as 차단해제여부 
+from 
+    (select mem_id,  
+        case 
+            when sysdate >= mem_block_end_date and mem_block = 'Y' then 'stopblock'
+            when sysdate &lt; mem_block_end_date and mem_block = 'Y' then 'keepblock'
+            else 'nvmblock'
+            end as 차단여부판단
+    from member_table where mem_id = #{memId})
+    
 	</select>
 
 	
