@@ -139,13 +139,20 @@ public class BoardController extends UiUtils {
 	@GetMapping(value = "/report")
 	public String reportBoard(@ModelAttribute("params") ReportDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
-		/*********** 로그인 세션 구현시 ***************/
-		params.setMemId(loginMember.getMemId());
-		/******************************************/
-		params.setMemId("admin");
-		String url = "/board/noticeboard/view?boardNum=" + params.getBoardNum() + "&&boardType=" + params.getBoardType()
+
+		String url = "/board/view?boardNum=" + params.getBoardNum() + "&&boardType=" + params.getBoardType()
 				+ "&&memId=" + params.getRepId();
+
 		try {
+
+			/*********** 로그인 세션 구현시 ***************/
+			if (loginMember == null) {
+				return showMessageWithRedirect("로그인을 해주세요.", url, Method.GET, null, model);
+			}
+			params.setMemId(loginMember.getMemId());
+			/******************************************/
+//		params.setMemId("admin");//테스트용 하드코딩
+
 			if (boardService.registerReport(params)) {
 				return showMessageWithRedirect("신고가 완료되었습니다.", url, Method.GET, null, model);
 			}
