@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>2048</title>
-        <style></style>
-    </head>
-    <link rel="stylesheet" type="text/css" href="2048.css">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<head>
+<th:block  th:replace="/fragment/header :: main-head">
+</th:block>
+<th:block  th:replace="/fragment/footer2 :: main-foot">
+</th:block>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script th:src="@{/scripts/jquery.min.js}"></script>
+<link href="../css/game/2048.css" rel="stylesheet">
+</head>
     <body>
         <table id="titleBar" border=0>
             <tr>
@@ -45,5 +50,21 @@
         </table>
         <p id="info">2048 Copyright (c) HBKIM All rights reserved.</p>
     </body>
-    <script type="text/javascript" src="2048.js"></script>
+   <script src="../js/2048.js"></script>
+<script>
+function openexp(){
+	if($('#gameexp').css('display') == 'none'){
+		$('#gameexp').show();
+	}else{
+		$('#gameexp').hide()
+	}
+}
+
+
+
+
+
+
+
+</script>
 </html>

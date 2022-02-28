@@ -60,7 +60,7 @@ public class BlockInterceptor implements HandlerInterceptor {
 //       MemberDTO sessionid = (MemberDTO)session.getAttribute("loginMem");
 //       MemberDTO seallinfo = (MemberDTO)request.getSession().getAttribute("loginMem"); //세션의 전체 정보 키=벨류, 키2=벨류2 형식
      //http에서 사용자가 폼을 통해 입력한 memId이라는 name의 value를 가져옴. httpㅌ를통해 입력하지 않은 정보는 못가져옴
-//      
+//      String sessionmemid = request.getParameter("memId"); 
       MemberDTO dto = (MemberDTO)modelAndView.getModel().get("logininfo");
       HttpSession session = request.getSession(false);
       
