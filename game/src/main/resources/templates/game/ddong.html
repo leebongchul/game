@@ -23,7 +23,7 @@
 	        </div>
 	    
         <hr class="hr1">
-        <form id = "ScoreForm" th:action = "@{/game/ddong.do}" method="post" onsubmit="return formsubmit(this)" >
+        <form id = "ScoreForm" th:action = "@{/game/ddong.do}" th:object="${game}" method="post" onsubmit="return formsubmit(this)" >
         
         <div th:if="${game} == null">
             <div class="text1">

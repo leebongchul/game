@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<th:block  th:replace="/fragment/header :: main-head">
+</th:block>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="../css/mypage/beforenewpass.css" rel="stylesheet">
+<script src="../js/beforenewpass.js"></script>
+</head>
+<body id="newpass-body">
+<nav th:replace="/fragment/header :: main-header"></nav> 
+<section class="beforenewpass">
+    <h2 class="beforenewpass-text">비밀번호 재설정</h2>
+    <h3 class="beforenewpass-text2">기존의 비밀번호를 입력해주세요</h3>
+    <form name="beforenewpassForm" th:action="@{/mypage/beforenewpass}" th:object="${member}" method="post" onsubmit="return beforenewpassCheck()">
+     <th:block layout:fragment="content">
+      <ul>
+             <li>
+                <label>*비밀번호</label>
+             </li>
+             <li>
+                 <input type="password" name="memPass" class="input1" id="pass" placeholder="비밀번호를 입력해주세요" onblur="textCheck_pass(this)"
+                autocomplete="off">
+                <div id="passmsg"></div>
+             </li>
+             <!-- 
+             <li>
+                <input type = "hidden" name = "memId" th:value = "${member.memId}">
+             </li>
+             -->
+             <li>
+                <button type="submit" class="btn_ok">확 인</button> <!--  onclick="idfindCheck()" -->
+                <a href="../mypage/mypagemain">
+                <button type="button" class="btn_back" onclick="">뒤로가기</button> <!--  onclick="idfindCheck()" -->
+                </a>
+             </li>
+      </ul>
+      </th:block>
+      </form>
+ </section>
+ 
+</body>
+</html>

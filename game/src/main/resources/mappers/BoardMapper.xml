@@ -281,7 +281,7 @@
 	<select id="selectReportList" parameterType="BoardDTO" resultType="ReportDTO">
 	SELECT a.* FROM
 	(SELECT 
-	rownum rno, r.rep_date, r.rep_num, r.mem_id, r.rep_id, r.rep_type, r.board_num, r.comm_num, m.mem_block
+	rownum rno, r.rep_date, r.rep_num, r.mem_id, r.rep_id, r.rep_type, r.board_num, r.comm_num, m.mem_block, m.mem_block_date, m.mem_block_end_date 
 		
 		FROM report_table r, member_table m
 		

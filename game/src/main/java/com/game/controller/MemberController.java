@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.game.Util.UiUtils;
 import com.game.constant.Method;
@@ -39,7 +38,7 @@ public class MemberController extends UiUtils {
 	@GetMapping(value = "/index")
 	public String indexfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			Model model) {
-
+	    model.addAttribute("headersession", loginMember);
 		model.addAttribute("member", loginMember);
 		return "../index";
 	}
@@ -48,13 +47,14 @@ public class MemberController extends UiUtils {
 	@GetMapping(value = "/test")
 	public String testfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			Model model) {
-		// 세션에 회원 데이터가 없으면 홈으로 이동
+	    model.addAttribute("headersession", loginMember);
+	    // 세션에 회원 데이터가 없으면 홈으로 이동
 		if (loginMember == null) {
 			return "member/login";
 		}
 
 		// 세션이 유지되면 로그인 홈으로 이동
-		model.addAttribute("member", loginMember);
+		model.addAttribute("session", loginMember);
 		return "member/test";
 	}
 	/*
@@ -63,8 +63,10 @@ public class MemberController extends UiUtils {
 	 */
 
 	@GetMapping(value = "/join")
-	public String joinfunction(@ModelAttribute("params") MemberDTO params, Model model) {
-		if (params.getMemId() == null) {
+	public String joinfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	        @ModelAttribute("params") MemberDTO params, Model model) {
+	    model.addAttribute("headersession", loginMember);
+	    if (params.getMemId() == null) {
 			model.addAttribute("member", new MemberDTO());
 		}
 		return "member/join";
@@ -72,8 +74,10 @@ public class MemberController extends UiUtils {
 
 	/** 카카오톡 로그인으로 회원가입 **/
 	@PostMapping(value = "/join")
-	public String joinfunction(@ModelAttribute("params") BoardDTO params, Model model) {
-		if (params.getMemId() == null) {
+	public String joinfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	        @ModelAttribute("params") BoardDTO params, Model model) {
+	    model.addAttribute("headersession", loginMember);
+	    if (params.getMemId() == null) {
 			model.addAttribute("member", new BoardDTO());
 		} else {
 			if (params.getMemEmail() != null) {
@@ -90,8 +94,9 @@ public class MemberController extends UiUtils {
 	}
 
 	@GetMapping(value = "/kakaologin")
-	public String OpenKakaoLogin(@ModelAttribute("params") MemberDTO params, Model model, HttpServletRequest request) {
-
+	public String OpenKakaoLogin(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	        @ModelAttribute("params") MemberDTO params, Model model, HttpServletRequest request) {
+	    model.addAttribute("headersession", loginMember);
 		if (params.getMemId() == null) {
 			model.addAttribute("member", new BoardDTO());
 			return showMessageWithRedirect("카카오톡 로그인이 정상적으로 이루어지지 않았습니다.", "/member/login", Method.GET, null, model);
@@ -129,39 +134,38 @@ public class MemberController extends UiUtils {
 	}
 
 	@GetMapping(value = "/userdelete")
-	public String userdeletefunction(Model model) {
-		return "member/userdelete";
-	}
-
-	@GetMapping(value = "/mypage")
-	public String mypagefunction(Model model) {
-		return "member/mypage";
-	}
-
-	@GetMapping(value = "/adminpage")
-	public String adminpagefunction(Model model) {
-		return "member/adminpage";
+	public String userdeletefunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	        Model model) {
+	    model.addAttribute("headersession", loginMember);
+	    return "member/userdelete";
 	}
 
 	@GetMapping(value = "/login")
-	public String OpenLoginpage(Model model) {
+	public String OpenLoginpage(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	        Model model) {
+	    model.addAttribute("headersession", loginMember);
 		return "member/login";
 	}
 
 	@GetMapping(value = "/idfind")
-	public String idfindfunction(Model model) {
+	public String idfindfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	        Model model) {
+	    model.addAttribute("headersession", loginMember);
 		return "member/idfind";
 	}
 
 	@GetMapping(value = "/passfind")
-	public String passfindfunction(Model model) {
+	public String passfindfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	        Model model) {
+	    model.addAttribute("headersession", loginMember);
 		return "member/passfind";
 	}
 
 	@GetMapping(value = "/newpass")
 	public String newpassfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			MemberDTO member, Model model) {
-		if (loginMember == null) {
+	    model.addAttribute("headersession", loginMember);
+	    if (loginMember == null) {
 			model.addAttribute("member", member);
 			return "member/newpass";
 		}
@@ -292,8 +296,10 @@ public class MemberController extends UiUtils {
 
 	/** 로그인 **/
 	@PostMapping(value = "/login")
-	public String successLogin(MemberDTO member, Model model, HttpServletRequest request) {
-		try {
+	public String successLogin(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	        MemberDTO member, Model model, HttpServletRequest request) {
+		model.addAttribute("headersession", loginMember);
+	    try {
 			MemberDTO result = memberService.selectMember(member);
 			
 //			String sememid = memberService.selectMember(member).getMemId();
