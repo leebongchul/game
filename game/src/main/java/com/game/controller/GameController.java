@@ -41,7 +41,7 @@ public class GameController extends UiUtils {
     @GetMapping(value = "/dino")
     public String dinoopen(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             HttpServletRequest request, Model model) {
-        
+        model.addAttribute("headersession", loginMember);
         String gamename = request.getParameter("game");
         GameScoreDTO user = new GameScoreDTO();
         user.setGameName("공룡게임");
@@ -81,7 +81,7 @@ public class GameController extends UiUtils {
     @GetMapping(value = "/ddong")
     public String ddongopen(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             HttpServletRequest request, Model model) {
-        
+        model.addAttribute("headersession", loginMember);
         String gamename = request.getParameter("game");
         GameScoreDTO user = new GameScoreDTO();
         user.setGameName("똥피하기");
@@ -121,7 +121,7 @@ public class GameController extends UiUtils {
     @GetMapping(value = "/fortress")
     public String fortressopen(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             HttpServletRequest request, Model model) {
-        
+        model.addAttribute("headersession", loginMember);
         String gamename = request.getParameter("game");
         GameScoreDTO user = new GameScoreDTO();
         user.setGameName("포트리스");
