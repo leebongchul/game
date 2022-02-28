@@ -41,7 +41,7 @@ public class IndexController extends UiUtils {
 	public String headerfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			Model model) {
 
-		model.addAttribute("session", loginMember);
+		model.addAttribute("headersession", loginMember);
 		return "header.html";
 	}
 
