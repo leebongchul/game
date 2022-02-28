@@ -59,8 +59,22 @@ public class AdminController extends UiUtils {
 
 		model.addAttribute("member", loginMember);
 		model.addAttribute("reportList", reportList);
-
 		return "admin/report";
+	}
+
+	@GetMapping(value = "/report/boardview")
+	public String findBoardview(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+			@ModelAttribute("params") BoardDTO params, Model model) {
+		if (params.getBoardNum() == null) {
+			return showMessageWithRedirect("올바르지 않은 접근입니다. 목록화면으로 이동합니다.", "/admin/report", Method.GET, null, model);
+		}
+		BoardDTO board = boardService.getBoardDetail(params);
+		if (board == null) {
+			return showMessageWithRedirect("없거나 이미 삭제된 게시글입니다. 목록화면으로 이동합니다.", "/admin/report", Method.GET, null,
+					model);
+		}
+
+		return "redirect:/board/view?boardNum=" + params.getBoardNum() + "&&memId=" + params.getMemId() + "boardType=1";
 	}
 
 	@GetMapping(value = "/comment")
@@ -81,7 +95,7 @@ public class AdminController extends UiUtils {
 		List<CommentDTO> commList = commentService.getCommentList(params);
 		model.addAttribute("commList", commList);
 		model.addAttribute("member", loginMember);
-
+		System.out.println(params.getPaginationInfo());
 		return "admin/comment";
 	}
 
@@ -217,13 +231,26 @@ public class AdminController extends UiUtils {
 
 	@GetMapping(value = "/block")
 	public String blockUser(@ModelAttribute("params") MemberDTO params, Model model) {
-		params.setMemBlock("Y");
+		if (params.getBlockPeriod() == 0) {
+			params.setMemBlock("N");
+			System.out.println("N");
+		} else {
+			params.setMemBlock("Y");
+			System.out.println("Y");
+		}
 		try {
+			// 차단
 			if (params.getMemId() != null && params.getBlockPeriod() != 0) {
 				if (memberService.updateMemberBlock(params)) {
 					return showMessageWithRedirect("차단이 완료되었습니다.", "/admin/report", Method.GET, null, model);
 				}
 				return showMessageWithRedirect("차단을 실패하였습니다.", "/admin/report", Method.GET, null, model);
+				// 차단해제
+			} else if (params.getMemId() != null && params.getBlockPeriod() == 0) {
+				if (memberService.updateMemberBlock(params)) {
+					return showMessageWithRedirect("차단해제되었습니다.", "/admin/report", Method.GET, null, model);
+				}
+				return showMessageWithRedirect("차단해제를 실패하였습니다.", "/admin/report", Method.GET, null, model);
 			}
 		} catch (DataAccessException e) {
 			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/admin/report", Method.GET, null, model);

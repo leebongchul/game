@@ -38,17 +38,10 @@ public class GameController extends UiUtils {
         return "game/rank";
     }
 
-    @GetMapping(value = "/fortress")
-    public String fortressopen(Model model) {
-        return "game/fortress";
-    }
-
-    
-    
     @GetMapping(value = "/dino")
     public String dinoopen(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             HttpServletRequest request, Model model) {
-        
+        model.addAttribute("headersession", loginMember);
         String gamename = request.getParameter("game");
         GameScoreDTO user = new GameScoreDTO();
         user.setGameName("공룡게임");
@@ -88,7 +81,7 @@ public class GameController extends UiUtils {
     @GetMapping(value = "/ddong")
     public String ddongopen(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             HttpServletRequest request, Model model) {
-        
+        model.addAttribute("headersession", loginMember);
         String gamename = request.getParameter("game");
         GameScoreDTO user = new GameScoreDTO();
         user.setGameName("똥피하기");
@@ -125,6 +118,46 @@ public class GameController extends UiUtils {
        
     }
     
+    @GetMapping(value = "/fortress")
+    public String fortressopen(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+            HttpServletRequest request, Model model) {
+        model.addAttribute("headersession", loginMember);
+        String gamename = request.getParameter("game");
+        GameScoreDTO user = new GameScoreDTO();
+        user.setGameName("포트리스");
+        List<GameScoreDTO> top5 = Collections.emptyList();
+        
+        if(loginMember == null) {
+            System.out.println("게스트접속");
+            model.addAttribute("member", loginMember);
+            top5 =  gameService.selectTop5List(user);
+            model.addAttribute("top5",top5);
+            return "game/foretress";
+        }
+        
+            System.out.println("유저접속");
+            
+            user.setMemId(loginMember.getMemId());
+            top5 =  gameService.selectTop5List(user);
+            GameScoreDTO result = gameService.selectGameScore(user); // 유저정보로 rank_table값 불러옴
+            
+            if(result == null) {                                             // DB에 게임점수 테이블에 정보가 없으면 실행 
+                int insertresult = gameService.insertGameScore(user);        // 유저정보로 rank_table에 게임정보 생성
+                result = gameService.selectGameScore(user);       // 생성한 정보를 result에 저장
+                if(insertresult == 0) {
+                    System.out.println("insert 실패 ");
+                }
+            }
+            
+         // 세션이 유지되면 로그인 홈으로 이동
+            model.addAttribute("member", loginMember);
+            model.addAttribute("game", result);
+            model.addAttribute("top5",top5);
+            return "game/fortress";
+        
+       
+    }
+    
     
 /*************** POST ************************************/
     
@@ -147,6 +180,17 @@ public class GameController extends UiUtils {
         user.setMemId(loginMember.getMemId());
         user.setRankScore(score);
         user.setGameName("공룡게임");
+        return gameService.updateGameScore(user);
+    }
+    
+    @PostMapping(value = "/game/fortress")
+    @ResponseBody
+    public int fortressscoresubmit(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+            @RequestParam int score) {
+        GameScoreDTO user = new GameScoreDTO();
+        user.setMemId(loginMember.getMemId());
+        user.setRankScore(score);
+        user.setGameName("포트리스");
         return gameService.updateGameScore(user);
     }
 

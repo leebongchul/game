@@ -51,10 +51,15 @@ public class MypageController extends UiUtils {
 	@GetMapping(value = "/mypagemain")
 	public String mypagemain(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			Model model) {
+		
 		/*
-		 * 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리 if (loginMember == null) { return
-		 * showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model); }
-		 */
+         * 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리 if (loginMember == null) { return
+         * showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model); }
+         */
+		
+	    model.addAttribute("headersession", loginMember);
+		
+	    
 		return "mypage/mypagemain";
 	}
 
@@ -68,6 +73,7 @@ public class MypageController extends UiUtils {
 		if (loginMember == null) {
 			return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
 		}
+		model.addAttribute("headersession", loginMember);
 		params.setMemId(loginMember.getMemId());
 //		params.setMemId("admin"); // 테스트용 하드코딩.
 		params.setBoardType(1);
@@ -85,7 +91,7 @@ public class MypageController extends UiUtils {
 		 * showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model); }
 		 */
 //		params.setMemId("admin"); // 테스트용 하드코딩.
-
+	    model.addAttribute("headersession", loginMember);
 		if (loginMember == null) {
 			return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
 		}
@@ -99,6 +105,7 @@ public class MypageController extends UiUtils {
 	@GetMapping(value = "/userrankview")
 	public String userrankview(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			Model model) {
+	    model.addAttribute("headersession", loginMember);
 		/*
 		 * 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리 if (loginMember == null) { return
 		 * showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model); }
@@ -114,6 +121,7 @@ public class MypageController extends UiUtils {
 	public String userupdatefunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			Model model) {
 		System.out.println("사용자정보 접속");
+		model.addAttribute("headersession", loginMember);
 		MemberDTO user = new MemberDTO();
 
 		if (loginMember == null) {
@@ -132,18 +140,15 @@ public class MypageController extends UiUtils {
 	@PostMapping(value = "/userupdate")
 	public String userupdatefunction(MemberDTO member, Model model,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember) {
-		// System.out.println("함수진입1");
-		// System.out.println(member.getMemNick()); //memNick
-		// System.out.println(member.getMemHp());
-		// System.out.println(member.getMemEmail());
-		if (loginMember == null) {
+		
+	    model.addAttribute("headersession", loginMember);
+	    if (loginMember == null) {
 			return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
 		}
 		member.setMemId(loginMember.getMemId());
 		try {
 			int userupdate = memberService.userUpdate(member);
 			if (userupdate == 0) {
-				System.out.println("수정되나요");
 				return showMessageWithRedirect("사용자 정보 수정에 실패하였습니다.", "/mypage/userupdate", Method.GET, null, model);
 			}
 
@@ -161,8 +166,6 @@ public class MypageController extends UiUtils {
 	@PostMapping(value = "/mypage/nickcheck.do")
 	@ResponseBody
 	public int JoinNickCheck(@RequestParam String memNick) {
-		// System.out.println("nickcheck");
-		// System.out.println(memNick);
 		return memberService.memberNickcheck(memNick);
 	}
 
@@ -193,17 +196,14 @@ public class MypageController extends UiUtils {
 	@PostMapping(value = "/userdelete")
 	public String userDelete(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			MemberDTO member, Model model, HttpServletRequest request) {
-		System.out.println(loginMember.getMemId());
-		System.out.println(member.getMemId());
+		model.addAttribute("headersession", loginMember);
 		try {
 
 			if (loginMember.getMemId().equals(member.getMemId()) == false) {
-				System.out.println("함수진입2");
 				return showMessageWithRedirect("아이디가 틀렸습니다.", "/mypage/userdelete", Method.GET, null, model);
 			}
 
 			if (!passwordEncoder.matches(member.getMemPass(), loginMember.getMemPass())) {
-				System.out.print("함수진입3");
 				return showMessageWithRedirect("비밀번호가 일치하지 않습니다..", "/member/login", Method.GET, null, model);
 			}
 
@@ -229,7 +229,8 @@ public class MypageController extends UiUtils {
 	@GetMapping(value = "/boardDelete")
 	public String boardDelete(@ModelAttribute("params") BoardDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
-		/***************** 로그인 세션 구현시 *******************/
+	    model.addAttribute("headersession", loginMember);
+	    /***************** 로그인 세션 구현시 *******************/
 		// params.setBoardUpdateId(loginMember.getMemId());
 		// params.setMemId(loginMember.getMemId());
 		/************************************************/
@@ -254,7 +255,8 @@ public class MypageController extends UiUtils {
 	@GetMapping(value = "/commentDelete")
 	public String commentdelete(@ModelAttribute("params") CommentDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
-		/***************** 로그인 세션 구현시 *******************/
+	    model.addAttribute("headersession", loginMember);
+	    /***************** 로그인 세션 구현시 *******************/
 		// params.setCommUpdateId(loginMember.getMemId());
 		// params.setMemId(loginMember.getMemId());
 		/************************************************/
@@ -275,16 +277,11 @@ public class MypageController extends UiUtils {
 		}
 	}
 
-	@GetMapping(value = "/menulist")
-	public String menulist(Model model) {
-		return "mypage/menulist";
-	}
-
 	@GetMapping(value = "/dinorank")
 	public String dinorank(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		GameScoreDTO user = new GameScoreDTO();
-		// user.setMemId(loginMember.getMemId());
-		user.setMemId("uuu333");
+		model.addAttribute("headersession", loginMember);
+		user.setMemId(loginMember.getMemId());
 		user.setGameName("공룡게임");
 
 		List<GameScoreDTO> rank = gameService.selectMyRank(user);
@@ -295,13 +292,42 @@ public class MypageController extends UiUtils {
 	@GetMapping(value = "/ddongrank")
 	public String ddongrank(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		GameScoreDTO user = new GameScoreDTO();
-		// user.setMemId(loginMember.getMemId());
-		user.setMemId("uuu333");
+		user.setMemId(loginMember.getMemId());
 		user.setGameName("똥피하기");
 
 		List<GameScoreDTO> rank = gameService.selectMyRank(user);
 		model.addAttribute("ddong", rank);
 		return "mypage/ddongrank";
 	}
+	
+	@GetMapping(value = "/beforenewpass")
+    public String beforeNewpass(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+            Model model) {
+	    model.addAttribute("headersession", loginMember); 
+	    return "mypage/beforenewpass";
+    }
+	
+	   @PostMapping(value = "/beforenewpass")
+	    public String beforeNewpass(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	            MemberDTO member, Model model, HttpServletRequest request) {
+	       model.addAttribute("headersession", loginMember); 
+	       System.out.println(loginMember.getMemId()+"세션아이디");
+	        System.out.println(member.getMemPass()+"입력비밀번호");
+	        try {
+
+	            if (!passwordEncoder.matches(member.getMemPass(), loginMember.getMemPass())) {
+	                System.out.print("함수진입3");
+	                return showMessageWithRedirect("비밀번호가 일치하지 않습니다..", "/mypage/beforenewpass", Method.GET, null, model);
+	            }
+	             
+	        } catch (DataAccessException e) {
+	            return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/mypage/beforenewpass", Method.GET, null, model);
+
+	        } catch (Exception e) {
+	            return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/mypage/beforenewpass", Method.GET, null, model);
+	        }
+	        return showMessageWithRedirect("비밀번호가 일치합니다. 비밀번호 재설정 창으로 이동합니다.", "../member/newpass", Method.GET, null, model);
+
+	    }
 
 }

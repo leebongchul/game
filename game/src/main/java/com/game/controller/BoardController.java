@@ -40,7 +40,7 @@ public class BoardController extends UiUtils {
 	public String openBoardList(@ModelAttribute("params") BoardDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		// 메인 생성되면 보드타입 변경?
-
+	    model.addAttribute("headersession", loginMember);
 		params.setBoardType(1);
 		List<BoardDTO> boardList = boardService.getBoardList(params);
 		model.addAttribute("boardList", boardList);
@@ -52,7 +52,6 @@ public class BoardController extends UiUtils {
 		} else {
 			model.addAttribute("member", loginMember);
 		}
-
 		return "board/list";
 	}
 
@@ -60,12 +59,14 @@ public class BoardController extends UiUtils {
 	public String openRankList(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			Model model) {
 		model.addAttribute("member", loginMember);
-
+		model.addAttribute("headersession", loginMember);
 		return "board/rank";
 	}
 
 	@GetMapping(value = "/layout/dinorank")
-	public String opendinoList(@ModelAttribute("params") GameScoreDTO params, Model model) {
+	public String opendinoList(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	        @ModelAttribute("params") GameScoreDTO params, Model model) {
+	    model.addAttribute("headersession", loginMember);
 		params.setGameName("공룡게임");
 		List<GameScoreDTO> dinorank = gameService.selectGameRankList(params);
 		model.addAttribute("dino", dinorank);
@@ -74,7 +75,9 @@ public class BoardController extends UiUtils {
 	}
 
 	@GetMapping(value = "/layout/ddongrank")
-	public String openddongList(@ModelAttribute("params") GameScoreDTO params, Model model) {
+	public String openddongList(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	        @ModelAttribute("params") GameScoreDTO params, Model model) {
+	    model.addAttribute("headersession", loginMember);
 		params.setGameName("똥피하기");
 		List<GameScoreDTO> ddongrank = gameService.selectGameRankList(params);
 		model.addAttribute("ddong", ddongrank);
@@ -87,7 +90,7 @@ public class BoardController extends UiUtils {
 	public String openNoticeBoardList(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			@ModelAttribute("params") BoardDTO params, Model model) {
 		// 메인 생성되면 보드타입 변경?
-
+	    model.addAttribute("headersession", loginMember);
 		// 비회원
 		if (loginMember == null) {
 			MemberDTO member = new MemberDTO();
@@ -108,6 +111,7 @@ public class BoardController extends UiUtils {
 	public String openNoticeBoardDetail(@ModelAttribute("params") BoardDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		System.out.println("boardNum:" + params.getBoardNum());
+		model.addAttribute("headersession", loginMember);
 
 		if (params.getBoardNum() == null) {
 			return showMessageWithRedirect("올바르지 않은 접근입니다. 목록화면으로 이동합니다,", "/board/noticeboard/list", Method.GET, null,
@@ -139,7 +143,7 @@ public class BoardController extends UiUtils {
 	@GetMapping(value = "/report")
 	public String reportBoard(@ModelAttribute("params") ReportDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
-
+	    model.addAttribute("headersession", loginMember);
 		String url = "/board/view?boardNum=" + params.getBoardNum() + "&&boardType=" + params.getBoardType()
 				+ "&&memId=" + params.getRepId();
 
@@ -173,6 +177,7 @@ public class BoardController extends UiUtils {
 	public String openBoardDetail(@ModelAttribute("params") BoardDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		System.out.println("boardNum:" + params.getBoardNum());
+		model.addAttribute("headersession", loginMember);
 
 		// 댓글 작성을 위한 세션 넘겨줌(권한, 닉네임, 아이디 등)
 		if (loginMember == null) {
@@ -188,7 +193,7 @@ public class BoardController extends UiUtils {
 			return showMessageWithRedirect("올바르지 않은 접근입니다. 목록화면으로 이동합니다.", "/board/list", Method.GET, null, model);
 		}
 		BoardDTO board = boardService.getBoardDetail(params);
-		if (board.getBoardNum() == null || "Y".equals(board.getBoardDelete())) {
+		if (board == null) {
 			return showMessageWithRedirect("없거나 이미 삭제된 게시글입니다. 목록화면으로 이동합니다.", "/board/list", Method.GET, null, model);
 		}
 		boardService.plusBoardHit(params);
@@ -200,7 +205,8 @@ public class BoardController extends UiUtils {
 	@GetMapping(value = "/freeboard/write") // 글쓰기, 상세보기-수정화면
 	public String openBoardWrite(@ModelAttribute("params") BoardDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
-		if (loginMember == null) {
+	    model.addAttribute("headersession", loginMember);
+	    if (loginMember == null) {
 			return showMessageWithRedirect("글쓰기 권한이 없습니다. 로그인해주세요.", "/board/list", Method.GET, null, model);
 		}
 		if (params.getBoardNum() == null) { // 글쓰기 화면
@@ -227,10 +233,12 @@ public class BoardController extends UiUtils {
 	}
 
 	@PostMapping(value = "/freeboard/register") // 글쓰기,상세보기-수정화면에서 '저장하기 클릭 시'
-	public String registerBoard(@ModelAttribute("params") BoardDTO params, Model model) {
+	public String registerBoard(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+	        @ModelAttribute("params") BoardDTO params, Model model) {
 		// 현재 로그인 계정(boardUpdateId)이랑 게시글 상세보기에서 넘어온 글작성자(memId)와 비교해서 갈을 때 BoardDTO 넘김
 		// 22.02.16 현재 로그인 계정 구현 안되어있어, boardUpdateId를 글작성자로 해서 넘김
-		params.setBoardUpdateId(params.getMemId());
+	    model.addAttribute("headersession", loginMember);
+	    params.setBoardUpdateId(params.getMemId());
 		try {
 			// 로그인 계정과 params.get
 			boolean isRegistered = boardService.registerBoard(params);
@@ -250,7 +258,8 @@ public class BoardController extends UiUtils {
 	@GetMapping(value = "/freeboard/delete")
 	public String GetdeleteBoard(@ModelAttribute("params") BoardDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
-		/***************** 로그인 세션 구현시 *******************/
+	    model.addAttribute("headersession", loginMember);
+	    /***************** 로그인 세션 구현시 *******************/
 		params.setBoardUpdateId(loginMember.getMemId());
 		params.setMemRole(loginMember.getMemRole());
 		/************************************************/
