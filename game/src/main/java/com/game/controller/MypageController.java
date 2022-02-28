@@ -51,15 +51,14 @@ public class MypageController extends UiUtils {
 	@GetMapping(value = "/mypagemain")
 	public String mypagemain(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			Model model) {
-		
+
 		/*
-         * 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리 if (loginMember == null) { return
-         * showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model); }
-         */
-		
-	    model.addAttribute("headersession", loginMember);
-		
-	    
+		 * 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리 if (loginMember == null) { return
+		 * showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model); }
+		 */
+
+		model.addAttribute("headersession", loginMember);
+
 		return "mypage/mypagemain";
 	}
 
@@ -91,7 +90,7 @@ public class MypageController extends UiUtils {
 		 * showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model); }
 		 */
 //		params.setMemId("admin"); // 테스트용 하드코딩.
-	    model.addAttribute("headersession", loginMember);
+		model.addAttribute("headersession", loginMember);
 		if (loginMember == null) {
 			return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
 		}
@@ -105,7 +104,7 @@ public class MypageController extends UiUtils {
 	@GetMapping(value = "/userrankview")
 	public String userrankview(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			Model model) {
-	    model.addAttribute("headersession", loginMember);
+		model.addAttribute("headersession", loginMember);
 		/*
 		 * 로그인 세션이 없을때 메인페이지 이동. 테스트중일땐 주석처리 if (loginMember == null) { return
 		 * showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model); }
@@ -140,9 +139,9 @@ public class MypageController extends UiUtils {
 	@PostMapping(value = "/userupdate")
 	public String userupdatefunction(MemberDTO member, Model model,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember) {
-		
-	    model.addAttribute("headersession", loginMember);
-	    if (loginMember == null) {
+
+		model.addAttribute("headersession", loginMember);
+		if (loginMember == null) {
 			return showMessageWithRedirect("로그인이 필요합니다", "/index", Method.GET, null, model);
 		}
 		member.setMemId(loginMember.getMemId());
@@ -190,8 +189,8 @@ public class MypageController extends UiUtils {
 	// 회원탈퇴
 	@GetMapping(value = "/userdelete")
 	public String userDelete(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-	        Model model) {
-	    model.addAttribute("headersession", loginMember);
+			Model model) {
+		model.addAttribute("headersession", loginMember);
 		return "mypage/userdelete";
 	}
 
@@ -231,13 +230,13 @@ public class MypageController extends UiUtils {
 	@GetMapping(value = "/boardDelete")
 	public String boardDelete(@ModelAttribute("params") BoardDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
-	    model.addAttribute("headersession", loginMember);
-	    /***************** 로그인 세션 구현시 *******************/
-		// params.setBoardUpdateId(loginMember.getMemId());
-		// params.setMemId(loginMember.getMemId());
+		model.addAttribute("headersession", loginMember);
+		/***************** 로그인 세션 구현시 *******************/
+		params.setBoardUpdateId(loginMember.getMemId());
+//		params.setMemId(loginMember.getMemId());
 		/************************************************/
-		params.setBoardUpdateId("admin");// 테스트용 하드코딩
-		params.setMemId("admin");// 테스트용 하드코딩
+//		params.setBoardUpdateId("admin");// 테스트용 하드코딩
+//		params.setMemId("admin");// 테스트용 하드코딩
 		try {
 			if (boardService.deleteBoard(params)) {
 				return showMessageWithRedirect("삭제가 완료되었습니다.", "/mypage/userboardview", Method.GET, null, model);
@@ -257,8 +256,8 @@ public class MypageController extends UiUtils {
 	@GetMapping(value = "/commentDelete")
 	public String commentdelete(@ModelAttribute("params") CommentDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
-	    model.addAttribute("headersession", loginMember);
-	    /***************** 로그인 세션 구현시 *******************/
+		model.addAttribute("headersession", loginMember);
+		/***************** 로그인 세션 구현시 *******************/
 		// params.setCommUpdateId(loginMember.getMemId());
 		// params.setMemId(loginMember.getMemId());
 		/************************************************/
@@ -301,35 +300,37 @@ public class MypageController extends UiUtils {
 		model.addAttribute("ddong", rank);
 		return "mypage/ddongrank";
 	}
-	
+
 	@GetMapping(value = "/beforenewpass")
-    public String beforeNewpass(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-            Model model) {
-	    model.addAttribute("headersession", loginMember); 
-	    return "mypage/beforenewpass";
-    }
-	
-	   @PostMapping(value = "/beforenewpass")
-	    public String beforeNewpass(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-	            MemberDTO member, Model model, HttpServletRequest request) {
-	       model.addAttribute("headersession", loginMember); 
-	       System.out.println(loginMember.getMemId()+"세션아이디");
-	        System.out.println(member.getMemPass()+"입력비밀번호");
-	        try {
+	public String beforeNewpass(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+			Model model) {
+		model.addAttribute("headersession", loginMember);
+		return "mypage/beforenewpass";
+	}
 
-	            if (!passwordEncoder.matches(member.getMemPass(), loginMember.getMemPass())) {
-	                System.out.print("함수진입3");
-	                return showMessageWithRedirect("비밀번호가 일치하지 않습니다..", "/mypage/beforenewpass", Method.GET, null, model);
-	            }
-	             
-	        } catch (DataAccessException e) {
-	            return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/mypage/beforenewpass", Method.GET, null, model);
+	@PostMapping(value = "/beforenewpass")
+	public String beforeNewpass(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+			MemberDTO member, Model model, HttpServletRequest request) {
+		model.addAttribute("headersession", loginMember);
+		System.out.println(loginMember.getMemId() + "세션아이디");
+		System.out.println(member.getMemPass() + "입력비밀번호");
+		try {
 
-	        } catch (Exception e) {
-	            return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/mypage/beforenewpass", Method.GET, null, model);
-	        }
-	        return showMessageWithRedirect("비밀번호가 일치합니다. 비밀번호 재설정 창으로 이동합니다.", "../member/newpass", Method.GET, null, model);
+			if (!passwordEncoder.matches(member.getMemPass(), loginMember.getMemPass())) {
+				System.out.print("함수진입3");
+				return showMessageWithRedirect("비밀번호가 일치하지 않습니다..", "/mypage/beforenewpass", Method.GET, null, model);
+			}
 
-	    }
+		} catch (DataAccessException e) {
+			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/mypage/beforenewpass", Method.GET, null,
+					model);
+
+		} catch (Exception e) {
+			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/mypage/beforenewpass", Method.GET, null, model);
+		}
+		return showMessageWithRedirect("비밀번호가 일치합니다. 비밀번호 재설정 창으로 이동합니다.", "../member/newpass", Method.GET, null,
+				model);
+
+	}
 
 }

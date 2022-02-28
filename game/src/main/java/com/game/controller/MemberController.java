@@ -38,7 +38,7 @@ public class MemberController extends UiUtils {
 	@GetMapping(value = "/index")
 	public String indexfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			Model model) {
-	    model.addAttribute("headersession", loginMember);
+		model.addAttribute("headersession", loginMember);
 		model.addAttribute("member", loginMember);
 		return "../index";
 	}
@@ -47,8 +47,8 @@ public class MemberController extends UiUtils {
 	@GetMapping(value = "/test")
 	public String testfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			Model model) {
-	    model.addAttribute("headersession", loginMember);
-	    // 세션에 회원 데이터가 없으면 홈으로 이동
+		model.addAttribute("headersession", loginMember);
+		// 세션에 회원 데이터가 없으면 홈으로 이동
 		if (loginMember == null) {
 			return "member/login";
 		}
@@ -64,9 +64,9 @@ public class MemberController extends UiUtils {
 
 	@GetMapping(value = "/join")
 	public String joinfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-	        @ModelAttribute("params") MemberDTO params, Model model) {
-	    model.addAttribute("headersession", loginMember);
-	    if (params.getMemId() == null) {
+			@ModelAttribute("params") MemberDTO params, Model model) {
+		model.addAttribute("headersession", loginMember);
+		if (params.getMemId() == null) {
 			model.addAttribute("member", new MemberDTO());
 		}
 		return "member/join";
@@ -75,9 +75,9 @@ public class MemberController extends UiUtils {
 	/** 카카오톡 로그인으로 회원가입 **/
 	@PostMapping(value = "/join")
 	public String joinfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-	        @ModelAttribute("params") BoardDTO params, Model model) {
-	    model.addAttribute("headersession", loginMember);
-	    if (params.getMemId() == null) {
+			@ModelAttribute("params") BoardDTO params, Model model) {
+		model.addAttribute("headersession", loginMember);
+		if (params.getMemId() == null) {
 			model.addAttribute("member", new BoardDTO());
 		} else {
 			if (params.getMemEmail() != null) {
@@ -95,8 +95,8 @@ public class MemberController extends UiUtils {
 
 	@GetMapping(value = "/kakaologin")
 	public String OpenKakaoLogin(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-	        @ModelAttribute("params") MemberDTO params, Model model, HttpServletRequest request) {
-	    model.addAttribute("headersession", loginMember);
+			@ModelAttribute("params") MemberDTO params, Model model, HttpServletRequest request) {
+		model.addAttribute("headersession", loginMember);
 		if (params.getMemId() == null) {
 			model.addAttribute("member", new BoardDTO());
 			return showMessageWithRedirect("카카오톡 로그인이 정상적으로 이루어지지 않았습니다.", "/member/login", Method.GET, null, model);
@@ -120,8 +120,9 @@ public class MemberController extends UiUtils {
 				// 아이디와 비밀번호가 일치
 				HttpSession session = request.getSession(); // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
 				session.setAttribute("loginMem", result); // 세션에 로그인 회원 정보 보관
+				model.addAttribute("logininfo", result);
 
-				return showMessageWithRedirect("로그인이 완료되었습니다.", "/member/test", Method.GET, null, model);
+				return showMessageWithRedirect("로그인이 완료되었습니다.", "/index", Method.GET, null, model);
 
 			} catch (DataAccessException e) {
 				return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/member/login", Method.GET, null, model);
@@ -135,37 +136,37 @@ public class MemberController extends UiUtils {
 
 	@GetMapping(value = "/userdelete")
 	public String userdeletefunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-	        Model model) {
-	    model.addAttribute("headersession", loginMember);
-	    return "member/userdelete";
+			Model model) {
+		model.addAttribute("headersession", loginMember);
+		return "member/userdelete";
 	}
 
 	@GetMapping(value = "/login")
 	public String OpenLoginpage(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-	        Model model) {
-	    model.addAttribute("headersession", loginMember);
+			Model model) {
+		model.addAttribute("headersession", loginMember);
 		return "member/login";
 	}
 
 	@GetMapping(value = "/idfind")
 	public String idfindfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-	        Model model) {
-	    model.addAttribute("headersession", loginMember);
+			Model model) {
+		model.addAttribute("headersession", loginMember);
 		return "member/idfind";
 	}
 
 	@GetMapping(value = "/passfind")
 	public String passfindfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-	        Model model) {
-	    model.addAttribute("headersession", loginMember);
+			Model model) {
+		model.addAttribute("headersession", loginMember);
 		return "member/passfind";
 	}
 
 	@GetMapping(value = "/newpass")
 	public String newpassfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			MemberDTO member, Model model) {
-	    model.addAttribute("headersession", loginMember);
-	    if (loginMember == null) {
+		model.addAttribute("headersession", loginMember);
+		if (loginMember == null) {
 			model.addAttribute("member", member);
 			return "member/newpass";
 		}
@@ -212,7 +213,7 @@ public class MemberController extends UiUtils {
 	/****************** POST *************************/
 
 	/** 차단회원 로그인 차단 **/
-	
+
 	/** 회원가입 **/
 	@PostMapping(value = "/member/insert.do")
 	public String memberjoin(MemberDTO member, Model model) {
@@ -257,7 +258,7 @@ public class MemberController extends UiUtils {
 	public String newPassCheck(MemberDTO member, Model model) {
 		System.out.println("아이디값" + member.getMemId());
 		try {
-		    
+
 			member.setMemPass(passwordEncoder.encode(member.getMemPass()));
 			int newpass = memberService.newpassMember(member);
 			if (newpass == 0) {
@@ -297,15 +298,11 @@ public class MemberController extends UiUtils {
 	/** 로그인 **/
 	@PostMapping(value = "/login")
 	public String successLogin(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-	        MemberDTO member, Model model, HttpServletRequest request) {
+			MemberDTO member, Model model, HttpServletRequest request) {
 		model.addAttribute("headersession", loginMember);
-	    try {
+		try {
 			MemberDTO result = memberService.selectMember(member);
-			
-//			String sememid = memberService.selectMember(member).getMemId();
-//			String sememblock = memberService.selectMember(member).getMemBlock();
-//			String sememblockdate = memberService.selectMember(member).getMemBlockDate();
-//			String sememblockend = memberService.selectMember(member).getMemBlockEndDate();
+
 			if (result.getMemId() == null) {
 				return showMessageWithRedirect("해당 아이디가 존재하지 않습니다.", "/member/login", Method.GET, null, model);
 			}
@@ -313,25 +310,11 @@ public class MemberController extends UiUtils {
 			if (!passwordEncoder.matches(member.getMemPass(), result.getMemPass())) {
 				return showMessageWithRedirect("비밀번호가 일치하지 않습니다.", "/member/login", Method.GET, null, model);
 			}
-//			if (sememblock.equals("Y")) {
-//			    return showMessageWithRedirect("차단된 유저입니다. \n<차단해제일은 " + sememblockend + " 입니다>" , "/index", Method.GET, null, model);
-//			}
-			model.addAttribute("logininfo",result);
+			model.addAttribute("logininfo", result);
 			HttpSession session = request.getSession();
-//			if (memberService.clearBlock(result) == true) {
-//			    session.setAttribute("loginMem", result); // 세션에 로그인 회원 정보 보관
-//                return showMessageWithRedirect("차단이 헤재 되었습니다." , "../index", Method.GET, null, model);
-//               
-//            }
-//			HttpSession session = request.getSession(); // 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성하여 반환
 			session.setAttribute("loginMem", result); // 세션에 로그인 회원 정보 보관
-//			session.setAttribute("sememid", sememid);
-//			session.setAttribute("sememblock", sememblock);
-//			session.setAttribute("sememblockdate", sememblockdate);
-//			session.setAttribute("sememblockend",sememblockend);
-//			model.addAttribute("loginMeminfo", result);
 			return showMessageWithRedirect("로그인이 완료되었습니다.", "../index", Method.GET, null, model);
-			
+
 		} catch (DataAccessException e) {
 			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/member/login", Method.GET, null, model);
 
@@ -340,7 +323,6 @@ public class MemberController extends UiUtils {
 		}
 
 	}
-	
 
 	/** 이메일 인증 **/
 	@PostMapping("/sendEmail") // 이메일 인증 코드 보내기
