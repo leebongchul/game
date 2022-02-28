@@ -209,24 +209,21 @@ class MapperTests {
 		System.out.println("테스트인풋 result : " + result);
 
 	};
-/*
-	@Test
-	public void testSelectReportList() {
 
-		List<ReportDTO> result = boardMapper.selectReportList();
-
-		try {
-			String boardJson = new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(result);
-
-			System.out.println("=========================");
-			System.out.println(boardJson);
-			System.out.println("=========================");
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-*/
+	/*
+	 * @Test public void testSelectReportList() {
+	 * 
+	 * List<ReportDTO> result = boardMapper.selectReportList();
+	 * 
+	 * try { String boardJson = new ObjectMapper().registerModule(new
+	 * JavaTimeModule()).writeValueAsString(result);
+	 * 
+	 * System.out.println("=========================");
+	 * System.out.println(boardJson);
+	 * System.out.println("=========================");
+	 * 
+	 * } catch (Exception e) { e.printStackTrace(); } }
+	 */
 	@Test
 	public void testOfinsertReport() {
 
@@ -243,54 +240,43 @@ class MapperTests {
 
 	}
 
-//	@Test
-//	public void testUpdateMemberBlock() {
-//
-//		String boardId = "admin";
-//		String[] boardidArray = boardId.split(",");
-//		System.out.println("테스트인풋 데이터 : " + boardidArray);
-//
-////		List<String> supplierNames = new ArrayList<String>();
-////		supplierNames.add("admin");
-////		supplierNames.add("user");
-////
-//////		String[] memidArr = { "admin", "user" };
-//////
-//////		HashMap<String, Object> map = new HashMap<String, Object>();
-//////		map.put("memidArr", memidArr);
-//////		map.put("memBlock", "Y");
-//////		map.put("blockPeriod", 3);
-////
-//////		System.out.println("테스트인풋 데이터1231 : " + supplierNames);
-////		MemberDTO params = new MemberDTO();
-////		params.setMemBlock("Y");
-////		params.setBlockPeriod(3);
-////		params.setMemidArr(supplierNames);
-////
-////		System.out.println("테스트인풋 데이터 : " + params);
-////		int result = memberMapper.updateMemberBlock(params);
-////
-////		try {
-////
-////			System.out.println("=========================");
-////			System.out.println(result);
-////			System.out.println("=========================");
-////
-////		} catch (Exception e) {
-////			e.printStackTrace();
-////		}
-//	}
-	
-	
+	@Test
+	public void testUpdateMemberBlock() {
+
+		String boardId = "admin";
+		String[] boardidArray = boardId.split(",");
+		System.out.println("테스트인풋 데이터 : " + boardidArray);
+
+//		String[] memidArr = { "admin", "user" };
+
+		MemberDTO params = new MemberDTO();
+		params.setMemBlock("N");
+//		params.setBlockPeriod(3);
+		params.setMemidArr(boardidArray);
+
+		System.out.println("테스트인풋 데이터 : " + params);
+		int result = memberMapper.updateMemberBlock(params);
+
+		try {
+
+			System.out.println("=========================");
+			System.out.println(result);
+			System.out.println("=========================");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Test
 	public void testsetBlockLogin() {
 		MemberDTO params = new MemberDTO();
 		params.setMemId("qwe123");
-		
+
 		String a = memberMapper.seeBlockLogin(params);
 		System.out.println(a);
 	}
-	
+
 	@Test
 	public void clearBlockMember() {
 		MemberDTO params = new MemberDTO();
@@ -299,6 +285,5 @@ class MapperTests {
 		int a = memberMapper.clearBlockMember(params);
 		System.out.println(a);
 	}
-	
 
 }

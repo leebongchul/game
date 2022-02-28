@@ -89,7 +89,8 @@
 		  member_table
 		SET
 		  mem_block = #{memBlock} 
-		<if test="memBlock=='Y">,mem_block_date = sysdate, mem_block_end_date=sysdate+#{blockPeriod}</if>
+		<if test="memBlock eq 'Y'.toString()">,mem_block_date = sysdate, mem_block_end_date=sysdate+#{blockPeriod}</if>
+		<if test="memBlock eq 'N'.toString()">,mem_block_date = null, mem_block_end_date=null</if>
 		WHERE mem_id in
 		<foreach collection="memidArr" item="item" open="(" close=")" separator=",">
 			#{item}

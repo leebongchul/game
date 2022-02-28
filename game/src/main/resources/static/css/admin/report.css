@@ -125,3 +125,6 @@ body {
 	margin-top:30px;
 	margin-left:-150px;
 }
+.modal-backdrop{
+    z-index: 0;
+}

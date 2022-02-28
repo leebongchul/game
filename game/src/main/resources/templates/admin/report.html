@@ -1,201 +1,26 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-<th:block  th:replace="/fragment/header :: main-head">
+<th:block th:replace="/fragment/header :: main-head">
 </th:block>
 <meta charset="UTF-8">
 <title>The page is a write page</title>
 <!-- 자바스크립트 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-
-<!-- CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<!-- 테마 -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<link href="/css/admin/report.css" rel="stylesheet" type="text/css">
-
-</head>
-<body>
-<nav th:replace="/fragment/header :: main-header"></nav> 
-	<div class="container">
-		<div class="container-fluid p-0">
-			<h1 class="h3 mb-3 font-weight-bold text1">
-				<strong>사용자 관리</strong>
-			</h1>
-			<h2 class="h4 mb-3 text-center text2">
-				<strong>신고 및 차단</strong>
-			</h2>
-	<section class="report-content">
-			<th:block layout:fragment="search" class="selectbox">
-                <nav th:replace="admin/layout/reportcommon :: search"></nav>
-            </th:block>
-			<div class="row">
-				<div class="col-xl-8">
-				
-					<div class="card">
-						<form name="blockForm" id="blockForm" action="/admin/block" method="get">
-							<div class="card-header pb-0">
-								<div class="card-actions float-right"></div>
-							</div>
-							<div class="card-body">
-								<table class="table table-striped">
-									<thead>
-										<tr>
-											<!-- //6개 -->
-											<th class="text-center">선택</th>
-											<th class="text-center">신고자ID</th>
-											<th class="text-center">피신고자ID</th>
-											<th class="text-center">신고유형</th>
-											<th class="text-center">신고된 글/댓글</th>
-											<th class="text-center">차단상태</th>
-											<th class="text-center">차단기간</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:if="${not #lists.isEmpty( reportList )}" th:each="row : ${reportList}">
-											<td class="col-md-1, text-center" scope="row"><input type="checkbox" name="memId" th:value="${row.repId}"></td>
-											<td class="col-md-2, text-center" th:text="${row.memId}"></td>
-											<td class="col-md-2, text-center" th:text="${row.repId}"></td>
-											<td class="col-md-1, text-center" th:text="${row.repType}"></td>
-											<td class="col-md-6, text-center">
-											<a th:href="@{/admin/report/boardview(boardNum=${row.boardNum},memId=${row.memId}, boardType=1)}" class="btn-back-a">
-													<button type="button" class="btn btn-back">이 동</button>
-											</a>
-											</td>
-											<td class="col-md-1, text-center" th:text="${row.memBlock=='Y' ? '차단' : '-'}"></td>
-											<td th:if="${row.memBlock=='Y'}" class="col-md-1, text-center" th:text="${row.memBlockDate}+' ~ '+${row.memBlockEndDate}"></td>
-											<td th:if="${row.memBlock=='N'}" class="col-md-1, text-center" ></td>
-										</tr>
-										<tr>
-										</tr>
-									</tbody>
-								</table>
-								<div class="text-right">
-									<!-- Button trigger modal -->
-									<button type="button" class="btn btn-block" onclick="blockUserFormCheck('차단해제')">차단해체</button>
-									<button type="button" class="btn btn-block" onclick="blockUserFormCheck('차단')">차 단</button>
-									<!-- 차단 버튼 클릭시 유효성 검사(onclick="blockFormCheck()")을 하기 위해 모달창 띄우는 버튼 분리하여 자바스크립트로 처리 -->
-									<button type="button" class="btn dropdown-item" id="btnBlock" data-toggle="modal" data-target="#myModal" style="display: none"></button>
-								</div>
-							</div>
-							<!-- Modal -->
-							<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-								<div class="modal-dialog modal-sm" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-											<h4 class="modal-title" id="myModalLabel">
-												<strong>사용자 차단</strong>
-											</h4>
-										</div>
-										<!-- Modal 내용-->
-										<div class="modal-body px-5">
-											<h5 class="mb-3">
-												<strong>차단 기간을 선택해주세요.</strong>
-											</h5>
-											<!-- 											<form name="periodForm" id="periodForm" action="/board/report" method="get"> -->
-											<div class="form-check my-2">
-												<input class="form-check-input" type="radio" name="blockPeriod" value="3"> <label class="form-check-label" for="flexRadioDefault1">
-													3일 </label>
-											</div>
-											<div class="form-check my-2">
-												<input class="form-check-input" type="radio" name="blockPeriod" value="7"> <label class="form-check-label" for="flexRadioDefault2">
-													7일 </label>
-											</div>
-											<div class="form-check my-2">
-												<input class="form-check-input" type="radio" name="blockPeriod" value="14"> <label class="form-check-label"
-													for="flexRadioDefault1"> 14일 </label>
-											</div>
-											<div class="form-check my-2">
-												<input class="form-check-input" type="radio" name="blockPeriod" value="30"> <label class="form-check-label"
-													for="flexRadioDefault2"> 30일 </label>
-											</div>
-											<div class="form-check my-2">
-												<input class="form-check-input" type="radio" name="blockPeriod" value="90"> <label class="form-check-label"
-													for="flexRadioDefault1"> 90일 </label>
-											</div>
-											<div class="form-check my-2">
-												<input class="form-check-input" type="radio" name="blockPeriod" value="999999"> <label class="form-check-label"
-													for="flexRadioDefault2"> 영구정지 </label>
-											</div>
-<!-- 											<div class="form-check my-2"> -->
-<!-- 												<input class="form-check-input" type="hidden" id="blockMemId" name="memId"> -->
-<!-- 											</div> -->
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
-											<button type="button" class="btn btn-primary" onclick="blockFormCheck()">확인</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</form>
-					</div>
-					
-					
-				</div>
-			</div>
-		</div>
-	</div>
-	 </section>
-	<div class="paging">
-            <th:block layout:fragment="paging">
-                <nav th:replace="admin/layout/common :: pagination"></nav>
-            </th:block>
-    </div>
-            
-    <th:block layout:fragment="script">
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            
-            function movePage(uri, queryString) {
-                location.href = uri + queryString;
-            }
-            /*[- end of function -]*/
-            
-            function searchBoard(form) {
-                /*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
-                    var searchKeyword = document.getElementById("searchKeyword");
-                    console.log("키워드값 : "+searchKeyword.value);
-                    /*
-                    if (searchKeyword.value == "") {
-                        alert("키워드를 입력해 주세요.");
-                        searchKeyword.focus();
-                        return false;
-                    }
-*/
-                    form = document.getElementById("searchForm");
-                    form.submit();
-            }
-            
-          //삭제게시글 선택 여부 체크
-            function deleteMainboardFormCheck() {
-                if ($('input:checkbox[name="boardNum"]').is(':checked')) {
-                    let result = confirm("정말로 삭제하시겠습니까?");
-                    if (result) {
-                        $("#deleteBoardForm").submit();
-                    }
-                } else {
-                    alert("삭제할 게시글을 선택해주세요.");
-                }
-            }
-            
-            /*]]>*/
-        </script>
-       
-</body>
 <script>
 	//차단 or 차단해제 유저 선택 여부 체크
 	function blockUserFormCheck(a) {
 		if ($('input:checkbox[name="memId"]').is(':checked')) {
-			$("[data-toggle='modal']").trigger({
-				type : "click"
-			});
+			if(a=='차단'){
+				$("[data-toggle='modal']").trigger({
+					type : "click"
+				});
+			}else{
+				$("#blockForm").submit();
+			}
 		} else {
-			alert(a+" 유저를 선택해주세요.");
+			alert(a + " 유저를 선택해주세요.");
 			$("[data-dismiss=modal]").trigger({
 				type : "click"
 			});
@@ -205,35 +30,195 @@
 	//차단 유저/기간 폼 처리
 	function blockFormCheck() {
 		if ($('input:radio[name="blockPeriod"]').is(':checked')) {
-// 			let memIdxArray = [];
-// 			let blockUser=$("input:checkbox[name='memId']:checked");
-// 			blockUser.each(function(){
-// 				memIdxArray.push($(this).val());
-// 		    });
-			
-// 			/* 배열을 Set 객체로 만들어 중복 제거 */
-// 			let set = new Set(memIdxArray);
-			
-// 			/* (전개연산자)를 사용하여 Set 객체를 다시 배열로 변환*/
-// 			let resultArr = [...set];
-// 			let resultStr = resultArr.join();
-			
-// 			/* 해당 값을 form에 memId라는 name으로 값을 넣어 submit*/
-// 			$("#blockMemId").val(resultStr);
-// // 			alert(resultStr);
-// // 			alert($("#blockMemId").val());
-            $("#blockForm").submit();
+			$("#blockForm").submit();
 
-        } else {
-            alert("차단 기간을 선택해주세요.");
-        }
-			
+		} else {
+			alert("차단 기간을 선택해주세요.");
+		}
+
 	}
-	
-	 $(document).ready(function(){
-         var len = $("#searchKeyword").val().length;
-         $("#searchKeyword").focus();
-         $("#searchKeyword")[0].setSelectionRange(len, len);
-     });
+
+	$(document).ready(function() {
+		var len = $("#searchKeyword").val().length;
+		$("#searchKeyword").focus();
+		$("#searchKeyword")[0].setSelectionRange(len, len);
+	});
 </script>
+<!-- CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link href="/css/admin/report.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+	<nav th:replace="/fragment/header :: main-header"></nav>
+	<div class="container">
+		<div class="container-fluid p-0">
+			<h1 class="h3 mb-3 font-weight-bold text1">
+				<strong>사용자 관리</strong>
+			</h1>
+			<h2 class="h4 mb-3 text-center text2">
+				<strong>신고 및 차단</strong>
+			</h2>
+			<section class="report-content">
+				<th:block layout:fragment="search" class="selectbox">
+					<nav th:replace="admin/layout/reportcommon :: search"></nav>
+				</th:block>
+				<div class="row">
+					<div class="col-xl-8">
+
+						<div class="card">
+							<form name="blockForm" id="blockForm" action="/admin/block" method="get">
+								<div class="card-header pb-0">
+									<div class="card-actions float-right"></div>
+								</div>
+								<div class="card-body">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<!-- //6개 -->
+												<th class="text-center">선택</th>
+												<th class="text-center">신고자ID</th>
+												<th class="text-center">피신고자ID</th>
+												<th class="text-center">신고유형</th>
+												<th class="text-center">신고된 글/댓글</th>
+												<th class="text-center">차단상태</th>
+												<th class="text-center">차단기간</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:if="${not #lists.isEmpty( reportList )}" th:each="row : ${reportList}">
+												<td class="col-md-1, text-center" scope="row"><input type="checkbox" name="memId" th:value="${row.repId}"></td>
+												<td class="col-md-2, text-center" th:text="${row.memId}"></td>
+												<td class="col-md-2, text-center" th:text="${row.repId}"></td>
+												<td class="col-md-1, text-center" th:text="${row.repType}"></td>
+												<td class="col-md-6, text-center"><a th:href="@{/admin/report/boardview(boardNum=${row.boardNum},memId=${row.memId}, boardType=1)}"
+													class="btn-back-a">
+														<button type="button" class="btn btn-back">이 동</button>
+												</a></td>
+												<td class="col-md-1, text-center" th:text="${row.memBlock=='Y' ? '차단' : '-'}"></td>
+												<td th:if="${row.memBlock=='Y'}" class="col-md-1, text-center" th:text="${row.memBlockDate}+' ~ '+${row.memBlockEndDate}"></td>
+												<td th:if="${row.memBlock=='N'}" class="col-md-1, text-center"></td>
+											</tr>
+											<tr>
+											</tr>
+										</tbody>
+									</table>
+									<div class="text-right">
+										<!-- Button trigger modal -->
+										<button type="button" class="btn btn-block" onclick="blockUserFormCheck('차단해제')">차단해체</button>
+										<button type="button" class="btn btn-block" onclick="blockUserFormCheck('차단')">차 단</button>
+										<!-- 차단 버튼 클릭시 유효성 검사(onclick="blockFormCheck()")을 하기 위해 모달창 띄우는 버튼 분리하여 자바스크립트로 처리 -->
+										<button type="button" class="btn dropdown-item" id="btnBlock" data-toggle="modal" data-target="#myModal" style="display: none"></button>
+									</div>
+								</div>
+								<!-- Modal -->
+								<div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+									<div class="modal-dialog modal-sm" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+												<h4 class="modal-title" id="myModalLabel">
+													<strong>사용자 차단</strong>
+												</h4>
+											</div>
+											<!-- Modal 내용-->
+											<div class="modal-body px-5">
+												<h5 class="mb-3">
+													<strong>차단 기간을 선택해주세요.</strong>
+												</h5>
+												<!-- 											<form name="periodForm" id="periodForm" action="/board/report" method="get"> -->
+												<div class="form-check my-2">
+													<input class="form-check-input" type="radio" name="blockPeriod" value="3"> <label class="form-check-label"
+														for="flexRadioDefault1"> 3일 </label>
+												</div>
+												<div class="form-check my-2">
+													<input class="form-check-input" type="radio" name="blockPeriod" value="7"> <label class="form-check-label"
+														for="flexRadioDefault2"> 7일 </label>
+												</div>
+												<div class="form-check my-2">
+													<input class="form-check-input" type="radio" name="blockPeriod" value="14"> <label class="form-check-label"
+														for="flexRadioDefault1"> 14일 </label>
+												</div>
+												<div class="form-check my-2">
+													<input class="form-check-input" type="radio" name="blockPeriod" value="30"> <label class="form-check-label"
+														for="flexRadioDefault2"> 30일 </label>
+												</div>
+												<div class="form-check my-2">
+													<input class="form-check-input" type="radio" name="blockPeriod" value="90"> <label class="form-check-label"
+														for="flexRadioDefault1"> 90일 </label>
+												</div>
+												<div class="form-check my-2">
+													<input class="form-check-input" type="radio" name="blockPeriod" value="999999"> <label class="form-check-label"
+														for="flexRadioDefault2"> 영구정지 </label>
+												</div>
+												<!-- 											<div class="form-check my-2"> -->
+												<!-- 												<input class="form-check-input" type="hidden" id="blockMemId" name="memId"> -->
+												<!-- 											</div> -->
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+												<button type="button" class="btn btn-primary" onclick="blockFormCheck()">확인</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+
+
+					</div>
+				</div>
+		</div>
+	</div>
+	</section>
+	<div class="paging">
+		<th:block layout:fragment="paging">
+			<nav th:replace="admin/layout/common :: pagination"></nav>
+		</th:block>
+	</div>
+
+	<th:block layout:fragment="script">
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+
+			function movePage(uri, queryString) {
+				location.href = uri + queryString;
+			}
+			/*[- end of function -]*/
+
+			function searchBoard(form) {
+				/*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
+				var searchKeyword = document.getElementById("searchKeyword");
+				console.log("키워드값 : " + searchKeyword.value);
+				/*
+				if (searchKeyword.value == "") {
+				    alert("키워드를 입력해 주세요.");
+				    searchKeyword.focus();
+				    return false;
+				}
+				 */
+				form = document.getElementById("searchForm");
+				form.submit();
+			}
+
+			//삭제게시글 선택 여부 체크
+			function deleteMainboardFormCheck() {
+				if ($('input:checkbox[name="boardNum"]').is(':checked')) {
+					let result = confirm("정말로 삭제하시겠습니까?");
+					if (result) {
+						$("#deleteBoardForm").submit();
+					}
+				} else {
+					alert("삭제할 게시글을 선택해주세요.");
+				}
+			}
+
+			/*]]>*/
+		</script>
+</body>
+
 </html>
