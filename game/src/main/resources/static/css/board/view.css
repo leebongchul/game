@@ -3,6 +3,12 @@ body {
 	background-color: white;
 	margin-top: 20px;
 }
+.navbar .dropdown #dropdown-ul li {
+  min-width: 200px;
+  padding:10px;
+  margin-left:2px;
+
+}
 .blog-page {
 	width:1000px;
 	margin:auto;
