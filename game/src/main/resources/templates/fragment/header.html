@@ -31,21 +31,19 @@
         <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
       </div> -->
       <div th:if="${headersession} == null">
-      <div class="topbar-div">
           <div class="social-links d-none d-md-flex align-items-center justify-content-end">
-            <a href="http://localhost:9002/member/login" class="topbar-a"><i class="login">로그인</i></a>
-            <a href="http://localhost:9002/member/join"  class="topbar-a"><i class="join">회원가입</i></a>
+            <a th:href="@{/member/login}" class="twitter"><i class="login">로그인</i></a>
+            <a th:href="@{/member/join}" class="facebook"><i class="join">회원가입</i></a>
     <!--         <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
             <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a> -->
-            </div>
-          </div>
+          </div>   
         </div>
         
         <div th:unless="${headersession} == null">
         <div id="topbar1" class="social-links d-none d-md-flex align-items-center justify-content-end">
-            <a th:if="${headersession.memRole} == 'admin'" href="/admin/adminpagemain" class="twitter"><i class="adminpage">관리자페이지</i></a>
-            <a href="http://localhost:9002/mypage/mypagemain" class="twitter"><i class="mypage">마이페이지</i></a>
-            <a th:href="http://localhost:9002/logout.do" class="facebook"><i class="logout">로그아웃</i></a>
+            <a th:if="${headersession.memRole}=='admin'" th:href="@{/admin/adminpagemain}" class="twitter"><i class="adminpage">관리자페이지</i></a>
+            <a th:href="@{/mypage/mypagemain}" class="twitter"><i class="mypage">마이페이지</i></a>
+            <a th:href="@{/logout.do}" class="facebook"><i class="logout">로그아웃</i></a>
     <!--         <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
             <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a> -->
           </div>
@@ -60,20 +58,20 @@
   <header  id="header" class="d-flex align-items-center">
     <div class="container d-flex align-items-center justify-content-between">
 
-      <h1 class="logo"><a href="http://localhost:9002/index">재밌조!<span>.</span></a></h1>
+      <h1 class="logo"><a th:href="@{/index}">재밌조!<span>.</span></a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
 
       <nav id="navbar" class="navbar">
         <ul id="navbar-ul">
-          <li id="navbar-li" class="dropdown"><a  class="header-mini-a" href="#"><span>미니게임</span> <i class="bi bi-chevron-right"></i></a>
+          <li id="navbar-li"  class="dropdown"><a href="#"><span>미니게임</span> <i class="bi bi-chevron-right"></i></a>
           <ul id="dropdown-ul" class="dropdown-ul">
-                  <li><a id="dropdown-a" href="http://localhost:9002/game/dino" class="dino_a">공룡게임</a></li>
-                  <li><a id="dropdown-a" href="http://localhost:9002/game/ddong"class="ddong_a">똥피하기</a></li>
-                </ul>
-          <li><a class="nav-link scrollto" href="http://localhost:9002/board/list">게시판</a></li>
-          <li><a class="nav-link scrollto" href="http://localhost:9002/admin/noticelist">공지사항</a></li>
-          <li><a class="nav-link scrollto " href="http://localhost:9002/board/rank">랭킹</a></li>
+                  <li><a id="dropdown-a" th:href="@{/game/dino}" class="dino_a">공룡게임</a></li>
+                  <li><a id="dropdown-a" th:href="@{/game/ddong}"class="ddong_a">똥피하기</a></li>
+          </ul>
+          <li><a class="nav-link scrollto" th:href="@{/board/list}">게시판</a></li>
+          <li><a class="nav-link scrollto" th:href="@{/admin/noticelist}">공지사항</a></li>
+          <li><a class="nav-link scrollto " th:href="@{/board/rank}">랭킹</a></li>
           <!-- <li><a class="nav-link scrollto" href="#team">Team</a></li>
           <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
