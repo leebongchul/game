@@ -2,7 +2,7 @@
 .content {
 	width:900px;
 	margin:auto;
-	margin-top:100px;
+	margin-top:20px;
 	/*border:1px solid red;*/
 	height:100%;
 }
@@ -51,11 +51,17 @@
 	font-size:11px;
 }
 .title_link:hover {
-	
+	text-decoration:none;
 	text-decoration:none;
 }
 .row-content {
-	margin-left:18px;	
+	margin-left:18px;
+	color:black;
+}
+.row-content:hover {
+	color:black;
+	margin-left:18px;
+	text-decoration:none;
 }
 /*
 .select{

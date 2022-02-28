@@ -39,10 +39,10 @@ public interface MemberService {
 
 	public boolean updateMemberBlock(MemberDTO params);
 	
-	/** 차단된 유저의 로그인을 막흠*/
-	public boolean blockMemberLogin(MemberDTO params);
+	/** 차단해제 대상 판단 후 차단 해제*/
+	public boolean clearBlock(MemberDTO params);
 	
-	/** 기한이 되면 자동으로 블락해제*/
+	/**  안쓸거 같아요.. 아듀.. 세굿바*/
 	public int blocktimeout(MemberDTO params);
 	
 	

@@ -45,7 +45,7 @@
         <div id="topbar1" class="social-links d-none d-md-flex align-items-center justify-content-end">
             <a th:if="${member.memRole}=='admin'" href="../admin/adminpagemain" class="twitter"><i class="adminpage">관리자페이지</i></a>
             <a href="../mypage/mypagemain" class="twitter"><i class="mypage">마이페이지</i></a>
-            <a th:href="@{logout.do}" class="facebook"><i class="logout">로그아웃</i></a>
+            <a th:href="@{/logout.do}" class="facebook"><i class="logout">로그아웃</i></a>
     <!--         <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
             <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a> -->
           </div>

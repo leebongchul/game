@@ -1,30 +1,32 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-<th:block  th:replace="/fragment/header :: main-head">
+<th:block th:replace="/fragment/header :: main-head">
 </th:block>
 <meta charset="UTF-8">
 <title>The page is a write page</title>
 <!-- CSS -->
 <!-- jquery -->
-  <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <!-- Favicons -->
-  <link href="../assets/img/favicon.png" rel="icon">
-  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- Favicons -->
+<link href="../assets/img/favicon.png" rel="icon">
+<link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+	rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+<!-- Vendor CSS Files -->
+<link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+<link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+<link href="../assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+<link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="../assets/css/style.css" rel="stylesheet">
+<!-- Template Main CSS File -->
+<link href="../assets/css/style.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <!-- 테마 -->
 <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"> -->
@@ -35,19 +37,19 @@
 <link href="/css/admin/noticelist.css" rel="stylesheet" type="text/css">
 </head>
 <body class="mainbody">
-<nav th:replace="/fragment/header":: main-header></nav>
+	<nav th:replace="/fragment/header" :: main-header></nav>
 
-<section class="content">
-<h1 class="h3 mb-3 notice-text">공지사항</h1>
-<th:block layout:fragment="search" class="selectbox">
-                <nav th:replace="admin/layout/common :: search"></nav>
-            </th:block>
-	<!--  
+	<section class="content">
+		<h1 class="h3 mb-3 notice-text" id="notice-text">공지사항</h1>
+		<th:block layout:fragment="search" class="selectbox">
+			<nav th:replace="admin/layout/common :: search"></nav>
+		</th:block>
+		<!--  
 	<div class="container">
 		<div class="container-fluid p-0">
 	-->
-			
-			<!--  
+
+		<!--  
 			<div class="row">
 				<div class="col-xl-8">
 					<div class="card2">
@@ -55,95 +57,105 @@
 							<div class="card-actions float-right"></div>
 						</div>
 			-->
-						<div class="card-body table-responsive clearfix">
-							<table class="table table-hover" style="width: 100%">
-								<thead>
-									<tr>
-										<th class="text-center">번호</th>
-										<th class="text-center">제목</th>
-										<th class="text-center">작성자</th>
-										<th class="text-center">등록일</th>
-										<th class="text-center">조회수</th>
-									</tr>
-								</thead>
-								
-								
-									<tr th:if="${not #lists.isEmpty( boardList )}" th:each="row : ${boardList}" class="tr2">
-										<td class="col-md-1, text-center" scope="row" th:text="${row.rno}"></td>
-										<td class="col-md-6, text-left"><a
-											th:href="@{/board/noticeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}"
-											th:text="${row.boardTitle}" class="content-a"></a></td>
-										<td class="col-md-2, text-center" th:text="${row.memNick}"></td>
-										<td class="col-md-2, text-center" th:text="${row.boardDate}"></td>
-										<!-- 첫 번째 파라미터는 '?'로 연결하고, 두 번째부터는 '&'로 연결하는데요, 타임리프는 URI 뒤에 ?대신 괄호를, & 대신 ,(콤마)를 사용 -->
-										<td class="col-md-1, text-center" th:text="${row.boardHit}"></td>
+		<div class="card-body table-responsive clearfix">
+			<form name="deleteBoardForm" id="deleteBoardForm" action="/admin/boardDelete" method="get">
+				<table class="table table-hover" style="width: 100%">
+					<thead>
+						<tr>
+							<th th:if="${member.memRole!=null && member.memRole=='admin'}" class="text-center">선택</th>
+							<th class="text-center">번호</th>
+							<th class="text-center">제목</th>
+							<th class="text-center">작성자</th>
+							<th class="text-center">등록일</th>
+							<th class="text-center">조회수</th>
+						</tr>
+					</thead>
 
-									</tr>
-									
-								
-							</table>
-						</div>
-						<!--  
+
+					<tr th:if="${not #lists.isEmpty( boardList )}" th:each="row : ${boardList}" class="tr2">
+					    <td th:if="${member.memRole!=null && member.memRole=='admin'}" class="col-md-1 text-center" scope="row"><input type="checkbox"
+                                name="boardNum" th:value=${row.boardNum}></td>
+						<td class="col-md-1, text-center" scope="row" th:text="${row.rno}"></td>
+						<td th:class="${member.memRole!=null && member.memRole=='admin' ? 'col-md-5 text-left': 'col-md-6 text-left'}"><a
+							th:href="@{/board/noticeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" th:text="${row.boardTitle}"
+							class="content-a"></a></td>
+						<td class="col-md-2, text-center" th:text="${row.memNick}"></td>
+						<td class="col-md-2, text-center" th:text="${row.boardDate}"></td>
+						<!-- 첫 번째 파라미터는 '?'로 연결하고, 두 번째부터는 '&'로 연결하는데요, 타임리프는 URI 뒤에 ?대신 괄호를, & 대신 ,(콤마)를 사용 -->
+						<td class="col-md-1, text-center" th:text="${row.boardHit}"></td>
+
+					</tr>
+				</table>
+			</form>
+			<div class="btn_wrap text-right">
+				<button th:if="${member.memRole !=null && member.memRole=='admin'}" type="button" class="btn" onclick="deleteMainboardFormCheck()">삭제</button>
+				<a th:if="${member.memRole !=null && member.memRole=='admin'}" th:href="@{/admin/noticeboard/write(boardType=2)}">
+					<button type="button" class="btn">글쓰기</button>
+				</a>
+			</div>
+		</div>
+		<!--  
 					</div>
 				</div>
 			</div>
 			-->
-			<!--  
+		<!--  
 		</div>
 	</div>
 	-->
-	<div class="paging">
-            <th:block layout:fragment="paging">
-                <nav th:replace="admin/layout/common :: pagination"></nav>
-            </th:block>
-            </div>
-            
-    <th:block layout:fragment="script">
-        <script th:inline="javascript">
-            /*<![CDATA[*/
-            
-            function movePage(uri, queryString) {
-                location.href = uri + queryString;
-            }
-            /*[- end of function -]*/
-            
-            function searchBoard(form) {
-                /*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
-                    var searchKeyword = document.getElementById("searchKeyword");
-                    console.log("키워드값 : "+searchKeyword.value);
-                    /*
-                    if (searchKeyword.value == "") {
-                        alert("키워드를 입력해 주세요.");
-                        searchKeyword.focus();
-                        return false;
-                    }
-*/
-                    form = document.getElementById("searchForm");
-                    form.submit();
-            }
-            
-          //삭제게시글 선택 여부 체크
-            function deleteMainboardFormCheck() {
-                if ($('input:checkbox[name="boardNum"]').is(':checked')) {
-                    let result = confirm("정말로 삭제하시겠습니까?");
-                    if (result) {
-                        $("#deleteBoardForm").submit();
-                    }
-                } else {
-                    alert("삭제할 게시글을 선택해주세요.");
-                }
-            }
-            
-            /*]]>*/
-        </script>
-</section>
-	
+		<div class="paging">
+			<th:block layout:fragment="paging">
+				<nav th:replace="admin/layout/common :: pagination"></nav>
+			</th:block>
+		</div>
+
+		<th:block layout:fragment="script">
+			<script th:inline="javascript">
+				/*<![CDATA[*/
+
+				function movePage(uri, queryString) {
+					location.href = uri + queryString;
+				}
+				/*[- end of function -]*/
+
+				function searchBoard(form) {
+					/*[- 드롭다운이 아닌 메인 검색 키워드로 검색했을 때 -]*/
+					var searchKeyword = document
+							.getElementById("searchKeyword");
+					console.log("키워드값 : " + searchKeyword.value);
+					/*
+					if (searchKeyword.value == "") {
+					    alert("키워드를 입력해 주세요.");
+					    searchKeyword.focus();
+					    return false;
+					}
+					 */
+					form = document.getElementById("searchForm");
+					form.submit();
+				}
+
+				//삭제게시글 선택 여부 체크
+				function deleteMainboardFormCheck() {
+					if ($('input:checkbox[name="boardNum"]').is(':checked')) {
+						let result = confirm("정말로 삭제하시겠습니까?");
+						if (result) {
+							$("#deleteBoardForm").submit();
+						}
+					} else {
+						alert("삭제할 게시글을 선택해주세요.");
+					}
+				}
+
+				/*]]>*/
+			</script>
+	</section>
+
 </body>
- <script>
-       $(document).ready(function(){
-            var len = $("#searchKeyword").val().length;
-            $("#searchKeyword").focus();
-            $("#searchKeyword")[0].setSelectionRange(len, len);
-        });
-       </script>
+<script>
+	$(document).ready(function() {
+		var len = $("#searchKeyword").val().length;
+		$("#searchKeyword").focus();
+		$("#searchKeyword")[0].setSelectionRange(len, len);
+	});
+</script>
 </html>

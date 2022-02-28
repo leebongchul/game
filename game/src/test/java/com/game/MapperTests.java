@@ -209,7 +209,7 @@ class MapperTests {
 		System.out.println("테스트인풋 result : " + result);
 
 	};
-
+/*
 	@Test
 	public void testSelectReportList() {
 
@@ -226,7 +226,7 @@ class MapperTests {
 			e.printStackTrace();
 		}
 	}
-
+*/
 	@Test
 	public void testOfinsertReport() {
 
@@ -285,7 +285,7 @@ class MapperTests {
 	@Test
 	public void testsetBlockLogin() {
 		MemberDTO params = new MemberDTO();
-		params.setMemId("khb2");
+		params.setMemId("qwe123");
 		
 		String a = memberMapper.seeBlockLogin(params);
 		System.out.println(a);
@@ -294,7 +294,7 @@ class MapperTests {
 	@Test
 	public void clearBlockMember() {
 		MemberDTO params = new MemberDTO();
-		params.setMemId("khb2");
+		params.setMemId("khb0");
 
 		int a = memberMapper.clearBlockMember(params);
 		System.out.println(a);

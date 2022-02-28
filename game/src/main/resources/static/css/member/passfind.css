@@ -3,12 +3,12 @@
         background: rgb(94,94,94);
     } 
     section.pass_find {
-        width:700px;
+        width:750px;
         margin:auto;
         height:100%;
         margin-top:10px;
         padding-left:180px;
-        /*border:1px solid red;*/
+        border:1px solid red;
     }
      ul {
         list-style-type:none;
@@ -72,10 +72,9 @@
     }
      .email2 {
         width:130px;
-        margin-bottom: 15px;
         border-radius:5px;
         border:1px solid lightgray;
-        padding:13px;
+        padding:12px;
         padding-left:20px;
         font-size:13px;
     }
@@ -83,7 +82,7 @@
         color:white;
         background:black;
         border-radius:5px;
-        padding:12px 10px;
+        padding:13px 10px;
         font-size:13px;
         border: 1px solid black;
         cursor:pointer;

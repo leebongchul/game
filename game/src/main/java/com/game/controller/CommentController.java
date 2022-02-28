@@ -32,7 +32,6 @@ public class CommentController {
 	private CommentService commentService;
 
 	// rest api의 형식을 따르기 위해, 댓글 생성인경우 , 댓글 수정인경우로 매핑 됨.
-	// rest 방식을 따르지 않으면 한 메소드에 매핑 한개만 해도 댐(이렇게하면 댓글 생성, 댓글수정 각각 메소드가 1개씩 필요)
 	// 댓글이 처음 생성되면 POST방식으로 매핑을 받고, 댓글이 이미 있는걸 수정할때는 PATCH방식으로 매핑을 받음
 
 	// @RequestBody는 파라미터로 전달받은 JSON 문자열을 객체로 변환.

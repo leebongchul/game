@@ -8,7 +8,7 @@ section.userdelete {
 	margin: auto;
 	height: 100%;
 	/*border: 1px solid red;*/
-	margin-top: 100px;
+	margin-top: 30px;
 }
 
 .input1 {
@@ -67,4 +67,11 @@ img {
 	font-size: 5px;
 	font-weight: bold;
 	margin-top: -5px;
+}
+.userdelete-text {
+	color:white;
+	font-size:30px;
+	font-weight:bold;
+	margin-bottom:50px;
+	margin-left:70px;
 }

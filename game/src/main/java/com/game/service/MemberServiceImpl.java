@@ -1,6 +1,7 @@
 package com.game.service;
 
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 import javax.mail.Message.RecipientType;
@@ -202,32 +203,28 @@ public class MemberServiceImpl implements MemberService {
 	
 	
 	
-	/** 차단된 유저의 로그인을 막흠(Impl)*/
+	/** 차단해제 대상 판단 후 차단 해제(Impl)*/
 	@Override
-	public boolean blockMemberLogin(MemberDTO params) {
+	public boolean clearBlock(MemberDTO params) {
 		if (memberMapper.selectMember(params) != null) {
-			if(memberMapper.seeBlockLogin(params).equals("차단")) {
-				System.out.println("차단진행하기");
+			if(memberMapper.seeBlockLogin(params).equals("차단해제대상")) {
+			    memberMapper.clearBlockMember(params);
 				return true;
-			}else {
-				System.out.println("유저는 있는데 차단유저는 아니네유, showredirect 사용하기");
+			}else if(memberMapper.seeBlockLogin(params).equals("해당없음")){
+				System.out.println("차단해제대상이 아닙니다.");
+				return false;
 			}
 		}else {
-			System.out.println("유저가 없슈,  showredirect 사용하기");
+			System.out.println("없는 사용자 입니다.");
 		}
 		return false;
 	};
 	
-	/** 기한이 되면 자동으로 블락해제(Impl)*/
+	/** 안 쓸거 같아요..(Impl)*/
 	@Override
 	public int blocktimeout(MemberDTO params) {
-		int a = 0;
-		if (params.getMemDrop() != "N") { //아무 의미 없는 코드. 오버라이드 맞출려고 쓴거
-			System.out.println("차단해제 진행");
-		}else {
-			System.out.println("차단과 상관 없음");
-		}
-		return a;
+		
+		return memberMapper.clearBlockMember(params);
 	};
 	
 	

@@ -11,7 +11,6 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link href="../css/header.css" rel="stylesheet">
 <!-- 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <link href="/css/admin/report.css" rel="stylesheet" type="text/css">
@@ -21,12 +20,13 @@
 <nav th:replace="/fragment/header :: main-header"></nav> 
 	<div class="container">
 		<div class="container-fluid p-0">
-			<h1 class="h3 mb-3 font-weight-bold">
+			<h1 class="h3 mb-3 font-weight-bold text1">
 				<strong>사용자 관리</strong>
 			</h1>
-			<h2 class="h4 mb-3 text-center">
+			<h2 class="h4 mb-3 text-center text2">
 				<strong>신고 및 차단</strong>
 			</h2>
+	<section class="report-content">
 			<th:block layout:fragment="search" class="selectbox">
                 <nav th:replace="admin/layout/reportcommon :: search"></nav>
             </th:block>
@@ -39,7 +39,7 @@
 								<div class="card-actions float-right"></div>
 							</div>
 							<div class="card-body">
-								<table class="table table-striped" style="width: 100%">
+								<table class="table table-striped">
 									<thead>
 										<tr>
 											<!-- //6개 -->
@@ -63,7 +63,6 @@
 											</a>
 											</td>
 											<td class="col-md-1, text-center" th:text="${row.memBlock}"></td>
-
 										</tr>
 										<tr>
 										</tr>
@@ -137,7 +136,7 @@
 			</div>
 		</div>
 	</div>
-	
+	 </section>
 	<div class="paging">
             <th:block layout:fragment="paging">
                 <nav th:replace="admin/layout/common :: pagination"></nav>
@@ -182,6 +181,7 @@
             
             /*]]>*/
         </script>
+       
 </body>
 <script>
 	//차단 유저 선택 여부 체크

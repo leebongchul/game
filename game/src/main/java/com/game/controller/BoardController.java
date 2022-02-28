@@ -57,7 +57,10 @@ public class BoardController extends UiUtils {
 	}
 
 	@GetMapping(value = "/rank")
-	public String openRankList() {
+	public String openRankList(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+			Model model) {
+		model.addAttribute("member", loginMember);
+
 		return "board/rank";
 	}
 
@@ -81,8 +84,19 @@ public class BoardController extends UiUtils {
 ///////////////////////////////////////////////////////////공지사항
 
 	@GetMapping(value = "/noticeboard/list")
-	public String openNoticeBoardList(@ModelAttribute("params") BoardDTO params, Model model) {
+	public String openNoticeBoardList(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+			@ModelAttribute("params") BoardDTO params, Model model) {
 		// 메인 생성되면 보드타입 변경?
+
+		// 비회원
+		if (loginMember == null) {
+			MemberDTO member = new MemberDTO();
+			member.setMemRole("user");
+			model.addAttribute("member", member);
+		} else {
+			model.addAttribute("member", loginMember);
+		}
+
 		params.setBoardType(2);
 		List<BoardDTO> boardList = boardService.getBoardList(params);
 		model.addAttribute("boardList", boardList);
@@ -91,7 +105,8 @@ public class BoardController extends UiUtils {
 	}
 
 	@GetMapping(value = "/noticeboard/view")
-	public String openNoticeBoardDetail(@ModelAttribute("params") BoardDTO params, Model model) {
+	public String openNoticeBoardDetail(@ModelAttribute("params") BoardDTO params,
+			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		System.out.println("boardNum:" + params.getBoardNum());
 
 		if (params.getBoardNum() == null) {
@@ -103,7 +118,16 @@ public class BoardController extends UiUtils {
 			return showMessageWithRedirect("없거나 이미 삭제된 게시글입니다. 목록화면으로 이동합니다,", "/board/noticeboard/list", Method.GET,
 					null, model);
 		}
+
 		model.addAttribute("board", board);
+
+		// 비회원
+		if (loginMember == null) {
+			System.out.println("게스트접속");
+			model.addAttribute("member", new MemberDTO());
+		} else {
+			model.addAttribute("member", loginMember);
+		}
 
 		return "admin/noticeview";
 	}
@@ -115,13 +139,20 @@ public class BoardController extends UiUtils {
 	@GetMapping(value = "/report")
 	public String reportBoard(@ModelAttribute("params") ReportDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
-		/*********** 로그인 세션 구현시 ***************/
-//		params.setMemId(loginMember.getMemId());
-		/******************************************/
-		params.setMemId("admin");
-		String url = "/board/noticeboard/view?boardNum=" + params.getBoardNum() + "&&boardType=" + params.getBoardType()
+
+		String url = "/board/view?boardNum=" + params.getBoardNum() + "&&boardType=" + params.getBoardType()
 				+ "&&memId=" + params.getRepId();
+
 		try {
+
+			/*********** 로그인 세션 구현시 ***************/
+			if (loginMember == null) {
+				return showMessageWithRedirect("로그인을 해주세요.", url, Method.GET, null, model);
+			}
+			params.setMemId(loginMember.getMemId());
+			/******************************************/
+//		params.setMemId("admin");//테스트용 하드코딩
+
 			if (boardService.registerReport(params)) {
 				return showMessageWithRedirect("신고가 완료되었습니다.", url, Method.GET, null, model);
 			}

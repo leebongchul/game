@@ -49,9 +49,12 @@
 	padding:7px 9px;
 	font-size:11px;
 }
+.title_link {
+		color:black;
+}
 .title_link:hover {
-	
 	text-decoration:none;
+	color:black;
 }
 /*
 .select{
