@@ -32,8 +32,8 @@
       </div> -->
       <div th:if="${headersession} == null">
           <div class="social-links d-none d-md-flex align-items-center justify-content-end">
-            <a href="member/login" class="twitter"><i class="login">로그인</i></a>
-            <a href="member/join" class="facebook"><i class="join">회원가입</i></a>
+            <a href="http://localhost:9002/member/login" class="twitter"><i class="login">로그인</i></a>
+            <a href="http://localhost:9002/member/join" class="facebook"><i class="join">회원가입</i></a>
     <!--         <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
             <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a> -->
           </div>
@@ -42,8 +42,8 @@
         <div th:unless="${headersession} == null">
         <div id="topbar1" class="social-links d-none d-md-flex align-items-center justify-content-end">
             <a th:if="${headersession.memRole}=='admin'" href="../admin/adminpagemain" class="twitter"><i class="adminpage">관리자페이지</i></a>
-            <a href="../mypage/mypagemain" class="twitter"><i class="mypage">마이페이지</i></a>
-            <a th:href="@{logout.do}" class="facebook"><i class="logout">로그아웃</i></a>
+            <a href="http://localhost:9002/mypage/mypagemain" class="twitter"><i class="mypage">마이페이지</i></a>
+            <a th:href="http://localhost:9002/logout.do" class="facebook"><i class="logout">로그아웃</i></a>
     <!--         <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
             <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a> -->
           </div>
@@ -66,12 +66,12 @@
         <ul>
           <li class="dropdown"><a href="#"><span>미니게임</span> <i class="bi bi-chevron-right"></i></a>
           <ul id="dropdown-ul">
-                  <li><a href="../game/dino" class="dino_a">공룡게임</a></li>
-                  <li><a href="../game/ddong"class="ddong_a">똥피하기</a></li>
+                  <li><a href="http://localhost:9002/game/dino" class="dino_a">공룡게임</a></li>
+                  <li><a href="http://localhost:9002/game/ddong"class="ddong_a">똥피하기</a></li>
                 </ul>
-          <li><a class="nav-link scrollto" href="../board/list">게시판</a></li>
-          <li><a class="nav-link scrollto" href="../board/noticeboard/list">공지사항</a></li>
-          <li><a class="nav-link scrollto " href="../board/rank">랭킹</a></li>
+          <li><a class="nav-link scrollto" href="http://localhost:9002/board/list">게시판</a></li>
+          <li><a class="nav-link scrollto" href="http://localhost:9002/admin/noticelist">공지사항</a></li>
+          <li><a class="nav-link scrollto " href="http://localhost:9002/board/rank">랭킹</a></li>
           <!-- <li><a class="nav-link scrollto" href="#team">Team</a></li>
           <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
