@@ -33,7 +33,7 @@
 			<tbody>
 				<tr th:if="${not #lists.isEmpty( commList )}" th:each="row : ${commList}">
 					<td class="text-center"><input type="checkbox" name="commNum" th:value="${row.commNum}"></td>
-					<td><a th:href="@{/board/freeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}"
+					<td><a th:href="@{/board/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}"
 						th:text="${row.boardTitle} + '('+ ${row.commCount} +')'" class="row-content"></a></td>
 					<td th:text="${row.commContents}" class="text-center"></td>
 					<td th:text="${row.commDate}" class="text-center"></td>

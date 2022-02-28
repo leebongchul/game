@@ -69,11 +69,27 @@ let isCharging = false; //파워게이지 채우는 중인지 여부
 let isFired = false; //공이 발사되었는지 여부
 let isHitted = false; //공이 목표물에 명중했는지 여부
 
+var img_tank = new Image();
+var img_target1 = new Image();
+var img_target2 = new Image();
+var img_bottom = new Image();
+img_tank.src = '../image/tank1.png';
+img_target1.src = '../image/target1.png';
+img_target2.src = '../image/target2.png';
+img_bottom.src = '../image/bottom.png';
+
+img_bottom.onload = function() {
+    tank.draw();
+    target.draw();
+    ctx.drawImage(img_bottom, 0, 440, 1000, 60);
+}
+
+
 let tank = {
     width: 50,
     height: 50,
     x: 50,
-    y: 450,
+    y: 378,
     dx: 5, //x축 이동 속도(이동값)
     dy: 3, //y축 이동 속도(이동값)
     barrelAngle: Math.PI / 4, //포신의 각도(Math.PI는 각도로 환산하면 180도->Math.PI / 4는 45도)
@@ -89,14 +105,14 @@ let tank = {
     missileDy: 0, //포의 y축 이동량(이동속도)
 
     draw() {
-        ctx.fillStyle = 'green';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        //ctx.drawImage(img1, this.x - 5, this.y + 4);
+        //        ctx.fillStyle = 'green';
+        //        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(img_tank, this.x, this.y);
 
         //포신 그리기
         let centerx = this.x + (this.width / 2); //포신 그리기 위한 원점의 x좌표(탱크 중앙x좌표)
         let centery = this.y + (this.height / 2); //포신 그리기 위한 원점의 y좌표(탱크 중앙y좌표)
-        let barrelLength = this.width * Math.sqrt(2); //포신의 길이
+        let barrelLength = this.width * Math.sqrt(1); //포신의 길이
 
         ctx.beginPath();
         ctx.moveTo(centerx, centery);
@@ -107,7 +123,7 @@ let tank = {
         ctx.stroke();
         ctx.closePath();
 
-        //파워게이지 그리기
+        //파워게이지 그리기 
         ctx.beginPath();
         ctx.arc( //arc는 호, 원을 그리는 메소드, arc(원점좌표, 반지름길이, 시작각도, 끝각도, 방향(defualt:시계방향))
             centerx,
@@ -139,27 +155,21 @@ let tank = {
 };
 
 class Target {
-    //    constructor() {
-    //        this.width = Math.floor(Math.random() * 100 + 30);
-    //        this.height = Math.floor(Math.random() * 100 + 10);
-    //        this.x = Math.floor(Math.random() * (500 - this.width) + 500);
-    //        this.y = height - this.height;
-    //    }
     constructor(x, y) {
         this.width = Math.floor(Math.random() * y + x);
         this.height = Math.floor(Math.random() * y + x);
         this.x = Math.floor(Math.random() * (500 - this.width) + 500);
-        this.y = height - this.height;
+        this.y = height - this.height - 50;
     }
     draw() {
-        ctx.fillStyle = 'red';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        //    ctx.drawImage(cac, this.x,this.y);
+        //        ctx.fillStyle = 'red';
+        //        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(img_target2, this.x, this.y, this.width, this.height);
     }
 };
 
 
-let target = new Target(30, 10);
+var target = new Target(50, 10);
 function 프레임마다실행() {
     animation = requestAnimationFrame(프레임마다실행);
     ctx.clearRect(0, 0, width, height);
@@ -182,7 +192,7 @@ function 프레임마다실행() {
     } else if (isFired) { //발사 됐을 때
         checkMissile();
     }
-
+    ctx.drawImage(img_bottom, 0, 440, 1000, 60);//바닥
     tank.draw();
     target.draw();
     레벨.draw();
@@ -194,26 +204,30 @@ function 프레임마다실행() {
 
 const keydownHandler = event => {
     if (게임진행 == true) {
-        event.preventDefault();
+
         if (event.keyCode === 37) { //왼쪽 방향키
+            event.preventDefault();
             tankLeftPressed = true;
         } else if (event.keyCode === 39) { //오른쪽 방향키
+            event.preventDefault();
             tankRightPressed = true;
         } else if (event.keyCode === 38 && tank.barrelAngle < Math.PI) { //위쪽 방향키(포신 각도 조절)
+            event.preventDefault();
             tank.barrelAngle += tank.barrelAngleDIF;
         } else if (event.keyCode === 40 && tank.barrelAngle > 0) { //아래쪽 방향키(포신 각도 조절)
+            event.preventDefault();
             tank.barrelAngle -= tank.barrelAngleDIF;
         } else if (event.keyCode === 32 && !isFired) { //스페이스바(파워게이지 충전)
-            //            event.preventDefault();
+            event.preventDefault();
             isCharging = true;
         } else if (event.keyCode === 32) {
             event.preventDefault();
         }
-    } else {
-        event.preventDefault();
-        //        if (event.keyCode === 32) {
-        //            event.preventDefault();
-        //        }
+    }
+    else {
+        if (event.keyCode === 32) {
+            event.preventDefault();
+        }
     }
 };
 
@@ -270,32 +284,32 @@ function checkMissile() {
             재시작.draw();
             게임종료.draw();
             now_score.value = level;
-            
-            
+
+
             // 신기록 갱신
-          if(parseInt(now_score.value) > parseInt(max_score.value)){
-              // 현재점수가 최고점수보다 높다면
-               max_score.value = now_score.value; // 현재점수를 최고점수에 저장
-                    
-               if(guest.value == 'false'){ // 게스트계정이 아닌경우 최고점수 갱신
-                        
-                   $.ajax({                 // DB에 최고점수 업데이트
-                      url : '/game/fortress',
-                      type : 'post',
-                      data:{score : parseInt(max_score.value)},
-                      success : function(data) {
-                      console.log("1 = 성공 / 0 = 실패 : "+ data);   
- 
-                      }, 
-                      error : function() {
-                         console.log("실패");
-                      }
-                   });  
-               } 
-           }
-            
-            
-            
+            if (parseInt(now_score.value) > parseInt(max_score.value)) {
+                // 현재점수가 최고점수보다 높다면
+                max_score.value = now_score.value; // 현재점수를 최고점수에 저장
+
+                if (guest.value == 'false') { // 게스트계정이 아닌경우 최고점수 갱신
+
+                    $.ajax({                 // DB에 최고점수 업데이트
+                        url: '/game/fortress',
+                        type: 'post',
+                        data: { score: parseInt(max_score.value) },
+                        success: function(data) {
+                            console.log("1 = 성공 / 0 = 실패 : " + data);
+
+                        },
+                        error: function() {
+                            console.log("실패");
+                        }
+                    });
+                }
+            }
+
+
+
         }
     }
 
@@ -316,20 +330,20 @@ function checkMissile() {
 };
 
 function drawTarget(level) {
-    let x; 
+    let x;
     let y;
-    if(level<5){
-        x=40;
-        y=50;
-    }else if(level>=5 && level<10){
-        x=30;
-        y=40;
-    }else if(level>=10 && level<15){
-        x=20;
-        y=30;
-    }else{
-        x=10;
-        y=20;
+    if (level < 5) {
+        x = 40;
+        y = 50;
+    } else if (level >= 5 && level < 10) {
+        x = 30;
+        y = 40;
+    } else if (level >= 10 && level < 15) {
+        x = 20;
+        y = 30;
+    } else {
+        x = 10;
+        y = 20;
     }
     target = new Target(x, y);
 };
