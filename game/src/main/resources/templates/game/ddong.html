@@ -4,6 +4,8 @@
 <head>
 <th:block  th:replace="/fragment/header :: main-head">
 </th:block>
+<th:block  th:replace="/fragment/footer2 :: main-foot">
+</th:block>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script th:src="@{/scripts/jquery.min.js}"></script>
@@ -77,6 +79,7 @@
          
          
      </section>
+       <nav th:replace="/fragment/footer2 :: main-footer"></nav> 
 </body>
 <script src="../js/ddong.js"></script>
 <script>

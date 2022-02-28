@@ -3,12 +3,17 @@ package com.game.interceptor;
 
 
 
+
+
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,7 +21,7 @@ import com.game.domain.MemberDTO;
 import com.game.service.MemberService;
 
 @Component
-public class BlockInterceptor implements HandlerInterceptor{
+public class BlockInterceptor implements HandlerInterceptor {
  
     // controller로 보내기 전에 처리하는 인터셉터
     // 반환이 false라면 controller로 요청을 안함
@@ -28,7 +33,8 @@ public class BlockInterceptor implements HandlerInterceptor{
     @Autowired
     private MemberService memberService;
 
-    
+    @Autowired
+    Model model;
    
 //    @Override
 //    public boolean preHandle(HttpServletRequest request,
@@ -66,6 +72,9 @@ public class BlockInterceptor implements HandlerInterceptor{
 //      
       MemberDTO dto = (MemberDTO)modelAndView.getModel().get("logininfo");
       HttpSession session = request.getSession(false);
+      
+     
+      
 //      System.out.println(dto); //모델로 받아온 세션값 정상 출력
      try {
          if(dto != null ) {
@@ -84,6 +93,10 @@ public class BlockInterceptor implements HandlerInterceptor{
             	 //로그인 차단 대상
             	 session.invalidate();
                  response.sendRedirect("/index");
+                 response.setContentType("text/html; charset=UTF-8");
+               PrintWriter out = response.getWriter();
+               out.println("<script>alert('차단된 사용자 입니다'); </script>");
+               out.flush();
              }
              
           }
