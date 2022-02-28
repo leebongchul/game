@@ -12,6 +12,11 @@ let max_score = document.getElementById("max_score");
 let guest = document.getElementById("guest");
 let level = 1;
 let life = 3;
+let timer = 0;
+let 구름속도 = 4;
+let 구름설치 = 180;
+let cloud여러개 = [];
+let bottomY = 440;
 
 
 
@@ -72,16 +77,18 @@ let isHitted = false; //공이 목표물에 명중했는지 여부
 var img_tank = new Image();
 var img_target1 = new Image();
 var img_target2 = new Image();
+var img_airplane = new Image();
 var img_bottom = new Image();
 img_tank.src = '../image/tank1.png';
 img_target1.src = '../image/target1.png';
 img_target2.src = '../image/target2.png';
+img_airplane.src = '../image/airplane.png';
 img_bottom.src = '../image/bottom.png';
 
-img_bottom.onload = function() {
+img_airplane.onload = function() {
     tank.draw();
     target.draw();
-    ctx.drawImage(img_bottom, 0, 440, 1000, 60);
+    ctx.drawImage(img_bottom, 0, bottomY, 1000, 60);
 }
 
 
@@ -168,6 +175,19 @@ class Target {
     }
 };
 
+class Cloud {
+    constructor(y) {
+        this.x = 1000;
+        this.y = y;
+        this.width = 140;
+        this.height = 70;
+    }
+
+    draw() {
+        ctx.drawImage(img_airplane, this.x, this.y, this.width, this.height);
+    }
+}
+
 
 var target = new Target(50, 10);
 function 프레임마다실행() {
@@ -175,6 +195,23 @@ function 프레임마다실행() {
     ctx.clearRect(0, 0, width, height);
 
     게임시작전();
+    timer++;
+
+    if (timer % 구름설치 === 0) {
+        var cloud = new Cloud(random = randomNum(20, 150));
+        cloud여러개.push(cloud);
+        cloud.draw();
+    }
+
+
+    cloud여러개.forEach((a, i, o) => {
+        //x좌표가 0미만이면 제거
+        if (a.x + a.width < 0) {
+            o.splice(i, 1)
+        }
+        a.x -= 구름속도;
+        a.draw();
+    })
 
     // 방향키 입력 이벤트에 따른 탱크 움직임
     if (tankLeftPressed && tank.x > 0) {
@@ -192,7 +229,7 @@ function 프레임마다실행() {
     } else if (isFired) { //발사 됐을 때
         checkMissile();
     }
-    ctx.drawImage(img_bottom, 0, 440, 1000, 60);//바닥
+    ctx.drawImage(img_bottom, 0, bottomY, 1000, 60);//바닥
     tank.draw();
     target.draw();
     레벨.draw();
@@ -211,12 +248,16 @@ const keydownHandler = event => {
         } else if (event.keyCode === 39) { //오른쪽 방향키
             event.preventDefault();
             tankRightPressed = true;
-        } else if (event.keyCode === 38 && tank.barrelAngle < Math.PI) { //위쪽 방향키(포신 각도 조절)
+        } else if (event.keyCode === 38) { //위쪽 방향키(포신 각도 조절)
             event.preventDefault();
-            tank.barrelAngle += tank.barrelAngleDIF;
-        } else if (event.keyCode === 40 && tank.barrelAngle > 0) { //아래쪽 방향키(포신 각도 조절)
+            if (tank.barrelAngle < Math.PI) {
+                tank.barrelAngle += tank.barrelAngleDIF;
+            }
+        } else if (event.keyCode === 40) { //아래쪽 방향키(포신 각도 조절)
             event.preventDefault();
-            tank.barrelAngle -= tank.barrelAngleDIF;
+            if (tank.barrelAngle > 0) {
+                tank.barrelAngle -= tank.barrelAngleDIF;
+            }
         } else if (event.keyCode === 32 && !isFired) { //스페이스바(파워게이지 충전)
             event.preventDefault();
             isCharging = true;
@@ -274,7 +315,7 @@ function 게임시작전() {
 //명중 여부 체크
 function checkMissile() {
     // canvas 왼쪽, 오른쪽, 아래 벽에 닿으면
-    if (tank.missileX <= 0 || tank.missileX >= width || tank.missileY >= height) {
+    if (tank.missileX <= 0 || tank.missileX >= width || tank.missileY >= bottomY) {
         isFired = false;
         isHitted = false;
         life--;
@@ -307,9 +348,6 @@ function checkMissile() {
                     });
                 }
             }
-
-
-
         }
     }
 
@@ -318,6 +356,20 @@ function checkMissile() {
         tank.missileX >= target.x &&
         tank.missileX <= target.x + target.width &&
         tank.missileY >= target.y
+    ) {
+        isFired = false;
+        isHitted = true;
+        level++;
+        life = 3;
+        cancelAnimationFrame(animation);
+        drawTarget(level);
+        프레임마다실행();
+    }
+    //비행기 충돌
+    if (
+        tank.missileX >= cloud.x &&
+        tank.missileX <= cloud.x + target.width &&
+        tank.missileY >= cloud.y
     ) {
         isFired = false;
         isHitted = true;
@@ -347,6 +399,11 @@ function drawTarget(level) {
     }
     target = new Target(x, y);
 };
+
+function randomNum(min, max) {
+    var randNum = Math.floor(Math.random() * (max - min + 1)) + min;
+    return randNum;
+}
 
 
 

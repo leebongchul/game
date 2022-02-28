@@ -383,6 +383,7 @@ display:inline;
 }
 .view-textarea {
 	display:inline !important;
+	resize: none;
 }
 .btn-comminsert{
 	color: #fff !important;

@@ -98,7 +98,6 @@ select comm.* from
     , b.board_num
     , b.board_title
     , b.board_type
-    , b.mem_id
 from comment_table c 
   left outer join board_table b on c.board_num=b.board_num
   left outer join member_table m on c.mem_id=m.mem_id
@@ -106,7 +105,7 @@ where
     c.comm_delete = 'N'
     <if test="boardNum != null">and b.board_num = #{boardNum}</if>
     <include refid="commsearch" />
-order by comm_date desc)a)comm
+order by comm_date asc)a)comm
 where
 comm.rno between #{startPage} and #{endPage}
 </select>

@@ -173,6 +173,7 @@
 /*<![CDATA[*/       
         function insertComment(boardNum, loginId, loginNick) {
         	var content = document.getElementById("content");
+//         	alert("등록"+loginId);
         	
         	if(loginId==null){
         		alert("로그인이 필요합니다.");
@@ -251,19 +252,18 @@
                     $(response.commentList).each(function(commNum, comment) {
                     	commentsHtml += `
                             <li id="${comment.commNum}">
-                                <span class="nick" id="commNick" >${comment.memNick}</span>
-                                <span class="conts" id="commConts">${comment.commContents}</span>`;
+                                <span class="nick" id="commNick" >${comment.memNick}</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <span class="conts" id="commConts">${comment.commContents}</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <span class="time">${comment.commDate}</span>`;
                                 
                                 
-                           if(/*[[${member.memNick}]]*/null == "비회원"){
                            	 if(comment.memId==/*[[${member.memId}]]*/null){
                            		
                            	  commentsHtml += `
-                           		<button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제<i class="fa fa-close" aria-hidden="true"></i></button>
-                                <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정<i class="fa fa-close1" aria-hidden="true"></i></button>
+                           		<button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제</button>
+                                <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정</button>
                              `;
                                 }
-                           }
                                
                           commentsHtml += `
                         	  </li>
