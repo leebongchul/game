@@ -26,6 +26,7 @@ public class GameController extends UiUtils {
 
     @Autowired
     private GameService gameService;
+   
 
 /**************** GET ***********************************/
     @GetMapping(value = "/test")
@@ -42,7 +43,6 @@ public class GameController extends UiUtils {
     public String dinoopen(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             HttpServletRequest request, Model model) {
         model.addAttribute("headersession", loginMember);
-        String gamename = request.getParameter("game");
         GameScoreDTO user = new GameScoreDTO();
         user.setGameName("공룡게임");
         List<GameScoreDTO> top5 = Collections.emptyList();
@@ -82,7 +82,6 @@ public class GameController extends UiUtils {
     public String ddongopen(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             HttpServletRequest request, Model model) {
         model.addAttribute("headersession", loginMember);
-        String gamename = request.getParameter("game");
         GameScoreDTO user = new GameScoreDTO();
         user.setGameName("똥피하기");
         List<GameScoreDTO> top5 = Collections.emptyList();
@@ -122,7 +121,6 @@ public class GameController extends UiUtils {
     public String fortressopen(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             HttpServletRequest request, Model model) {
         model.addAttribute("headersession", loginMember);
-        String gamename = request.getParameter("game");
         GameScoreDTO user = new GameScoreDTO();
         user.setGameName("포트리스");
         List<GameScoreDTO> top5 = Collections.emptyList();

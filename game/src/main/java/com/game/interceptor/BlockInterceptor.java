@@ -6,13 +6,14 @@ package com.game.interceptor;
 
 
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.Model;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -59,7 +60,7 @@ public class BlockInterceptor implements HandlerInterceptor {
 //       MemberDTO sessionid = (MemberDTO)session.getAttribute("loginMem");
 //       MemberDTO seallinfo = (MemberDTO)request.getSession().getAttribute("loginMem"); //세션의 전체 정보 키=벨류, 키2=벨류2 형식
      //http에서 사용자가 폼을 통해 입력한 memId이라는 name의 value를 가져옴. httpㅌ를통해 입력하지 않은 정보는 못가져옴
-//      
+//      String sessionmemid = request.getParameter("memId"); 
       MemberDTO dto = (MemberDTO)modelAndView.getModel().get("logininfo");
       HttpSession session = request.getSession(false);
       
@@ -76,6 +77,13 @@ public class BlockInterceptor implements HandlerInterceptor {
             	 //로그인 차단 대상
             	 session.invalidate();
                  response.sendRedirect("/index");
+                 
+//                 response.setContentType("text/html; charset=UTF-8");
+//                 PrintWriter printwriter = response.getWriter();
+//                 printwriter.print("<script>alert('로그인을 다시 해주십시오');</script>");
+//                 printwriter.flush();
+//                 printwriter.close();
+
              }
              
           }
