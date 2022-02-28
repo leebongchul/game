@@ -85,7 +85,7 @@ public class BoardController extends UiUtils {
 		return "board/layout/ddongrank";
 	}
 ///////////////////////////////////////////////////////////공지사항
-
+/*
 	@GetMapping(value = "/noticeboard/list")
 	public String openNoticeBoardList(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			@ModelAttribute("params") BoardDTO params, Model model) {
@@ -106,7 +106,8 @@ public class BoardController extends UiUtils {
 
 		return "admin/noticelist";
 	}
-
+*/
+	
 	@GetMapping(value = "/noticeboard/view")
 	public String openNoticeBoardDetail(@ModelAttribute("params") BoardDTO params,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
