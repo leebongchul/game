@@ -64,7 +64,7 @@
 											</a>
 											</td>
 											<td class="col-md-1, text-center" th:text="${row.memBlock=='Y' ? '차단' : '-'}"></td>
-											<td th:if="${row.memBlock=='Y'}" class="col-md-1, text-center" th:text="${row.memBlockDate}+' ~ '+${row.memBlockDate}"></td>
+											<td th:if="${row.memBlock=='Y'}" class="col-md-1, text-center" th:text="${row.memBlockDate}+' ~ '+${row.memBlockEndDate}"></td>
 											<td th:if="${row.memBlock=='N'}" class="col-md-1, text-center" ></td>
 										</tr>
 										<tr>
