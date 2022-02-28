@@ -2,6 +2,22 @@
 	body {
 
 	}
+	#header .logo a {
+  color: white;
+  margin-right:600px;
+  margin-left:-81px;
+}
+.navbar{
+    margin-left:150px;
+    margin-right:-82px;
+    margin-top:20px;
+}
+.navbar a i{
+    margin-top:-1px;
+}
+.d-none{
+    margin-right:4.7px;
+}
      section.game {
         width:1000px;
         margin:auto;
@@ -19,8 +35,9 @@
         margin-top:20px;
         border: 1px solid black;
     }
-    span {
-        font-size:20px;
+    #header .logo a span {
+        font-size:26px;
+        margin-left:0.2px;
         font-weight:bold;
     }
     .text1 {

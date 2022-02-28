@@ -16,10 +16,22 @@
         margin-top:20px;
         border: 1px solid black;
     }
-    span {
-        font-size:20px;
-        font-weight:bold;
-    }
+        #header .logo a {
+  color: white;
+  margin-right:600px;
+  margin-left:-81px;
+}
+.navbar{
+    margin-left:149px;
+    margin-right:-82px;
+    margin-top:20px;
+}
+.navbar a i{
+    margin-top:-1px;
+}
+.d-none{
+    margin-right:4.7px;
+}
     .text1 {
         margin-top:50px;
         margin-left:30px;
