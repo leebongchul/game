@@ -3,8 +3,6 @@ package com.game.interceptor;
 
 
 
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -69,27 +67,27 @@ public class BlockInterceptor implements HandlerInterceptor{
       MemberDTO dto = (MemberDTO)modelAndView.getModel().get("logininfo");
       HttpSession session = request.getSession(false);
       System.out.println(dto); //세션값 정상 출력
-     try {
-         if(dto != null ) {
-             request.getSession().setAttribute("infosession", dto);
-            Object dto2 =request.getSession().getAttribute("infosession");
-            System.out.println("dto 2 = "+dto2); //세션값 정상 출력
-            
-//             if (memberService.clearBlock((MemberDTO)dto2) ==true) {
-               
-                session.invalidate();
-                response.sendRedirect("/index");
-                 response.setContentType("text/html; charset=UTF-8");
-                 PrintWriter out = response.getWriter();
-                 out.println("<script>alert('차단된 회원 입니다.'); </script>");
-                 out.flush();
-               
-                
-//             }
-          }
-     }catch  (Exception e ){
-         e.printStackTrace();
-     }
+//     try {
+//         if(dto != null ) {
+//             request.getSession().setAttribute("infosession", dto);
+//            Object dto2 =request.getSession().getAttribute("infosession");
+//            System.out.println("dto 2 = "+dto2); //세션값 정상 출력
+//            
+////             if (memberService.clearBlock((MemberDTO)dto2) ==true) {
+//               
+//                session.invalidate();
+//                response.sendRedirect("/index");
+//                 response.setContentType("text/html; charset=UTF-8");
+//                 PrintWriter out = response.getWriter();
+//                 out.println("<script>alert('차단된 회원 입니다.'); </script>");
+//                 out.flush();
+//               
+//                
+////             }
+//          }
+//     }catch  (Exception e ){
+//         e.printStackTrace();
+//     }
       
 //      if(dto.getMemBlock().equals("Y")) {
 //          System.out.println(memberService.clearBlock(dto));
