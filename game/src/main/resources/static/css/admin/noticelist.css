@@ -24,3 +24,21 @@
 	background:black !important;
 	color:white !important;
 }
+
+
+#header .logo a {
+  color: white;
+  margin-right:600px;
+  margin-left:-81px;
+}
+.navbar{
+    margin-left:150px;
+    margin-right:-82px;
+    margin-top:20px;
+}
+.navbar a i{
+    margin-top:-1px;
+}
+.d-none{
+    margin-right:4.7px;
+}
