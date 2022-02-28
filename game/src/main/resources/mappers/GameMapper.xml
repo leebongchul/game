@@ -17,11 +17,11 @@
     <!-- 아이디에 맞는 게임점수를 가져오는 쿼리 -->
     <select id="selectGameScore" parameterType="GameScoreDTO" resultType="GameScoreDTO"> 
         SELECT 
-         <include refid="GameScoreColumns" />
+          rank_score, r.mem_id, game_name, m.mem_nick
         FROM
-         rank_table
+         rank_table r left join member_table m on r.mem_id = m.mem_id 
         WHERE
-         mem_id = #{memId}
+         r.mem_id = #{memId}
         AND
          game_name = #{gameName}
     </select>
@@ -116,7 +116,8 @@ select a.rank_score, a.mem_nick, a.game_name, a.rank from
 (select a.rank_score,  b.mem_nick, a.game_name, rank() over (order by rank_score desc)  as rank from rank_table a, member_table b where a.mem_id = b.mem_id and a.game_name=#{gameName}) a,
 (select * from (select rank_score, mem_id, game_name ,rank() over (order by rank_score desc) as rank from rank_table where game_name=#{gameName}) where mem_id=#{memId}) b
 
-where a.rank between b.rank-2 and b.rank+2
+where a.rank between b.rank-2 and b.rank+2 order by a.rank
+
 </select>
 
 
