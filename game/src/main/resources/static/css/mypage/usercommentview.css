@@ -6,6 +6,23 @@
 	/*border:1px solid red;*/
 	height:100%;
 }
+#header .logo a {
+  color: white;
+  margin-right:600px;
+  margin-left:-162px;
+}
+.navbar{
+    margin-left:150px;
+    margin-right:-163px;
+    margin-top:22px;
+}
+.navbar a i{
+    margin-top:-3px;
+}
+.d-none{
+    margin-right:-78px;
+    margin-top:1px;
+}
 .text-h1{
 	font-size:25px;
 	font-weight:bold;
