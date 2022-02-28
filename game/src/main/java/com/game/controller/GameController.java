@@ -30,16 +30,21 @@ public class GameController extends UiUtils {
 /**************** GET ***********************************/
     @GetMapping(value = "/test")
     public String testfunction(Model model) {
+        
         return "game/test";
     }
     
     @GetMapping(value = "/rank")
-    public String rankfunction(Model model) {
+    public String rankfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+            Model model) {
+        model.addAttribute("headersession", loginMember);
         return "game/rank";
     }
 
     @GetMapping(value = "/fortress")
-    public String fortressopen(Model model) {
+    public String fortressopen(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+            Model model) {
+        model.addAttribute("headersession", loginMember);
         return "game/fortress";
     }
 
@@ -48,7 +53,7 @@ public class GameController extends UiUtils {
     @GetMapping(value = "/dino")
     public String dinoopen(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             HttpServletRequest request, Model model) {
-        
+        model.addAttribute("session", loginMember);
         String gamename = request.getParameter("game");
         GameScoreDTO user = new GameScoreDTO();
         user.setGameName("공룡게임");
@@ -88,7 +93,7 @@ public class GameController extends UiUtils {
     @GetMapping(value = "/ddong")
     public String ddongopen(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             HttpServletRequest request, Model model) {
-        
+        model.addAttribute("session", loginMember);
         String gamename = request.getParameter("game");
         GameScoreDTO user = new GameScoreDTO();
         user.setGameName("똥피하기");
@@ -131,7 +136,8 @@ public class GameController extends UiUtils {
     @PostMapping(value = "/game/ddong")
     @ResponseBody
     public int ddongscoresubmit(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-            @RequestParam int score) {
+            @RequestParam int score, Model model) {
+        model.addAttribute("session", loginMember);
         GameScoreDTO user = new GameScoreDTO();
         user.setMemId(loginMember.getMemId());
         user.setRankScore(score);
@@ -142,7 +148,8 @@ public class GameController extends UiUtils {
     @PostMapping(value = "/game/dino")
     @ResponseBody
     public int dinoscoresubmit(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-            @RequestParam int score) {
+            @RequestParam int score, Model model) {
+        model.addAttribute("session", loginMember);
         GameScoreDTO user = new GameScoreDTO();
         user.setMemId(loginMember.getMemId());
         user.setRankScore(score);

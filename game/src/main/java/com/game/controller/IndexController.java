@@ -20,7 +20,7 @@ public class IndexController extends UiUtils {
 	@GetMapping(value = "/index")
 	public String indexfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			Model model) {
-
+	    model.addAttribute("headersession", loginMember);
 		model.addAttribute("member", loginMember);
 		return "index.html";
 	}
@@ -41,7 +41,7 @@ public class IndexController extends UiUtils {
 	public String headerfunction(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			Model model) {
 
-		model.addAttribute("member", loginMember);
+		model.addAttribute("session", loginMember);
 		return "header.html";
 	}
 
