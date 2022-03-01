@@ -2,6 +2,13 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<script th:src="@{/scripts/jquery.min.js}"></script>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
+
+<head>
+<meta charset="UTF-8">
+<title>The page is a write page</title>
+</head>
 <!-- 신고하기 모달 header js와 충돌나서 주석 처리함/ 0228 모달 잘 뜨나 추후 문제 생길 시 아래 주석 참고 -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" -->
 <!-- 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
@@ -41,6 +48,7 @@ padding-right:10px;
 
 <body>
 <nav th:replace="/fragment/header2 :: main-header"></nav>
+
 	<section class="content">
 		<form class="form-horizontal form-view" th:object="${board}">
 			<div id="main-content" class="blog-page">
@@ -145,6 +153,7 @@ padding-right:10px;
 							<div class="card">
 								<div class="header">
 									<h4 class="comment-write">댓글 작성</h4>
+									
 								</div>
 								<div class="body">
 									<div class="comment-form">
@@ -159,6 +168,7 @@ padding-right:10px;
 													<button type="button" class="btn waves-effect waves-light btn-comminsert"
 														th:onclick="insertComment([[ ${board.boardNum} ]], [[ ${member.memId} ]], [[ ${member.memNick} ]])">댓글등록</button>
 												</div>
+												
 											</div>
 										</form>
 									</div>
@@ -170,15 +180,23 @@ padding-right:10px;
 								</div>
 								<ul class="notice-list">
 								</ul>
+								
 							</div>
-							<a onclick="history.back()" class="btn btn-dark waves-effect waves-light btn_back">목 록</a>
+	
+					<a onclick="history.back()" class="btn btn-dark waves-effect waves-light btn_back">목 록</a>
 						</div>
 
 					</div>
+					
 				</div>
+				
 		</form>
+	
 	</section>
+	
 </body>
+
+                
 
 
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -271,6 +289,7 @@ padding-right:10px;
                                 <br>
                                 <span class="conts" id="commConts">${comment.commContents}</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                 <span class="time">${comment.commDate}</span>`;
+                                
                                 
                                 
                            	 if(comment.memNick==/*[[${member.memNick}]]*/null){

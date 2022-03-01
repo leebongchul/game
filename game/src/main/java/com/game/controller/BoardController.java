@@ -52,6 +52,7 @@ public class BoardController extends UiUtils {
 		} else {
 			model.addAttribute("member", loginMember);
 		}
+		
 		return "board/list";
 	}
 

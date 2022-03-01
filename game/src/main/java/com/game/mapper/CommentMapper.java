@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.game.domain.BoardDTO;
 import com.game.domain.CommentDTO;
+import com.game.domain.ReportDTO;
 
 @Mapper
 public interface CommentMapper {
@@ -29,6 +31,8 @@ public interface CommentMapper {
 
 	/** 마이페이지 내 댓글 검색 */
 	public List<CommentDTO> selectMyComment(CommentDTO params);
+	
+	
 
 	public int selectMyCommentCount(CommentDTO params);
 }

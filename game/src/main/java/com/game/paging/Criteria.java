@@ -24,6 +24,7 @@ public class Criteria {
 	/** 검색 유형 */
 	private String searchType;
 
+	/** 생성자; 기본 페이지 1, 페이지당 보여줄 데이터 10개, 하단에 출력할 페이지 개수 10개*/
 	public Criteria() {
 		this.currentPageNo = 1;
 		this.recordsPerPage = 10;

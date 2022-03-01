@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -84,8 +85,8 @@ public class CommentController {
 
 	@GetMapping(value = "/comments/{boardNum}")
 	public JsonObject getCommentList(@PathVariable("boardNum") String str,
-			@ModelAttribute("params") CommentDTO params) {
-
+			@ModelAttribute("params") CommentDTO params, Model model) {
+	    //22-03-01 파라미터에 모델 츠가
 		System.out.println("params = " + params);
 		/**
 		 * rest 방식으로 입력된 데이터(=여기선 JSON)를 확인하기 쉽게 하기 위한 rest 클라이언트 프로그램 설치하면 좋긴 할듯
@@ -114,6 +115,10 @@ public class CommentController {
 			// why? => JSON객체에 담아서 리턴하면 JSON객체가 됨으로써 다양한 데이터 형식을 가질 수 있기 때문.
 			// * 한국영화정보진흥원? 작년에 자바스크립트 배울때 거기서 가져와서 실습했던 정보들이 JSON타입이었음.
 			jsonObj.add("commentList", jsonArr);
+			model.addAttribute("modelcomlist", jsonObj);
+
+
+			
 		}
 
 		return jsonObj;
