@@ -85,6 +85,17 @@ public class BoardController extends UiUtils {
 
 		return "board/layout/ddongrank";
 	}
+
+	@GetMapping(value = "/layout/fortressrank")
+	public String openfortressList(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+			@ModelAttribute("params") GameScoreDTO params, Model model) {
+		model.addAttribute("headersession", loginMember);
+		params.setGameName("포트리스");
+		List<GameScoreDTO> fortressrank = gameService.selectGameRankList(params);
+		model.addAttribute("fortress", fortressrank);
+
+		return "board/layout/fortressrank";
+	}
 ///////////////////////////////////////////////////////////공지사항
 	/*
 	 * @GetMapping(value = "/noticeboard/list") public String

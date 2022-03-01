@@ -4,6 +4,8 @@
 <head>
 <th:block  th:replace="/fragment/header :: main-head">
 </th:block>
+<th:block  th:replace="/fragment/footer2 :: main-foot">
+</th:block>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script th:src="@{/scripts/jquery.min.js}"></script>
@@ -37,11 +39,11 @@
          
         <div th:unless="${game} == null">
             <div class="text1">
-                <span th:text = "|${game.memId}님의 레벨 &emsp;&ensp;&nbsp; :|"></span>
+                <span th:text = "|${game.memNick}님의 레벨 &emsp;&ensp;&nbsp; :|"></span>
                 <input type = "text" id = "now_score" value = "0">
             </div>
             <div class="text2">
-                <span th:text = "|${game.memId}님의 최고레벨 :|"></span>
+                <span th:text = "|${game.memNick}님의 최고레벨 :|"></span>
                 <input type = "text" name = "rankScore" id = "max_score" th:value = ${game.rankScore}>
             </div>
             <input type = "hidden" id = "guest" value = "false">

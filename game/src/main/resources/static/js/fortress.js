@@ -13,9 +13,9 @@ let guest = document.getElementById("guest");
 let level = 1;
 let life = 3;
 let timer = 0;
-let 구름속도 = 4;
-let 구름설치 = 180;
-let cloud여러개 = [];
+let 비행기속도 = 4;
+let 비행기설치 = 250; //숫자가 낮을 수록 출력 빈도 높음250
+let 비행기여러개 = [];
 let bottomY = 440;
 
 
@@ -78,25 +78,29 @@ var img_tank = new Image();
 var img_target1 = new Image();
 var img_target2 = new Image();
 var img_airplane = new Image();
+var img_obstacle = new Image();
 var img_bottom = new Image();
 img_tank.src = '../image/tank1.png';
 img_target1.src = '../image/target1.png';
 img_target2.src = '../image/target2.png';
 img_airplane.src = '../image/airplane.png';
+img_obstacle.src = '../image/obstacle.png';
 img_bottom.src = '../image/bottom.png';
 
-img_airplane.onload = function() {
+img_bottom.onload = function() {
+    ctx.drawImage(img_bottom, 0, bottomY, 1000, 60);
     tank.draw();
     target.draw();
-    ctx.drawImage(img_bottom, 0, bottomY, 1000, 60);
+    obstacle.draw();
+//    ctx.drawImage(img_obstacle, 0, 100, 25, 110);
 }
 
 
 let tank = {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
     x: 50,
-    y: 378,
+    y: 398,
     dx: 5, //x축 이동 속도(이동값)
     dy: 3, //y축 이동 속도(이동값)
     barrelAngle: Math.PI / 4, //포신의 각도(Math.PI는 각도로 환산하면 180도->Math.PI / 4는 45도)
@@ -114,12 +118,12 @@ let tank = {
     draw() {
         //        ctx.fillStyle = 'green';
         //        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.drawImage(img_tank, this.x, this.y);
+        ctx.drawImage(img_tank, this.x, this.y, this.width, this.height);
 
         //포신 그리기
         let centerx = this.x + (this.width / 2); //포신 그리기 위한 원점의 x좌표(탱크 중앙x좌표)
         let centery = this.y + (this.height / 2); //포신 그리기 위한 원점의 y좌표(탱크 중앙y좌표)
-        let barrelLength = this.width * Math.sqrt(1); //포신의 길이
+        let barrelLength = this.width * Math.sqrt(0.5); //포신의 길이
 
         ctx.beginPath();
         ctx.moveTo(centerx, centery);
@@ -163,9 +167,9 @@ let tank = {
 
 class Target {
     constructor(x, y) {
-        this.width = Math.floor(Math.random() * y + x);
-        this.height = Math.floor(Math.random() * y + x);
-        this.x = Math.floor(Math.random() * (500 - this.width) + 500);
+        this.width = x;
+        this.height = y;
+        this.x = Math.floor(Math.random() * (500 - this.width) + 450); 
         this.y = height - this.height - 50;
     }
     draw() {
@@ -175,12 +179,24 @@ class Target {
     }
 };
 
-class Cloud {
+class Obstacle {
+    constructor(x) {
+        this.width = 25;
+        this.height = 110;
+        this.x = x;
+        this.y = height - this.height - 50;
+    }
+    draw() {
+        ctx.drawImage(img_obstacle, this.x, this.y, this.width, this.height);
+    }
+};
+
+class Airplane {
     constructor(y) {
         this.x = 1000;
         this.y = y;
-        this.width = 140;
-        this.height = 70;
+        this.width = 112;
+        this.height = 40;
     }
 
     draw() {
@@ -188,28 +204,32 @@ class Cloud {
     }
 }
 
+var target = new Target(96, 72);
+var obstacle = new Obstacle(random = randomNum(200, target.y));
 
-var target = new Target(50, 10);
 function 프레임마다실행() {
     animation = requestAnimationFrame(프레임마다실행);
     ctx.clearRect(0, 0, width, height);
-
+    
     게임시작전();
+    if (게임진행 == false) {
+        게임시작.draw();
+    }
     timer++;
 
-    if (timer % 구름설치 === 0) {
-        var cloud = new Cloud(random = randomNum(20, 150));
-        cloud여러개.push(cloud);
-        cloud.draw();
+    if (timer % 비행기설치 === 0) {
+        var airplane = new Airplane(random = randomNum(20, 160));
+        비행기여러개.push(airplane);
+        airplane.draw();
     }
 
 
-    cloud여러개.forEach((a, i, o) => {
+    비행기여러개.forEach((a, i, o) => {//값, index, 배열
         //x좌표가 0미만이면 제거
         if (a.x + a.width < 0) {
             o.splice(i, 1)
         }
-        a.x -= 구름속도;
+        a.x -= 비행기속도;
         a.draw();
     })
 
@@ -217,7 +237,7 @@ function 프레임마다실행() {
     if (tankLeftPressed && tank.x > 0) {
         tank.x -= tank.dx;
     }
-    if (tankRightPressed && tank.x + tank.width < width) {
+    if (tankRightPressed && tank.x + tank.width < width && tank.x+tank.width<obstacle.x-10) {
         tank.x += tank.dx;
     }
 
@@ -232,6 +252,7 @@ function 프레임마다실행() {
     ctx.drawImage(img_bottom, 0, bottomY, 1000, 60);//바닥
     tank.draw();
     target.draw();
+    obstacle.draw();
     레벨.draw();
     목숨.draw();
 
@@ -247,12 +268,16 @@ const keydownHandler = event => {
             tankLeftPressed = true;
         } else if (event.keyCode === 39) { //오른쪽 방향키
             event.preventDefault();
-            tankRightPressed = true;
+            if(tank.x+tank.width<obstacle.x-10){
+                tankRightPressed = true;
+            }else{
+                tankRightPressed = false;
+            }
         } else if (event.keyCode === 38) { //위쪽 방향키(포신 각도 조절)
             event.preventDefault();
             if (tank.barrelAngle < Math.PI) {
-                tank.barrelAngle += tank.barrelAngleDIF;
-            }
+                    tank.barrelAngle += tank.barrelAngleDIF;
+                }
         } else if (event.keyCode === 40) { //아래쪽 방향키(포신 각도 조절)
             event.preventDefault();
             if (tank.barrelAngle > 0) {
@@ -276,8 +301,9 @@ const keyupHandler = event => {
     if (게임진행 == true) {
         if (event.keyCode === 37) { //왼쪽 방향키
             tankLeftPressed = false;
-        } else if (event.keyCode === 39) {
-            tankRightPressed = false; //오른쪽 방향키
+        } else if (event.keyCode === 39) { //오른쪽 방향키
+            event.preventDefault();
+            tankRightPressed = false;
         } else if (event.keyCode === 32 && !isFired) { //스페이스바(포 발사)
             isCharging = false;
             isFired = true;
@@ -306,22 +332,35 @@ function 게임시작전() {
     if (게임진행 == false) {
         ctx.clearRect(0, 0, width, height);
         cancelAnimationFrame(animation);
-        게임시작.draw();
+//        게임시작.draw();
+        tank.x=50;
         tank.draw();
+        target=new Target(96, 72);
+        target.draw();
+        obstacle = new Obstacle(random = randomNum(200, target.y));
+        obstacle.draw();
 
     }
 }
 
+
 //명중 여부 체크
 function checkMissile() {
-    // canvas 왼쪽, 오른쪽, 아래 벽에 닿으면
-    if (tank.missileX <= 0 || tank.missileX >= width || tank.missileY >= bottomY) {
+    // canvas 왼쪽, 오른쪽, 아래 벽에 닿으면/ obstacle 맞으면
+    if ((tank.missileX <= 0 || tank.missileX >= width || tank.missileY >= bottomY)
+    || (
+        tank.missileX >= obstacle.x &&
+        tank.missileX <= obstacle.x + obstacle.width &&
+        tank.missileY >= obstacle.y
+    )) {
         isFired = false;
         isHitted = false;
         life--;
         if (life == 0) {
+            ctx.clearRect(0, 0, width, height);
             cancelAnimationFrame(animation);
             게임진행 = false;
+            게임시작전();
             재시작.draw();
             게임종료.draw();
             now_score.value = level;
@@ -350,6 +389,30 @@ function checkMissile() {
             }
         }
     }
+    //비행기 충돌
+    비행기여러개.forEach((a, i, o) => {//값, index, 배열
+        //x좌표가 0미만이면 제거
+       if (
+        tank.missileX >= a.x &&
+        tank.missileX <= a.x + a.width &&
+        tank.missileY >= a.y + 5 && //10는 비행기 날개부분 충돌은 제외하기 위함
+        tank.missileY <= a.y + a.height - 5
+        ) {
+            isFired = false;
+            isHitted = false;
+            life--;
+            if (life == 0) {
+                ctx.clearRect(0, 0, width, height);
+                cancelAnimationFrame(animation);
+                게임진행 = false;
+                재시작.draw();
+                게임종료.draw();
+                게임시작전();
+                now_score.value = level;
+            }
+        }
+    })
+    
 
     // target 명중
     if (
@@ -361,43 +424,25 @@ function checkMissile() {
         isHitted = true;
         level++;
         life = 3;
+        tank.x=50;
         cancelAnimationFrame(animation);
-        drawTarget(level);
+        drawTarget();
         프레임마다실행();
     }
-    //비행기 충돌
-//    if (
-//        tank.missileX >= cloud.x &&
-//        tank.missileX <= cloud.x + target.width &&
-//        tank.missileY >= cloud.y
-//    ) {
-//        isFired = false;
-//        isHitted = true;
-//        level++;
-//        life = 3;
-//        cancelAnimationFrame(animation);
-//        drawTarget(level);
-//        프레임마다실행();
-//    }
 };
 
-function drawTarget(level) {
-    let x;
-    let y;
-    if (level < 5) {
-        x = 40;
-        y = 50;
-    } else if (level >= 5 && level < 10) {
-        x = 30;
-        y = 40;
-    } else if (level >= 10 && level < 15) {
-        x = 20;
-        y = 30;
-    } else {
-        x = 10;
-        y = 20;
+function drawTarget() {
+    let x = target.width;
+    let y = target.height;
+    if(x>32 && y>24){//최대 32레벨?까지 변화가 있음
+        x-=x*0.025;
+        y-=y*0.025;
+    }
+    if(비행기설치>100){
+        비행기설치-=4.5//레벨이 증가 할 수록 비행기가 많이 다님
     }
     target = new Target(x, y);
+    obstacle = new Obstacle(random = randomNum(300, target.x-25-30));//25는 장애물의 너비 30은 공간을 주기 위함
 };
 
 function randomNum(min, max) {
