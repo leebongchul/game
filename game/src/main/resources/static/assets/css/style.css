@@ -646,6 +646,7 @@ section {
 }
 .featured-services .icon {
   margin-bottom: 15px;
+  text-align: center;
 }
 .featured-services .icon i {
   font-size: 48px;
