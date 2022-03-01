@@ -25,8 +25,13 @@
         text-align:center;
         background-color:rgb(242,251,255);
     }
+    
      .icon_div:hover{
         border:2px solid #AFC4E7;
+     }
+     
+     .icon_div:hover span{
+        color:black;
      }
     
     .div1, .div2 {

@@ -10,6 +10,12 @@
     div {
         /*border:1px solid blue*/
     }
+    
+    span {
+    font-size: 10pt;
+    font-weight: bold;
+    }
+    
     .header-mini-a {
         font-size:10pt;
         color:white;
@@ -20,6 +26,21 @@
         /*display:block;*/
         margin-right:0px;
     }
+    
+    .icon_div{
+        width:120px;
+        height:120px;
+        border-radius:10px;
+/*         border:1px solid black; */
+        text-align:center;
+        background-color:rgb(242,251,255);
+    }
+     .icon_div:hover{
+        border:2px solid #AFC4E7;
+     }
+     .icon_div:hover span{
+        color:black;
+     }
     
     .div1, .div2, .div3 {
         /*display:inline-block;*/
@@ -37,7 +58,7 @@
         margin-bottom:30px;
     }
     .first_line {
-    	display:inline-block;
+/*     	display:inline-block; */
     }
     h1{
         margin-left:170px;
