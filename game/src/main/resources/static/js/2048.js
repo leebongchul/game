@@ -2,14 +2,17 @@ var board = Array(Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0));
 var tableID = Array(Array("00","01","02","03"),Array("10","11","12","13"),Array("20","21","22","23"),Array("30","31","32","33"));
 var score;
 
+
+
+
 // 키보드 입력 처리
 document.onkeydown = keyDownEventHandler;
 function keyDownEventHandler(e){
     switch(e.keyCode){
-        case 38: moveDir(0); break; //up
-        case 40: moveDir(1); break; //down
-        case 37: moveDir(2); break; //left
-        case 39: moveDir(3); break; //right
+        case 87: moveDir(0); break; //up
+        case 83: moveDir(1); break; //down
+        case 65: moveDir(2); break; //left
+        case 68: moveDir(3); break; //right
     }
 }
 
@@ -29,6 +32,9 @@ function init(){
     }
     update();
 }
+
+
+
 
 // 게임 화면 업데이트
 function update(){

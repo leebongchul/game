@@ -14,16 +14,28 @@
 <body>
 <nav th:replace="/fragment/header :: main-header"></nav>
     <section class="game">
-        <table id="titleBar" border=0>
-            <tr>
-                <td id="titlePad">
-                    <p id="title">2048</p>
-                </td>
-                <td id="scorePad">
-                    <p id="scoreType">Score</p>
-                    <p id="score"></p>
-            </tr>
-        </table>
+<!--         <table id="titleBar" border=0> -->
+<!--             <tr> -->
+<!--                 <td id="titlePad"> -->
+<!--                     <p id="title">2048</p> -->
+<!--                 </td> -->
+<!--                 <td id="scorePad"> -->
+<!--                     <p id="scoreType">Score</p> -->
+<!--                     <p id="score"></p> -->
+<!--                  </td> -->
+<!--             </tr> -->
+<!--         </table> -->
+ <div>
+            <button type="button"  id = "gameexp_btn" class="btn_exp" onclick="openexp()">게임설명</button>
+        </div>
+        <div id = "gameexp" style="display:none">게임설명이 들어가는곳</div>
+             <hr class="hr1">
+        
+            <div class = "canvasfield" id = "2048">
+                
+            </div>
+        
+        <hr class="hr1">
         <table id="board" border=0>
             <tr>
                 <td id="00"></td>
@@ -50,13 +62,7 @@
                 <td id="33"></td>
             </tr>
         </table>
-           <hr class="hr1">
-        
-            <div class = "canvasfield" id = "2048">
-                
-            </div>
-        
-        <hr class="hr1">
+      
         <form id = "ScoreForm" th:action = "@{/game/ddong.do}" th:object="${game}" method="post" onsubmit="return formsubmit(this)" >
         
         <div th:if="${game} == null">

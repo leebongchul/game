@@ -39,10 +39,8 @@ p{
     width: 148px;
     height: 35px;
     background-color: #46382E;
-    padding: 0px;
-/*     margin: 0px; */
+/*     padding: 0px; */
 /* margin:auto; */
- margin-left: 100px;
 }
 #scoreType{
     font-size: 14pt;
@@ -58,10 +56,11 @@ p{
 }
 #board{
 /*     margin-left: 70px; */
-/* /*     margin-top: 5px; */
+/*      margin-top: 5px; */
 margin:auto;
     width:298px;
 }
+
 #info{
     margin-top: 3px;
     margin-left: 82px;
