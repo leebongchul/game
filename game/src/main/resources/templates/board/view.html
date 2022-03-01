@@ -16,7 +16,22 @@
 <!-- 테마 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <link href="/css/board/view.css" rel="stylesheet" type="text/css">
+<style>
+span.nick {
+ display:inline-block;
+ font-weight: 900;
+ padding-bottom:30px;
+ 
+}
 
+span.time{
+display:block;
+float:right;
+padding-right:10px;
+}
+
+
+</style>
 <head>
 <th:block  th:replace="/fragment/header2 :: main-head">
 </th:block>
@@ -252,9 +267,9 @@
                     $(response.commentList).each(function(commNum, comment) {
                     	commentsHtml += `
                             <li id="${comment.commNum}">
-                                <span class="nick" id="commNick" >${comment.memNick}</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <span class="nick" id="commNick">${comment.memNick}</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <br>
                                 <span class="conts" id="commConts">${comment.commContents}</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                               
                                 <span class="time">${comment.commDate}</span>`;
                                 
                                 
