@@ -366,19 +366,19 @@ function checkMissile() {
         프레임마다실행();
     }
     //비행기 충돌
-    if (
-        tank.missileX >= cloud.x &&
-        tank.missileX <= cloud.x + target.width &&
-        tank.missileY >= cloud.y
-    ) {
-        isFired = false;
-        isHitted = true;
-        level++;
-        life = 3;
-        cancelAnimationFrame(animation);
-        drawTarget(level);
-        프레임마다실행();
-    }
+//    if (
+//        tank.missileX >= cloud.x &&
+//        tank.missileX <= cloud.x + target.width &&
+//        tank.missileY >= cloud.y
+//    ) {
+//        isFired = false;
+//        isHitted = true;
+//        level++;
+//        life = 3;
+//        cancelAnimationFrame(animation);
+//        drawTarget(level);
+//        프레임마다실행();
+//    }
 };
 
 function drawTarget(level) {
