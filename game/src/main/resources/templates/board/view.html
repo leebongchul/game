@@ -254,11 +254,12 @@
                             <li id="${comment.commNum}">
                                 <span class="nick" id="commNick" >${comment.memNick}</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                 <span class="conts" id="commConts">${comment.commContents}</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                               
                                 <span class="time">${comment.commDate}</span>`;
                                 
                                 
-                           	 if(comment.memId==/*[[${member.memId}]]*/null){
-                           		
+                           	 if(comment.memNick==/*[[${member.memNick}]]*/null){
+// //                            		console.log(/*[[${member.memId}]]*/);
                            	  commentsHtml += `
                            		<button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제</button>
                                 <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정</button>
