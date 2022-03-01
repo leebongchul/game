@@ -1,5 +1,7 @@
 package com.game.domain;
 
+import com.game.paging.PaginationInfo;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +23,7 @@ public class CommentDTO extends BoardDTO {
 	 */
 
 	private String commNum, commContents, commUpdateDate, commUpdateId, commDelete, commDate;
+
 	private String[] commNumArr;
 
 }
