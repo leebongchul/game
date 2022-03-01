@@ -310,7 +310,7 @@ public class MemberController extends UiUtils {
 			if (!passwordEncoder.matches(member.getMemPass(), result.getMemPass())) {
 				return showMessageWithRedirect("비밀번호가 일치하지 않습니다.", "/member/login", Method.GET, null, model);
 			}
-			model.addAttribute("logininfo", result);
+			model.addAttribute("logininfo", result); //인터셉터에 전달할 정보
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMem", result); // 세션에 로그인 회원 정보 보관
 			return showMessageWithRedirect("로그인이 완료되었습니다.", "../index", Method.GET, null, model);

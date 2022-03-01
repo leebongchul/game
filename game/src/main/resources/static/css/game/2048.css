@@ -1,6 +1,6 @@
 td{
     border: 2px solid #372c25;
-    border-radius: 9px;
+/*     border-radius: 9px; */
     text-align: center;
     vertical-align: center;
     font-size: 18pt;
@@ -14,9 +14,9 @@ p{
     color: white;
     vertical-align: top;
 }
-body{
-    background-color: #372C25;
-}
+/* body{ */
+/*     background-color: #372C25; */
+/* } */
 #title{
     color: white;
     font-size: 48px;
@@ -32,28 +32,35 @@ body{
     width: 148px;
     height: 35px;
     background-color: #372C25;
-    margin: 0px;
+/*     margin: 0px; */
+    margin-left: 100px;
 }
 #scorePad{
     width: 148px;
     height: 35px;
     background-color: #46382E;
     padding: 0px;
-    margin: 0px;
+/*     margin: 0px; */
+/* margin:auto; */
+ margin-left: 100px;
 }
 #scoreType{
     font-size: 14pt;
     margin: 0px;
+/* margin:auto; */
     color: #715541;
 }
 #score{
     font-size: 28pt;
     margin: 0px;
+/*     margin:auto; */
     color: white;
 }
 #board{
-    margin-left: 70px;
-    margin-top: 5px;
+/*     margin-left: 70px; */
+/* /*     margin-top: 5px; */
+margin:auto;
+    width:298px;
 }
 #info{
     margin-top: 3px;

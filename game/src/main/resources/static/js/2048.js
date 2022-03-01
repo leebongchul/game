@@ -229,6 +229,9 @@ function checkGameOver(){
     gameover();
 }
 
+document.addEventListener("keydown", keyDownEventHandler, false);
+document.addEventListener("keyup", keyDownEventHandler, false);
+
 // 게임오버 처리
 function gameover(){
     alert("[Game Over]\nMax: "+getMaxNum()+"\nScore"+score);

@@ -1,0 +1,28 @@
+@charset "UTF-8";
+.content {
+    /*border:1px solid blue;*/
+    width:400px;
+}
+thead{
+    background:#F0F0F0;
+}
+tbody {
+    background:#FFFDA2;
+    font-weight:bold;
+}
+img {
+    /*border:1px solid red;*/
+    height:70px;
+    margin-bottom:10px;
+    margin-left:95px;
+}
+span{
+    display:inline;
+    font-size:25px;
+    font-weight:bold;
+    margin-top:50px;
+    /*border:1px solid blue;*/
+}
+ table {
+    width: 400px;
+  }
