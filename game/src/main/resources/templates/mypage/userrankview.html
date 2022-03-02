@@ -3,6 +3,8 @@
 <head>
 <th:block  th:replace="/fragment/header :: main-head">
 </th:block>
+<th:block  th:replace="/fragment/footer2 :: main-foot">
+</th:block>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="../css/mypage/userrankview.css" rel="stylesheet">
@@ -24,6 +26,7 @@
     <iframe id = "gamerank"  src="./dinorank" width="700px" height="650px" Style = "border:none"></iframe>
 </div>
 </section>
+<nav th:replace="/fragment/footer2 :: main-footer"></nav> 
 </body>
 <script>
 function changeIframeUrl(url)
