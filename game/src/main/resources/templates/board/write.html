@@ -3,6 +3,8 @@
     <head>
     <th:block  th:replace="/fragment/header2 :: main-head">
 	</th:block>
+	<th:block  th:replace="/fragment/footer2 :: main-foot">
+</th:block>
         <meta charset="UTF-8">
         <title>The page is a write page</title>
         <link href="/css/board/write.css" rel="stylesheet">
@@ -49,6 +51,7 @@
                 </div>
             </form>
         </div>
+        <nav th:replace="/fragment/footer2 :: main-footer"></nav>
         </body>
         <!-- /.card-content -->
 

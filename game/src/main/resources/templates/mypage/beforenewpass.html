@@ -3,6 +3,8 @@
 <head>
 <th:block  th:replace="/fragment/header :: main-head">
 </th:block>
+<th:block  th:replace="/fragment/footer :: main-foot">
+</th:block>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="../css/mypage/beforenewpass.css" rel="stylesheet">
@@ -39,6 +41,6 @@
       </th:block>
       </form>
  </section>
- 
+ <nav th:replace="/fragment/footer :: main-footer"></nav> 
 </body>
 </html>

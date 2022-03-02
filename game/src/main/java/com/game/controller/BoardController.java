@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import com.game.Util.UiUtils;
 import com.game.constant.Method;
 import com.game.domain.BoardDTO;
+import com.game.domain.CommentDTO;
 import com.game.domain.GameScoreDTO;
 import com.game.domain.MemberDTO;
 import com.game.domain.ReportDTO;
 import com.game.service.BoardService;
+import com.game.service.CommentService;
 import com.game.service.GameService;
 
 @Controller
@@ -30,7 +32,10 @@ public class BoardController extends UiUtils {
 
 	@Autowired
 	private GameService gameService;
-
+	
+	@Autowired
+    private CommentService commentService;
+	
 	@GetMapping(value = "/test")
 	public String testfunction(Model model) {
 		return "board/test";
@@ -193,11 +198,13 @@ public class BoardController extends UiUtils {
 ///////////////////////////////////////////////////////////신고하기
 
 	@GetMapping(value = "/view")
-	public String openBoardDetail(@ModelAttribute("params") BoardDTO params,
+	public String openBoardDetail(@ModelAttribute("params1") BoardDTO params, @ModelAttribute("params") CommentDTO comm,
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		System.out.println("boardNum:" + params.getBoardNum());
 		model.addAttribute("headersession", loginMember);
-
+		
+		List<CommentDTO> commentList = commentService.getCommentList(comm);
+		
 		// 댓글 작성을 위한 세션 넘겨줌(권한, 닉네임, 아이디 등)
 		if (loginMember == null) {
 			MemberDTO member = new MemberDTO();
@@ -216,7 +223,7 @@ public class BoardController extends UiUtils {
 		}
 		boardService.plusBoardHit(params);
 		model.addAttribute("board", board);
-
+		System.out.println(params);
 		return "board/view";
 	}
 

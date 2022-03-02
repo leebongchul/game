@@ -120,7 +120,6 @@ public class CommentController {
 
 			
 		}
-
 		return jsonObj;
 
 	}

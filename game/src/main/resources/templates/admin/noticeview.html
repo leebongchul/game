@@ -3,6 +3,8 @@
 <head>
 <th:block  th:replace="/fragment/header2 :: main-head">
 </th:block>
+<th:block  th:replace="/fragment/footer2 :: main-foot">
+</th:block>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The page is a write page</title>
@@ -126,6 +128,7 @@
 
 		</div>
 	</div>
+	 <nav th:replace="/fragment/footer2 :: main-footer"></nav> 
 </body>
 
 <script th:inline="javascript">

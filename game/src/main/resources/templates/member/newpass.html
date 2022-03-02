@@ -12,7 +12,7 @@
 <body id="newpass-body">
 <nav th:replace="/fragment/header :: main-header"></nav> 
 <section class="newpass">
-    <img src="../image/로고.PNG">
+    <img src="../image/미니게임즈4.PNG" class="logo">
     <h3>새로운 비밀번호를 입력해주세요</h3>
     <form name="newpassForm" th:action="@{/member/newpass}" th:object="${member}" method="post" onsubmit="return newpassCheck()">
      <th:block layout:fragment="content">

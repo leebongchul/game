@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-<th:block th:replace="/fragment/header :: main-head"></th:block>
+<th:block th:replace="/fragment/header :: main-head">
+</th:block>
+<th:block  th:replace="/fragment/footer2 :: main-foot">
+</th:block>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- 자바스크립트 -->
@@ -108,5 +111,6 @@ function deleteCommFormCheck() {
 			<nav th:replace="admin/layout/commentcommon :: pagination"></nav>
 		</th:block>
 	</section>
+	<nav th:replace="/fragment/footer2 :: main-footer"></nav> 
 </body>
 </html>

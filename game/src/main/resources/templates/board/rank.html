@@ -3,6 +3,8 @@
 <head>
 <th:block  th:replace="/fragment/header :: main-head">
 </th:block>
+<th:block  th:replace="/fragment/footer2 :: main-foot">
+</th:block>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="../css/board/rank.css" rel="stylesheet">
@@ -18,5 +20,6 @@
 <iframe src = "/board/layout/fortressrank" height = "600px" width="400px"; scrolling="no" Style = "border:none" class="fortress"></iframe>
 <iframe src = "/board/layout/rank2048" height = "600px" width="400px"; scrolling="no" Style = "border:none" class="2048"></iframe>
 </section>
+<nav th:replace="/fragment/footer2 :: main-footer"></nav>
 </body>
 </html>
