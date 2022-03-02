@@ -17,11 +17,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.game.Util.UiUtils;
+import com.game.constant.Method;
 import com.game.domain.MemberDTO;
 import com.game.service.MemberService;
 
 @Component
-public class BlockInterceptor implements HandlerInterceptor {
+public class BlockInterceptor implements HandlerInterceptor  {
  
     // controller로 보내기 전에 처리하는 인터셉터
     // 반환이 false라면 controller로 요청을 안함

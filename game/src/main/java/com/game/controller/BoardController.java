@@ -86,8 +86,8 @@ public class BoardController extends UiUtils {
         model.addAttribute("headersession", loginMember);
         params.setGameName("2048");
         List<GameScoreDTO> rank2048 = gameService.selectGameRankList(params);
-        model.addAttribute("2048", rank2048);
-        System.out.println(rank2048);
+        model.addAttribute("ttt2048", rank2048);
+//        System.out.println(rank2048);
         return "board/layout/rank2048";
     }
 
