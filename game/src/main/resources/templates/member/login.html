@@ -20,6 +20,10 @@
 <body class="login-body">
 <nav th:replace="/fragment/header :: main-header"></nav> 
 <section class="login">
+<div>
+<br>
+<br>
+</div>
 <img src="../image/미니게임즈4.PNG" class="logo">
    <div class="form-group">
       <form name="loginForm" th:action="@{/member/login}" th:object="${member}" method="post" onsubmit="return loginCheck()">
