@@ -108,6 +108,16 @@ body {
 	width:60px;
 	font-weight:bold;
 }
+.btn-block2 {
+	background:red;
+	color:white;
+	font-size:13px;
+	text-align:center;
+	padding:5px 5px;
+	display:inline-block;
+	width:60px;
+	font-weight:bold;
+}
 .btn-block:hover {
 	color:white;	
 }
