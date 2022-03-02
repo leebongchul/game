@@ -1,6 +1,8 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-
+var now_score = document.getElementById("now_score");
+let max_score = document.getElementById("max_score");
+let guest = document.getElementById("guest");
 canvas.width = 1000;
 canvas.height = 400;
 
@@ -29,6 +31,7 @@ var 게임종료 = {
   }
 }
 
+
 var 재시작 = {
   x : 420,
   y : 180,
@@ -43,10 +46,10 @@ var 재시작 = {
 document.onkeydown = keyDownEventHandler;
 function keyDownEventHandler(e){
     switch(e.keyCode){
-        case 87: moveDir(0); break; //up
-        case 83: moveDir(1); break; //down
-        case 65: moveDir(2); break; //left
-        case 68: moveDir(3); break; //right
+        case 38: moveDir(0); break; //up
+        case 40: moveDir(1); break; //down
+        case 37: moveDir(2); break; //left
+        case 39: moveDir(3); break; //right
     }
 }
 
@@ -62,6 +65,16 @@ document.addEventListener('keydown', function(e){
     }
   }
 });
+
+document.addEventListener('keydown', function(e){
+  if(e.code === 'keyup','keydown'){
+    e.preventDefault();
+    
+        
+    
+  }
+});
+
 
 function 프레임마다실행(){
   animation = requestAnimationFrame(프레임마다실행);
@@ -94,7 +107,7 @@ function 게임시작전(){
     cancelAnimationFrame(animation);
     게임시작.draw();
     line.draw();
-    dino.draw();
+   
     
   }
 }
@@ -298,11 +311,35 @@ function checkGameOver(){
     gameover();
 }
 
-document.addEventListener("keydown", keyDownEventHandler, false);
-document.addEventListener("keyup", keyDownEventHandler, false);
+
+
 
 // 게임오버 처리
 function gameover(){
-    alert("[Game Over]\nMax: "+getMaxNum()+"\nScore"+score);
-    init();
+    alert("[Game Over]\n최고숫자: "+getMaxNum()+"\n점수: "+score);
+     now_score.value = score;
+     //신기록 갱신
+     if (parseInt(now_score.value) > parseInt(max_score.value)) {
+                // 현재점수가 최고점수보다 높다면
+                max_score.value = now_score.value; // 현재점수를 최고점수에 저장
+
+                if (guest.value == 'false') { // 게스트계정이 아닌경우 최고점수 갱신
+
+                    $.ajax({                 // DB에 최고점수 업데이트
+                        url: '/game/2048',
+                        type: 'post',
+                        data: { score: parseInt(max_score.value) },
+                        success: function(data) {
+                            console.log("1 = 성공 / 0 = 실패 : " + data);
+
+                        },
+                        error: function() {
+                            console.log("실패");
+                        }
+                    });
+                }
+            }
+             init();
+         
+   
 }
