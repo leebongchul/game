@@ -40,6 +40,7 @@ public class MemberController extends UiUtils {
 			Model model) {
 		model.addAttribute("headersession", loginMember);
 		model.addAttribute("member", loginMember);
+
 		return "../index";
 	}
 
@@ -302,7 +303,6 @@ public class MemberController extends UiUtils {
 		model.addAttribute("headersession", loginMember);
 		try {
 			MemberDTO result = memberService.selectMember(member);
-
 			if (result.getMemId() == null) {
 				return showMessageWithRedirect("해당 아이디가 존재하지 않습니다.", "/member/login", Method.GET, null, model);
 			}
@@ -310,7 +310,12 @@ public class MemberController extends UiUtils {
 			if (!passwordEncoder.matches(member.getMemPass(), result.getMemPass())) {
 				return showMessageWithRedirect("비밀번호가 일치하지 않습니다.", "/member/login", Method.GET, null, model);
 			}
-			model.addAttribute("logininfo", result); //인터셉터에 전달할 정보
+			if (result.getMemBlock().equals("Y")) {
+				System.out.println(result.getMemBlock());
+				String msg = "차단된 회원입니다. " + System.lineSeparator() + result.getMemBlockEndDate() + "에 차단해제 됩니다.";
+				return showMessageWithRedirect(msg, "/index", Method.GET, null, model);
+			}
+			model.addAttribute("logininfo", result); // 인터셉터에 전달할 정보
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMem", result); // 세션에 로그인 회원 정보 보관
 			return showMessageWithRedirect("로그인이 완료되었습니다.", "../index", Method.GET, null, model);
