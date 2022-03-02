@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="/css/board/ddongrank.css" rel="stylesheet">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+<section class="content">
+<img src="/image/ggobugi.PNG">
+<span>같은그림찾기</span>
+
+
+
+
+        <table class = "table">
+                <thead>
+                    <tr>
+                        <th>랭킹</th>
+                        <th>닉네임</th>
+                        <th>점수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="row : ${picture}">
+                        <td th:text="${row.rno}"></td>
+                        <td th:text="${row.memNick}"></td>
+                        <td th:text="${row.rankScore}"></td>
+                    </tr>
+                </tbody>
+        </table>
+        
+        
+        
+    <th:block layout:fragment="paging">
+                <nav th:replace="board/layout/common :: pagination"></nav>
+    </th:block>
+        <th:block layout:fragment="script">
+        
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+    
+                function movePage(uri, queryString) {
+                    location.href = uri + queryString;
+                }
+    
+                /*]]>*/
+            </script>
+        </th:block>
+</section>
+</body>
+</html>
