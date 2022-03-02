@@ -1,9 +1,43 @@
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = 1000;
+canvas.height = 400;
+
 var board = Array(Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0));
 var tableID = Array(Array("00","01","02","03"),Array("10","11","12","13"),Array("20","21","22","23"),Array("30","31","32","33"));
 var score;
+var 게임진행 = false;
 
+var 게임시작 = {
+  x : 50,
+  y : 225,
+  draw(){
+    ctx.font = "50pt Fira";
+    ctx.fillStyle = 'black';
+    ctx.fillText("스페이스바를 누르면 게임시작",this.x,this.y);
+  }
+}
 
+var 게임종료 = {
+  x : 500,
+  y : 150,
+  draw(){
+    ctx.font = "17pt Fira";
+    ctx.fillStyle = 'black';
+    ctx.fillText("게임종료",this.x,this.y);
+  }
+}
 
+var 재시작 = {
+  x : 420,
+  y : 180,
+  draw(){
+    ctx.font = "14pt Fira";
+    ctx.fillStyle = 'black';
+    ctx.fillText("스페이스바를 누르면 재시작",this.x,this.y);
+  }
+}
 
 // 키보드 입력 처리
 document.onkeydown = keyDownEventHandler;
@@ -15,6 +49,27 @@ function keyDownEventHandler(e){
         case 68: moveDir(3); break; //right
     }
 }
+
+document.addEventListener('keydown', function(e){
+  if(e.code === 'Space'){
+    e.preventDefault();
+    if(게임진행 == false){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        init();
+        게임진행 == true;
+    }else{
+        
+    }
+  }
+});
+
+function 프레임마다실행(){
+  animation = requestAnimationFrame(프레임마다실행);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  게임시작전();
+}
+
+프레임마다실행();
 
 // 초기 설정
 init();
@@ -33,8 +88,16 @@ function init(){
     update();
 }
 
-
-
+function 게임시작전(){
+  if(게임진행 == false){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    cancelAnimationFrame(animation);
+    게임시작.draw();
+    line.draw();
+    dino.draw();
+    
+  }
+}
 
 // 게임 화면 업데이트
 function update(){

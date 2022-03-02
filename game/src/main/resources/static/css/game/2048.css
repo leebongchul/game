@@ -6,7 +6,7 @@
         /*border:1px solid red;*/
         margin-top:100px;
     }
-        #header .logo a {
+#header .logo a {
   color: white;
   margin-right:600px;
   margin-left:-80px;
@@ -66,6 +66,14 @@
         background:#FEFECC;
     }
 
+#canvas{
+/* 	background:black; */
+	outline:1px solid white;
+}
+.gamearea{
+	margin-top:-430px;
+}
+
 td{
     border: 2px solid #372c25;
 /*     border-radius: 9px; */
@@ -92,8 +100,9 @@ p{
     margin: 0px;
 }
 #titleBar{
-    margin-left: 70px;
+    margin:auto;
     margin-top: 35px;
+    margin-bottom: 10px;
     height: 70px;
 }
 #titlePad{

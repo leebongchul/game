@@ -14,17 +14,6 @@
 <body>
 <nav th:replace="/fragment/header :: main-header"></nav>
     <section class="game">
-<!--         <table id="titleBar" border=0> -->
-<!--             <tr> -->
-<!--                 <td id="titlePad"> -->
-<!--                     <p id="title">2048</p> -->
-<!--                 </td> -->
-<!--                 <td id="scorePad"> -->
-<!--                     <p id="scoreType">Score</p> -->
-<!--                     <p id="score"></p> -->
-<!--                  </td> -->
-<!--             </tr> -->
-<!--         </table> -->
  <div>
             <button type="button"  id = "gameexp_btn" class="btn_exp" onclick="openexp()">게임설명</button>
         </div>
@@ -33,32 +22,47 @@
         
             <div class = "canvasfield" id = "2048">
             
-                <table id="board" border=0>
-		            <tr>
-		                <td id="00"></td>
-		                <td id="01"></td>
-		                <td id="02"></td>
-		                <td id="03"></td>
-		            </tr>
-		            <tr>
-		                <td id="10"></td>
-		                <td id="11"></td>
-		                <td id="12"></td>
-		                <td id="13"></td>
-		            </tr>
-		            <tr>
-		                <td id="20"></td>
-		                <td id="21"></td>
-		                <td id="22"></td>
-		                <td id="23"></td>
-		            </tr>
-		            <tr>
-		                <td id="30"></td>
-		                <td id="31"></td>
-		                <td id="32"></td>
-		                <td id="33"></td>
-		            </tr>
-		        </table>
+                <canvas id="canvas"></canvas>
+                
+                <div class="gamearea">
+			        <table id="titleBar" border=0>
+			            <tr>
+			                <td id="titlePad">
+			                    <p id="title">2048</p>
+			                </td>
+			                <td id="scorePad">
+			                    <p id="scoreType">Score</p>
+			                    <p id="score"></p>
+			                 </td>
+			            </tr>
+			        </table>
+	                <table id="board" border=0>
+			            <tr>
+			                <td id="00"></td>
+			                <td id="01"></td>
+			                <td id="02"></td>
+			                <td id="03"></td>
+			            </tr>
+			            <tr>
+			                <td id="10"></td>
+			                <td id="11"></td>
+			                <td id="12"></td>
+			                <td id="13"></td>
+			            </tr>
+			            <tr>
+			                <td id="20"></td>
+			                <td id="21"></td>
+			                <td id="22"></td>
+			                <td id="23"></td>
+			            </tr>
+			            <tr>
+			                <td id="30"></td>
+			                <td id="31"></td>
+			                <td id="32"></td>
+			                <td id="33"></td>
+			            </tr>
+			        </table>
+		        </div>
                 
             </div>
         
