@@ -290,6 +290,18 @@ public class MypageController extends UiUtils {
 		return "mypage/dinorank";
 	}
 
+	@GetMapping(value = "/fortressrank")
+	public String fortressrank(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
+		GameScoreDTO user = new GameScoreDTO();
+		model.addAttribute("headersession", loginMember);
+		user.setMemId(loginMember.getMemId());
+		user.setGameName("포트리스");
+
+		List<GameScoreDTO> rank = gameService.selectMyRank(user);
+		model.addAttribute("fortress", rank);
+		return "mypage/fortressrank";
+	}
+	
 	@GetMapping(value = "/ddongrank")
 	public String ddongrank(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		GameScoreDTO user = new GameScoreDTO();
@@ -301,15 +313,15 @@ public class MypageController extends UiUtils {
 		return "mypage/ddongrank";
 	}
 	
-	@GetMapping(value = "/2048")
+	@GetMapping(value = "/rank2048")
     public String rank2048(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
         GameScoreDTO user = new GameScoreDTO();
         user.setMemId(loginMember.getMemId());
         user.setGameName("2048");
 
         List<GameScoreDTO> rank = gameService.selectMyRank(user);
-        model.addAttribute("2048", rank);
-        return "mypage/2048";
+        model.addAttribute("ttt2048", rank);
+        return "mypage/rank2048";
     }
 
 	@GetMapping(value = "/beforenewpass")
