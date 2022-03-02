@@ -1,10 +1,15 @@
 /***
  * 회원가입 폼 체크(공백체크, 정규식체크)
  ***/
- $(function() {
-    console.log( "ready!" );
-    $("#nick").trigger("blur");
-});
+ /*<![CDATA[*/
+// $(function() {
+//    alert(/*[[${member.memId}]]*/null);
+//    console.log( "ready!" );
+//	
+//    	$("#nick").trigger("blur");
+//	
+//});
+ /*]]*/
  
  // 아이디 유효성 검사(1 = 중복 / 0 != 중복)
     $("#id").blur(function() {
