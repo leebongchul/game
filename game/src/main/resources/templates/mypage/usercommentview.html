@@ -3,6 +3,8 @@
 <head>
 <th:block  th:replace="/fragment/header :: main-head">
 </th:block>
+<th:block  th:replace="/fragment/footer2 :: main-foot">
+</th:block>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="../css/mypage/usercommentview.css" rel="stylesheet">
@@ -83,6 +85,7 @@
 		</script>
 	</th:block>
 </section>
+<nav th:replace="/fragment/footer2 :: main-footer"></nav> 
 </body>
 <script>
 //삭제댓글 선택 여부 체크
