@@ -79,7 +79,7 @@
                                 name="boardNum" th:value=${row.boardNum}></td>
 						<td class="col-md-1, text-center" scope="row" th:text="${row.rno}"></td>
 						<td th:class="${member.memRole!=null && member.memRole=='admin' ? 'col-md-5 text-left': 'col-md-6 text-left'}"><a
-							th:href="@{/admin/noticeview(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" th:text="${row.boardTitle}"
+							th:href="@{/board/noticeboard/view(boardNum=${row.boardNum}, memId=${row.memId}, boardType=${row.boardType})}" th:text="${row.boardTitle}"
 							class="content-a"></a></td>
 						<td class="col-md-2, text-center" th:text="${row.memNick}"></td>
 						<td class="col-md-2, text-center" th:text="${row.boardDate}"></td>
