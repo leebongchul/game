@@ -62,8 +62,8 @@
         margin-bottom:20px;
         font-weight:bold;
     }
-    #dino-th {
-        background:#FEFECC;
+    .table #th2048 {
+        background:#FEFECC !important;
     }
 
 #canvas{
@@ -74,7 +74,7 @@
 	margin-top:-430px;
 }
 
-td{
+.gamearea td{
     border: 2px solid #372c25;
 /*     border-radius: 9px; */
     text-align: center;
