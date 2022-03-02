@@ -55,6 +55,15 @@ display:inline_block;
 float:right;
 margin-top:-80px;
 }
+
+.conts1{
+width:80%;
+height:50px;
+}
+
+.commupdate{
+border-bottom:1px solid black;
+}
 </style>
 <head>
 <th:block  th:replace="/fragment/header2 :: main-head">
@@ -325,7 +334,7 @@ function movePage(uri, queryString) {
                              if(comment.memNick==/*[[${member.memNick}]]*/null){
 // //                                   console.log(/*[[${member.memId}]]*/);
                               commentsHtml += `
-                              <div class="commitbutton">
+                              <div class="commitbutton" id="commitbutton">
                                 <button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제</button>
                                 <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정</button>
                               </div>
@@ -394,16 +403,19 @@ function movePage(uri, queryString) {
       }
     /*[- end of function -]*/
             
-    
+     function div_hide() {
+  document.getElementById("commitbutton").style.display = "none";
+  
+ }
+
     function beforeupdate(commNum, commContents, memNick) {
-        console.log(commNum +"의 수정버튼을 눌렀습니다");
-    
+       
+      div_hide();  
     let change ="";
     change += `
-         
-    <li class="">
+    <li class="commupdate">
         <span class="nick">${memNick}</span>
-        <span class="conts" ><input type="text" class="conts1" placeholder="${commContents}" id="tex" ><p/input></span>
+        <span class="inputconts" ><input type="text" class="conts1" placeholder="${commContents}" id="tex" ><p/input></span>
        
         <button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="printCommentList()" >취소<i class="fa fa-close" aria-hidden="true"></i></button>
         <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="updateComment('${commNum}')">수정완료<i class="fa fa-close1" aria-hidden="true"></i></button>
