@@ -144,3 +144,15 @@ margin:auto;
     font-size: 10pt;
     color: white;
 }
+    .gameexp {
+	font-size:15px;
+	font-weight:bold;
+}
+.usertext {
+	font-size:15px;
+	font-weight:bold;
+}
+.rank-text {
+	font-size:15px;
+	font-weight:bold;
+}

@@ -17,7 +17,10 @@
  <div>
             <button type="button"  id = "gameexp_btn" class="btn_exp" onclick="openexp()">게임설명</button>
         </div>
-        <div id = "gameexp" style="display:none">게임설명이 들어가는곳</div>
+        <div id = "gameexp" style="display:none" class="gameexp">
+        같은 숫자를 더해서 최대한 많은 점수를 올리세요!!<br>
+        조작법 : 상하좌우 방향키
+        </div>
              <hr class="hr1">
         
             <div class = "canvasfield" id = "2048">
@@ -70,11 +73,11 @@
         
         <div th:if="${game} == null">
             <div class="text1">
-                <span>Guest님의 점수 &emsp;&ensp;&nbsp; :</span>
+                <span class="usertext">Guest님의 점수 &emsp;&ensp;&nbsp; :</span>
                 <input type = "text" id = "now_score" value = "0">
             </div>
             <div class="text2">
-                <span>Guest님의 최고점수 :</span>
+                <span class="usertext">Guest님의 최고점수 :</span>
                 <input type = "text" id = "max_score" value = "0">
             </div>
             <input type = "hidden" id = "guest" value = "true">
@@ -82,11 +85,11 @@
          
         <div th:unless="${game} == null">
             <div class="text1">
-                <span th:text = "|${game.memNick}님의 점수 &emsp;&ensp;&nbsp; :|"></span>
+                <span th:text = "|${game.memNick}님의 점수 &emsp;&ensp;&nbsp; :|" class="usertext"></span>
                 <input type = "text" id = "now_score" value = "0">
             </div>
             <div class="text2">
-                <span th:text = "|${game.memNick}님의 최고점수 :|"></span>
+                <span th:text = "|${game.memNick}님의 최고점수 :|" class="usertext"></span>
                 <input type = "text" name = "rankScore" id = "max_score" th:value = ${game.rankScore}>
             </div>
             <input type = "hidden" id = "guest" value = "false">
@@ -104,16 +107,16 @@
         <table class = "table">
                 <thead>
                     <tr>
-                        <th class="text-center" id="th2048">랭킹</th>
-                        <th class="text-center" id="th2048">닉네임</th>
-                        <th class="text-center" id="th2048">점수</th>
+                        <th class="text-center rank-text" id="2048-th">랭킹</th>
+                        <th class="text-center rank-text" id="2048-th">닉네임</th>
+                        <th class="text-center rank-text" id="2048-th">점수</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr th:each="row : ${top5}">
-                        <td th:text="${row.rno}" class="text-center"></td>
-                        <td th:text="${row.memNick}" class="text-center"></td>
-                        <td th:text="${row.rankScore}" class="text-center"></td>
+                        <td th:text="${row.rno}" class="text-center rank-text"></td>
+                        <td th:text="${row.memNick}" class="text-center rank-text"></td>
+                        <td th:text="${row.rankScore}" class="text-center rank-text"></td>
                     </tr>
                 </tbody>
          </table>
