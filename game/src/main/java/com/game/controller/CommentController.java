@@ -83,11 +83,13 @@ public class CommentController {
 		return jsonObj;
 	}
 
-	@GetMapping(value = "/comments/{boardNum}")
-	public JsonObject getCommentList(@PathVariable("boardNum") String str,
+	@GetMapping(value = "/comments/{boardNum}/{currentPageNo}/{recordsPerPage}/{pageSize}")
+	public JsonObject getCommentList(@PathVariable("boardNum") String str, @PathVariable("currentPageNo") String str2,
+			@PathVariable("recordsPerPage") String str3, @PathVariable("pageSize") String str4,
 			@ModelAttribute("params") CommentDTO params, Model model) {
-	    //22-03-01 파라미터에 모델 츠가
-		System.out.println("params = " + params);
+		// 22-03-01 파라미터에 모델 츠가
+		System.out.println("str = " + str);
+		System.out.println("str2 = " + str2);
 		/**
 		 * rest 방식으로 입력된 데이터(=여기선 JSON)를 확인하기 쉽게 하기 위한 rest 클라이언트 프로그램 설치하면 좋긴 할듯
 		 * https://install.advancedrestclient.com/install 나는 저 위 사이트에서 다운 받았음. 블로그에서
@@ -99,6 +101,10 @@ public class CommentController {
 
 		// commentService.getCommentList(params) =
 		// 특정 게시글에 포함된 댓글의 개수가 1이상이면, 특정 게시글의 모든 댓글 목록을 조회하는 메소드
+		params.setCurrentPageNo(Integer.parseInt(str2));
+		params.setRecordsPerPage(Integer.parseInt(str3));
+		params.setPageSize(Integer.parseInt(str4));
+
 		List<CommentDTO> commentList = commentService.getCommentList(params);
 
 		// commentList의 리턴값이 false라면(=commentList가 null이 아니라면=댓글이 1개 이상 달렸다면)
@@ -117,8 +123,6 @@ public class CommentController {
 			jsonObj.add("commentList", jsonArr);
 			model.addAttribute("modelcomlist", jsonObj);
 
-
-			
 		}
 		return jsonObj;
 

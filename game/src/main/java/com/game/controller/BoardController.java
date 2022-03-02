@@ -32,10 +32,10 @@ public class BoardController extends UiUtils {
 
 	@Autowired
 	private GameService gameService;
-	
+
 	@Autowired
-    private CommentService commentService;
-	
+	private CommentService commentService;
+
 	@GetMapping(value = "/test")
 	public String testfunction(Model model) {
 		return "board/test";
@@ -57,7 +57,7 @@ public class BoardController extends UiUtils {
 		} else {
 			model.addAttribute("member", loginMember);
 		}
-		
+
 		return "board/list";
 	}
 
@@ -79,17 +79,17 @@ public class BoardController extends UiUtils {
 
 		return "board/layout/dinorank";
 	}
-	
-	@GetMapping(value = "/layout/2048")
-    public String open2048List(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
-            @ModelAttribute("params") GameScoreDTO params, Model model) {
-        model.addAttribute("headersession", loginMember);
-        params.setGameName("2048");
-        List<GameScoreDTO> rank2048 = gameService.selectGameRankList(params);
-        model.addAttribute("2048", rank2048);
 
-        return "board/layout/2048";
-    }
+	@GetMapping(value = "/layout/2048")
+	public String open2048List(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
+			@ModelAttribute("params") GameScoreDTO params, Model model) {
+		model.addAttribute("headersession", loginMember);
+		params.setGameName("2048");
+		List<GameScoreDTO> rank2048 = gameService.selectGameRankList(params);
+		model.addAttribute("2048", rank2048);
+
+		return "board/layout/2048";
+	}
 
 	@GetMapping(value = "/layout/ddongrank")
 	public String openddongList(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
@@ -202,9 +202,9 @@ public class BoardController extends UiUtils {
 			@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember, Model model) {
 		System.out.println("boardNum:" + params.getBoardNum());
 		model.addAttribute("headersession", loginMember);
-		
+
 		List<CommentDTO> commentList = commentService.getCommentList(comm);
-		
+
 		// 댓글 작성을 위한 세션 넘겨줌(권한, 닉네임, 아이디 등)
 		if (loginMember == null) {
 			MemberDTO member = new MemberDTO();
@@ -223,6 +223,7 @@ public class BoardController extends UiUtils {
 		}
 		boardService.plusBoardHit(params);
 		model.addAttribute("board", board);
+		model.addAttribute("params", comm);
 		System.out.println(params);
 		return "board/view";
 	}

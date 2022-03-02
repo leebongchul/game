@@ -209,7 +209,10 @@ padding-right:10px;
 
 <script th:inline="javascript">
 function movePage(uri, queryString) {
-    location.href = uri + queryString;
+	var boardNum=/*[[${board.boardNum}]]*/null;
+	var memId=/*[[${board.memId}]]*/null;
+	
+    location.href = uri + queryString+"&boardNum="+boardNum+"&memId="+memId+"&boardType=1";
 }
 /*<![CDATA[*/       
         function insertComment(boardNum, loginId, loginNick) {
@@ -241,6 +244,7 @@ function movePage(uri, queryString) {
                 data: JSON.stringify(params),
                 success: function(response) {
                     if (response.result == true) {
+                    	
                         document.documentElement.scrollTop = document.body.scrollHeight;
                     }else {
                         alert("댓글 등록에 실패하였습니다.");
@@ -259,6 +263,8 @@ function movePage(uri, queryString) {
         /*[- end of function -]*/
         
         $(function() {
+        	
+//         	alert(/*[[${params.recordsPerPage}+'/'+${params.pageSize}]]*/);
             printCommentList(); 
         });
         
@@ -267,7 +273,7 @@ function movePage(uri, queryString) {
             //${board.~}는 컨트롤러에서 설정한 "board"에서 받아온 값 중 ~라는 속성을 꺼내온단 의미
             //클라이언트가 서버로 요청을 보낼 주소.             
             
-           var uri = /*[[ @{/comments/} + ${board.boardNum}]]*/null;
+           var uri = /*[[ @{/comments/} + ${board.boardNum}+ '/'+${params.currentPageNo}+ '/'+${params.recordsPerPage}+ '/'+${params.pageSize}]]*/null;
             var loginMemId=document.getElementById("loginMemId").value;
 //             console.log("hi");
 
