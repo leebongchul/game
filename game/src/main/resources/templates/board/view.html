@@ -335,8 +335,8 @@ function movePage(uri, queryString) {
 // //                                   console.log(/*[[${member.memId}]]*/);
                               commentsHtml += `
                               <div class="commitbutton" id="commitbutton">
-                                <button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제</button>
-                                <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정</button>
+                                <button type="button" class="btn btn-dark btn-sm glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제</button>
+                                <button type="button" class="btn btn-dark btn-sm" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정</button>
                               </div>
                                 `;
                                 }
