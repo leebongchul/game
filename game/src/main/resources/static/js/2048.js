@@ -33,10 +33,10 @@ var 게임종료 = {
 
 
 var 재시작 = {
-  x : 420,
-  y : 180,
+  x : 50,
+  y : 225,
   draw(){
-    ctx.font = "14pt Fira";
+    ctx.font = "50pt Fira";
     ctx.fillStyle = 'black';
     ctx.fillText("스페이스바를 누르면 재시작",this.x,this.y);
   }
@@ -73,6 +73,7 @@ document.addEventListener('keydown', function(e){
     if(게임진행 == false){
         ctx.clearRect(0,0,canvas.width,canvas.height);
         게임진행=true;
+        init();
         
     }
         
@@ -346,7 +347,6 @@ function gameover(){
                     });
                 }
             }
-             init();
-         
-   
+            게임진행 = false;
+           	재시작.draw();
 }
