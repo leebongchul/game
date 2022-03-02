@@ -65,4 +65,15 @@
     #dino-th {
     	background:#FEFECC;
     }
-
+    .gameexp {
+	font-size:15px;
+	font-weight:bold;
+}
+.usertext {
+	font-size:15px;
+	font-weight:bold;
+}
+.rank-text {
+	font-size:15px;
+	font-weight:bold;
+}
