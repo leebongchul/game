@@ -14,7 +14,7 @@
 <body>
 <nav th:replace="/fragment/header :: main-header"></nav> 
  <section class="pass_find">
-    <img src="../image/로고.PNG">
+    <img src="../image/미니게임즈4.PNG" class="logo">
     <h3>회원가입 시 입력한 아이디와 이메일을 입력해주세요</h3>
     <form name="passfindForm" th:action="@{/member/passfind}" th:object="${member}" method="post" onsubmit="return passfindCheck()">
      <th:block layout:fragment="content">
