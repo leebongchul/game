@@ -45,22 +45,23 @@ var 재시작 = {
 // 키보드 입력 처리
 document.onkeydown = keyDownEventHandler;
 function keyDownEventHandler(e){
-	
-    switch(e.keyCode){
-	
-        case 38: e.preventDefault();
-        	moveDir(0);
-			break; //up
-        case 40: e.preventDefault();
-	        moveDir(1); 
-	        break; //down
-        case 37: e.preventDefault();
-	        moveDir(2); 
-	        break; //left
-        case 39: e.preventDefault(); 
-	        moveDir(3); 
-	        break; //right
-        
+	if(게임진행 == true){
+        switch(e.keyCode){
+    	
+            case 38: e.preventDefault();
+            	moveDir(0);
+    			break; //up
+            case 40: e.preventDefault();
+    	        moveDir(1); 
+    	        break; //down
+            case 37: e.preventDefault();
+    	        moveDir(2); 
+    	        break; //left
+            case 39: e.preventDefault(); 
+    	        moveDir(3); 
+    	        break; //right
+            
+        }
     }
 }
 
@@ -71,6 +72,7 @@ document.addEventListener('keydown', function(e){
     
     if(게임진행 == false){
         ctx.clearRect(0,0,canvas.width,canvas.height);
+        게임진행=true;
         
     }
         
