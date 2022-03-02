@@ -396,13 +396,17 @@ display:inline;
 }
 .user-icon {
 	/*border: 1px solid blue;*/
-	margin-left:540px;
-	margin-right:-6px;
+/* 	margin-left:540px; */
+/* 	margin-right:-6px; */
 }
 .user-icons {
 	/*border: 1px solid red;*/
-	margin-top:50px;
+/* 	margin-top:50px; */
 }
 #content{
 	width:750px;
+}
+.viewbar{
+	display:flex;
+	justify-content:end;
 }
