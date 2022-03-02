@@ -33,10 +33,10 @@ var 게임종료 = {
 
 
 var 재시작 = {
-  x : 420,
-  y : 180,
+  x : 50,
+  y : 225,
   draw(){
-    ctx.font = "14pt Fira";
+    ctx.font = "50pt Fira";
     ctx.fillStyle = 'black';
     ctx.fillText("스페이스바를 누르면 재시작",this.x,this.y);
   }
@@ -45,35 +45,44 @@ var 재시작 = {
 // 키보드 입력 처리
 document.onkeydown = keyDownEventHandler;
 function keyDownEventHandler(e){
-    switch(e.keyCode){
-        case 38: moveDir(0); break; //up
-        case 40: moveDir(1); break; //down
-        case 37: moveDir(2); break; //left
-        case 39: moveDir(3); break; //right
+	if(게임진행 == true){
+        switch(e.keyCode){
+    	
+            case 38: e.preventDefault();
+            	moveDir(0);
+    			break; //up
+            case 40: e.preventDefault();
+    	        moveDir(1); 
+    	        break; //down
+            case 37: e.preventDefault();
+    	        moveDir(2); 
+    	        break; //left
+            case 39: e.preventDefault(); 
+    	        moveDir(3); 
+    	        break; //right
+            
+        }
     }
 }
 
 document.addEventListener('keydown', function(e){
   if(e.code === 'Space'){
+	
     e.preventDefault();
+    
     if(게임진행 == false){
         ctx.clearRect(0,0,canvas.width,canvas.height);
+        게임진행=true;
         init();
-        게임진행 == true;
-    }else{
         
     }
+        
   }
+ 
+    	
 });
 
-document.addEventListener('keydown', function(e){
-  if(e.code === 'keyup','keydown'){
-    e.preventDefault();
-    
-        
-    
-  }
-});
+
 
 
 function 프레임마다실행(){
@@ -106,7 +115,6 @@ function 게임시작전(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     cancelAnimationFrame(animation);
     게임시작.draw();
-    line.draw();
    
     
   }
@@ -339,7 +347,6 @@ function gameover(){
                     });
                 }
             }
-             init();
-         
-   
+            게임진행 = false;
+           	재시작.draw();
 }

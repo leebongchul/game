@@ -26,9 +26,10 @@
 
 <style>
 span.nick {
- display:inline-block;
+ display:block;
  font-weight: 900;
- padding-bottom:30px;
+ padding-bottom:10px;
+  
  
 }
 
@@ -38,7 +39,22 @@ float:right;
 padding-right:10px;
 }
 
+div.conts {
+width:80%;
+}
+.commlist {
+ border-bottom:1px solid black;
+ margin-bottom:20px;
+   list-style-type:none;
+/*    margin:auto; */
+}
 
+
+.commitbutton {
+display:inline_block;
+float:right;
+margin-top:-80px;
+}
 </style>
 <head>
 <th:block  th:replace="/fragment/header2 :: main-head">
@@ -209,7 +225,10 @@ padding-right:10px;
 
 <script th:inline="javascript">
 function movePage(uri, queryString) {
-    location.href = uri + queryString;
+	var boardNum=/*[[${board.boardNum}]]*/null;
+	var memId=/*[[${board.memId}]]*/null;
+	
+    location.href = uri + queryString+"&boardNum="+boardNum+"&memId="+memId+"&boardType=1";
 }
 /*<![CDATA[*/       
         function insertComment(boardNum, loginId, loginNick) {
@@ -241,7 +260,8 @@ function movePage(uri, queryString) {
                 data: JSON.stringify(params),
                 success: function(response) {
                     if (response.result == true) {
-                        document.documentElement.scrollTop = document.body.scrollHeight;
+                    	
+//                         document.documentElement.scrollTop = document.body.scrollHeight;
                     }else {
                         alert("댓글 등록에 실패하였습니다.");
                         return false;
@@ -259,6 +279,8 @@ function movePage(uri, queryString) {
         /*[- end of function -]*/
         
         $(function() {
+        	
+//         	alert(/*[[${params.recordsPerPage}+'/'+${params.pageSize}]]*/);
             printCommentList(); 
         });
         
@@ -267,7 +289,7 @@ function movePage(uri, queryString) {
             //${board.~}는 컨트롤러에서 설정한 "board"에서 받아온 값 중 ~라는 속성을 꺼내온단 의미
             //클라이언트가 서버로 요청을 보낼 주소.             
             
-           var uri = /*[[ @{/comments/} + ${board.boardNum}]]*/null;
+           var uri = /*[[ @{/comments/} + ${board.boardNum}+ '/'+${params.currentPageNo}+ '/'+${params.recordsPerPage}+ '/'+${params.pageSize}]]*/null;
             var loginMemId=document.getElementById("loginMemId").value;
 //             console.log("hi");
 
@@ -292,24 +314,26 @@ function movePage(uri, queryString) {
                   
                     $(response.commentList).each(function(commNum, comment) {
                         commentsHtml += `
-                            <li id="${comment.commNum}">
+                            <li id="${comment.commNum}" class="commlist">
                                 <span class="nick" id="commNick">${comment.memNick}</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                <br>
-                                <span class="conts" id="commConts">${comment.commContents}</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                <span class="time">${comment.commDate}</span>`;
+                                <div class="conts" id="commConts">${comment.commContents}</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <span class="time">${comment.commDate}</span>
+                            </li>`;
                                 
                                 
                                 
                              if(comment.memNick==/*[[${member.memNick}]]*/null){
 // //                                   console.log(/*[[${member.memId}]]*/);
                               commentsHtml += `
+                              <div class="commitbutton">
                                 <button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제</button>
                                 <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정</button>
-                             `;
+                              </div>
+                                `;
                                 }
                                
                           commentsHtml += `
-                               `;
+                        	  `;
                     });
                       
                     $(".notice-list").html(commentsHtml);
