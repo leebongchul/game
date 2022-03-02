@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<style>
+.content {
+    /*border:1px solid blue;*/
+    width:500px;
+}
+thead{
+    background:#F0F0F0;
+}
+tbody {
+    background:#FFFDA2;
+    font-weight:bold;
+}
+img {
+    /*border:1px solid red;*/
+    height:70px;
+    margin-bottom:10px;
+    margin-left:145px;
+}
+span{
+    display:inline;
+    font-size:25px;
+    font-weight:bold;
+    margin-top:50px;
+    /*border:1px solid blue;*/
+}
+ table {
+    width: 400px;
+  }
+</style>
+</head>
+<body>
+<section class="content">
+<img src="/image/ggobugi.PNG">
+<span>같은그림찾기</span>
+<table class = "table">
+                <thead>
+                    <tr>
+                        <th>랭킹</th>
+                        <th>닉네임</th>
+                        <th>점수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="row : ${picture}">
+                        <td th:text="${row.rank}"></td>
+                        <td th:text="${row.memNick}"></td>
+                        <td th:text="${row.rankScore}"></td>
+                    </tr>
+                </tbody>
+        </table>
+</section>
+</body>
+</html>

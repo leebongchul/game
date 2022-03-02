@@ -56,7 +56,7 @@
                 <label>*닉네임</label>
                 </li>
             <li>
-                <input type="text" name="memNick" th:field="*{memNick}" class="input1" id="nick" autocomplete="off">
+                <input type="text" name="memNick" th:field="*{memNick}" class="input1" id="nick" autocomplete="off" onblur="textCheck_nick(this)">
                 <!-- onblur="textCheck_nick(this)" onfocus = "nickchecksave(this)" -->
                 <div id="nickmsg"></div>
              </li>
@@ -112,11 +112,11 @@
                 <button type="submit" id = "submitbtn" class="btn_join">가입하기</button>
              </li>
           </ul>
-                <input type = "hidden" id = "idcheck" th:value ="${memEmail1 !=null && memEmail2 != null ? 'Y' : 'N'}">
+                <input type = "hidden" id = "idcheck" th:value ="${member.memId != null ? 'Y' : 'N'}">
                 <input type = "hidden" id = "nickcheck" value = "N">
                 <input type = "hidden" id = "hpcheck" value = "N">
-                <input type = "hidden" id = "emailcheck" th:value ="${memEmail1 !=null && memEmail2 != null ? 'Y' : 'N'}">   
-                <input type = "hidden" id = "emailcodecheck" th:value ="${memEmail1 !=null && memEmail2 != null ? 'Y' : 'N'}">  
+                <input type = "hidden" id = "emailcheck" th:value ="${member.memId != null ? 'Y' : 'N'}">   
+                <input type = "hidden" id = "emailcodecheck" th:value ="${member.memId != null ? 'Y' : 'N'}">  
           </form>
       </section>      
         </div>

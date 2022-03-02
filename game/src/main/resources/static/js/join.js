@@ -1,6 +1,10 @@
 /***
  * 회원가입 폼 체크(공백체크, 정규식체크)
  ***/
+ $(function() {
+    console.log( "ready!" );
+    $("#nick").trigger("blur");
+});
  
  // 아이디 유효성 검사(1 = 중복 / 0 != 중복)
     $("#id").blur(function() {
@@ -11,7 +15,7 @@
             type : 'post',
             data:{memId:id},
             success : function(data) {
-                console.log("1 = 중복o / 0 = 중복x : "+ data);                          
+                console.log("1 = 아이디중복o / 0 = 중복x : "+ data);                          
                 
                 if (data == 1) {
                         // 1 : 아이디가 중복되는 문구
