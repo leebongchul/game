@@ -75,15 +75,15 @@ public class BoardController extends UiUtils {
 		return "board/layout/dinorank";
 	}
 	
-	@GetMapping(value = "/layout/2048")
+	@GetMapping(value = "/layout/rank2048")
     public String open2048List(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
             @ModelAttribute("params") GameScoreDTO params, Model model) {
         model.addAttribute("headersession", loginMember);
         params.setGameName("2048");
         List<GameScoreDTO> rank2048 = gameService.selectGameRankList(params);
         model.addAttribute("2048", rank2048);
-
-        return "board/layout/2048";
+        System.out.println(rank2048);
+        return "board/layout/rank2048";
     }
 
 	@GetMapping(value = "/layout/ddongrank")

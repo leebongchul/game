@@ -45,35 +45,41 @@ var 재시작 = {
 // 키보드 입력 처리
 document.onkeydown = keyDownEventHandler;
 function keyDownEventHandler(e){
+	
     switch(e.keyCode){
-        case 38: moveDir(0); break; //up
-        case 40: moveDir(1); break; //down
-        case 37: moveDir(2); break; //left
-        case 39: moveDir(3); break; //right
+	
+        case 38: e.preventDefault();
+        	moveDir(0);
+			break; //up
+        case 40: e.preventDefault();
+	        moveDir(1); 
+	        break; //down
+        case 37: e.preventDefault();
+	        moveDir(2); 
+	        break; //left
+        case 39: e.preventDefault(); 
+	        moveDir(3); 
+	        break; //right
+        
     }
 }
 
 document.addEventListener('keydown', function(e){
   if(e.code === 'Space'){
+	
     e.preventDefault();
+    
     if(게임진행 == false){
         ctx.clearRect(0,0,canvas.width,canvas.height);
-        init();
-        게임진행 == true;
-    }else{
         
     }
+        
   }
+ 
+    	
 });
 
-document.addEventListener('keydown', function(e){
-  if(e.code === 'keyup','keydown'){
-    e.preventDefault();
-    
-        
-    
-  }
-});
+
 
 
 function 프레임마다실행(){
@@ -106,7 +112,6 @@ function 게임시작전(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     cancelAnimationFrame(animation);
     게임시작.draw();
-    line.draw();
    
     
   }
