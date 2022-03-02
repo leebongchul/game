@@ -1,0 +1,23 @@
+.width500px{width: 450px; display: inline-block;}
+        .center{text-align: center;}
+        #startBtn{border: none; color: white; background-color: #5AAFFF; width: 80px;padding: 5px; font-weight: bold; cursor: pointer;}
+        #cardTable{border-collapse: collapse;}
+        #cardTable td{border: 1px solid #5AAFFF; width: 75px; height: 121px; text-align: center; cursor: pointer;}
+        #cardTable td img{max-width: 70px;}
+        #cardTable td span{font-size: 25pt; font-weight: bold; color: #5AAFFF; display: none;}
+        #countDown{background-color: #5AAFFF; color: white; font-size: 20pt;}
+        #info{width: 450px; height: 250px; background-color: #DDDDDD; color: white; padding-top: 230px;}
+        
+        .text1 {
+        margin-top:50px;
+        margin-left:30px;
+    }
+    .text2 {
+        margin-top:10px;
+        margin-left:30px;
+    }
+    input {
+        border:1px solid lightgray;
+        border-radius:5px;
+        padding: 3px 10px;
+    }

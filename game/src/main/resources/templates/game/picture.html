@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+    <th:block  th:replace="/fragment/header :: main-head">
+</th:block>
+<th:block  th:replace="/fragment/footer2 :: main-foot">
+</th:block>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="../css/game/picture.css" rel="stylesheet">
+    <script src="../js/picture.js"></script>
+    </head>
+    <body class='center'>
+    <nav th:replace="/fragment/header :: main-header"></nav>
+    <section class="game">
+     <div>
+            <button type="button"  id = "gameexp_btn" class="btn_exp" onclick="openexp()">게임설명</button>
+        </div>
+        <div id = "gameexp" style="display:none">게임설명이 들어가는곳</div>
+    <div class='width500px'>
+            <div>
+                <h2>같은 그림 찾기</h2>
+                <table id='menuTable'>
+                    <tr>
+                        <td class='alignLeft'>
+                            <button id='startBtn'>start</button>
+                        </td>
+                        <td class='alignRight'>
+                            <span>score : <span id='score'>0</span></span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <div id='countDown'>
+                    ready
+                </div>
+                <table id='cardTable'>
+                </table>
+                <div id='info'>
+                    start 버튼을 눌러주세요<br>
+                </div>
+            </div>
+        </div>
+
+             <hr class="hr1">
+        <form id = "ScoreForm" th:action = "@{/game/ddong.do}" th:object="${game}" method="post" onsubmit="return formsubmit(this)" >
+        
+        <div th:if="${game} == null">
+            <div class="text1">
+                <span>Guest님의 점수 &emsp;&ensp;&nbsp; :</span>
+                <input type = "text" id = "now_score" value = "0">
+            </div>
+            <div class="text2">
+                <span>Guest님의 최고점수 :</span>
+                <input type = "text" id = "max_score" value = "0">
+            </div>
+            <input type = "hidden" id = "guest" value = "true">
+        </div>
+         
+        <div th:unless="${game} == null">
+            <div class="text1">
+                <span th:text = "|${game.memNick}님의 점수 &emsp;&ensp;&nbsp; :|"></span>
+                <input type = "text" id = "now_score" value = "0">
+            </div>
+            <div class="text2">
+                <span th:text = "|${game.memNick}님의 최고점수 :|"></span>
+                <input type = "text" name = "rankScore" id = "max_score" th:value = ${game.rankScore}>
+            </div>
+            <input type = "hidden" id = "guest" value = "false">
+            <input type = "hidden" name = "memId" th:value = ${game.memId}>
+        </div>
+        
+        
+        </form>
+        
+        <hr class="hr2">
+        <div class="top">
+            <h1 class="text-top">TOP5</h1>
+        </div>
+        
+        <table class = "table">
+                <thead>
+                    <tr>
+                        <th class="text-center" id="ddong-th">랭킹</th>
+                        <th class="text-center" id="ddong-th">닉네임</th>
+                        <th class="text-center" id="ddong-th">점수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="row : ${top5}">
+                        <td th:text="${row.rno}" class="text-center"></td>
+                        <td th:text="${row.memNick}" class="text-center"></td>
+                        <td th:text="${row.rankScore}" class="text-center"></td>
+                    </tr>
+                </tbody>
+         </table>
+         
+     </section>
+        
+    <nav th:replace="/fragment/footer2 :: main-footer"></nav> 
+    </body>
+<script>
+function openexp(){
+    if($('#gameexp').css('display') == 'none'){
+        $('#gameexp').show();
+    }else{
+        $('#gameexp').hide()
+    }
+}
+
+
+
+
+
+
+
+</script>
+</html>
