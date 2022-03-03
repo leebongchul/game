@@ -5,6 +5,7 @@ section.userrank {
         /*border:1px solid red;*/
         margin:auto;
         margin-top:70px;
+        display: flex;
 }
 .myrank {
 	/*border:1px solid red;*/
@@ -12,8 +13,8 @@ section.userrank {
 }
 .iframe {
 	/*border:1px solid blue;*/
-	margin-left:300px;
-	margin-top:-95px;
+	margin-left: 100px;
+    margin-top: 30px;
 }
 .myrankview{
 	font-size:30px;
