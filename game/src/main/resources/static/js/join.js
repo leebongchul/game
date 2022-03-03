@@ -1,15 +1,7 @@
 /***
  * 회원가입 폼 체크(공백체크, 정규식체크)
  ***/
- /*<![CDATA[*/
-// $(function() {
-//    alert(/*[[${member.memId}]]*/null);
-//    console.log( "ready!" );
-//	
-//    	$("#nick").trigger("blur");
-//	
-//});
- /*]]*/
+
  
  // 아이디 유효성 검사(1 = 중복 / 0 != 중복)
     $("#id").blur(function() {
@@ -140,22 +132,19 @@
         });
     }
     
+    /*<![CDATA[*/
     // 이메일 유효성검사
     function emailCheck() {
+        let kakao = $("#kakaoJoin").val()
         let check1 = /^[^ㄱ-ㅎ가-힣]+$/;
         let check2 = /^(.*[a-zA-Z])(?=.*[.])[a-zA-Z\.]+$/;
         let email = $("#email1").val() + "@" + $("#email2").val();
         
         let emailcodecheck = $("#emailcodecheck").val();
         let btn_check = $("#btn_check");
-        let code = $("#code");
         //이메일 변경 시 이메일 중복체크, 이메일 인증체크 값 'N'으로 변경
         emailcheck = 'N';
         emailcodecheck = 'N';
-        //카카오톡으로 회원가입 시 계정의 이메일이 자동 입력되고 이메일의 유효성체크와 인증체크를 진행하지 않아도 됨(버튼과 코드입력란이 안보임)
-        //하지만 이메일을 수정할 경우 인증체크를 진행해야함-> 버튼과 코드입력란이 보이게 바뀜
-        btn_check.replaceWith($('<button type="button" class="btn_check" id="btn_check" onclick="sendEmailCode()">인증번호 받기</button>'));
-        code.replaceWith($('<input type ="text" class="code" placeholder="인증번호를 입력해주세요" id="code" onblur="emailCodeCheck()" autocomplete="off">'));
         
         
         $.ajax({
@@ -172,25 +161,40 @@
                         $("#emailcheck").val("N");
                 } else {
                         
-                    if($("#email1").val() == "" || $("#email2").val() == ""){
-                        $("#emailmsg").text("이메일을 입력해주세요");
-                        $("#emailmsg").css("color","red");
-                        $("#emailcheck").val("N");
-                    }else if(!check1.test($("#email1").val())){
-                        $("#emailmsg").text("한글은 사용 불가능합니다");
-                        $("#emailmsg").css("color","red");
-                        $("#emailcheck").val("N");
-                    }else if(!check2.test($('#email2').val())){
-                        $("#emailmsg").text("이메일 형식을 확인해주세요");
-                        $("#emailmsg").css("color","red");
-                        $("#emailcheck").val("N");
-                    }else if($("#email1").val() !== "" && $("email2").val() !== ""){
-                        $("#emailmsg").text("이메일 인증해주세요");
-                        $("#emailcheck").val("Y");
-                    }else{
-                        $("#emailmsg").text("이메일 인증해주세요");
-                        $("#emailcheck").val("Y");
-                    }
+                        if($("#email1").val() == "" || $("#email2").val() == ""){
+                            $("#emailmsg").text("이메일을 입력해주세요");
+                            $("#emailmsg").css("color","red");
+                            $("#emailcheck").val("N");
+                        }else if(!check1.test($("#email1").val())){
+                            $("#emailmsg").text("한글은 사용 불가능합니다");
+                            $("#emailmsg").css("color","red");
+                            $("#emailcheck").val("N");
+                        }else if(!check2.test($('#email2').val())){
+                            $("#emailmsg").text("이메일 형식을 확인해주세요");
+                            $("#emailmsg").css("color","red");
+                            $("#emailcheck").val("N");
+                        }else if($("#email1").val() !== "" && $("email2").val() !== ""){
+                            $("#emailcheck").val("Y");
+                            if(kakao=="Y" && $("#emailchange").val()=="N"){
+                                $("#emailcodecheck").val("Y");
+                                $("#emailmsg").text("<주의>이메일 변경 시 추가인증 필요!!'");
+                                $("#btn_check").css('display','none');
+                                $("#code").css('display','none');
+                            }else{
+                                $("#emailmsg").text("이메일 인증해주세요");
+                            }
+                        }else{
+                            $("#emailcheck").val("Y");
+                            if(kakao=="Y"&& $("#emailchange").val()=="N"){
+                                $("#emailcodecheck").val("Y");
+                                $("#emailmsg").text("<주의>이메일 변경 시 추가인증 필요!!'");
+                                $("#btn_check").css('display','none');
+                                $("#code").css('display','none');
+                            }else{
+                                $("#emailmsg").text("이메일 인증해주세요");
+                            }
+                        }
+                            
                         
                 }
                 
@@ -199,12 +203,26 @@
                 }
         });
     }
+    /*]]*/
+    function emailchangeEvent() {
+        $("#emailchange").val("Y");
+        $("#btn_check").css('display','inline-block');
+        $("#code").css('display','block');
+        }
     
  // 이메일 내용 변경 시
     function emailUpdateCheck() {
         let check1 = /^[^ㄱ-ㅎ가-힣]+$/;
         let check2 = /^(.*[a-zA-Z])(?=.*[.])[a-zA-Z\.]+$/;
         let email = $("#email1").val() + "@" + $("#email2").val();
+        
+        let emailcodecheck = $("#emailcodecheck").val();
+        let btn_check = $("#btn_check");
+        //이메일 변경 시 이메일 중복체크, 이메일 인증체크 값 'N'으로 변경
+        emailcheck = 'N';
+        emailcodecheck = 'N';
+        $("#btn_check").css('display','block');
+        $("#code").css('display','block');
         
         
         $.ajax({
@@ -280,6 +298,7 @@
                         // 1 : 인증코드 일치 시
                         $("#emailmsg").text("");
                         $("#emailmsg").css("color","red");
+                        $("#emailcheck").val("Y");
                         $("#emailcodecheck").val("Y");
                         console.log(data);
                 } else {
@@ -349,15 +368,13 @@ function formsubmit(form) {
     } else if (hpcheck.value == 'N') {
         alert("핸드폰번호 중복을 확인해주세요");
         return false;
+    } else if (emailcodecheck.value == 'N') {
+        alert("이메일 인증을 확인해주세요");
+        return false;
     } else if (emailcheck.value == 'N') {
-        alert("이메일 중복을 확인해주세요");
+        alert("이메일을 확인해주세요");
         return false;
-    } /*
-    else if (emailcodecheck.value == 'N') {
-        alert("이메일 인증을 진행해주세요");
-        return false;
-    } 
-    */
+    }
     else {
         return true;
     }
