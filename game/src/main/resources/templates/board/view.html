@@ -57,8 +57,8 @@ margin-top:-80px;
 }
 
 .conts1{
-width:80%;
-height:50px;
+	width:95% !important;
+	height:80px;
 }
 
 .commupdate{
@@ -415,10 +415,12 @@ function movePage(uri, queryString) {
     change += `
     <li class="commupdate">
         <span class="nick">${memNick}</span>
-        <span class="inputconts" ><input type="text" class="conts1" placeholder="${commContents}" id="tex" ><p/input></span>
-       
-        <button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="printCommentList()" >취소<i class="fa fa-close" aria-hidden="true"></i></button>
-        <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="updateComment('${commNum}')">수정완료<i class="fa fa-close1" aria-hidden="true"></i></button>
+        <span class="inputconts" ><textarea rows="4" class="form-control no-resize view-textarea conts1"
+        	 id="tex">${commContents}</textarea></span>
+        <div class="btn-box">
+	        <button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="printCommentList()" >취소<i class="fa fa-close" aria-hidden="true"></i></button>
+	        <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="updateComment('${commNum}')">수정완료<i class="fa fa-close1" aria-hidden="true"></i></button>
+        </div>
     </li>
     `;
     
