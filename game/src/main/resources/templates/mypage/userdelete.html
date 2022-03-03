@@ -44,6 +44,44 @@
 			</a>
 		</div>
 	</section>
+	<!-- 카카오 스크립트 -->
+<script>
+Kakao.init('6949494c77d9cbaa21c5000b475c708a'); //발급받은 키 중 javascript키를 사용해준다.
+console.log(Kakao.isInitialized()); // sdk초기화여부판단
+//카카오로그인
+function kakaoLogin() {
+    Kakao.Auth.login({
+      success: function (authObj) { //: 로그인이 성공할 경우 사용자 토큰을 받을 콜백 함수
+        Kakao.API.request({
+          url: '/v2/user/me',
+          success: function (response) {
+//              alert(JSON.stringify(response)); 
+//              alert(JSON.stringify(authObj));
+//              console.log(response.id);
+//              console.log(response.kakao_account.email);
+//              console.log(response.kakao_account.gender);
+//              console.log(authObj.access_token); //<---- 콘솔 로그에 토큰값 출력
+//              console.log(response.properties['nickname']);
+//               console.log('login response: '+response)
+              
+              let memId = response.id;
+              let memNick = response.properties.nickname;
+              let memEmail = response.kakao_account.email;
+              let memGender = response.kakao_account.gender;
+              let url ="/mypage/kakaodelete?memId="+memId
+              window.location.replace(url);
+          },
+          fail: function (error) {
+            console.log(error)
+          },
+        })
+      },
+      fail: function (error) {
+        console.log(error)
+      },
+    })
+  } 
+</script>
 	<nav th:replace="/fragment/footer :: main-footer"></nav> 
 </body>
 </html>
