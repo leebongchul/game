@@ -6,10 +6,10 @@
 	/*border:1px solid red;*/
 	height:100%;
 }
-#header .logo a {
+  #headers-a {
   color: white;
   margin-right:600px;
-  margin-left:-162px;
+  margin-left:-81px;
 }
 .navbar{
     margin-left:150px;
