@@ -327,7 +327,7 @@ function movePage(uri, queryString) {
                                 <span class="nick" id="commNick">${comment.memNick}</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                 <div class="conts" id="commConts">${comment.commContents}</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                 <span class="time">${comment.commDate}</span>
-                            </li>`;
+                           `;
                                 
                                 
                                 
@@ -338,7 +338,7 @@ function movePage(uri, queryString) {
                                 <button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제</button>
                                 <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정</button>
                               </div>
-                                `;
+                              </li>`;
                                 }
                                
                           commentsHtml += `
@@ -405,7 +405,6 @@ function movePage(uri, queryString) {
             
      function div_hide() {
   document.getElementById("commitbutton").style.display = "none";
-  
  }
 
     function beforeupdate(commNum, commContents, memNick) {
@@ -416,8 +415,8 @@ function movePage(uri, queryString) {
     <li class="commupdate">
         <span class="nick">${memNick}</span>
         <span class="inputconts" ><textarea rows="4" class="form-control no-resize view-textarea conts1"
-        	 id="tex">${commContents}</textarea></span>
-        <div class="btn-box">
+        	 id="tex" placeholder="${commContents}"></textarea></span>
+        <div class="btn-box" id="btn-box">
 	        <button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="printCommentList()" >취소<i class="fa fa-close" aria-hidden="true"></i></button>
 	        <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="updateComment('${commNum}')">수정완료<i class="fa fa-close1" aria-hidden="true"></i></button>
         </div>
