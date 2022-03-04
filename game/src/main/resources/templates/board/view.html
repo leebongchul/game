@@ -53,7 +53,8 @@ width:80%;
 .commitbutton {
 display:inline_block;
 float:right;
-margin-top:-80px;
+margin-top:-41px;
+margin-right:-112px;
 }
 
 .conts1{
@@ -327,7 +328,7 @@ function movePage(uri, queryString) {
                                 <span class="nick" id="commNick">${comment.memNick}</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                 <div class="conts" id="commConts">${comment.commContents}</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                 <span class="time">${comment.commDate}</span>
-                            </li>`;
+                            `;
                                 
                                 
                                 
@@ -341,7 +342,7 @@ function movePage(uri, queryString) {
                                 `;
                                 }
                                
-                          commentsHtml += `
+                          commentsHtml += `</li>
                         	  `;
                     });
                       
