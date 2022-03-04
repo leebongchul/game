@@ -336,7 +336,7 @@ function movePage(uri, queryString) {
 // //                                   console.log(/*[[${member.memId}]]*/);
                               commentsHtml += `
                               <div class="commitbutton" id="commitbutton">
-                                <button type="button" class="glyphicon glyphicon-pencil btn-dark" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')" >삭제</button>
+                                <button type="button" class="btn btn-xs btn-circle btn-dark" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')">삭제</button>
                                 <button type="button" class="btn btn-xs btn-circle btn-dark" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정</button>
                               </div>
                                 `;
@@ -418,8 +418,8 @@ function movePage(uri, queryString) {
         <span class="inputconts" ><textarea rows="4" class="form-control no-resize view-textarea conts1"
         	 id="tex">${commContents}</textarea></span>
         <div class="btn-box">
-	        <button type="button" class="glyphicon glyphicon-pencil" id="btnCommentsDelete" onclick="printCommentList()" >취소<i class="fa fa-close" aria-hidden="true"></i></button>
-	        <button type="button" class="btn btn-xs btn-circle" id="btnCommentsUpdate" onclick="updateComment('${commNum}')">수정완료<i class="fa fa-close1" aria-hidden="true"></i></button>
+	        <button type="button" class="btn btn-xs btn-circle btn-dark" id="btnCommentsDelete" onclick="printCommentList()" >취소<i class="fa fa-close" aria-hidden="true"></i></button>
+	        <button type="button" class="btn btn-xs btn-circle btn-dark" id="btnCommentsUpdate" onclick="updateComment('${commNum}')">수정완료<i class="fa fa-close1" aria-hidden="true"></i></button>
         </div>
     </li>
     `;
