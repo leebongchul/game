@@ -12,13 +12,15 @@
   #headers-a {
   color: white;
   margin-right:600px;
-  margin-left:-81px;
+  margin-left:-5px;
 }
+/*
 .navbar{
-    margin-left:150px;
+    margin-left:8px;
     margin-right:-81px;
     margin-top:20px;
 }
+*/
 .navbar a i{
     margin-top:-1px;
 }
