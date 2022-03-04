@@ -3,6 +3,15 @@ body {
 	background-color: white;
 	margin-top: 20px;
 }
+.btn{
+	padding:1px 6px !important;
+}
+.glyphicon{
+	border-radius:5px !important;
+	width:46px;
+	height:28px;
+	padding:   0;
+}
 .navbar .dropdown #dropdown-ul li {
   min-width: 200px;
   padding:10px;
