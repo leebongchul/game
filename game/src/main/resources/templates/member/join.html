@@ -56,7 +56,7 @@
                 <label>*닉네임</label>
                 </li>
             <li>
-                <input type="text" name="memNick" class="input1" id="nick" autocomplete="off" onblur="textCheck_nick(this)">
+                <input type="text" name="memNick" class="input1" id="nick" th:value="${member.memNick}" autocomplete="off" onblur="textCheck_nick(this)">
                 <!-- onblur="textCheck_nick(this)" onfocus = "nickchecksave(this)" -->
                 <div id="nickmsg"></div>
              </li>
@@ -93,19 +93,17 @@
                 <label>*이메일</label>
                 </li>
             <li>
-                <input type="text" name="email1" class="email" th:value="${memEmail1}" onchange ="emailCheck()"  id="email1" autocomplete="off"> 
-                <input type="text" name="email2" class="email" th:value="${memEmail2}" onchange ="emailCheck()" id="email2" autocomplete="off">
-                <select class="email2" id="email3" onchange="emailSend(), emailCheck()">
+                <input type="text" name="email1" class="email" th:value="${memEmail1}" onchange ="emailchangeEvent(), emailCheck()"  id="email1" autocomplete="off"> 
+                <input type="text" name="email2" class="email" th:value="${memEmail2}" onchange ="emailchangeEvent(), emailCheck()" id="email2" autocomplete="off">
+                <select class="email2" id="email3" onchange="emailSend(),emailchangeEvent(), emailCheck()">
                    <option value="self">직접입력</option>
                    <option value="naver.com">네이버</option>
                    <option value="gmail.com">구글</option>
                    <option value="daum.net">다음</option>
                 </select>
-                <button type="button" class="btn_check" id="btn_check" onclick="sendEmailCode()"
-                    th:style="${memEmail1 !=null && memEmail2 !=null ? 'display:none;' : ''}">인증번호 받기</button>
-                <input type="text" class="code" placeholder="인증번호를 입력해주세요" th:style="${memEmail1 !=null && memEmail2 !=null ? 'display:none;' : ''}"
-                    id="code" onblur="emailCodeCheck()" autocomplete="off">
-                <div id="emailmsg" th:text ="${memEmail1 !=null && memEmail2 != null ? '<주의>이메일 변경 시 추가인증 필요!!' : ''}"></div>
+                <button type="button" class="btn_check" id="btn_check" onclick="sendEmailCode()">인증번호 받기</button>
+                <input type="text" class="code" placeholder="인증번호를 입력해주세요" id="code" onblur="emailCodeCheck()" autocomplete="off">
+                <div id="emailmsg"></div>
                 <input type="hidden" name="memEmail" id="memEmail" value = "">
              </li>
              <li>
@@ -115,7 +113,8 @@
                 <input type = "hidden" id = "idcheck" th:value ="${member.memId != null ? 'Y' : 'N'}">
                 <input type = "hidden" id = "nickcheck" value = "N">
                 <input type = "hidden" id = "hpcheck" value = "N">
-                <input type = "hidden" id = "emailcheck" th:value ="${member.memId != null ? 'Y' : 'N'}">   
+                <input type = "hidden" id = "emailcheck" value = "N">   
+                <input type = "hidden" id = "emailchange" value = "N">  
                 <input type = "hidden" id = "emailcodecheck" th:value ="${member.memId != null ? 'Y' : 'N'}">  
           </form>
       </section>      
@@ -123,6 +122,20 @@
     </th:block>
     <nav th:replace="/fragment/footer :: main-footer"></nav> 
 </body>
+<script th:inline="javascript" th:src="@{/js/join.js}"></script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+$(function() {
+console.log( "ready!" );
+if(/*[[${member.memNick!=null}]]*/null){
+    $("#nick").trigger("blur");
+}
+if(/*[[${memEmail1 !=null}]]*/null){
+	emailCheck();
+}
 
-<script th:src="@{/js/join.js}"></script>
+
+});
+/*]]*/
+</script>
 </html>

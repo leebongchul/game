@@ -170,17 +170,17 @@ public class AdminController extends UiUtils {
 			// 로그인 계정과 params.get
 			boolean isRegistered = boardService.registerBoard(params);
 			if (isRegistered == false) {
-				return showMessageWithRedirect("게시글 등록에 실패하였습니다.", "/board/noticeboard/list", Method.GET, null, model);
+				return showMessageWithRedirect("게시글 등록에 실패하였습니다.", "/admin/noticelist", Method.GET, null, model);
 			}
 		} catch (DataAccessException e) {
-			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/board/noticeboard/list", Method.GET, null,
+			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/admin/noticelist", Method.GET, null,
 					model);
 
 		} catch (Exception e) {
-			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/board/noticeboard/list", Method.GET, null, model);
+			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/admin/noticelist", Method.GET, null, model);
 		}
 
-		return showMessageWithRedirect("게시글 등록이 완료되었습니다.", "/board/noticeboard/list", Method.GET, null, model);
+		return showMessageWithRedirect("게시글 등록이 완료되었습니다.", "/admin/noticelist", Method.GET, null, model);
 	}
 
 	// 공시사항 삭제
@@ -198,22 +198,22 @@ public class AdminController extends UiUtils {
 //		params.setMemRole("user");// 테스트용 하드코딩
 		try {
 			if (boardService.deleteBoard(params)) {
-				return showMessageWithRedirect("삭제가 완료되었습니다.", "/board/noticeboard/list", Method.GET, null, model);
+				return showMessageWithRedirect("삭제가 완료되었습니다.", "/admin/noticelist", Method.GET, null, model);
 			} else {
 				if (params.getMemRole().equals("user")) {
-					return showMessageWithRedirect("게시글 삭제 권한이 없습니다.", "/board/noticeboard/list", Method.GET, null,
+					return showMessageWithRedirect("게시글 삭제 권한이 없습니다.", "/admin/noticelist", Method.GET, null,
 							model);
 				}
-				return showMessageWithRedirect("삭제를 실패하였습니다.", "/board/noticeboard/list", Method.GET, null, model);
+				return showMessageWithRedirect("삭제를 실패하였습니다.", "/admin/noticelist", Method.GET, null, model);
 			}
 		} catch (
 
 		DataAccessException e) {
-			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/board/noticeboard/list", Method.GET, null,
+			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/admin/noticelist", Method.GET, null,
 					model);
 
 		} catch (Exception e) {
-			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/board/noticeboard/list", Method.GET, null, model);
+			return showMessageWithRedirect("시스템에 문제가 발생하였습니다.", "/admin/noticelist", Method.GET, null, model);
 		}
 	}
 

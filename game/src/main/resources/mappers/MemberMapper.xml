@@ -150,7 +150,7 @@
 		, mem_name=#{memName}||sysdate
 		, mem_hp=#{memHp}||sysdate
 		, mem_email= #{memEmail}||sysdate
-		, mem_id= #{memId}||sysdate
+		
 		WHERE
 		mem_id = #{memId}
 	</update>

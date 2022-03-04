@@ -149,12 +149,12 @@ public class BoardController extends UiUtils {
         model.addAttribute("headersession", loginMember);
 
         if (params.getBoardNum() == null) {
-            return showMessageWithRedirect("올바르지 않은 접근입니다. 목록화면으로 이동합니다,", "/board/noticeboard/list", Method.GET, null,
+            return showMessageWithRedirect("올바르지 않은 접근입니다. 목록화면으로 이동합니다,", "/admin/noticelist", Method.GET, null,
                     model);
         }
         BoardDTO board = boardService.getBoardDetail(params);
         if (board == null || "Y".equals(board.getBoardDelete())) {
-            return showMessageWithRedirect("없거나 이미 삭제된 게시글입니다. 목록화면으로 이동합니다,", "/board/noticeboard/list", Method.GET,
+            return showMessageWithRedirect("없거나 이미 삭제된 게시글입니다. 목록화면으로 이동합니다,", "/admin/noticelist", Method.GET,
                     null, model);
         }
 

@@ -440,3 +440,6 @@ display:inline;
     background-color: #fff;
     border: 1px solid #ddd;
 }
+.btn-box{
+	text-align:right;
+}

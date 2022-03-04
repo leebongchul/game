@@ -83,4 +83,13 @@ function userDeleteCheck(){
         } 
         
 }
+function agreeCheck(){
+        if(checkCount("agree") == 0){
+            alert("탈퇴 동의란을 확인해주세요");
+            return false;
+        }else{
+            kakaoLogin();
+        }
+        
+}
     

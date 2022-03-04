@@ -1,12 +1,98 @@
+@charset "UTF-8";
+     section.game {
+        width:1000px;
+        margin:auto;
+        height:1500px;
+        /*border:1px solid red;*/
+        margin-top:100px;
+    }
+        #header .logo a {
+  color: white;
+  margin-right:600px;
+  margin-left:-80px;
+}
+.navbar{
+    margin-left:150px;
+    margin-right:-81px;
+    margin-top:20px;
+}
+.navbar a i{
+    margin-top:-1px;
+}
+.d-none{
+    margin-right:4.7px;
+}
+.gameexp_btn_box{
+	text-align:left;
+}
+    .btn_exp {
+        width:180px;
+        color:white;
+        background:black;
+        border-radius:5px;
+        padding:8px 15px;
+        font-size:13px;
+        margin-top:20px;
+        border: 1px solid black;
+    }
+
+    .text1 {
+        margin-top:50px;
+        margin-left:30px;
+    }
+    .text2 {
+        margin-top:10px;
+        margin-left:30px;
+    }
+    input {
+        border:1px solid lightgray;
+        border-radius:5px;
+        padding: 3px 10px;
+    }
+    .top {
+        margin-top:70px;
+    }
+    .hr1 {
+       border-top: 2px solid lightgray;
+    }
+    .hr2 {
+       margin-top:20px;
+       border-top: 7px solid black;
+       
+    }
+    .text-top {
+        margin-left:455px;
+        margin-bottom:20px;
+        font-weight:bold;
+        text-align: left;
+    }
+    #picture-th {
+        background:#FEFECC;
+    }
+    .gameexp {
+    font-size:15px;
+    font-weight:bold;
+    text-align:left;
+}
+.usertext {
+    font-size:15px;
+    font-weight:bold;
+}
+.rank-text {
+    font-size:15px;
+    font-weight:bold;
+}
+
+
 .width500px{width: 450px; display: inline-block;}
         .center{text-align: center;}
-        #startBtn{border: none; color: white; background-color: #5AAFFF; width: 80px;padding: 5px; font-weight: bold; cursor: pointer;}
+        #startBtn{border: none; color: white; background-color: #5AAFFF; width: 80px;padding: 5px; font-weight: bold; cursor: pointer; margin-bottom:3px;}
         #cardTable{border-collapse: collapse;}
         #cardTable td{border: 1px solid #5AAFFF; width: 75px; height: 121px; text-align: center; cursor: pointer;}
         #cardTable td img{max-width: 70px;}
         #cardTable td span{font-size: 25pt; font-weight: bold; color: #5AAFFF; display: none;}
         #countDown{background-color: #5AAFFF; color: white; font-size: 20pt;}
-        #info{width: 450px; height: 250px; background-color: #DDDDDD; color: white; padding-top: 230px;}
+        #info{width: 450px; height: 250px; background-color: #DDDDDD; color: white; font-size:20px; font-weight:bold; display: flex; align-items: center; justify-content: center;}
         
         .text1 {
         margin-top:50px;
