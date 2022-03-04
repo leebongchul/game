@@ -3,7 +3,11 @@ body {
 	margin-top: 20px;
 	background-color: white;
 }
-
+  #headers-a {
+  color: white;
+  margin-right:600px;
+  margin-left:-81px;
+}
 .timeline {
 	list-style-type: none;
 	position: relative
