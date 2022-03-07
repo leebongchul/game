@@ -4,10 +4,13 @@
 	margin-top:100px;
 	
 }
-  #headers-a {
+#dropdown-a:hover{
+    color:#FFEB5A;  
+    }
+#header .logo {
   color: white;
-  margin-right:600px;
-  margin-left:-81px;
+  margin-right:602px;
+  margin-left:-59px;
 }
 .navbar{
     margin-left:169px;
