@@ -210,15 +210,15 @@ public class MemberServiceImpl implements MemberService {
 		if (memberMapper.selectMember(params) != null) {
 			if(memberMapper.seeBlockLogin(params).equals("차단해제대상")) {
 			    memberMapper.clearBlockMember(params);
-			    System.out.println("차단을 해제 합니다");
+			    System.out.println(params.getMemId() +"님에 대한 차단을 해제 합니다");
 			    //로그인 허용
 				return value = 1;
 			}else if(memberMapper.seeBlockLogin(params).equals("해당없음")){
-				System.out.println("차단해제 대상이 아닙니다.");
+				System.out.println(params.getMemId() + "님은 차단해제 대상이 아닙니다.");
 				//로그인 허용
 				return value = 2;
 			}else if (memberMapper.seeBlockLogin(params).equals("차단유지대상")) {
-				System.out.println("차단유지 대상입니다.");
+				System.out.println(params.getMemId() + "님은 차단유지 대상입니다.");
 				//로그인 막기
 				return value = 3;
 			}

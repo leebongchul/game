@@ -176,7 +176,7 @@ select decode(차단여부판단, 'stopblock',  '차단해제대상', 'nvmblock'
 from 
     (select mem_id,  
         case 
-            when sysdate >= mem_block_end_date and mem_block = 'Y' then 'stopblock'
+            when sysdate &gt;= mem_block_end_date and mem_block = 'Y' then 'stopblock'
             when sysdate &lt; mem_block_end_date and mem_block = 'Y' then 'keepblock'
             else 'nvmblock'
             end as 차단여부판단

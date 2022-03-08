@@ -68,26 +68,18 @@ public class BlockInterceptor implements HandlerInterceptor  {
       
      
       
-//      System.out.println(dto); //모델로 받아온 세션값 정상 출력
      try {
          if(dto != null ) {
              request.getSession().setAttribute("infosession", dto);
             MemberDTO dto2 =(MemberDTO)request.getSession().getAttribute("infosession");
-//            System.out.println("dto 2 = "+dto2); //세션값 정상 출력
             
              if (memberService.clearBlock((MemberDTO)dto2) == 3) {
             	 //로그인 차단 대상
             	 session.invalidate();
                  response.sendRedirect("/index");
                  
-//                 response.setContentType("text/html; charset=UTF-8");
-//                 PrintWriter printwriter = response.getWriter();
-//                 printwriter.print("<script>alert('로그인을 다시 해주십시오');</script>");
-//                 printwriter.flush();
-//                 printwriter.close();
-
              }
-             
+            
           }
      }catch  (Exception e ){
          e.printStackTrace();
