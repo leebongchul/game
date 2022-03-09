@@ -467,6 +467,7 @@ span.time {
 
 div.conts {
     width: 80%;
+    padding-bottom:10px;
 }
 
 .commlist {
@@ -490,4 +491,10 @@ div.conts {
 
 .commupdate {
     border-bottom: 1px solid black;
+}
+#updatefocus {
+	display:inline_block;
+	color: #337ab7;
+	margin-left:640px;
+	
 }
