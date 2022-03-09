@@ -94,6 +94,7 @@ select comm.* from
     c.comm_num
     , c.comm_contents
     , c.comm_date
+    , c.comm_update_date
     , m.mem_nick
     , b.board_num
     , b.board_title
@@ -165,7 +166,7 @@ insert into comment_table (
   ,#{boardNum}
   ,#{memId}
   ,#{commContents} 
-  ,null
+  ,sysdate
   ,null
   ,'N'
   ,sysdate
@@ -197,7 +198,7 @@ update
 comment_table 
 set 
     comm_contents = #{commContents},
-    comm_date = sysdate 
+    comm_update_date = sysdate 
 where 
     comm_num =#{commNum} 
 and 
