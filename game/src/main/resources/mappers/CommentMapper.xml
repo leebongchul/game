@@ -196,7 +196,8 @@ and comment_table.comm_num=#{commNum}
 update 
 comment_table 
 set 
-    comm_contents = #{commContents} 
+    comm_contents = #{commContents},
+    comm_date = sysdate 
 where 
     comm_num =#{commNum} 
 and 
