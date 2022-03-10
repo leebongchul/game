@@ -104,3 +104,11 @@ insert into game_table values ('포트리스', '장애물을 스페이스 바로
 insert into game_table values ('2048', '장애물을 스페이스 바로 피함', '공룡피하기 게임입니다', '재밌조', sysdate, '수정자',sysdate); 
 insert into game_table values ('같은그림찾기', '장애물을 스페이스 바로 피함', '공룡피하기 게임입니다', '재밌조', sysdate, '수정자',sysdate); 
 insert into game_table values ('공룡게임', '장애물을 스페이스 바로 피함', '공룡피하기 게임입니다', '재밌조', sysdate, '수정자',sysdate); 
+
+
+-----------------------------관리자, 유저 Id 만들기------------------
+--관리자용 쿼리
+update member_table set mem_id='admin', mem_nick='관리자1', mem_role='admin' where mem_id='회원가입시 아이디';
+
+--유저용 쿼리
+update member_table set mem_id='user', mem_nick='유저1', mem_role='user' where mem_id='회원가입시 아이디';
