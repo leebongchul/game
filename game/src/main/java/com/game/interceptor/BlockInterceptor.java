@@ -77,9 +77,13 @@ public class BlockInterceptor implements HandlerInterceptor  {
             	 //로그인 차단 대상
             	 session.invalidate();
                  response.sendRedirect("/index");
-                 
              }
-            
+             if (memberService.clearBlock((MemberDTO)dto2) == 1) {
+                 //자동 차단해제 대상
+               
+                 session.setAttribute("loginMem", dto2); 
+                 response.sendRedirect("/index");
+             } 
           }
      }catch  (Exception e ){
          e.printStackTrace();

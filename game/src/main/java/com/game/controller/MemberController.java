@@ -319,12 +319,13 @@ public class MemberController extends UiUtils {
 				String msg = result.getMemId() + "님은 차단된 회원입니다. " + System.lineSeparator() + result.getMemBlockEndDate() + "에 차단해제 됩니다.";
 				return showMessageWithRedirect(msg, "/index", Method.GET, null, model);
 			}
-			if (blockvalue == 1 ) {
-			    System.out.println(result.getMemBlock());
-                System.out.println(memberService.clearBlock(result));
-                String msg = result.getMemId() + "님의 차단이 해제되었습니다. ";
-                return showMessageWithRedirect(msg, "/index", Method.GET, null, model);
-			}
+//			if (blockvalue == 1 ) {
+//                System.out.println(result.getMemBlock());
+//                System.out.println(memberService.clearBlock(result));
+//                String msg = result.getMemId() + "님의 차단이 해제되었습니다. ";
+//               
+//                return showMessageWithRedirect(msg, "../index", Method.GET, null, model);
+//            }
 			model.addAttribute("logininfo", result); // 인터셉터에 전달할 정보
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMem", result); // 세션에 로그인 회원 정보 보관
