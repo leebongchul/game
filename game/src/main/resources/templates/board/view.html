@@ -196,9 +196,9 @@
 
 <script th:inline="javascript">
 function movePage(uri, queryString) {
-	var boardNum=/*[[${board.boardNum}]]*/null;
-	var memId=/*[[${board.memId}]]*/null;
-	
+    var boardNum=/*[[${board.boardNum}]]*/null;
+    var memId=/*[[${board.memId}]]*/null;
+    
     location.href = uri + queryString+"&boardNum="+boardNum+"&memId="+memId+"&boardType=1";
 }
 /*<![CDATA[*/       

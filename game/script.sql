@@ -1,3 +1,27 @@
+
+----------오라클 계정생성을 위한 작업. 윈도우키 -> cmd 입력 후, 순서대로 타이핑 해주세요---------------------
+
+sqlplus
+
+system
+
+오라클 설치할때 입력했던 비밀번호
+
+create user games2 identified by 1234;
+
+grant connect, resource, dba to games2;
+
+commit;
+
+
+-------'ORA-65096: 공통 사용자 또는 롤 이름이 부적합합니다' 가 발생시 cmd 창에서 >sql 상태에서 실행해주세요-----
+
+ALTER SESSION SET "_ORACLE_SCRIPT"=true; 
+
+
+
+--------------------오라클 계정이 생성되었다면 아래의 내용을 생성한 오라클 계정에 붙여넣고 전부 실행해주세요----------
+
 ------------------회원 정보  테이블---------------------------
 create table member_table (
 mem_id varchar2(50) constraint member_table_mem_id_pk primary key,
@@ -107,8 +131,8 @@ insert into game_table values ('공룡게임', '장애물을 스페이스 바로
 
 
 -----------------------------관리자, 유저 Id 만들기------------------
---관리자용 쿼리
+--관리자용 쿼리(비밀번호는 암호화 되기 때문에 가입시 입력한 비밀번호는 기억해주세요)
 update member_table set mem_id='admin', mem_nick='관리자1', mem_role='admin' where mem_id='회원가입시 아이디';
 
---유저용 쿼리
+--유저용 쿼리(비밀번호는 암호화 되기 때문에 가입시 입력한 비밀번호는 기억해주세요)
 update member_table set mem_id='user', mem_nick='유저1', mem_role='user' where mem_id='회원가입시 아이디';
