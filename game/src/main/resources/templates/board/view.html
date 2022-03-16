@@ -25,46 +25,7 @@
 <link href="/css/board/view.css" rel="stylesheet" type="text/css">
 
 <style>
-span.nick {
- display:block;
- font-weight: 900;
- padding-bottom:10px;
-  
- 
-}
 
-span.time{
-display:block;
-float:right;
-padding-right:10px;
-}
-
-div.conts {
-width:80%;
-}
-.commlist {
- border-bottom:1px solid black;
- margin-bottom:20px;
-   list-style-type:none;
-/*    margin:auto; */
-}
-
-
-.commitbutton {
-display:inline_block;
-float:right;
-margin-top:-41px;
-margin-right:-112px;
-}
-
-.conts1{
-	width:95% !important;
-	height:80px;
-}
-
-.commupdate{
-border-bottom:1px solid black;
-}
 </style>
 <head>
 <th:block  th:replace="/fragment/header2 :: main-head">
@@ -233,17 +194,38 @@ border-bottom:1px solid black;
 
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 
+<!-- 댓글 페이징, 게시글 삭제, 댓글 CURD 관련되 코드  -->
+
+<!-- 댓글 페이징을 위한 함수 생성 -->
 <script th:inline="javascript">
 function movePage(uri, queryString) {
-	var boardNum=/*[[${board.boardNum}]]*/null;
-	var memId=/*[[${board.memId}]]*/null;
-	
+    var boardNum=/*[[${board.boardNum}]]*/null;
+    var memId=/*[[${board.memId}]]*/null;
+    
     location.href = uri + queryString+"&boardNum="+boardNum+"&memId="+memId+"&boardType=1";
 }
-/*<![CDATA[*/       
+//게시글 삭제
+function deleteBoard(boardNum, memId, boardType) {
+    if (confirm(boardNum + "번 게시글을 삭제할까요?")) {
+        var uri = "/board/freeboard/delete";
+        var html = "";
+
+        html += '<form name="dataForm" action="'+uri+'" method="get">';
+            html += '<input type="hidden" name="boardNum" value="'+boardNum+'" />';
+            html += '<input type="hidden" name="memId" value="'+memId+'" />';
+            html += '<input type="hidden" name="boardType" value="'+boardType+'" />';
+        html += '</form>';
+        
+        $("body").append(html);
+        document.dataForm.submit();
+    }
+}
+
+/*<![CDATA[*/     
+	   
+    	//댓글 입력      
         function insertComment(boardNum, loginId, loginNick) {
             var content = document.getElementById("content");
-//          alert("등록"+loginId);
             
             if(loginId==null){
                 alert("로그인이 필요합니다.");
@@ -252,7 +234,6 @@ function movePage(uri, queryString) {
             
              if (content.value == "") { 
                  alert("댓글을 입력해 주세요.");
-//              content.setAttribute("placeholder", "댓글을 입력해 주세요.");
                 content.focus();
                  return false; 
               } 
@@ -288,59 +269,43 @@ function movePage(uri, queryString) {
         }
         /*[- end of function -]*/
         
+        //댓글 목록 호출 함수
         $(function() {
-        	
-//         	alert(/*[[${params.recordsPerPage}+'/'+${params.pageSize}]]*/);
             printCommentList(); 
         });
         
         function printCommentList() {
-            //$.get(URL주소[,콜백함수]);
-            //${board.~}는 컨트롤러에서 설정한 "board"에서 받아온 값 중 ~라는 속성을 꺼내온단 의미
-            //클라이언트가 서버로 요청을 보낼 주소.             
             
            var uri = /*[[ @{/comments/} + ${board.boardNum}+ '/'+${params.currentPageNo}+ '/'+${params.recordsPerPage}+ '/'+${params.pageSize}]]*/null;
             var loginMemId=document.getElementById("loginMemId").value;
-//             console.log("hi");
 
-           //$.get 좀 더 편한 ajax 처리. uri에 http get요청을 날려서 comments/{boardNum}을 요청.
-           //서버에서 받아온 데이터(해당 게시글의 댓글 목록)이 response 인자에 담김.
-//              console.log("컨트롤러에서 받아온 값", /*[[${board.boardNum}]]*/);
            
             $.get(uri, function(response) {
-//              console.log("response : "+response.commentList[0].commNum);
-                
-                //댓글내용이 false값이 리턴 된다면(=response값이 null이나 empty값이 아니라면=데이터가 존재하면)
-               // if (isEmpty(response) == false) {
-                    //<li>태그를 제거한 것을 대신하여 새로 채워넣을 코드(=댓글 목록)의 시작
                     
                     var commentsHtml = "";
-                   
-                    //for:each와 같은 문법. 댓글의 개수(=게시글에 달린 comm_num의 개수가 곧 댓글의 개수)만큼 반복문 실행
-                  // $.each(arr, function (index, item) { 
-                      // 두 번째 매개변수로는 콜백함수인데 콜백함수의 매개변수 중 
-                        // 첫 번째 매개 변수 index는 배열의 인덱스 또는 객체의 키를 의미하고 
-                        // 두 번째 매개 변수 item은 해당 인덱스나 키가 가진 값을 의미합니다.
                   
                     $(response.commentList).each(function(commNum, comment) {
                         commentsHtml += `
                             <li id="${comment.commNum}" class="commlist">
                                 <span class="nick" id="commNick">${comment.memNick}</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                                 <div class="conts" id="commConts">${comment.commContents}</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                <span class="time">${comment.commDate}</span>
-                            `;
-                                
-                                
-                                
-                             if(comment.memNick==/*[[${member.memNick}]]*/null){
-// //                                   console.log(/*[[${member.memId}]]*/);
-                              commentsHtml += `
-                              <div class="commitbutton" id="commitbutton">
-                                <button type="button" class="btn btn-xs btn-circle btn-dark" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')">삭제</button>
-                                <button type="button" class="btn btn-xs btn-circle btn-dark" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정</button>
-                              </div>
+                                <span class="time">${comment.commUpdateDate}</span>
                                 `;
-                                }
+                            
+                                 if (comment.commUpdateDate > comment.commDate) {
+                                	 commentsHtml += `
+                                     <span id="updatefocus">댓글 수정시간: </span>
+                                    `;
+                                 }
+                                
+	                             if(comment.memNick==/*[[${member.memNick}]]*/null){
+	                              commentsHtml += `
+	                              <div class="commitbutton" id="commitbutton">
+	                                <button type="button" class="btn btn-xs btn-circle btn-dark" id="btnCommentsDelete" onclick="deleteComment('${comment.commNum}')">삭제</button>
+	                                <button type="button" class="btn btn-xs btn-circle btn-dark" id="btnCommentsUpdate" onclick="beforeupdate('${comment.commNum}', '${comment.commContents}', '${comment.memNick}')">수정</button>
+	                              </div>
+	                                `;
+	                             }
                                
                           commentsHtml += `</li>
                         	  `;
@@ -351,33 +316,13 @@ function movePage(uri, queryString) {
             }, "json")
                     
         }
-    
-        
-      
-      function deleteBoard(boardNum, memId, boardType) {
-
-          if (confirm(boardNum + "번 게시글을 삭제할까요?")) {
-              var uri = "/board/freeboard/delete";
-              var html = "";
-
-              html += '<form name="dataForm" action="'+uri+'" method="get">';
-                  html += '<input type="hidden" name="boardNum" value="'+boardNum+'" />';
-                  html += '<input type="hidden" name="memId" value="'+memId+'" />';
-                  html += '<input type="hidden" name="boardType" value="'+boardType+'" />';
-              html += '</form>';
-              
-              $("body").append(html);
-              document.dataForm.submit();
-          }
-      }
             
-            
+    //댓글 삭제        
     function deleteComment(commNum) {
-        console.log("값 : " + commNum);
+          
             if (!confirm('댓글을 삭제하시겠어요?')) {
             return false;
         }
-            
             
         var uri = "/comments/" + commNum;
         var headers = {"Content-Type": "application/json", "X-HTTP-Method-Override": "DELETE"};
@@ -388,48 +333,40 @@ function movePage(uri, queryString) {
             headers: headers,
             dataType: "json",
             success: function(response) {
-                if (response.result == false) {
-                    alert("댓글 삭제에 실패하였습니다.");
-                    return false;
-                }
-    
-                printCommentList();
-            },
+		                if (response.result == false) {
+		                    alert("댓글 삭제에 실패하였습니다.");
+		                    return false;
+		                }
+		                printCommentList();
+                     },
             error: function(xhr, status, error) {
-                alert("에러가 발생하였습니다.");
-                return false;
-            }
-            });
-        
-      }
+		                alert("에러가 발생하였습니다.");
+		                return false;
+                   }
+          });
+    }
     /*[- end of function -]*/
-            
-     function div_hide() {
-  document.getElementById("commitbutton").style.display = "none";
-  
- }
-
+    
+    //댓글 수정 버튼 클릭시 함수
     function beforeupdate(commNum, commContents, memNick) {
        
     let change ="";
     change += `
-    <li class="commupdate">
-        <span class="nick">${memNick}</span>
-        <span class="inputconts" ><textarea rows="4" class="form-control no-resize view-textarea conts1"
-        	 id="tex">${commContents}</textarea></span>
-        <div class="btn-box">
-	        <button type="button" class="btn btn-xs btn-circle btn-dark" id="btnCommentsDelete" onclick="printCommentList()" >취소<i class="fa fa-close" aria-hidden="true"></i></button>
-	        <button type="button" class="btn btn-xs btn-circle btn-dark" id="btnCommentsUpdate" onclick="updateComment('${commNum}')">수정완료<i class="fa fa-close1" aria-hidden="true"></i></button>
-        </div>
-    </li>
+		    <li class="commupdate">
+		        <span class="nick">${memNick}</span>
+		        <span class="inputconts" ><textarea rows="4" class="form-control no-resize view-textarea conts1"
+		        	 id="tex">${commContents}</textarea></span>
+		        <div class="btn-box">
+			        <button type="button" class="btn btn-xs btn-circle btn-dark" id="btnCommentsDelete" onclick="printCommentList()" >취소<i class="fa fa-close" aria-hidden="true"></i></button>
+			        <button type="button" class="btn btn-xs btn-circle btn-dark" id="btnCommentsUpdate" onclick="updateComment('${commNum}')">수정완료<i class="fa fa-close1" aria-hidden="true"></i></button>
+		        </div>
+		    </li>
     `;
-    
-    
     $('#'+commNum).replaceWith(change);
     $('.conts1').focus();
     };
     
-    
+    //댓글 수정완료 버튼을 눌렀을때 함수
     function updateComment(commNum) {
         
     var text = document.getElementById("tex");
@@ -452,11 +389,11 @@ function movePage(uri, queryString) {
 
             printCommentList();
 //             $("#commentModal").modal("hide");
-        },
+                 },
         error: function(xhr, status, error) {
-            alert("에러가 발생하였습니다.");
-            return false;
-        }
+		            alert("에러가 발생하였습니다.");
+		            return false;
+               }
     });
            }    
     

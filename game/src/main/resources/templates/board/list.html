@@ -57,7 +57,7 @@
 			<div class="btn_wrap text-right">
 				<button th:if="${member.memRole !=null && member.memRole=='admin'}" type="button" class="btn-write" onclick="deleteMainboardFormCheck()">삭제</button>
 				<a th:href="@{/board/freeboard/write(boardType=1)}">
-					<button type="button" class="btn-write2">글쓰기</button>
+				    <button type="button" class="btn-write2">글쓰기</button>
 				</a>
 			</div>
 		</div>

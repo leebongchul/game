@@ -200,10 +200,6 @@
 
 	</select>
 
-	<!-- 쿼리 결과에 대한 맵핑 변수명 vs 컬럼명 <resultMap type="com.sample.mapper.MemberVO" id="mapping_memberlist"> <result property="boardNum" column="board_num"/> <result 
-		property="boardTitle" column="board_title"/> <result property="memId" column="mem_id"/> <result property="memNick" column="mem_nick"/> <result property="boardType" 
-		column="board_type"/> <result property="boardContent" column="board_content"/> <result property="boardUpdateDate" column="board_update_date"/> <result 
-		property="commNum" column="comm_num"/> <result property="commContents" column="comm_contents"/> </resultMap> -->
 
 
 	<update id="updateBoard" parameterType="BoardDTO">

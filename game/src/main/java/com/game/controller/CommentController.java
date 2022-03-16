@@ -50,7 +50,6 @@ public class CommentController {
 	// 4. PATCH: 자원수정
 	// 5. DELET: 자원삭제
 
-	// 댓글이 없을땐 자원을 생성해야 하기때문에 무조건 POST로 매핑해야하는데 왜 매핑이 안돼냐..
 	// @PathVariable = @RequestParams와 유사한 기능. URI에 파라미터로 전달받을 변수를 지정
 	// ../{value}의 형태로 받음. @RequestParams은 /..?key1=value1&key2=value2...이런식
 	@RequestMapping(value = { "/comments", "/comments/{commNum}" }, method = { RequestMethod.POST,
@@ -92,8 +91,7 @@ public class CommentController {
 		System.out.println("str2 = " + str2);
 		/**
 		 * rest 방식으로 입력된 데이터(=여기선 JSON)를 확인하기 쉽게 하기 위한 rest 클라이언트 프로그램 설치하면 좋긴 할듯
-		 * https://install.advancedrestclient.com/install 나는 저 위 사이트에서 다운 받았음. 블로그에서
-		 * 다운받으라는 거 해밨는데 안댐.
+		 * https://install.advancedrestclient.com/install 나는 저 위 사이트에서 다운 받았음. 
 		 */
 
 		// JSON 객체 생성
@@ -135,7 +133,6 @@ public class CommentController {
 
 		CommentDTO dto = commentService.selectCommentDetail(str);
 
-		// 아이디값을 안주니까 삭제가 안됐음.
 //		dto.setCommNum(str);
 		dto.setCommUpdateId(loginMember.getMemId());
 

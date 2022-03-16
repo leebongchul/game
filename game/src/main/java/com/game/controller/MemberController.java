@@ -301,8 +301,10 @@ public class MemberController extends UiUtils {
 	public String successLogin(@SessionAttribute(name = "loginMem", required = false) MemberDTO loginMember,
 			MemberDTO member, Model model, HttpServletRequest request) {
 		model.addAttribute("headersession", loginMember);
+	
 		try {
 			MemberDTO result = memberService.selectMember(member);
+			 int blockvalue = memberService.clearBlock(result);
 			if (result.getMemId() == null) {
 				return showMessageWithRedirect("해당 아이디가 존재하지 않습니다.", "/member/login", Method.GET, null, model);
 			}
@@ -310,15 +312,24 @@ public class MemberController extends UiUtils {
 			if (!passwordEncoder.matches(member.getMemPass(), result.getMemPass())) {
 				return showMessageWithRedirect("비밀번호가 일치하지 않습니다.", "/member/login", Method.GET, null, model);
 			}
-			if (result.getMemBlock().equals("Y")) {
+			//blockvalue를 활용한 코드는 전부 alert창을 띄워주기 위한것. 인터셉터에서 바로 얼럿을 띄워준다면 필요가 없는 코드
+			if (blockvalue == 3) {
 				System.out.println(result.getMemBlock());
-				String msg = "차단된 회원입니다. " + System.lineSeparator() + result.getMemBlockEndDate() + "에 차단해제 됩니다.";
+				System.out.println(memberService.clearBlock(result));
+				String msg = result.getMemId() + "님은 차단된 회원입니다. " + System.lineSeparator() + result.getMemBlockEndDate() + "에 차단해제 됩니다.";
 				return showMessageWithRedirect(msg, "/index", Method.GET, null, model);
 			}
+//			if (blockvalue == 1 ) {
+//                System.out.println(result.getMemBlock());
+//                System.out.println(memberService.clearBlock(result));
+//                String msg = result.getMemId() + "님의 차단이 해제되었습니다. ";
+//               
+//                return showMessageWithRedirect(msg, "../index", Method.GET, null, model);
+//            }
 			model.addAttribute("logininfo", result); // 인터셉터에 전달할 정보
 			HttpSession session = request.getSession();
 			session.setAttribute("loginMem", result); // 세션에 로그인 회원 정보 보관
-			return showMessageWithRedirect("로그인이 완료되었습니다.", "../index", Method.GET, null, model);
+			return showMessageWithRedirect(result.getMemId()+"님의 로그인이 완료되었습니다.", "../index", Method.GET, null, model);
 
 		} catch (DataAccessException e) {
 			return showMessageWithRedirect("데이터베이스 처리 과정에 문제가 발생하였습니다.", "/member/login", Method.GET, null, model);

@@ -453,3 +453,48 @@ display:inline;
 	text-align:right;
 	padding-right: 17px;
 }
+span.nick {
+    display: block;
+    font-weight: 900;
+    padding-bottom: 10px;
+}
+
+span.time {
+    display: block;
+    float: right;
+    padding-right: 10px;
+}
+
+div.conts {
+    width: 80%;
+    padding-bottom:10px;
+}
+
+.commlist {
+    border-bottom: 1px solid black;
+    margin-bottom: 20px;
+    list-style-type: none;
+    /*    margin:auto; */
+}
+
+.commitbutton {
+    display: inline_block;
+    float: right;
+    margin-top: -41px;
+    margin-right: -112px;
+}
+
+.conts1 {
+    width: 95% !important;
+    height: 80px;
+}
+
+.commupdate {
+    border-bottom: 1px solid black;
+}
+#updatefocus {
+	display:inline_block;
+	color: #337ab7;
+	margin-left:640px;
+	
+}
