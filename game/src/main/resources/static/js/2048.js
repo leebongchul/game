@@ -59,7 +59,6 @@ document.onkeydown = keyDownEventHandler;
 function keyDownEventHandler(e){
 	if(게임진행 == true){
         switch(e.keyCode){
-    	
             case 38: e.preventDefault();
             	moveDir(0);
     			break; //up
@@ -72,26 +71,19 @@ function keyDownEventHandler(e){
             case 39: e.preventDefault(); 
     	        moveDir(3); 
     	        break; //right
-            
         }
     }
 }
 
 document.addEventListener('keydown', function(e){
   if(e.code === 'Space'){
-	
     e.preventDefault();
-    
     if(게임진행 == false){
         ctx.clearRect(0,0,canvas.width,canvas.height);
         게임진행=true;
         init();
-        
     }
-        
   }
- 
-    	
 });
 
 function 게임시작전(){
@@ -212,13 +204,16 @@ function coloring(cell){
 function rotate(n){
     while(n--){
         var tempBoard = Array(Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0));
-        for(var i=0;i<4;i++)
-            for(var j=0;j<4;j++)
-                tempBoard[i][j]=board[i][j];
-        for(var i=0;i<4;i++)
-            for(var j=0;j<4;j++)
-                board[j][3-i]=tempBoard[i][j];
-
+        for(var i=0;i<4;i++) {
+			for(var j=0;j<4;j++) {
+				 tempBoard[i][j]=board[i][j];
+			}
+		}
+        for(var i=0;i<4;i++) {
+	 		for(var j=0;j<4;j++) {
+				 board[j][3-i]=tempBoard[i][j];
+			}
+		}
     }
 }
 
@@ -356,23 +351,21 @@ function gameover(){
      //신기록 갱신
      if (parseInt(now_score.value) > parseInt(max_score.value)) {
                 // 현재점수가 최고점수보다 높다면
-                max_score.value = now_score.value; // 현재점수를 최고점수에 저장
-
-                if (guest.value == 'false') { // 게스트계정이 아닌경우 최고점수 갱신
-
+     	max_score.value = now_score.value; // 현재점수를 최고점수에 저장
+     		if (guest.value == 'false') { // 게스트계정이 아닌경우 최고점수 갱신
                     $.ajax({                 // DB에 최고점수 업데이트
                         url: '/game/2048',
                         type: 'post',
                         data: { score: parseInt(max_score.value) },
-                        success: function(data) {
-                            console.log("1 = 성공 / 0 = 실패 : " + data);
-                        },
-                        error: function() {
-                            console.log("실패");
-                        }
+	                        success: function(data) {
+	                            console.log("1 = 성공 / 0 = 실패 : " + data);
+	                        },
+	                        error: function() {
+	                            console.log("실패");
+	                        }
                     });
-                }
-            }
+             }
+      }
             게임진행 = false;
             init();
            	재시작.draw();
