@@ -47,7 +47,6 @@ document.onkeydown = keyDownEventHandler;
 function keyDownEventHandler(e){
 	if(게임진행 == true){
         switch(e.keyCode){
-    	
             case 38: e.preventDefault();
             	moveDir(0);
     			break; //up
@@ -60,29 +59,20 @@ function keyDownEventHandler(e){
             case 39: e.preventDefault(); 
     	        moveDir(3); 
     	        break; //right
-            
         }
     }
 }
 
 document.addEventListener('keydown', function(e){
   if(e.code === 'Space'){
-	
     e.preventDefault();
-    
     if(게임진행 == false){
         ctx.clearRect(0,0,canvas.width,canvas.height);
         게임진행=true;
         init();
-        
     }
-        
   }
- 
-    	
 });
-
-
 
 
 function 프레임마다실행(){
@@ -97,14 +87,18 @@ function 프레임마다실행(){
 init();
 function init(){
     score=0;
-    for(var i=0;i<4;i++)
-        for(var j=0;j<4;j++)
-            board[i][j]=0;
-    for(var i=0;i<2;i++){
+    for(var i=0;i<4;i++) {
+		 for(var j=0;j<4;j++) {
+			 board[i][j]=0;
+		}
+	}
+    for(var i=0;i<2;i++) {
         var rand = parseInt(Math.random()*16);
         var y = parseInt(rand / 4);
         var x = rand % 4;
-        if(board[y][x]==0) board[y][x]=getNewNum();
+        if(board[y][x]==0) {
+			board[y][x]=getNewNum();
+		} 
         else i--;
     }
     update();
@@ -115,8 +109,6 @@ function 게임시작전(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     cancelAnimationFrame(animation);
     게임시작.draw();
-   
-    
   }
 }
 
@@ -209,13 +201,16 @@ function moveDir(opt){
 function rotate(n){
     while(n--){
         var tempBoard = Array(Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0));
-        for(var i=0;i<4;i++)
-            for(var j=0;j<4;j++)
-                tempBoard[i][j]=board[i][j];
-        for(var i=0;i<4;i++)
-            for(var j=0;j<4;j++)
-                board[j][3-i]=tempBoard[i][j];
-
+        for(var i=0;i<4;i++) {
+			 for(var j=0;j<4;j++) {
+				 tempBoard[i][j]=board[i][j];
+			 }
+		}
+        for(var i=0;i<4;i++) {
+			 for(var j=0;j<4;j++) {
+				board[j][3-i]=tempBoard[i][j];
+			}
+		}
     }
 }
 
@@ -225,7 +220,9 @@ function move(){
     var isPlused = Array(Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0));
     for(var i=1;i<4;i++){
         for(var j=0;j<4;j++){
-            if(board[i][j]==0) continue;
+            if(board[i][j]==0) {
+				continue;
+			}
             var tempY = i-1;
             while(tempY>0 && board[tempY][j]==0) tempY--;
             if(board[tempY][j]==0){
@@ -234,7 +231,9 @@ function move(){
                 isMoved=true;
             }
             else if(board[tempY][j]!=board[i][j]){
-                if(tempY+1==i) continue;
+                if(tempY+1==i) {
+					continue;
+				}
                 board[tempY+1][j]=board[i][j];
                 board[i][j]=0;
                 isMoved=true;
@@ -255,17 +254,22 @@ function move(){
             }
         }
     }
-    if(isMoved) generate();
+    if(isMoved) {
+		generate();
+	} 
     else checkGameOver();
 }
 
 // 신규 숫자 생성
 function generate(){
     var zeroNum=0;
-    for(var i=0;i<4;i++)
-        for(var j=0;j<4;j++)
-            if(board[i][j]==0)
-                zeroNum++;
+    for(var i=0;i<4;i++) {
+		for(var j=0;j<4;j++) {
+			if(board[i][j]==0) {
+				 zeroNum++;
+			}
+		}
+	}
     while(true){
         for(var i=0;i<4;i++){
             for(var j=0;j<4;j++){
@@ -284,17 +288,22 @@ function generate(){
 // 숫자 생성 확률
 function getNewNum(){
     var rand = parseInt(Math.random()*10);
-    if(rand==0) return 4;
+    if(rand==0) {
+		return 4;
+	}
     return 2;
 }
 
 // 최대 점수 반환
 function getMaxNum(){
     var ret=0;
-    for(var i=0;i<4;i++)
-        for(var j=0;j<4;j++)
-            if(board[i][j]>ret)
-                ret=board[i][j];
+    for(var i=0;i<4;i++) {
+		for(var j=0;j<4;j++) {
+			if(board[i][j]>ret) {
+				 ret=board[i][j];
+			}
+		}
+	}
     return ret;
 }
 
@@ -302,17 +311,25 @@ function getMaxNum(){
 function checkGameOver(){
     for(var i=0;i<4;i++){
         var colCheck = board[i][0];
-        if(colCheck==0) return;
+        if(colCheck==0) {
+			return;
+		}
         for(var j=1;j<4;j++){
-            if(board[i][j]==colCheck || board[i][j]==0) return;
+            if(board[i][j]==colCheck || board[i][j]==0) {
+				return;
+			} 
             else colCheck = board[i][j];
         }
     }
     for(var i=0;i<4;i++){
         var rowCheck = board[0][i];
-        if(rowCheck==0) return;
+        if(rowCheck==0) {
+			return;
+		}
         for(var j=1;j<4;j++){
-            if(board[j][i]==rowCheck || board[j][i]==0) return;
+            if(board[j][i]==rowCheck || board[j][i]==0) {
+				 return;
+			}
             else rowCheck = board[j][i];
         }
     }
@@ -348,5 +365,6 @@ function gameover(){
                 }
             }
             게임진행 = false;
+            init();
            	재시작.draw();
 }
