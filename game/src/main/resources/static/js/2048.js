@@ -12,6 +12,7 @@ var tableID = Array(Array("00","01","02","03"),Array("10","11","12","13"),Array(
 var score;
 var 게임진행 = false;
 
+
 var 게임시작 = {
   x : 50,
   y : 225,
@@ -43,16 +44,13 @@ var 재시작 = {
   }
 }
 
-// 보드판 이동 방향에 따른 회전 컨트롤
-function moveDir(opt){
-    switch(opt){
-        case 0: move(); break; //up
-        case 1: rotate(2); move(); rotate(2); break; //down
-        case 2: rotate(1); move(); rotate(3); break; //left
-        case 3: rotate(3); move(); rotate(1); break; //right
-    }
-    update();
+
+function 프레임마다실행(){
+  animation = requestAnimationFrame(프레임마다실행);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  게임시작전();
 }
+프레임마다실행();
 
 // 키보드 입력 처리
 document.onkeydown = keyDownEventHandler;
@@ -94,14 +92,6 @@ function 게임시작전(){
   }
 }
 
-
-function 프레임마다실행(){
-  animation = requestAnimationFrame(프레임마다실행);
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  게임시작전();
-}
-프레임마다실행();
-
 // 초기 설정
 init();
 function init(){
@@ -123,8 +113,6 @@ function init(){
     update();
 }
 
-
-
 // 게임 화면 업데이트
 function update(){
     for(var i=0;i<4;i++){
@@ -140,6 +128,7 @@ function update(){
 // 칸 색칠
 function coloring(cell){
     var cellNum = parseInt(cell.innerHTML);
+    //좌표값의 숫자를 그대로 switch case문의 변수로 활용하기 위해 parseInt로 인트로 변환. 
     switch(cellNum){
         case 0:
         case 2:
@@ -199,16 +188,17 @@ function coloring(cell){
     }
 }
 
-
 // 보드판 회전
 function rotate(n){
-    while(n--){
+    while(n--){ //반복문을 n이 계속 줄어들때까지 돌게함. 
         var tempBoard = Array(Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0));
         for(var i=0;i<4;i++) {
 			for(var j=0;j<4;j++) {
 				 tempBoard[i][j]=board[i][j];
 			}
 		}
+		//보드판 회전의 개념. tempBoard라는 배열을 실제 보드판 배열과 동일하게 만듬. 
+		//새로운 행=기존의 열. 새로운 열=3-기존의 행의 값.
         for(var i=0;i<4;i++) {
 	 		for(var j=0;j<4;j++) {
 				 board[j][3-i]=tempBoard[i][j];
@@ -265,6 +255,19 @@ function move(){
     else checkGameOver();
 }
 
+// 보드판 이동 방향에 따른 회전 컨트롤
+function moveDir(opt){
+    switch(opt){
+        case 0: move(); break; //up. 위쪽 방향으로 이동하는 것을 디폴트로 함.
+        case 1: rotate(2); move(); rotate(2); break; //down. 
+        //밑의 방향으로 숫자를 이동시키려면 보드판을 두번 회전시켜서 위쪽 방향으로 이동한 것과
+        //동일하게 하고, 그 후 보드판을 두번 돌려주면 아래로 이동한 것과 동일한 효과가 나타난다. 
+        case 2: rotate(1); move(); rotate(3); break; //left
+        case 3: rotate(3); move(); rotate(1); break; //right
+    }
+    update();
+}
+
 // 신규 숫자 생성
 function generate(){
     var zeroNum=0;
@@ -310,6 +313,7 @@ function getMaxNum(){
         }
     }
     return ret;
+    //네모칸안에 있는 숫자가 곧 점수. 
 }
 
 // 게임오버 체크
@@ -317,24 +321,26 @@ function checkGameOver(){
     for(var i=0;i<4;i++){
         var colCheck = board[i][0];
         if(colCheck==0) {
-          return;  
+          return;  //함수 자체를 빠져나가는 명령문. 열의 값이 0이면 당연히 게임오버가 아님.
         }
         for(var j=1;j<4;j++){
             if(board[i][j]==colCheck || board[i][j]==0) {
                return; 
             } 
+            //열의 값이 0이 아니면 변수에 해당 배열의 값을 삽입한다.
             else colCheck = board[i][j];
         }
     }
     for(var i=0;i<4;i++){
         var rowCheck = board[0][i];
         if(rowCheck==0) {
-            return;
+            return; //행의 값이 0이면 게임오버가 아님
         }
         for(var j=1;j<4;j++){
             if(board[j][i]==rowCheck || board[j][i]==0) {
                return; 
             }
+            //행의 값이 0이 아니면 변수에 해당 배열의 값을 삽입한다.
             else rowCheck = board[j][i];
         }
     }
