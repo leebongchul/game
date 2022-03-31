@@ -73,6 +73,7 @@ function keyDownEventHandler(e){
     }
 }
 
+//키다운 이벤트
 document.addEventListener('keydown', function(e){
   if(e.code === 'Space'){
     e.preventDefault();
@@ -98,17 +99,19 @@ function init(){
     score=0;
     for(var i=0;i<4;i++) {
         for(var j=0;j<4;j++) {
-             board[i][j]=0;
+             board[i][j]=0; //모든 좌표의 데이터 값을 0으로 함.
         }
     }
     for(var i=0;i<2;i++){
-        var rand = parseInt(Math.random()*16);
-        var y = parseInt(rand / 4);
-        var x = rand % 4;
-        if(board[y][x]==0) {
-            board[y][x]=getNewNum();
-        }
-        else i--;
+        var rand = parseInt(Math.random()*16); //0이상 16미만의 정수 값이 도출
+        var y = parseInt(rand / 4); // 0이상 4미만의 정수 값이 도출
+        var x = rand % 4; // 0이상 4미만의 정수 값이 도출
+        if(board[y][x]==0) { //도출된 좌표값의 데이터 값이 0 이라면,
+            board[y][x]=getNewNum(); // 1/9 확률로 숫자 4를 도출, 8/9확률로 숫자 2를 도출.
+        }else{ //임의의 좌표값에서 도출된 데이터 값이 0이 아니라면 i를 하나 차감.
+                // 즉, i가 0일때(첫번째 반복)에서 데이터 값이 0이 아니라면 i가 -1이 되어서 for문이 종료된다.
+          i--;  
+        } 
     }
     update();
 }
@@ -117,12 +120,13 @@ function init(){
 function update(){
     for(var i=0;i<4;i++){
         for(var j=0;j<4;j++){
-            var cell = document.getElementById(tableID[i][j]);
-            cell.innerHTML = board[i][j]==0?"":board[i][j];
+            var cell = document.getElementById(tableID[i][j]); //cell = html의 id 값.
+            cell.innerHTML = board[i][j]==0?"":board[i][j];//cell에 표시되는 숫자를 배열 board의 값으로 설정
             coloring(cell);
         }
     }
     document.getElementById("score").innerHTML=score;
+    //id값이 score인 html태그의 표시되는 값을 score라는 변수로 설정.
 }
 
 // 칸 색칠
@@ -188,7 +192,7 @@ function coloring(cell){
     }
 }
 
-// 보드판 회전
+// 보드판 회전. 시계방향으로 1번씩 회전 됨.
 function rotate(n){
     while(n--){ //반복문을 n이 계속 줄어들때까지 돌게함. 
         var tempBoard = Array(Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0));
@@ -214,8 +218,8 @@ function move(){
     for(var i=1;i<4;i++){
         for(var j=0;j<4;j++){
             if(board[i][j]==0){
-                continue;
-            } 
+                continue; // 값이 0이면 다음번의 j로 이동. 즉, j=3인데 0이 나오면 j=4로 이동
+            }  
             var tempY = i-1;
             while(tempY>0 && board[tempY][j]==0){
                tempY--;  
@@ -295,11 +299,11 @@ function generate(){
 
 // 숫자 생성 확률
 function getNewNum(){
-    var rand = parseInt(Math.random()*10);
-    if(rand==0) {
+    var rand = parseInt(Math.random()*10); // 0부터 9까지의 정수 도출
+    if(rand==0) { // 1/9확률로 숫자 4를 생성
         return 4;
     }
-    return 2;
+    return 2; // 8/9 확률로 숫자 2를 생성
 }
 
 // 최대 점수 반환
