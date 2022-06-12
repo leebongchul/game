@@ -6,10 +6,12 @@ let guest = document.getElementById("guest");
 canvas.width = 1000;
 canvas.height = 400;
 
+//new Array로 안하고 Array 객체의 생성자를 이용해서 배열 만듬
 var board = Array(Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0));
 var tableID = Array(Array("00","01","02","03"),Array("10","11","12","13"),Array("20","21","22","23"),Array("30","31","32","33"));
 var score;
 var 게임진행 = false;
+
 
 var 게임시작 = {
   x : 50,
@@ -42,12 +44,19 @@ var 재시작 = {
   }
 }
 
+
+function 프레임마다실행(){
+  animation = requestAnimationFrame(프레임마다실행);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  게임시작전();
+}
+프레임마다실행();
+
 // 키보드 입력 처리
 document.onkeydown = keyDownEventHandler;
 function keyDownEventHandler(e){
 	if(게임진행 == true){
         switch(e.keyCode){
-    	
             case 38: e.preventDefault();
             	moveDir(0);
     			break; //up
@@ -60,81 +69,70 @@ function keyDownEventHandler(e){
             case 39: e.preventDefault(); 
     	        moveDir(3); 
     	        break; //right
-            
         }
     }
 }
 
+//키다운 이벤트
 document.addEventListener('keydown', function(e){
   if(e.code === 'Space'){
-	
     e.preventDefault();
-    
     if(게임진행 == false){
         ctx.clearRect(0,0,canvas.width,canvas.height);
         게임진행=true;
         init();
-        
     }
-        
   }
- 
-    	
 });
-
-
-
-
-function 프레임마다실행(){
-  animation = requestAnimationFrame(프레임마다실행);
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  게임시작전();
-}
-
-프레임마다실행();
-
-// 초기 설정
-init();
-function init(){
-    score=0;
-    for(var i=0;i<4;i++)
-        for(var j=0;j<4;j++)
-            board[i][j]=0;
-    for(var i=0;i<2;i++){
-        var rand = parseInt(Math.random()*16);
-        var y = parseInt(rand / 4);
-        var x = rand % 4;
-        if(board[y][x]==0) board[y][x]=getNewNum();
-        else i--;
-    }
-    update();
-}
 
 function 게임시작전(){
   if(게임진행 == false){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     cancelAnimationFrame(animation);
     게임시작.draw();
-   
-    
   }
+}
+
+// 초기 설정
+init();
+function init(){
+    score=0;
+    for(var i=0;i<4;i++) {
+        for(var j=0;j<4;j++) {
+             board[i][j]=0; //모든 좌표의 데이터 값을 0으로 함.
+        }
+    }
+    for(var i=0;i<2;i++){
+        var rand = parseInt(Math.random()*16); //0이상 16미만의 정수 값이 도출
+        var y = parseInt(rand / 4); // 0이상 4미만의 정수 값이 도출
+        var x = rand % 4; // 0이상 4미만의 정수 값이 도출
+        if(board[y][x]==0) { //도출된 좌표값의 데이터 값이 0 이라면,
+            board[y][x]=getNewNum(); // 1/9 확률로 숫자 4를 도출, 8/9확률로 숫자 2를 도출.
+        }else{ //임의의 좌표값에서 도출된 데이터 값이 0이 아니라면 i를 하나 차감.
+                // 즉, i가 0일때(첫번째 반복)에서 데이터 값이 0이 아니라면 i가 -1이 되어서 for문이 종료된다.
+          i--;  
+        } 
+    }
+    update();
 }
 
 // 게임 화면 업데이트
 function update(){
     for(var i=0;i<4;i++){
         for(var j=0;j<4;j++){
-            var cell = document.getElementById(tableID[i][j]);
-            cell.innerHTML = board[i][j]==0?"":board[i][j];
+            var cell = document.getElementById(tableID[i][j]); //cell = html의 id 값.
+            cell.innerHTML = board[i][j]==0?"":board[i][j];//cell에 표시되는 숫자를 배열 board의 값으로 설정
             coloring(cell);
         }
     }
     document.getElementById("score").innerHTML=score;
+    //id값이 score인 html태그의 표시되는 값을 score라는 변수로 설정.
 }
 
 // 칸 색칠
 function coloring(cell){
     var cellNum = parseInt(cell.innerHTML);
+    //좌표값의 숫자를 그대로 switch case문의 변수로 활용하기 위해 parseInt로 인트로 변환. 
     switch(cellNum){
         case 0:
         case 2:
@@ -194,28 +192,22 @@ function coloring(cell){
     }
 }
 
-// 보드판 이동 방향에 따른 회전 컨트롤
-function moveDir(opt){
-    switch(opt){
-        case 0: move(); break; //up
-        case 1: rotate(2); move(); rotate(2); break; //down
-        case 2: rotate(1); move(); rotate(3); break; //left
-        case 3: rotate(3); move(); rotate(1); break; //right
-    }
-    update();
-}
-
-// 보드판 회전
+// 보드판 회전. 시계방향으로 1번씩 회전 됨.
 function rotate(n){
-    while(n--){
+    while(n--){ //반복문을 n이 계속 줄어들때까지 돌게함. 
         var tempBoard = Array(Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0));
-        for(var i=0;i<4;i++)
-            for(var j=0;j<4;j++)
-                tempBoard[i][j]=board[i][j];
-        for(var i=0;i<4;i++)
-            for(var j=0;j<4;j++)
-                board[j][3-i]=tempBoard[i][j];
-
+        for(var i=0;i<4;i++) {
+			for(var j=0;j<4;j++) {
+				 tempBoard[i][j]=board[i][j];
+			}
+		}
+		//보드판 회전의 개념. tempBoard라는 배열을 실제 보드판 배열과 동일하게 만듬. 
+		//새로운 행=기존의 열. 새로운 열=3-기존의 행의 값.
+        for(var i=0;i<4;i++) {
+	 		for(var j=0;j<4;j++) {
+				 board[j][3-i]=tempBoard[i][j];
+			}
+		}
     }
 }
 
@@ -225,16 +217,22 @@ function move(){
     var isPlused = Array(Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0),Array(0,0,0,0));
     for(var i=1;i<4;i++){
         for(var j=0;j<4;j++){
-            if(board[i][j]==0) continue;
+            if(board[i][j]==0){
+                continue; // 값이 0이면 다음번의 j로 이동. 즉, j=3인데 0이 나오면 j=4로 이동
+            }  
             var tempY = i-1;
-            while(tempY>0 && board[tempY][j]==0) tempY--;
+            while(tempY>0 && board[tempY][j]==0){
+               tempY--;  
+            }
             if(board[tempY][j]==0){
                 board[tempY][j]=board[i][j];
                 board[i][j]=0;
                 isMoved=true;
             }
             else if(board[tempY][j]!=board[i][j]){
-                if(tempY+1==i) continue;
+                if(tempY+1==i) {
+                    continue;
+                }
                 board[tempY+1][j]=board[i][j];
                 board[i][j]=0;
                 isMoved=true;
@@ -255,18 +253,36 @@ function move(){
             }
         }
     }
-    if(isMoved) generate();
+    if(isMoved) {
+        generate();
+    }
     else checkGameOver();
+}
+
+// 보드판 이동 방향에 따른 회전 컨트롤
+function moveDir(opt){
+    switch(opt){
+        case 0: move(); break; //up. 위쪽 방향으로 이동하는 것을 디폴트로 함.
+        case 1: rotate(2); move(); rotate(2); break; //down. 
+        //밑의 방향으로 숫자를 이동시키려면 보드판을 두번 회전시켜서 위쪽 방향으로 이동한 것과
+        //동일하게 하고, 그 후 보드판을 두번 돌려주면 아래로 이동한 것과 동일한 효과가 나타난다. 
+        case 2: rotate(1); move(); rotate(3); break; //left
+        case 3: rotate(3); move(); rotate(1); break; //right
+    }
+    update();
 }
 
 // 신규 숫자 생성
 function generate(){
     var zeroNum=0;
-    for(var i=0;i<4;i++)
-        for(var j=0;j<4;j++)
-            if(board[i][j]==0)
-                zeroNum++;
-    while(true){
+    for(var i=0;i<4;i++) {
+        for(var j=0;j<4;j++) {
+            if(board[i][j]==0) {
+                 zeroNum++;
+            }
+        }
+    }
+    while(true){ //while은 조건에 맞으면 계속 반복을 함. 반복문에 포함되는 조건이 ture이면 반복 = 무한반복
         for(var i=0;i<4;i++){
             for(var j=0;j<4;j++){
                 if(board[i][j]==0){
@@ -283,36 +299,52 @@ function generate(){
 
 // 숫자 생성 확률
 function getNewNum(){
-    var rand = parseInt(Math.random()*10);
-    if(rand==0) return 4;
-    return 2;
+    var rand = parseInt(Math.random()*10); // 0부터 9까지의 정수 도출
+    if(rand==0) { // 1/9확률로 숫자 4를 생성
+        return 4;
+    }
+    return 2; // 8/9 확률로 숫자 2를 생성
 }
 
 // 최대 점수 반환
 function getMaxNum(){
     var ret=0;
-    for(var i=0;i<4;i++)
-        for(var j=0;j<4;j++)
-            if(board[i][j]>ret)
-                ret=board[i][j];
+    for(var i=0;i<4;i++) {
+        for(var j=0;j<4;j++){
+             if(board[i][j]>ret) {
+                  ret=board[i][j];
+            }
+        }
+    }
     return ret;
+    //네모칸안에 있는 숫자가 곧 점수. 
 }
 
 // 게임오버 체크
 function checkGameOver(){
     for(var i=0;i<4;i++){
         var colCheck = board[i][0];
-        if(colCheck==0) return;
+        if(colCheck==0) {
+          return;  //함수 자체를 빠져나가는 명령문. 열의 값이 0이면 당연히 게임오버가 아님.
+        }
         for(var j=1;j<4;j++){
-            if(board[i][j]==colCheck || board[i][j]==0) return;
+            if(board[i][j]==colCheck || board[i][j]==0) {
+               return; 
+            } 
+            //열의 값이 0이 아니면 변수에 해당 배열의 값을 삽입한다.
             else colCheck = board[i][j];
         }
     }
     for(var i=0;i<4;i++){
         var rowCheck = board[0][i];
-        if(rowCheck==0) return;
+        if(rowCheck==0) {
+            return; //행의 값이 0이면 게임오버가 아님
+        }
         for(var j=1;j<4;j++){
-            if(board[j][i]==rowCheck || board[j][i]==0) return;
+            if(board[j][i]==rowCheck || board[j][i]==0) {
+               return; 
+            }
+            //행의 값이 0이 아니면 변수에 해당 배열의 값을 삽입한다.
             else rowCheck = board[j][i];
         }
     }
@@ -329,24 +361,22 @@ function gameover(){
      //신기록 갱신
      if (parseInt(now_score.value) > parseInt(max_score.value)) {
                 // 현재점수가 최고점수보다 높다면
-                max_score.value = now_score.value; // 현재점수를 최고점수에 저장
-
-                if (guest.value == 'false') { // 게스트계정이 아닌경우 최고점수 갱신
-
+     	max_score.value = now_score.value; // 현재점수를 최고점수에 저장
+     		if (guest.value == 'false') { // 게스트계정이 아닌경우 최고점수 갱신
                     $.ajax({                 // DB에 최고점수 업데이트
                         url: '/game/2048',
                         type: 'post',
                         data: { score: parseInt(max_score.value) },
-                        success: function(data) {
-                            console.log("1 = 성공 / 0 = 실패 : " + data);
-
-                        },
-                        error: function() {
-                            console.log("실패");
-                        }
+	                        success: function(data) {
+	                            console.log("1 = 성공 / 0 = 실패 : " + data);
+	                        },
+	                        error: function() {
+	                            console.log("실패");
+	                        }
                     });
-                }
-            }
+             }
+      }
             게임진행 = false;
+            init();
            	재시작.draw();
 }

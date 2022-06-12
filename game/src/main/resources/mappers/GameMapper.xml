@@ -109,7 +109,7 @@
 
 <!--     </select> -->
 
-
+<!--  내 랭크 및 내 랭크에서 위아래 2명씩 보여주기 -->
 <select id="selectMyRank" parameterType="GameScoreDTO" resultType="GameScoreDTO"> 
 
 select a.rank_score, a.mem_nick, a.game_name, a.rank from
